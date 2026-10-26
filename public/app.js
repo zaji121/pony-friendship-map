@@ -99,13 +99,39 @@
   const views = ['gate','quiz','result'].map($);
   const questions = window.QUIZ_QUESTIONS;
   let state = { token:'', answers:Array(questions.length).fill(null), resultId:'', result:null, shared:false };
-  let toastTimer,noticeMoveTimer,displayedQuestion=-1;
+  let toastTimer;
+  let adminPreview=false;
+  function previewRole(slug){
+    const primary=PONIES.findIndex(p=>p.slug===slug);if(primary<0)return;
+    const scores=window.PREFERENCE_PROFILES[slug].slice();
+    const secondary=PONIES.map((p,i)=>({i,d:window.PREFERENCE_PROFILES[p.slug].reduce((n,v,j)=>n+(v-scores[j])**2,0)})).filter(x=>x.i!==primary).sort((a,b)=>a.d-b.d)[0].i;
+    const result=window.PONY_SCORE(questions,PONIES.map(p=>p.slug),window.PREFERENCE_PROFILES,questions.map((q,i)=>i%q[1].length));
+    Object.assign(result,{primary,secondary,scores,demo:true,type:scores.map((v,i)=>['EI','SN','TF','JP'][i][v>=.5?0:1]).join('')});
+    state.result=result;state.shared=true;state.resultId='';renderResult(result);showView('result');
+    ['copy-link','save-image','retake'].forEach(id=>$(id).hidden=true);
+    const url=new URL(location.href);url.searchParams.set('admin-preview',slug);url.searchParams.delete('r');history.replaceState(null,'',url);
+    document.getElementById('admin-role-select').value=slug;
+  }
+  async function openAdminPreview(slug){
+    try{
+      const session=JSON.parse(sessionStorage.getItem('ponyAdmin')||'null');
+      if(!session?.access_token)throw new Error('请先登录管理员后台，再打开角色预览。');
+      const response=await fetch(window.SITE_CONFIG.apiBase+'/admin/codes?page=0',{headers:{Authorization:'Bearer '+session.access_token}});
+      if(!response.ok)throw new Error('管理员登录已过期，请返回后台重新登录。');
+      adminPreview=true;
+      const bar=document.createElement('aside');bar.className='admin-preview-bar';
+      const label=document.createElement('label');label.textContent='管理员预览 · 非真实测评 ';
+      const select=document.createElement('select');select.id='admin-role-select';select.setAttribute('aria-label','选择预览角色');
+      PONIES.forEach(p=>{const option=document.createElement('option');option.value=p.slug;option.textContent=p.name+' · '+p.en;select.append(option);});
+      select.onchange=()=>previewRole(select.value);label.append(select);
+      const back=document.createElement('a');back.href='admin.html';back.textContent='返回后台';bar.append(label,back);document.body.prepend(bar);document.body.classList.add('admin-preview-mode');
+      previewRole(PONIES.some(p=>p.slug===slug)?slug:'twilight');
+    }catch(error){showView('gate');updateGateError(error.message);const a=document.createElement('a');a.href='admin.html';a.textContent='打开管理员登录';$('gate').append(a);}
+  }
   function scrollImmediately(top){const root=document.documentElement,previous=root.style.scrollBehavior;root.style.scrollBehavior='auto';window.scrollTo(0,top);root.style.scrollBehavior=previous;}
   function revealToast(el,duration){
-    clearTimeout(toastTimer);clearTimeout(noticeMoveTimer);document.body.classList.add('notice-moving');
-    const scrollTop=window.scrollY;document.body.style.setProperty('--notice-space',Math.ceil(el.getBoundingClientRect().height+parseFloat(getComputedStyle(el).top)+10)+'px');
-    requestAnimationFrame(()=>scrollImmediately(scrollTop));
-    toastTimer=setTimeout(()=>{el.classList.remove('show');document.body.style.setProperty('--notice-space','0px');noticeMoveTimer=setTimeout(()=>document.body.classList.remove('notice-moving'),300);},duration);
+    clearTimeout(toastTimer);
+    toastTimer=setTimeout(()=>el.classList.remove('show'),duration);
   }
   function showView(which) { views.forEach(v => v.classList.toggle('hidden', v.id !== which)); scrollImmediately(0); }
   function toast(message, kind='') { const el=$('toast'); el.textContent=message; el.className='toast '+kind;void el.offsetWidth;el.classList.add('show');revealToast(el,2400); }
@@ -134,7 +160,6 @@
     finally{$('start-button').disabled=false;}
   }
   function renderQuestion(index) {
-    const changed=index!==displayedQuestion;displayedQuestion=index;
     const q=questions[index]; const selected=state.answers[index];
     $('question-count').textContent=`第 ${index+1} 题 / 共 ${questions.length} 题`;
     $('question-number').textContent=`Q${String(index+1).padStart(2,'0')}`;
@@ -152,7 +177,6 @@
     $('next-button').disabled=selected===null;
     $('next-button').innerHTML=index===questions.length-1?'查看我的结果 <span>✦</span>':'下一题 <span>→</span>';
     $('next-button').dataset.index=index;
-    if(changed&&!$('quiz').classList.contains('hidden'))scrollImmediately(0);
   }
   function normalizedVector(values) { const mean=values.reduce((a,b)=>a+b,0)/values.length; const sd=Math.sqrt(values.reduce((a,b)=>a+(b-mean)**2,0)/values.length)||1; return values.map(v=>(v-mean)/sd); }
   function calculateResult() {
@@ -287,7 +311,7 @@
       if(p.slug==='flurry-heart'){const note=document.createElement('span');note.className='character-en';note.textContent='成熟形象 · 同人演绎｜仅供角色展示';card.append(note);}
       const art=document.createElement('span');art.className='character-art-mini';art.append(ponyImage(p,'pony-photo-mini'));const icon=document.createElement('span');icon.className='character-mark';icon.innerHTML=markSvg(p.mark);const name=document.createElement('span');name.className='character-name';name.textContent=p.name;const en=document.createElement('span');en.className='character-en';en.textContent=p.en;const desc=document.createElement('span');desc.className='character-archetype';desc.textContent=p.archetype;card.append(art,icon,name,en,desc);
       if(i===result.primary||i===result.secondary){const badge=document.createElement('span');badge.className='character-badge';badge.textContent=i===result.primary?'你的主角色':'你的副角色';card.append(badge);}
-      card.addEventListener('click',()=>{detail.classList.remove('hidden');const [accent,soft]=ROLE_COLORS[p.slug]||ROLE_COLORS.twilight;detail.style.setProperty('--pony-accent',accent);detail.style.setProperty('--pony-soft',soft);detail.replaceChildren();const artPane=document.createElement('span');artPane.className='character-detail-art';artPane.append(ponyImage(p,'pony-photo-detail'));const copy=document.createElement('span');copy.className='character-detail-copy';const strong=document.createElement('strong');strong.textContent=`${p.name} · ${p.en}｜${p.archetype}`;const text=document.createElement('span');text.textContent=p.description;const meta=PONY_META[p.slug];const facts=document.createElement('span');facts.className='detail-facts';facts.textContent=`${meta.species}｜友谊象征：${meta.virtue}｜可爱标志：${meta.markText}｜常住地：${meta.home}`;const traits=document.createElement('span');traits.className='detail-traits';traits.textContent=`画像关键词：${p.profile.map((value,index)=>({value,index})).sort((a,b)=>b.value-a.value).slice(0,3).map(item=>DIMS[item.index].name).join('、')}`;const strength=document.createElement('span');strength.className='detail-insight';strength.textContent=`闪光点：${p.strength}`;const edge=document.createElement('span');edge.className='detail-insight';edge.textContent=`压力提醒：${p.edge}`;const save=document.createElement('span');save.className='detail-insight';save.textContent=`成长小练习：${p.tip}`;copy.append(strong,text,facts,traits,strength,edge,save);detail.append(artPane,copy);dialog.setAttribute('aria-label',p.name+'的角色介绍');if(!dialog.open){dialog.dataset.previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';dialog.showModal();}});grid.append(card);
+      card.addEventListener('click',()=>{if(adminPreview){previewRole(p.slug);return;}detail.classList.remove('hidden');const [accent,soft]=ROLE_COLORS[p.slug]||ROLE_COLORS.twilight;detail.style.setProperty('--pony-accent',accent);detail.style.setProperty('--pony-soft',soft);detail.replaceChildren();const artPane=document.createElement('span');artPane.className='character-detail-art';artPane.append(ponyImage(p,'pony-photo-detail'));const copy=document.createElement('span');copy.className='character-detail-copy';const strong=document.createElement('strong');strong.textContent=`${p.name} · ${p.en}｜${p.archetype}`;const text=document.createElement('span');text.textContent=p.description;const meta=PONY_META[p.slug];const facts=document.createElement('span');facts.className='detail-facts';facts.textContent=`${meta.species}｜友谊象征：${meta.virtue}｜可爱标志：${meta.markText}｜常住地：${meta.home}`;const traits=document.createElement('span');traits.className='detail-traits';traits.textContent=`画像关键词：${p.profile.map((value,index)=>({value,index})).sort((a,b)=>b.value-a.value).slice(0,3).map(item=>DIMS[item.index].name).join('、')}`;const strength=document.createElement('span');strength.className='detail-insight';strength.textContent=`闪光点：${p.strength}`;const edge=document.createElement('span');edge.className='detail-insight';edge.textContent=`压力提醒：${p.edge}`;const save=document.createElement('span');save.className='detail-insight';save.textContent=`成长小练习：${p.tip}`;copy.append(strong,text,facts,traits,strength,edge,save);detail.append(artPane,copy);dialog.setAttribute('aria-label',p.name+'的角色介绍');if(!dialog.open){dialog.dataset.previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';dialog.showModal();}});grid.append(card);
     });
   }
   function renderRadar(scores,main) {
@@ -394,7 +418,7 @@
   $('welcome-share').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.origin+(window.SITE_CONFIG?.basePath||'/'));toast('测评邀请链接已复制，朋友打开后可输入自己的密码开始测试。','success');}catch(err){toast('复制失败，请重试。','error');}});
   $('copy-link').addEventListener('click',copyLink);$('save-image').addEventListener('click',saveImage);
   $('retake').addEventListener('click',()=>{state={token:'',answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false};$('access-code').value='';updateGateError('再次测评需要输入密码，会计入该密码的使用次数。');showView('gate');});
-  const match=location.pathname.match(/^\/r\/([A-Za-z0-9_-]+)$/),sharedId=new URLSearchParams(location.search).get('r')||match?.[1];if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId))loadShared(sharedId);
+  const match=location.pathname.match(/^\/r\/([A-Za-z0-9_-]+)$/),sharedId=new URLSearchParams(location.search).get('r')||match?.[1];const previewSlug=new URLSearchParams(location.search).get('admin-preview');if(previewSlug)openAdminPreview(previewSlug);else if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId))loadShared(sharedId);
 })();
 
 

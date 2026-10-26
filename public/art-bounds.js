@@ -2,3 +2,5 @@ window.ART_BOUNDS={"/images/derpy-flight-smile.webp": [747, 638, 0, 0, 747, 540]
 window.ART_BOUNDS["/images/fullbody-new/twilight-standing.png"]=[812, 984, 0, 0, 812, 984];
 
 window.ART_BOUNDS["/images/fullbody-new/twilight-gentle.png"]=[642, 1167, 1, 1, 642, 1167];
+
+window.ART_BOUNDS["/images/fullbody-new/sunset-flat-2d.png"]=[5890,9718,0,0,5890,9718];

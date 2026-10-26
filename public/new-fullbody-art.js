@@ -14,3 +14,6 @@ window.FULLBODY_ART["pinkie-pie"].career="/images/fullbody-new/pinkie-cupcake.pn
 
 window.FULLBODY_ART.twilight.profile="/images/fullbody-new/twilight-gentle.png";
 window.EXPANDED_ART.twilight={...(window.EXPANDED_ART.twilight||{}),file:"/images/fullbody-new/twilight-gentle.png"};
+
+window.EXPANDED_ART["sunset-shimmer"]={...(window.EXPANDED_ART["sunset-shimmer"]||{}),file:"/images/fullbody-new/sunset-flat-2d.png"};
+Object.assign(window.FULLBODY_ART["sunset-shimmer"],{profile:"/images/fullbody-new/sunset-flat-2d.png",career:"/images/fullbody-new/sunset-flat-2d.png",profileSource:"https://manebooru.art/images/4021392",careerSource:"https://manebooru.art/images/4021392"});
