@@ -1,15 +1,13 @@
 import {scoreAnswers} from './quiz-data.js';
+import {handleAdmin,ensureLegacyCodes} from './admin.ts';
 
 const databaseUrl=Deno.env.get('SUPABASE_URL')!;
 const serviceKey=Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 const allowedOrigins=(Deno.env.get('ALLOWED_ORIGINS')||'').split(',').map(x=>x.trim()).filter(Boolean);
-const accessCodes=(Deno.env.get('PONY_ACCESS_CODES')||'').split(',').map(x=>x.trim()).filter(Boolean);
 const jsonHeaders={'Content-Type':'application/json','Cache-Control':'no-store'};
 const hex=(bytes:Uint8Array)=>Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('');
 const random=()=>hex(crypto.getRandomValues(new Uint8Array(24)));
 const hash=async(s:string)=>hex(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s))));
-const hashes=Promise.all(accessCodes.map(hash));
-const equal=(a:string,b:string)=>{let diff=a.length^b.length;for(let i=0;i<a.length;i++)diff|=a.charCodeAt(i)^(b.charCodeAt(i)||0);return diff===0;};
 
 async function database(route:string,body?:unknown){
  const response=await fetch(databaseUrl+'/rest/v1/'+route,{method:body?'POST':'GET',headers:{apikey:serviceKey,Authorization:'Bearer '+serviceKey,'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined});
@@ -18,15 +16,20 @@ async function database(route:string,body?:unknown){
 }
 Deno.serve(async req=>{
  const origin=req.headers.get('origin');
- const cors={'Access-Control-Allow-Origin':origin&&allowedOrigins.includes(origin)?origin:'null','Vary':'Origin','Access-Control-Allow-Headers':'content-type,apikey','Access-Control-Allow-Methods':'GET,POST,OPTIONS'};
+ const cors={'Access-Control-Allow-Origin':origin&&allowedOrigins.includes(origin)?origin:'null','Vary':'Origin','Access-Control-Allow-Headers':'content-type,apikey,authorization','Access-Control-Allow-Methods':'GET,POST,OPTIONS'};
  const send=(data:unknown,status=200)=>new Response(JSON.stringify(data),{status,headers:{...jsonHeaders,...cors}});
  if(origin&&!allowedOrigins.includes(origin))return send({error:'此网站来源未获授权。'},403);
  if(req.method==='OPTIONS')return new Response(null,{status:204,headers:cors});
- if(!databaseUrl||!serviceKey||!accessCodes.length||!allowedOrigins.length)return send({error:'云端服务尚未配置完成。'},503);
+ if(!databaseUrl||!serviceKey||!allowedOrigins.length)return send({error:'云端服务尚未配置完成。'},503);
  const pathname=new URL(req.url).pathname;
  const route=pathname.slice(pathname.indexOf('/quiz-api')+'/quiz-api'.length);
  try{
   if(req.method==='GET'&&route==='/health')return send({ok:true});
+  if(route.startsWith('/admin/')){
+   let adminBody={};
+   if(req.method==='POST'){const text=await req.text();if(text.length>100000)return send({error:'请求过大。'},413);try{adminBody=JSON.parse(text);}catch{return send({error:'请求格式错误。'},400);}}
+   return await handleAdmin(req,route,adminBody,send);
+  }
   if(req.method==='GET'&&/^\/result\/[A-Za-z0-9_-]{1,100}$/.test(route)){
    const id=route.slice('/result/'.length);
    const rows=await database('pony_results?select=payload&id=eq.'+encodeURIComponent(id)+'&limit=1');
@@ -38,7 +41,7 @@ Deno.serve(async req=>{
   if(route==='/start'){
    const code=String(body.code||'').trim();if(code.length>256)return send({error:'密码不正确，请检查后重试。'},401);
    const digest=await hash(code);
-   if(!(await hashes).some(known=>equal(digest,known)))return send({error:'密码不正确，请检查后重试。'},401);
+   await ensureLegacyCodes();
    const result=await database('rpc/pony_start',{p_hash:digest,p_token:random()});
    return send(result,result.status||200);
   }

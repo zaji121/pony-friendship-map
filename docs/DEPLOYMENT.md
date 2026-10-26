@@ -1,6 +1,12 @@
 # GitHub Pages + Supabase 部署
 
-前端由 GitHub Pages 提供，Supabase Edge Function `quiz-api` 负责密码验证、云端计分和数据库访问。数据库不对匿名访客开放。保留每个密码最多 3 次、会话 6 小时过期、重复提交返回同一份结果的规则。
+前端由 GitHub Pages 提供，Supabase Edge Function `quiz-api` 负责密码验证、云端计分和数据库访问。数据库不对匿名访客开放。每个密码仅限开始一次测评，会话 6 小时过期，重复提交返回同一份结果。
+
+## 密码管理页
+
+正式站点的 `admin.html` 使用 Supabase Auth 登录。仅服务器端 `ADMIN_EMAIL` 指定的管理员可生成、查看、复制、编辑和停用密码。每批可生成 1–100 个一次性密码，可设置备注和到期时间。列表每 15 秒自动刷新，新增或停用立即影响新的测评。
+
+`pony_access_codes` 保存密码哈希、AES-GCM 加密后的明文及状态；`pony_code_uses` 保存实际已使用次数。`CODE_ENCRYPTION_KEY` 必须持续保留并做好私密备份，更换密钥需要先迁移已有密文。管理员登录密码备份和首批测评密码只保存在本地 `deployment-private/` 中。
 
 ## Supabase
 
