@@ -99,17 +99,24 @@
   const views = ['gate','quiz','result'].map($);
   const questions = window.QUIZ_QUESTIONS;
   let state = { token:'', answers:Array(questions.length).fill(null), resultId:'', result:null, shared:false };
-  let toastTimer;
-  function showView(which) { views.forEach(v => v.classList.toggle('hidden', v.id !== which)); window.scrollTo({top:0,behavior:'smooth'}); }
-  function toast(message, kind='') { const el=$('toast'); el.textContent=message; el.className='toast show '+kind; clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),2100); }
+  let toastTimer,noticeMoveTimer,displayedQuestion=-1;
+  function scrollImmediately(top){const root=document.documentElement,previous=root.style.scrollBehavior;root.style.scrollBehavior='auto';window.scrollTo(0,top);root.style.scrollBehavior=previous;}
+  function revealToast(el,duration){
+    clearTimeout(toastTimer);clearTimeout(noticeMoveTimer);document.body.classList.add('notice-moving');
+    const scrollTop=window.scrollY;document.body.style.setProperty('--notice-space',Math.ceil(el.getBoundingClientRect().height+parseFloat(getComputedStyle(el).top)+10)+'px');
+    requestAnimationFrame(()=>scrollImmediately(scrollTop));
+    toastTimer=setTimeout(()=>{el.classList.remove('show');document.body.style.setProperty('--notice-space','0px');noticeMoveTimer=setTimeout(()=>document.body.classList.remove('notice-moving'),300);},duration);
+  }
+  function showView(which) { views.forEach(v => v.classList.toggle('hidden', v.id !== which)); scrollImmediately(0); }
+  function toast(message, kind='') { const el=$('toast'); el.textContent=message; el.className='toast '+kind;void el.offsetWidth;el.classList.add('show');revealToast(el,2400); }
   function celebrateStage(completed) {
     const el=$('toast'); el.replaceChildren();
     const art=document.createElement('img'); art.src='/images/flurry-baby-ui.png'; art.alt='幼年风雪之心开心地探出脑袋'; art.className='stage-baby';
     const copy=document.createElement('div'); copy.className='stage-copy';
     const title=document.createElement('strong'); title.textContent=`已完成 ${completed} / ${questions.length} 题`;
     const text=document.createElement('span'); text.textContent=TOASTS[(completed/5-1)%TOASTS.length];
-    copy.append(title,text); el.append(art,copy); el.className='toast stage-toast show';
-    clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),4200);
+    copy.append(title,text); el.append(art,copy); el.className='toast stage-toast';void el.offsetWidth;el.classList.add('show');
+    revealToast(el,3200);
   }
   async function api(path, body) {
     const config=window.SITE_CONFIG||{};
@@ -127,6 +134,7 @@
     finally{$('start-button').disabled=false;}
   }
   function renderQuestion(index) {
+    const changed=index!==displayedQuestion;displayedQuestion=index;
     const q=questions[index]; const selected=state.answers[index];
     $('question-count').textContent=`第 ${index+1} 题 / 共 ${questions.length} 题`;
     $('question-number').textContent=`Q${String(index+1).padStart(2,'0')}`;
@@ -144,6 +152,7 @@
     $('next-button').disabled=selected===null;
     $('next-button').innerHTML=index===questions.length-1?'查看我的结果 <span>✦</span>':'下一题 <span>→</span>';
     $('next-button').dataset.index=index;
+    if(changed&&!$('quiz').classList.contains('hidden'))scrollImmediately(0);
   }
   function normalizedVector(values) { const mean=values.reduce((a,b)=>a+b,0)/values.length; const sd=Math.sqrt(values.reduce((a,b)=>a+(b-mean)**2,0)/values.length)||1; return values.map(v=>(v-mean)/sd); }
   function calculateResult() {

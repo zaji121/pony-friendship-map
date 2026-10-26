@@ -1,0 +1,102 @@
+/* Shared phone layout for Safari, Android browsers and embedded webviews. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:calc(76px + env(safe-area-inset-top,0px))}
+body{min-height:100svh;padding-top:var(--notice-space,0px);transition:padding-top .28s ease}
+body.notice-moving{overflow-anchor:none}
+button,a,input,summary{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+button,input,textarea{font-family:inherit}
+img{max-width:100%}
+
+/* A compact drop-down notification. Its reserved space moves content down. */
+#toast.toast,#toast.toast.stage-toast{
+ position:fixed;z-index:1000;top:calc(10px + env(safe-area-inset-top,0px));bottom:auto;left:50%;
+ width:min(420px,calc(100% - 24px));max-width:calc(100% - 24px);min-height:0;max-height:96px;
+ transform:translate3d(-50%,calc(-100% - 30px - env(safe-area-inset-top,0px)),0);opacity:0;
+ margin:0;padding:12px 16px;border-radius:16px;overflow:hidden;pointer-events:none;
+ font-size:13px;line-height:1.6;white-space:normal;
+ transition:transform .32s cubic-bezier(.22,.8,.25,1),opacity .2s;will-change:transform;
+}
+#toast.toast.show,#toast.toast.stage-toast.show{transform:translate3d(-50%,0,0);opacity:1}
+#toast.toast.stage-toast{display:grid;grid-template-columns:46px minmax(0,1fr);align-items:center;gap:12px;padding:10px 14px;background:#fff9fc;box-shadow:0 8px 28px #74547c1c}
+#toast .stage-baby{position:static;inset:auto;width:46px;height:54px;max-height:54px;object-fit:contain;animation:none;transform:none;filter:none}
+#toast .stage-copy{min-width:0}
+#toast .stage-copy strong{font-size:13px;line-height:1.45;margin-bottom:3px}
+#toast .stage-copy span{font-size:12px;line-height:1.5;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+
+@media(max-width:700px){
+ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif}
+ .gate h1,.quiz-head h2,.question-panel h3,.report-cover h1,.report-chapter h2,.report-chapter h3,.report-chapter h4{font-family:inherit}
+ .shell,.shell:has(.illustrated-report){width:calc(100% - 32px);padding:20px 0 calc(36px + env(safe-area-inset-bottom,0px))}
+ .topbar{height:60px;gap:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+ .brand{font-size:14px;gap:8px;letter-spacing:0;min-width:0}.brand-mark{width:28px;height:28px;font-size:18px;flex:none}
+ .top-note{font-size:10px;line-height:1.5;text-align:right;max-width:105px;letter-spacing:0}
+ .eyebrow{font-size:10px;line-height:1.6;letter-spacing:.15em}
+ .gate{padding-top:0}.hero-orbit{height:116px}.gate h1{font-size:clamp(30px,8.5vw,38px);line-height:1.4}
+ .lead{font-size:14px;line-height:1.85;margin:18px 0 24px}.gate-card{padding:20px 16px}
+ .input-row{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}.input-row input{width:100%;min-height:52px;height:52px;flex:none;font-size:16px}
+ input,textarea,select{font-size:16px}.input-row .button{width:100%;min-height:48px}
+ .gate-meta{flex-wrap:wrap;gap:8px 14px;font-size:11px;line-height:1.6}
+ .button,.icon-button,.cover-profile-toggle{min-height:44px;-webkit-appearance:none;appearance:none}
+ .button{height:auto;padding:12px 16px;line-height:1.5;min-width:0;font-size:14px;white-space:normal}
+ .quiz{margin:0 auto}.quiz-head{gap:12px;align-items:center}.quiz-head>div{min-width:0}.quiz-head h2{font-size:21px;line-height:1.5}.quiz-head .eyebrow{margin-bottom:8px}
+ .icon-button{width:44px;min-width:44px;height:44px;flex:none;font-size:28px}
+ .progress-meta{font-size:12px;margin:22px 0 10px}.question-panel{margin-top:22px;padding:22px 16px;border-radius:20px}
+ .question-panel h3{font-size:21px;line-height:1.6;margin:12px 0 22px;overflow-wrap:break-word}
+ .answer-list{gap:12px}.answer-option{min-height:60px;font-size:15px;line-height:1.7;padding:14px 12px;gap:12px;align-items:flex-start}
+ .answer-letter{width:28px;height:28px;font-size:12px;flex:none}.answer-copy{min-width:0;overflow-wrap:break-word;padding-top:1px}
+ .quiz-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px}
+ .quiz-nav .button{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;min-height:48px;height:auto;padding:12px 10px;font-size:14px;line-height:1.5;white-space:normal}
+ .quiz-nav .button span{margin-left:0;flex:none}.quiz-hint{font-size:12px;line-height:1.8;margin:18px 8px}
+
+ /* The same measured canvas is used for the cover and the open profile. */
+ .report-cover,.report-cover.profile-open{
+  --mobile-art-size:clamp(210px,58vw,240px);display:block;position:relative;text-align:center;align-content:start;justify-content:normal;
+  height:var(--mobile-cover-height,640px);min-height:var(--mobile-cover-height,640px);max-height:var(--mobile-cover-height,640px);
+  padding:28px 20px 72px!important;border-radius:24px;overflow:hidden;overflow:clip;overflow-anchor:none;box-sizing:border-box;
+ }
+ .report-cover>.eyebrow,.report-cover>.result-pretitle,.report-cover>h1,.report-cover>.result-title-en{display:block;position:relative;inset:auto;width:auto;max-width:100%;transform:none;transition:opacity .3s ease}
+ .report-cover>.eyebrow{margin:0 0 14px;font-size:10px;line-height:1.5;letter-spacing:.15em}
+ .report-cover .result-pretitle{font-size:14px;line-height:1.65;margin:0 0 8px}
+ .report-cover h1{font-size:clamp(32px,10vw,40px)!important;line-height:1.3!important;margin:6px 0!important;letter-spacing:.02em;overflow-wrap:break-word}
+ .report-cover .result-title-en{font-size:14px;line-height:1.6;letter-spacing:.035em;margin:7px 0 0;overflow-wrap:break-word}
+ .report-cover .result-tagline{font-size:12px;line-height:1.7;max-width:260px;margin:10px auto 0}
+ .report-cover>.cover-caption{display:block;position:absolute;top:calc(260px + var(--mobile-art-size) + 20px);left:18px;right:18px;margin:0;width:auto;font-size:14px;line-height:1.8;transform:none;transition:opacity .3s ease}
+ .report-cover.profile-open>.eyebrow,.report-cover.profile-open>.result-pretitle,.report-cover.profile-open>h1,.report-cover.profile-open>.result-title-en,.report-cover.profile-open>.cover-caption{display:block;opacity:0;transform:none;pointer-events:none}
+ .report-cover .result-character-art,.report-cover.profile-open .result-character-art{position:absolute;left:50%;right:auto;top:260px;width:var(--mobile-art-size);height:var(--mobile-art-size);margin:0;transform:translate3d(-50%,0,0);transition:transform .65s cubic-bezier(.22,.8,.25,1);z-index:2}
+ .report-cover.profile-open .result-character-art{transform:translate3d(-50%,-232px,0)}
+ .report-cover #result-portrait,.report-cover.profile-open #result-portrait{width:100%;height:var(--mobile-art-size);min-height:0;max-height:none;display:flex;align-items:center;justify-content:center}
+ .report-cover #result-portrait img.pony-photo{display:block;width:100%!important;height:var(--mobile-art-size)!important;max-height:var(--mobile-art-size)!important;max-width:100%!important;object-fit:contain!important;object-position:center}
+ .report-cover .result-character-art .result-mark-large{position:absolute;right:0;bottom:4px;width:44px;height:44px;padding:9px;border-radius:50%;overflow:hidden}
+ .report-cover .cover-profile,.report-cover.profile-open .cover-profile{display:block;position:absolute;inset:auto;left:18px;right:18px;top:282px;width:auto;max-height:none;overflow:visible;grid-area:auto;margin:0;text-align:left;animation:none}
+ .report-cover .cover-profile[hidden]{display:block!important;visibility:hidden}
+ .report-cover .cover-profile>.eyebrow{display:block;font-size:10px;line-height:1.5;margin:0;padding-right:120px}
+ .report-cover .cover-profile h2{font-size:21px!important;line-height:1.4;margin:5px 0 8px;padding-right:120px}
+ .report-cover .cover-profile .profile-sub{display:block;font-size:12px;line-height:1.6;margin:0 0 14px}
+ .report-cover .cover-profile .profile-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0}
+ .report-cover .cover-profile .profile-fact{min-width:0;min-height:76px;padding:11px 12px;gap:5px;align-items:flex-start;text-align:left}
+ .report-cover .cover-profile .profile-fact>span{font-size:13px;line-height:1.45}
+ .report-cover .cover-profile .profile-fact strong{font-size:12px;line-height:1.65;overflow-wrap:anywhere;font-weight:500}
+ .report-cover .cover-profile .profile-mark-fact{padding-right:42px}.report-cover .cover-profile .profile-original-mark{right:10px;width:24px;height:30px}
+ .report-cover .cover-profile-toggle{position:absolute;top:190px;bottom:auto;left:50%;right:auto;transform:translateX(-50%);display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;max-width:calc(100% - 36px);padding:10px 20px;font-size:13px;line-height:1.5;white-space:nowrap;margin:0}
+ .report-cover.profile-open .cover-profile-toggle{top:286px;bottom:auto;left:auto;right:18px;transform:none;min-height:36px;max-width:120px;padding:8px 12px;font-size:12px}
+ body:has(.report-cover.profile-open) .gummy-visit{visibility:hidden;pointer-events:none}
+
+ .result-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;gap:6px;padding:6px}
+ .result-tab{min-width:0;min-height:48px;padding:10px 8px;font-size:13px;line-height:1.5;white-space:normal}
+ .report-nav{max-width:100%;top:0;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+ .report-nav-link{min-height:48px;min-width:104px;justify-content:center;padding:12px;font-size:12px;gap:8px}
+ .report-chapter{scroll-margin-top:76px}.report-chapter,.illustrated-report .type-reading{padding:22px 16px!important;border-radius:20px!important}
+ .illustrated-report .report-chapter h2{font-size:22px!important;line-height:1.5}.illustrated-report .report-chapter h3{font-size:18px;line-height:1.6}
+ .illustrated-report .overview-reading>p,.illustrated-report .report-chapter p,.illustrated-report .report-chapter li{font-size:15px!important;line-height:1.85!important}
+ .profile-title{gap:10px;align-items:flex-start}.profile-title>div{min-width:0}.profile-sub{overflow-wrap:anywhere}
+ .insight-grid,.dimension-cards,.career-job-grid,.social-partner-tips,.secondary-reading,.duo-grid{grid-template-columns:minmax(0,1fr);gap:16px}
+ .insight-grid article{padding:18px}.dimension-card,.career-job,.social-partner-tips article{min-width:0;padding:20px 16px}
+ .illustrated-career{grid-template-columns:minmax(0,1fr);gap:16px;text-align:left}.illustrated-career img{width:100%!important;height:190px!important}
+ .illustrated-report .duo-person{padding:18px 16px}.illustrated-report .duo-copy{min-width:0}.illustrated-report .duo-portrait{max-width:100%}
+ .social-interaction img{width:100%;height:240px}.social-map{max-width:100%}
+ .result-actions{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin:24px 0}.result-actions .button:first-child{grid-column:auto}.result-actions .button{width:100%;min-height:48px;padding:12px 16px;font-size:14px}
+ .share-welcome{display:grid;grid-template-columns:24px minmax(0,1fr);gap:12px;padding:20px 16px}.share-welcome .button{grid-column:1/-1;width:100%;min-height:48px;margin:0}.share-welcome p{font-size:13px;line-height:1.8}
+ .duo-preference-hint{flex-wrap:wrap}.duo-preference-hint .duo-expand-all{min-height:40px;white-space:normal}.partner-story-disclosure>summary{width:100%;min-height:44px;text-align:center;box-sizing:border-box}
+ .character-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.character-card{min-width:0}.character-name{overflow-wrap:anywhere}
+}
+@media(max-width:360px){.shell,.shell:has(.illustrated-report){width:calc(100% - 24px)}.top-note{display:none}.report-cover,.report-cover.profile-open{padding-left:16px!important;padding-right:16px!important}.report-cover .cover-profile,.report-cover.profile-open .cover-profile{left:14px;right:14px}.report-cover .cover-profile .profile-fact{padding:10px}.report-cover .cover-profile .profile-mark-fact{padding-right:38px}.question-panel h3{font-size:20px}.quiz-nav .button{font-size:13px}}
+@media(prefers-reduced-motion:reduce){body,#toast.toast,#toast.toast.stage-toast,.report-cover .result-character-art{transition:none!important}}
