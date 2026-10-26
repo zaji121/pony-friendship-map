@@ -1,0 +1,8 @@
+{
+  "name": "pony-friendship-quiz",
+  "version": "1.0.0",
+  "private": true,
+  "description": "小马谷友谊风格测评网站",
+  "scripts": { "start": "node server.js", "build": "node scripts/build-pages.mjs", "prepare:backend": "node scripts/prepare-backend.mjs" },
+  "engines": { "node": ">=18" }
+}

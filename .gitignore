@@ -1,0 +1,10 @@
+node_modules/
+data/store.json
+data/store.json.tmp
+.env
+dist/
+tmp/
+supabase/.temp/
+supabase/.branches/
+supabase/functions/quiz-api/quiz-data.js
+deployment-private/

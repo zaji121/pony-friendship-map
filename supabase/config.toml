@@ -1,0 +1,4 @@
+project_id = "pony-friendship-quiz"
+
+[functions.quiz-api]
+verify_jwt = false

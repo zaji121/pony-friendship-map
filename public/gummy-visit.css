@@ -1,0 +1,19 @@
+.gummy-visit{position:fixed;left:0;top:0;width:112px;height:190px;z-index:30;pointer-events:none;will-change:transform;filter:drop-shadow(0 3px 4px #40394a16)}
+.gummy-balloons{position:absolute;left:0;top:0;height:110px;width:112px;z-index:4;pointer-events:none}
+.gummy-balloon{position:absolute;left:calc(3px + var(--balloon-index)*34px);top:calc(var(--balloon-index)*7px);border:0;background:none;width:39px;height:58px;padding:0;cursor:crosshair;pointer-events:auto}
+.gummy-balloon span{position:absolute;top:0;left:0;width:38px;height:49px;background:radial-gradient(ellipse at 29% 24%,#ffffff75 0%,#ffffff20 19%,transparent 38%),radial-gradient(ellipse at 42% 35%,var(--balloon-color) 47%,var(--balloon-shade) 100%);border:1px solid #ffffff75;border-radius:49% 49% 46% 46%;box-shadow:inset -3px -3px 5px #64506026,0 2px 3px #695d7010}
+.gummy-balloon span:after{content:'';position:absolute;left:15px;bottom:-5px;width:7px;height:6px;background:var(--balloon-color);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.gummy-balloon.popped{pointer-events:none}.gummy-balloon.popped span{animation:gummy-pop .16s ease-out forwards}@keyframes gummy-pop{to{opacity:0;transform:scale(1.4)}}
+.gummy-strings,.gummy-harness{position:absolute;left:0;top:0;width:112px;height:190px;overflow:visible;pointer-events:none}.gummy-strings{z-index:1}.gummy-harness{z-index:3}
+.gummy-strings path,.gummy-harness path{fill:none;stroke:#b99b84;stroke-width:1.15;stroke-linecap:round}
+.gummy-body{position:absolute;left:0;top:110px;z-index:2;display:block;width:112px;height:80px;padding:0;border:0;background:transparent;pointer-events:auto;cursor:pointer;transform-origin:bottom center}
+.gummy-character{display:block;width:100%;height:100%;transform:scaleX(-1);overflow:visible}
+.gummy-body:focus-visible,.gummy-balloon:focus-visible{outline:2px solid #8c77a5;outline-offset:3px;border-radius:12px}.gummy-body:disabled{opacity:1;cursor:default}.gummy-grounded{height:80px}.gummy-grounded .gummy-body{top:0}
+@media(prefers-reduced-motion:reduce){.gummy-visit{filter:none}}
+.gummy-foot-shadow{display:none;position:absolute;left:28px;top:75px;width:65px;height:5px;border-radius:50%;background:#493d4b25;filter:blur(1px);z-index:1}.gummy-visit[data-phase="land"] .gummy-foot-shadow,.gummy-visit[data-phase="walk"] .gummy-foot-shadow{display:block}.gummy-harness path{stroke-width:.85}.gummy-grounded .gummy-character{position:relative;z-index:2}
+.gummy-visit[data-phase="pause"] .gummy-foot-shadow{display:block}
+.gummy-balloon img{display:block;width:39px;height:58px;pointer-events:none}.gummy-balloon.popped img{animation:gummy-pop .16s ease-out forwards}
+.gummy-original-lick{display:none;position:absolute;left:35px;top:0;width:96px;height:53.952px;z-index:5;pointer-events:none;filter:url(#gummy-original-tongue);clip-path:inset(12% 40% 5% 25%)}
+.gummy-visit[data-lick="true"] .gummy-original-lick{display:block}.gummy-video-filter{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
+
+.gummy-visit[data-phase="midpoint"] .gummy-foot-shadow{display:block}

@@ -1,0 +1,47 @@
+// 剧情事实与编辑推断分开记录；资料入口为社区维护的剧情转录/整理，不是官方MBTI定型。
+(() => {
+const rows=[
+['twilight','Lesson Zero','反复核对每周报告的期限与安排。','Amending Fences','后来主动修复旧友谊。','J方向有任务安排线索；不能把焦虑当作J，或把读书直接当作N/T。','I、N、F方向仍属于编辑解释，不能从单集锁定四字母。'],
+['applejack','Applebuck Season','承诺独自完成收获，过劳后接受伙伴帮助。','The Perfect Pear','关心家族经历和父母的选择。','兑现承诺与实际劳动可用于讨论工作方式；诚实不是T的同义词。','E/I缺少恢复精力场景；职业和家族传统不能直接决定S/J。'],
+['rainbow-dash','Wonderbolts Academy','为了伙伴安全反对鲁莽训练，愿意放弃梦寐以求的机会。','Read It and Weep','受伤休息时发现自己喜欢阅读。','可讨论行动与反馈；本集也提供重视伙伴与原则的反向材料。','大胆、运动和竞争不等于E、S或T；T/F尤其不能只按强硬外表判定。'],
+['pinkie-pie','Pinkie Pride','发现竞争让云宝不开心后停止比拼，随后合作办派对。','Party of One','误解伙伴的行动后经历失落。','互动、创造活动和关注参与者体验是可观察线索。','办派对既有即兴也有计划，J/P证据混合；情绪波动不用于T/F计分。'],
+['fluttershy','Flutter Brutter','面对弟弟依赖他人，明确表达界限并鼓励他独立。','Dragonshy','在伙伴受到威胁时敢于面对龙。','关照处境与明确边界可以并存。','害羞和害怕不等于I；动物照护不自动说明S或F，J/P缺少充分材料。'],
+['rarity','Rarity Takes Manehattan','受到不公平竞争影响，后来重新重视朋友的帮助与慷慨。','Suited for Success','在客户需求与自己的设计之间反复调整。','审美构想、工作交付和重视关系均有剧情线索。','不能以漂亮、时尚判N/F；职业服务要求也不直接证明E。'],
+['spike','The Times They Are A Changeling','重新选择信任并公开支持索瑞斯，反对按族群先入为主。','Dragon Quest','探索龙的归属后选择自己珍惜的伙伴。','价值判断与友谊选择可讨论；行为也包括公开表达。','助手职责不能自动判J/S；公开表达不代表长期E偏好。'],
+['starlight','Every Little Thing She Does','用魔法控制伙伴来完成课程，之后承认错误。','To Where and Back Again - Part 2','与不同伙伴合作，接受每个人独有的帮助。','魔法组合与重新选择合作有故事证据。','控制、支配不是T/J定义；改革前后的行为要分阶段，不能给永久类型。'],
+['luna','Luna Eclipsed','学习小马谷的新社交习惯，调整与居民交流的方式。','Do Princesses Dream of Magic Sheep?','因内疚制造自我惩罚的梦境，最后接受伙伴支持。','角色成长涉及理解与自我接纳。','内疚、孤独和过时礼仪不等于I/F/J；睡眠职责不是人格测量。'],
+['cadance','A Canterlot Wedding - Part 2','逃离囚禁，与闪耀盔甲共同抵御入侵。','Games Ponies Play','参与接待与合作事务。','关系联结与共同守护有事实依据。','爱的魔法是一项设定，不能当作F量表；其他方向材料不充分。'],
+['discord','Discordant Harmony','为迎合柔柔把家变得正常，后来接受彼此的不同。','Keep Calm and Flutter On','在关系建立中学习考虑朋友。','打破常规和接纳差异可作故事联想。','混沌魔法不能直接证明N/P；反派阶段的不守规则不能当作P。'],
+['shining-armor','A Canterlot Wedding - Part 2','承担防卫职责，与音韵公主合作。',"Sparkle's Seven",'与妹妹在共同挑战中展现兄妹互动。','组织和守护行动可作为工作场景证据。','军职强制要求不等于J/T，防卫能力不代表人格。'],
+['big-mac','Brotherhooves Social','为了陪苹果丽丽参加活动改变平时的表达方式。','The Big Mac Question','筹备求婚并学习接受计划不完美。','简短表达与实际关怀有线索，也存在主动表演的反例。','少说话不能独自证明I；务农与稳定习惯不直接决定S/J。'],
+['maud','Maud Pie (episode)','研究岩石，行动上保护碧琪，并保留妹妹送的礼物。','Rock Solid Friendship','在选择居所时同时考虑岩石和新友谊。','关注实际材料和独立研究可作为有限的S/I线索。','平淡语气不等于T；她重视亲人和朋友，不能把关爱忽略掉。'],
+['trixie','No Second Prances','珍惜星光的友谊，冲突后承认自己伤害了对方。','All Bottled Up','在相处中面对双方需求与误解。','舞台表达与希望被认可有剧情依据。','表演职业不等于E；自夸、鲁莽与情绪不能直接判T/P。'],
+['sunburst','The Crystalling - Part 2','承认自己施法能力有限，利用不同咒语知识提出组合办法。','Uncommon Bond','与不同朋友寻找共同兴趣。','能用已有知识连接问题；研究原理可支持讨论N方向。','I不能只由社交不安判断；T/F与J/P证据不足，不强行定为INTP。'],
+['celestia','Celestial Advice','讲述自己曾担心紫悦离开，也学习信任学生成长。','A Royal Problem','与月亮公主交换职责，理解彼此的负担。','长期引导与理解不同处境有剧情依据。','王室职责不自动证明J；领导身份不能决定E/N/F。'],
+['zecora','Bridle Gossip','通过草药知识解释并帮助解决误会。','A Health of Information','患病后需要他人的知识与支持。','经验求证与专业知识有依据。','独居和韵文不等于I/N；草药职业不能直接决定S/T。'],
+['daring-do','Daring Doubt','面对他人对冒险经历的不同解释。',"Daring Don't",'在冒险中实际应对危险并接受帮助。','行动验证与现场应对有故事依据。','探险角色的任务要求可能影响行为；独立和大胆不能直接当作I/T。'],
+['cheese-sandwich','The Last Laugh','离开直接观众互动后失去快乐，重新找回亲自让伙伴笑的体验。','Pinkie Pride','与碧琪从竞争走向合作。','直接互动带来的满足是E方向较有用的情境线索。','欢笑职业不等于F；派对创意与即兴仍需跨情境核对。'],
+['apple-bloom','Crusaders of the Lost Mark','帮助珠玉冠冠，并与朋友发现共同的天赋方向。','Call of the Cutie','尝试各种办法寻找可爱标志。','实际尝试与共同探索有证据。','急于找到身份是成长情境，不可直接判P；不能把能力发展当人格分数。'],
+['sweetie-belle','For Whom the Sweetie Belle Toils','从嫉妒姐姐到理解其投入，并尝试弥补伤害。','Forever Filly','表达自己已经成长、兴趣发生变化。','创作表达和换位理解有故事依据。','歌唱天赋不等于N/F；角色年龄变化不能锁定四字母。'],
+['scootaloo','Flight to the Finish','克服关于飞行的比较压力，与伙伴完成展示。','Sleepless in Ponyville','承认害怕，并获得云宝的支持。','实际练习、伙伴鼓励与自我表达有证据。','飞行能力和胆量不用于计分；偶像崇拜不能决定E/S/T。'],
+['gilda','The Lost Treasure of Griffonstone','放弃取回宝物，转而救助遇险的朋友。','Griffon the Brush Off','早期与伙伴的冲突提供成长前的对照。','采用修复友谊后的阶段，保留独立与实际帮助的联想。','刻薄不是T；族群文化和防备不能直接证明I。'],
+['granny-smith','Family Appreciation Day','讲述家族与小马谷建镇的经历，解释苹果园习俗。','Grannies Gone Wild','与朋友外出体验新活动。','经验传递有事实依据，也有寻求新体验的反例。','年龄与传统不等于S/J；讲故事不自动证明E。'],
+['diamond-tiara','Crusaders of the Lost Mark','反对母亲施加的要求，使用影响力为同学争取支持。','','','只采用改变后的阶段，区分资源协调与欺负他人。','独立故事有限；影响力不是E/T/J量表，不能拿霸凌作T证据。'],
+['mrs-cake','Baby Cakes','承担育儿与店铺事务，把照护任务托付给碧琪。','The Perfect Pear','回忆梨子酱帮助自己学习烘焙。','日常照护与实际帮助有剧情依据。','母亲身份不等于F/J，经营店铺不自动证明E/S；材料较少。'],
+['sugar-belle','Hard to Say Anything','不喜欢被当作追求比赛的对象，重视实际改善工作空间的心意。','The Big Mac Question','与麦托什沟通，不要求关系或计划完美。','重视实际支持与关系沟通有依据。','烘焙职业不是S/J证据；温柔不自动等于F或I。'],
+['filthy-rich','Where the Apple Lies','作为买方讨论苹果园交易与承诺，受不实信息影响。','Crusaders of the Lost Mark','其资源被珠玉冠冠用于支持学校。','商业事务与资源协调可用于工作联想。','财富和职位不是E/T/J；私人恢复精力与信息偏好材料有限。'],
+['bon-bon','Slice of Life','向天琴心弦坦白自己另一个身份，关系经历误会与解释。','','','保护秘密与珍惜朋友两方面都有故事依据。','保密是任务需要，不等于I/J；一集主线不足以确定四维。'],
+['lyra','Slice of Life','得知糖糖隐瞒身份后表达不满，随后维持伙伴关系。','','','公开表达和重视信任是剧情线索。','兴趣、乐器与背景动作不用于判N/P；缺少稳定跨情境材料。'],
+['pear-butter','The Perfect Pear','面对家族冲突，选择与辉麦共同生活，并帮助朋友学习烘焙。','','','个人价值与关系选择有清楚的剧情主题。','爱情故事不能直接决定F；I/E、S/N、J/P材料有限。'],
+['bright-mac','The Perfect Pear','主动承担损坏水塔的责任，并用持续修复表达诚意。','','','责任与实际行动有依据。','诚实不等于T，修理与务农不等于S；主要来自单集回忆。'],
+['mistmane','Campfire Tales','付出自己的美貌，恢复家园与朋友的生活。','Shadow Play - Part 2','与六栋梁共同参与阻止威胁。','兼顾朋友与共同环境是故事主题。','牺牲是道德选择，不足以判定F；传说叙述不能提供四维稳定数据。'],
+['nightmare-moon','Friendship is Magic, part 2','阻挠主角团，试图维持永夜，最后恢复为月亮公主。','','','仅作为渴望被看见的特殊形态联想。','不是独立稳定人格；嫉妒、邪恶、魔法效果均不用于MBTI判断。'],
+['daybreaker','A Royal Problem','出现在星光的噩梦中，代表对公主冲突升级的恐惧。','','','可作为力量与控制的故事意象。','不是宇宙公主现实行为，也没有独立生活史；四维侧写证据极少。'],
+['chrysalis','A Canterlot Wedding - Part 2','通过伪装组织入侵，最后计划被阻止。','To Where and Back Again - Part 2','拒绝星光提供的改变机会。','组织策略可讨论行为风格，但不把恶意归给用户。','操纵不是T，王权不是J；反派剧情任务不能证明完整类型。'],
+['king-sombra','The Beginning of the End - Part 2','坚持独自夺回帝国，继而扩展征服计划。','','','独自行事与目标推进只提供局部行为线索。','征服和恐惧控制不是T/J指标；非冲突生活场景很少。'],
+['cozy-glow','School Raze - Part 2','利用校内关系执行自己的计划，把友谊视作获取权力的手段。','School Raze - Part 1','向伙伴展示有帮助的一面，掩盖目的。','跨场景核对表面社交与真实动机，不能只按笑容判断。','会操纵不等于E/T/J；善恶与偏好分开，不能将角色伤害行为投射给用户。'],
+['sunset-shimmer','My Little Pony Equestria Girls: Friendship Games','研究人类世界的魔法，并在冲突后尝试理解另一位紫悦。','','','采用改变后的余晖，记录推理与理解双方的材料。','跨世界和成长阶段影响行为；不将同理心魔法直接当作F量表。']
+];
+function source(title){return {originalTitle:title,title:window.PONY_EPISODES.label(title),episode:window.PONY_EPISODES.get(title),url:'https://mlp.fandom.com/wiki/Transcripts/'+encodeURIComponent(title.replaceAll(' ','_')),kind:'社区维护的动画转录入口'};}
+window.CHARACTER_EVIDENCE=Object.fromEntries(rows.map(([slug,ep,fact,ep2,fact2,interpretation,limits])=>[slug,{facts:[{source:source(ep),text:fact},...(ep2?[{source:source(ep2),text:fact2}]:[])],interpretation,limits,status:'编辑证据整理 · 尚未多人独立编码',special:['daybreaker','nightmare-moon'].includes(slug),limited:['daybreaker','nightmare-moon','lyra','bon-bon','pear-butter','bright-mac','diamond-tiara','filthy-rich','mrs-cake','king-sombra'].includes(slug)}]));
+})();

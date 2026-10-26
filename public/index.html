@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f2e8">
+  <meta name="description" content="走进小马谷友谊地图，探索你的友谊风格与小马伙伴。">
+  <title>小马谷友谊地图 · 你是哪一种伙伴？</title>
+  <link rel="stylesheet" href="/styles.css?v=20261013-unique-social-art">
+<style>.profile-photo-gallery{grid-template-columns:1fr;max-width:240px;margin:auto}.profile-gallery-photo{height:250px}</style><link rel="stylesheet" href="/gummy-visit.css?v=20261013-gummy-tongue-visible"></head>
+<body>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="小马谷友谊地图首页"><span class="brand-mark">✦</span><span>小马谷友谊地图</span></a>
+    <span class="top-note">一场关于你与伙伴的探索</span>
+  </header>
+  <main id="app" class="shell">
+    <section id="gate" class="gate view">
+      <div class="hero-orbit"><span class="orbit-star star-one">✦</span><span class="orbit-star star-two">✧</span><span class="hero-crystal">✧</span><span class="orbit-dot"></span></div>
+      <p class="eyebrow">FRIENDSHIP MAP · EQUESTRIA</p>
+      <h1>你的友谊魔法，<br><em>会是什么模样？</em></h1>
+      <p class="lead">穿过小马谷的日常与冒险，看看你最像哪位伙伴。<br>48 个四维偏好情境选择，遇见专属于你的友谊印记。<br>按日常第一反应作答，选择更接近平常习惯的行为；没有更好的答案。</p>
+      <div class="gate-card">
+        <label for="access-code">输入测评密码</label>
+        <div class="input-row"><input id="access-code" type="password" autocomplete="one-time-code" placeholder="请输入密码" maxlength="80"><button id="start-button" class="button button-primary">开始探索 <span>→</span></button></div>
+        <p id="gate-error" class="form-error" aria-live="polite"></p>
+        <div class="gate-meta"><span>✦ 密码可用 3 次，开始即计 1 次</span><span>约需 8–12 分钟</span></div>
+      </div>
+      <p class="tiny-note">本测评是趣味自我探索，不是心理诊断。</p>
+    </section>
+
+    <section id="quiz" class="quiz view hidden" aria-live="polite">
+      <div class="quiz-head"><div><p class="eyebrow">YOUR JOURNEY</p><h2>友谊地图正在发光</h2></div><button id="exit-quiz" class="icon-button" aria-label="退出测评">×</button></div>
+      <div class="progress-meta"><span id="question-count">第 1 题 / 共 48 题</span><span id="progress-percent">3%</span></div>
+      <div class="progress-track"><div id="progress-fill"></div></div>
+      <div class="question-panel"><div class="question-kicker"><span id="question-number">Q1</span><span class="sparkle">✦</span></div><h3 id="question-text"></h3><div id="answer-list" class="answer-list"></div></div>
+      <div class="quiz-nav"><button id="prev-button" class="button button-quiet">← 上一题</button><button id="next-button" class="button button-primary" disabled>下一题 <span>→</span></button></div>
+      <p class="quiz-hint">选最像你第一反应的做法，没有正确答案。</p>
+    </section>
+
+    <section id="result" class="result view hidden">
+      <div class="result-hero"><p class="eyebrow">YOUR FRIENDSHIP MARK</p><p class="result-pretitle">你的友谊魔法是</p><h1 id="result-title"></h1><div id="result-title-en" class="result-title-en"></div><p id="result-tagline" class="result-tagline"></p><div class="result-character-art"><div id="result-portrait" class="result-portrait" role="img"></div><div id="result-mark" class="result-mark-large"></div></div></div>
+      <div class="result-tabs" role="tablist"><button class="result-tab active" data-tab="you" role="tab">为什么是我？</button><button class="result-tab" data-tab="all" role="tab">全部角色 <span>40</span></button></div>
+      <section id="you-panel" class="result-panel">
+        <section id="type-reading" class="profile-card type-reading hidden"></section>
+        <div class="result-main-card"><div class="card-label">YOUR STORY</div><h2 id="result-heading"></h2><div id="result-description" class="overview-reading"></div><div id="match-reading" class="match-reading hidden" hidden></div><div class="insight-grid"><article><span class="insight-icon">✧</span><h3>你的闪光点</h3><p id="result-strength"></p></article><article><span class="insight-icon">☾</span><h3>压力下的小提醒</h3><p id="result-edge"></p></article></div><div class="growth-note hidden"><span>成长建议</span><p id="result-tip"></p></div></div>
+        <div class="profile-card radar-card"><div class="profile-title"><div><span class="card-label">YOUR SIX TRAITS</span><h2>你的友谊画像</h2></div><span class="profile-sub">六维选择频率</span></div><div id="trait-radar" class="trait-radar"></div><div id="trait-legend" class="trait-legend"></div></div>
+        <div class="profile-card"><div class="profile-title"><div><span class="card-label">PONY PROFILE</span><h2>角色档案</h2></div><span id="profile-role" class="profile-sub"></span></div><div class="profile-overview"><div id="profile-portrait" class="profile-portrait"></div><div id="profile-facts" class="profile-facts"></div></div><div id="profile-reading" class="profile-reading hidden" hidden></div></div>
+        <div class="profile-card"><div class="profile-title"><div><span class="card-label">YOUR FRIENDSHIP STYLE</span><h2>六种友谊方式拆解</h2></div><span class="profile-sub">优势 × 提醒</span></div><div id="dimension-cards" class="dimension-cards"></div></div>
+        <div class="profile-card social-card"><div class="profile-title"><div><span class="card-label">YOUR SOCIAL STYLE</span><h2>你的社交风格</h2></div><span class="profile-sub">两条互动倾向轴</span></div><div class="social-overview"><div class="social-map" aria-label="社交风格二维图"><span class="social-q q-tl">温柔观察</span><span class="social-q q-tr">热情联结</span><span class="social-q q-bl">安静自主</span><span class="social-q q-br">直率行动</span><span class="social-axis-y">关系关注</span><span class="social-axis-x">主动表达</span><span id="social-dot" class="social-dot"></span></div><div class="social-copy"><span id="social-style-kicker" class="social-style-kicker"></span><h3 id="social-style-name"></h3><p id="social-style-description"></p><div class="social-scores"><span id="social-warmth-score"></span><span id="social-agency-score"></span></div></div></div><div class="social-growth-grid"><article><h3>你的社交优势</h3><ul id="social-strengths"></ul></article><article><h3>可以练习的部分</h3><ul id="social-growth"></ul></article></div><div class="social-partners"><h3>和不同风格的伙伴相处</h3><div id="social-partner-tips" class="social-partner-tips"></div></div><p class="social-method">计算说明：关系关注取“共情与合作、情绪觉察”的平均选择频率；主动表达取“社交活力、主动与表达”的平均选择频率。风格高低只和你本次六维的平均选择频率比较，不是和人群常模比较。理论参考人际环形模型的亲和/关系（communion）与主动影响（agency）维度；本测试的题目和合成算法并非正式 IPC 量表，尚未做信效度验证，因此只作自我探索。<a href="https://pubmed.ncbi.nlm.nih.gov/19667139/" target="_blank" rel="noopener noreferrer">查看相关量表研究</a></p></div>
+        <section class="profile-card career-card" aria-labelledby="career-title"><div class="profile-title"><div><span class="card-label">YOUR CAREER JOURNEY</span><h2 id="career-title">职业发展 · 小马谷工作手记</h2></div><span class="profile-sub">真实职业 × 探索行动</span></div><div id="career-content"></div></section>
+        <div class="secondary-card"><div class="duo-heading"><span class="card-label">YOUR FRIENDSHIP DUO</span><h2>主角色与副角色，拼成更完整的你</h2><p>主角色是最接近本次答题模式的画像；副角色是第二接近的侧面，不是第二人格。</p></div><div class="duo-grid"><article class="duo-person primary"><div class="duo-portrait" id="primary-duo-art"></div><div class="duo-copy"><span class="duo-label">主角色 · 最接近</span><h3 id="primary-duo-name"></h3><small id="primary-duo-en"></small><p id="primary-duo-why"></p><div id="primary-duo-tags" class="duo-tags"></div></div></article><article class="duo-person secondary"><div class="duo-portrait" id="secondary-duo-art"></div><div class="duo-copy"><span class="duo-label">副角色 · 第二接近</span><h3 id="secondary-name"></h3><small id="secondary-english" class="secondary-english"></small><p id="secondary-tagline"></p><p id="secondary-why" class="duo-why"></p><div id="secondary-tags" class="duo-tags"></div></div></article></div><div id="secondary-reading" class="secondary-reading"></div></div>
+      </section>
+      <details class="career-method"><summary>新测评的理论依据与计分说明</summary><p><a href="/research-notes.html">研究修订与验证计划</a> · <a href="/character-evidence-workbench.html">40份角色剧情证据</a></p><p>48道自编行为情境题，E/I、S/N、T/F、J/P 每维12题。每题只比较同一偏好的两个端点，两个方向分别记 +1、−1，端点位置交替；每维百分比＝(该维平均分＋1)÷2。百分比是该方向的选择题数÷12，不是能力、置信度或人口常模。40%—60%注明偏好接近；接近区间用 X 保留未分化状态。该范围是展示规则，未经统计校准。</p><p>角色以故事行为建立连续侧写，按四维等权平方距离排序，允许相近角色共享类型。角色映射、文字解释与职业探索联系均为编辑设计，不是已验证算法。要确认效度，还需要独立样本的项目分析、内部一致性、重测稳定性、结构与外部效标研究；尚无这些数据，因此不声称测量效度已获保证。</p><a href="https://www.myersbriggs.org/my-mbti-personality-type/the-mbti-preferences/" target="_blank" rel="noopener noreferrer">Myers & Briggs Foundation：四种偏好</a> · <a href="https://www.myersbriggs.org/research-and-library/scientific-quality/" target="_blank" rel="noopener noreferrer">官方量表的研究说明（不等同本题库验证）</a></details>
+      <section id="all-panel" class="result-panel hidden"><div class="all-intro"><div><span class="card-label">THE FRIENDSHIP CIRCLE</span><h2>40 位伙伴，各有自己的闪光方式</h2></div><p>从熟悉的伙伴开始，看看谁与你的友谊方式相近。</p></div><div id="character-grid" class="character-grid"></div><div id="character-detail" class="character-detail hidden"></div></section>
+      <div class="result-actions"><button id="save-image" class="button button-primary">✦ 保存结果长图</button><button id="copy-link" class="button button-secondary">复制我的结果链接</button><button id="retake" class="button button-quiet">再测一次 ↻</button></div>
+      <div class="share-welcome"><span class="share-welcome-spark" aria-hidden="true">✦</span><div><h3>让更多朋友加入小马谷</h3><p>想看看朋友会遇见哪位小马？把测评入口发给他们，一起发现各自的友谊魔法。</p></div><button id="welcome-share" class="button button-secondary">复制测评邀请链接 ↗</button></div>
+      <p class="disclaimer">这是一项趣味自我探索体验，不是标准化人格测验或心理诊断。新测评参考 MBTI 四种偏好框架，采用自编题目；不是官方 MBTI 测验，尚未验证信效度。旧结果保留原六维数据。</p>
+    </section>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/mbti-questions.js?v=20261013-unique-social-art"></script><script src="/quiz-world.js?v=20261013-unique-social-art"></script><script src="/characters.js?v=20261013-unique-social-art"></script><script src="/scoring.js?v=20261013-unique-social-art"></script><script src="/expanded-art.js?v=20261013-unique-social-art"></script><script src="/episode-titles.js?v=20261013-unique-social-art"></script><script src="/character-evidence.js?v=20261013-unique-social-art"></script><script src="/result-readings.js?v=20261013-unique-social-art"></script><script src="/config.js"></script><script src="/profile-art.js?v=20261013-unique-social-art"></script><script src="/careers.js?v=20261013-unique-social-art"></script><script src="/new-fullbody-art.js?v=20261013-unique-social-art"></script><script src="/card-marks.js?v=20261013-unique-social-art"></script><script src="/art-bounds.js?v=20261013-unique-social-art"></script><script src="/partner-stories.js?v=20261013-unique-social-art"></script><script src="/result-experience.js?v=20261013-unique-social-art"></script><script src="/pony-interactions.js?v=20261013-unique-social-art"></script><script src="/result-design.js?v=20261013-unique-social-art"></script><script src="/character-hobbies.js?v=20261013-unique-social-art"></script><script src="/app.js?v=20261013-unique-social-art"></script>
+<script src="/mail-entry.js?v=20261013-unique-social-art"></script><script src="/gummy-visit.js?v=20261013-gummy-tongue-visible"></script></body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
