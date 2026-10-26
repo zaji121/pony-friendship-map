@@ -214,3 +214,5 @@ villain-alliance-full: https://derpibooru.org/images/2199879 (lincolnbrewsterfan
 Young Mistmane roster: cheezedoodle96, https://manebooru.art/images/1522425 ; original transparent full body vector, used instead of elderly roster depiction.
 
 Sunset Shimmer flat 2D replacement (2026-10-26): 8-notes, https://manebooru.art/images/4021392 ; transparent full-body vector raster, replaces shaded roster and merpony career image.
+
+Granny Smith social image replacement (2026-10-27): cheezedoodle96, Apple Family Picnic, https://manebooru.art/images/2058153 ; flat 2D family scene from Going to Seed.

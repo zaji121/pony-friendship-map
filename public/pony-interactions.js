@@ -115,8 +115,8 @@ window.PONY_INTERACTIONS = {
     "caption": "可拉与苹果丽丽"
   },
   "granny-smith": {
-    "file": "/images/interactions/apple-family.png",
-    "caption": "史密夫婆婆与苹果家族"
+    "file": "/images/interactions/apple-family-picnic.png",
+    "caption": "史密夫婆婆与家人 · 野餐时光"
   },
   "sunburst": {
     "file": "/images/interactions/sunburst-starlight.png",

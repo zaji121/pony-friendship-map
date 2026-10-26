@@ -71,7 +71,7 @@
     const link=(text,url)=>{const a=el('a','career-source-link',text);a.href=url;a.target='_blank';a.rel='noopener noreferrer';return a;};
     const hero=el('div','career-hero'),img=el('img','career-portrait');img.src=window.FULLBODY_ART?.[main.slug]?.career||window.EXPANDED_ART?.[main.slug]?.file||`/images/ponies/${main.slug}.webp?v=fullbody-20261012`;img.alt=main.name;
     const copy=el('div','career-hero-copy');copy.append(el('span','career-kicker','小马谷工作手记 · '+role.place),el('h3','',main.name+'式的职业探索'),el('p','',role.scene),link('角色故事资料','https://mlp.fandom.com/wiki/'+role.wiki));hero.append(img,copy);host.append(hero);
-    const evidence=el('div','career-evidence');evidence.append(el('strong','','从角色特长联想到现实工作'),el('p','','下面直接列出与'+main.name+'的经历、兴趣或表达方式相关的职业。职业名称参考《中国职业分类大典》，关联理由是故事联想，不能代替个人的兴趣、技能与实际体验。'));host.append(evidence);
+    const evidence=el('div','career-evidence');evidence.append(el('p','','职业名称与工作内容参考《中华人民共和国职业分类大典（2022年版）》。'));host.append(evidence);
     const ways=el('div','career-work-grid');(modern?[]:ranked.slice(0,2)).forEach(({i,value})=>{const card=el('article','career-work-card');card.append(el('span','career-kicker',`本次选择频率 ${Math.round(value*100)}%`),el('h4','',workWays[i][0]),el('p','',workWays[i][1]));ways.append(card);});host.append(ways);
     host.append(el('h3','career-section-title','职业方向'));
     const suggestions=[],selected=role.jobs;
