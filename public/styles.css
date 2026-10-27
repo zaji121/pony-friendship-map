@@ -392,3 +392,6 @@ html{scroll-behavior:smooth}.shell:has(.illustrated-report){width:min(1200px,cal
 .report-cover #result-portrait{display:flex;align-items:center;justify-content:center;overflow:visible;padding:0}
 .report-cover #result-portrait img.pony-photo{display:block;width:100%!important;height:350px!important;max-width:100%!important;max-height:350px!important;object-fit:contain!important;object-position:center;flex:none}
 @media(max-width:650px){.report-cover #result-portrait img.pony-photo{height:220px!important;max-height:220px!important}}
+
+/* 连续庆典故事：章节说明不占用答题按钮空间 */
+.quiz-chapter{margin:20px 0 18px;padding:14px 18px;border-left:3px solid #a99abd;background:rgba(255,255,255,.55);border-radius:0 14px 14px 0}.quiz-chapter p{margin:0}.quiz-chapter #chapter-title{font-size:15px;font-weight:600;color:#66547e;line-height:1.6}.quiz-chapter #chapter-context{margin-top:6px;font-size:14px;line-height:1.8;color:#746e7f}@media(max-width:600px){.quiz-chapter{margin:16px 0;padding:12px 14px}.quiz-chapter #chapter-title{font-size:14px}.quiz-chapter #chapter-context{font-size:13px;line-height:1.7}}

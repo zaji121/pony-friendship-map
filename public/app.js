@@ -166,6 +166,10 @@
     $('question-number').textContent=`Q${String(index+1).padStart(2,'0')}`;
     $('progress-percent').textContent=`${Math.round((index+1)/questions.length*100)}%`;
     $('progress-fill').style.width=`${(index+1)/questions.length*100}%`;
+    const chapterIndex=Math.floor(index/12);
+    const chapter=window.QUIZ_CHAPTERS[chapterIndex];
+    $('chapter-title').textContent=`第 ${chapterIndex+1} 幕 / 共 4 幕 · ${chapter.title}`;
+    $('chapter-context').textContent=chapter.context;
     $('question-text').textContent=q[0];
     $('answer-list').replaceChildren();
     q[1].forEach((option,oi)=>{
