@@ -27,7 +27,7 @@ const rows=[
 ['gilda','The Lost Treasure of Griffonstone','放弃取回宝物，转而救助遇险的朋友。','Griffon the Brush Off','早期与伙伴的冲突提供成长前的对照。','采用修复友谊后的阶段，保留独立与实际帮助的联想。','刻薄不是T；族群文化和防备不能直接证明I。'],
 ['granny-smith','Family Appreciation Day','讲述家族与小马谷建镇的经历，解释苹果园习俗。','Grannies Gone Wild','与朋友外出体验新活动。','经验传递有事实依据，也有寻求新体验的反例。','年龄与传统不等于S/J；讲故事不自动证明E。'],
 ['diamond-tiara','Crusaders of the Lost Mark','反对母亲施加的要求，使用影响力为同学争取支持。','','','只采用改变后的阶段，区分资源协调与欺负他人。','独立故事有限；影响力不是E/T/J量表，不能拿霸凌作T证据。'],
-['mrs-cake','Baby Cakes','承担育儿与店铺事务，把照护任务托付给碧琪。','The Perfect Pear','回忆梨子酱帮助自己学习烘焙。','日常照护与实际帮助有剧情依据。','母亲身份不等于F/J，经营店铺不自动证明E/S；材料较少。'],
+['dj-pon3','Baby Cakes','承担育儿与店铺事务，把照护任务托付给碧琪。','The Perfect Pear','回忆梨子酱帮助自己学习烘焙。','日常照护与实际帮助有剧情依据。','母亲身份不等于F/J，经营店铺不自动证明E/S；材料较少。'],
 ['sugar-belle','Hard to Say Anything','不喜欢被当作追求比赛的对象，重视实际改善工作空间的心意。','The Big Mac Question','与麦托什沟通，不要求关系或计划完美。','重视实际支持与关系沟通有依据。','烘焙职业不是S/J证据；温柔不自动等于F或I。'],
 ['filthy-rich','Where the Apple Lies','作为买方讨论苹果园交易与承诺，受不实信息影响。','Crusaders of the Lost Mark','其资源被珠玉冠冠用于支持学校。','商业事务与资源协调可用于工作联想。','财富和职位不是E/T/J；私人恢复精力与信息偏好材料有限。'],
 ['bon-bon','Slice of Life','向天琴心弦坦白自己另一个身份，关系经历误会与解释。','','','保护秘密与珍惜朋友两方面都有故事依据。','保密是任务需要，不等于I/J；一集主线不足以确定四维。'],
@@ -43,5 +43,7 @@ const rows=[
 ['sunset-shimmer','My Little Pony Equestria Girls: Friendship Games','研究人类世界的魔法，并在冲突后尝试理解另一位紫悦。','','','采用改变后的余晖，记录推理与理解双方的材料。','跨世界和成长阶段影响行为；不将同理心魔法直接当作F量表。']
 ];
 function source(title){return {originalTitle:title,title:window.PONY_EPISODES.label(title),episode:window.PONY_EPISODES.get(title),url:'https://mlp.fandom.com/wiki/Transcripts/'+encodeURIComponent(title.replaceAll(' ','_')),kind:'社区维护的动画转录入口'};}
-window.CHARACTER_EVIDENCE=Object.fromEntries(rows.map(([slug,ep,fact,ep2,fact2,interpretation,limits])=>[slug,{facts:[{source:source(ep),text:fact},...(ep2?[{source:source(ep2),text:fact2}]:[])],interpretation,limits,status:'编辑证据整理 · 尚未多人独立编码',special:['daybreaker','nightmare-moon'].includes(slug),limited:['daybreaker','nightmare-moon','lyra','bon-bon','pear-butter','bright-mac','diamond-tiara','filthy-rich','mrs-cake','king-sombra'].includes(slug)}]));
+window.CHARACTER_EVIDENCE=Object.fromEntries(rows.map(([slug,ep,fact,ep2,fact2,interpretation,limits])=>[slug,{facts:[{source:source(ep),text:fact},...(ep2?[{source:source(ep2),text:fact2}]:[])],interpretation,limits,status:'编辑证据整理 · 尚未多人独立编码',special:['daybreaker','nightmare-moon'].includes(slug),limited:['daybreaker','nightmare-moon','lyra','bon-bon','pear-butter','bright-mac','diamond-tiara','filthy-rich','dj-pon3','king-sombra'].includes(slug)}]));
 })();
+
+window.CHARACTER_EVIDENCE['dj-pon3']={facts:[{source:{originalTitle:'Slice of Life',title:'Slice of Life',url:'https://mlp.fandom.com/wiki/Transcripts/Slice_of_Life',kind:'动画剧情转录'},text:'与奥塔维亚共同准备婚礼音乐，电子节拍与大提琴形成合作。'},{source:{originalTitle:'Suited for Success',title:'Suited for Success',url:'https://mlp.fandom.com/wiki/Transcripts/Suited_for_Success',kind:'动画剧情转录'},text:'在珍奇的服装展示活动中担任打碟工作。'}],interpretation:'从音乐创作与合作行为整理角色主题；不以少台词或戴耳机判定内向。',limits:'日常决策与安排方面材料有限，四维采用中点，不宣称官方类型。',status:'剧情资料整理',limited:true};

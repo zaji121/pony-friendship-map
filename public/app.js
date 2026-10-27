@@ -69,7 +69,7 @@
   }
   function markSvg(mark) {
     if(mark==='twilight')return '<img src="/images/show-marks/twilight.svg" alt="紫悦的可爱标志：六角星与五颗小星">';
-    if(window.EXPANDED_ART?.[mark]){const source=window.EXPANDED_ART[mark];if(source.mark)return '<img src="/images/show-marks/'+mark+'.svg" alt="可爱标志">';if(window.CARD_MARKS?.[mark])return window.CARD_MARKS[mark];return '<span class="species-emblem" title="种族图标，非可爱标志">'+({gilda:'🪶',gallus:'🪶',silverstream:'🪸',yona:'🏔️',ocellus:'🦋',thorax:'🦋',smolder:'🔥',ember:'🔥'}[mark]||({chrysalis:'🦋','king-sombra':'♛','flurry-heart':'❄️'}[mark])||'✦')+'</span>';}
+    if(window.EXPANDED_ART?.[mark]){const source=window.EXPANDED_ART[mark];if(source.originalMark)return '<img src="'+source.originalMark+'" alt="角色标志">';if(source.mark)return '<img src="/images/show-marks/'+mark+'.svg" alt="可爱标志">';if(window.CARD_MARKS?.[mark])return window.CARD_MARKS[mark];return '<span class="species-emblem" title="种族图标，非可爱标志">'+({gilda:'🪶',gallus:'🪶',silverstream:'🪸',yona:'🏔️',ocellus:'🦋',thorax:'🦋',smolder:'🔥',ember:'🔥'}[mark]||({chrysalis:'🦋','king-sombra':'♛','flurry-heart':'❄️'}[mark])||'✦')+'</span>';}
     const shapes={
       twilight:'<path d="M50 8 58 34 84 24 67 45 91 58 63 59 68 87 50 66 32 87 37 59 9 58 33 45 16 24 42 34Z" fill="#e84a88"/><g fill="#fff"><path d="m22 17 2 5 5 2-5 2-2 5-2-5-5-2 5-2Z"/><path d="m78 72 2 5 5 2-5 2-2 5-2-5-5-2 5-2Z"/></g>',
       applejack:'<g fill="#d94b50"><path d="M50 31c-8-8-25-4-25 12 0 20 16 34 25 34s25-14 25-34c0-16-17-20-25-12Z"/><path d="M20 50c-8-8-17-3-17 8 0 14 12 22 19 22s18-8 18-22c0-11-12-16-20-8Z"/><path d="M80 50c-8-8-20-3-20 8 0 14 11 22 19 22s18-8 18-22c0-11-9-16-17-8Z"/></g><g fill="#69a455"><path d="M50 28c-2-13 5-20 18-20-2 12-8 19-18 20Z"/><path d="M25 46c-1-9 4-14 13-14-1 8-6 13-13 14Z"/><path d="M75 46c-1-9 4-14 13-14-1 8-6 13-13 14Z"/></g>',
@@ -113,6 +113,7 @@
     document.getElementById('admin-role-select').value=slug;
   }
   async function openAdminPreview(slug){
+    if(slug==='mrs-cake')slug='dj-pon3';
     try{
       const session=JSON.parse(sessionStorage.getItem('ponyAdmin')||'null');
       if(!session?.access_token)throw new Error('请先登录管理员后台，再打开角色预览。');
@@ -258,8 +259,8 @@
       const biggest=DIMS.map((d,i)=>({d,i,gap:Math.abs(second.profile[i]-main.profile[i])})).sort((a,b)=>b.gap-a.gap)[0];
       $('secondary-reading').children[1].querySelector('p').textContent=''+main.name+'：'+main.archetype+'；'+second.name+'：'+second.archetype+'。'+(window.CHARACTER_STORIES[second.slug]?.[1]||second.description);
     }
-    document.getElementById('type-reading').classList.toggle('hidden',!modern);
-    if(modern)window.renderTypeReading(result,main);
+
+
     renderCharacters(result); bindTabs(); window.renderResultExperience?.(result,main,second); window.designFriendshipReport?.(result,main,second);
   }
   function makeTraitTag(label){const tag=document.createElement('span');tag.className='duo-tag';tag.textContent=label;return tag;}
@@ -306,7 +307,7 @@
       dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
       dialog.addEventListener('close',()=>{document.body.style.overflow=dialog.dataset.previousOverflow||'';});
     }
-    const order=["twilight","applejack","rainbow-dash","pinkie-pie","fluttershy","rarity","spike","starlight","sunset-shimmer","apple-bloom","sweetie-belle","scootaloo","diamond-tiara","cozy-glow","luna","celestia","discord","cadance","trixie","big-mac","shining-armor","zecora","granny-smith","sunburst","maud","pear-butter","bright-mac","bon-bon","lyra","mrs-cake","sugar-belle","daring-do","cheese-sandwich","filthy-rich","gilda","chrysalis","king-sombra","nightmare-moon","daybreaker","mistmane"];
+    const order=["twilight","applejack","rainbow-dash","pinkie-pie","fluttershy","rarity","spike","starlight","sunset-shimmer","apple-bloom","sweetie-belle","scootaloo","diamond-tiara","cozy-glow","luna","celestia","discord","cadance","trixie","big-mac","shining-armor","zecora","granny-smith","sunburst","maud","pear-butter","bright-mac","bon-bon","lyra","dj-pon3","sugar-belle","daring-do","cheese-sandwich","filthy-rich","gilda","chrysalis","king-sombra","nightmare-moon","daybreaker","mistmane"];
     order.map(slug=>({p:PONIES.find(p=>p.slug===slug),i:PONIES.findIndex(p=>p.slug===slug)})).filter(x=>x.p).forEach(({p,i})=>{const card=document.createElement('button');card.type='button';card.className='character-card'+(i===result.primary?' is-primary':i===result.secondary?' is-secondary':'');const colors=ROLE_COLORS[p.slug]||ROLE_COLORS.twilight;card.style.setProperty('--pony-accent',colors[0]);card.style.setProperty('--pony-soft',colors[1]);
       if(p.slug==='flurry-heart'){const note=document.createElement('span');note.className='character-en';note.textContent='成熟形象 · 同人演绎｜仅供角色展示';card.append(note);}
       const art=document.createElement('span');art.className='character-art-mini';art.append(ponyImage(p,'pony-photo-mini'));const icon=document.createElement('span');icon.className='character-mark';icon.innerHTML=markSvg(p.mark);const name=document.createElement('span');name.className='character-name';name.textContent=p.name;const en=document.createElement('span');en.className='character-en';en.textContent=p.en;const desc=document.createElement('span');desc.className='character-archetype';desc.textContent=p.archetype;card.append(art,icon,name,en,desc);

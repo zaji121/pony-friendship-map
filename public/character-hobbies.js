@@ -29,7 +29,7 @@ window.CHARACTER_HOBBIES = Object.freeze({
   'bright-mac': '剧中未明确展示个人爱好',
   'bon-bon': '与朋友相聚、参与镇上庆典',
   lyra: '与糖糖相聚、参与镇上庆典',
-  'mrs-cake': '糕点烘焙',
+  'dj-pon3': '打碟、聆听电子音乐、与奥塔维亚合作演出',
   'sugar-belle': '烘焙、尝试糕点配方',
   'daring-do': '探险、写作',
   'cheese-sandwich': '策划派对、音乐表演',

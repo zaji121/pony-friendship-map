@@ -225,3 +225,11 @@ Granny Smith social image replacement (2026-10-27): cheezedoodle96, Apple Family
 - Sunburst / Starlight: https://manebooru.art/images/1117776 ; original episode screencap.
 - Scootaloo / Cutie Mark Crusaders: https://manebooru.art/images/1995611 ; original episode screencap, Crusaders of the Lost Mark.
 - Big McIntosh full body: https://manebooru.art/images/28083 ; flat 2D vector, all solo display slots.
+
+2026-10-27 transparent originals and full-body refresh:
+Episode screenshots for Sunburst/Starlight (1117776), Crusaders (1995611), Daring Do/Rainbow/Pinkie (2006203), Bright Mac/Pear Butter (2197886), Filthy Rich/Apple family (1268762), Diamond Tiara/classmates (1720985), all on https://manebooru.art/images/ . Non-generative segmentation and alpha cleanup only; original RGB retained. No generated redraw used for these final assets.
+Transparent vectors: DJ-PON3 full body (145802), DJ/Octavia (2316969), Sugar Belle (1969615), Diamond Tiara (2374113), Bon Bon (1937615), Chrysalis (2271871), Sombra (2182385), Sunset career pose (4026950), all retrieved from https://manebooru.art/images/ .
+Chrysalis emblem: project-native teal crown/wing SVG using mane palette, a character symbol, not a cutie mark. DJ-PON3 emblem: project-native musical-note SVG.
+DJ-PON3 character facts: https://www.equestriadaily.com/2016/05/pony-spotlight-17-dj-pon3.html and episode Slice of Life; https://www.symbiotestudios.com/products/my-little-pony-dj-pon-3-vinyl-scratch-plush (licensed product identity).
+
+Final selected substitutes after alpha-edge review: Daring Do/Rainbow transparent full-body vector (https://manebooru.art/images/1219605); Filthy Rich transparent full-body vector (https://manebooru.art/images/2029204); Diamond Tiara/Silver Spoon by Lumorn (https://www.pngkey.com/detail/u2r5r5t4w7u2r5r5_diamond-tiara-und-silver-spoon-by-lumorn-d50utt3/). Earlier Daring/Filthy/Diamond episode-cutout candidates are not used.

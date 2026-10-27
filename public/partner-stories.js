@@ -37,7 +37,7 @@ scootaloo:['醒目露露与云宝 · 说出害怕','向信任的人说出担心�
 gilda:['吉尔达与旧友 · 重新选择','修复关系可以从一个实际行动开始。眼前如何对待朋友，比维持强硬形象更关键。'],
 'granny-smith':['史密夫婆婆与家人 · 理解传统','了解习惯背后的经历，能让代际沟通从嫌弃规则走向理解其来由。'],
 'diamond-tiara':['珠玉冠冠与同学 · 改变立场','拒绝不合适的期待，也可以把已有资源用来支持曾经伤害过的人。'],
-'mrs-cake':['蛋糕夫人与碧琪 · 托付责任','托付照护任务时，清楚说明需要与责任，能让信任有具体的落点。'],
+'dj-pon3':['DJ-PON3 与奥塔维亚 · 不同节奏的合奏','合作不必消除彼此的风格。把需要对齐的节拍与可以保留的特色说明白，才能让不同声音组成作品。'],
 'sugar-belle':['糖贝儿与麦托什 · 真正的需要','表达心意时，先了解对方实际在意什么，比把追求变成比赛更容易建立连接。'],
 'filthy-rich':['财大气粗与苹果家族 · 交易与承诺','合作建立在信息准确与承诺明确之上。误解出现时，应回到具体事实核对。'],
 'bon-bon':['糖糖与天琴心弦 · 隐私与信任','私人经历与关系期待之间，需要明确沟通哪些事情会影响双方的信任。'],
@@ -56,3 +56,6 @@ const pool=[...window.PONY_PARTNER_STORIES];
 Object.entries(themes).forEach(([slug,[title,insight]])=>{const facts=window.CHARACTER_EVIDENCE?.[slug]?.facts||[];const fact=slug==='lyra'?{source:{originalTitle:'The Big Mac Question'},text:'天琴心弦向糖糖拿出求婚戒指时，糖糖也拿出了准备好的戒指。两匹小马在同一个时刻表达了彼此的承诺。'}:facts[0];if(fact)pool.push({roles:[slug],title,episode:fact.source.originalTitle,story:fact.text,insight});});
 window.selectPartnerStories=slug=>{const own=pool.filter(s=>s.roles.includes(slug));const others=pool.filter(s=>!s.roles.includes(slug));const seed=[...slug].reduce((n,c)=>n*31+c.charCodeAt(0),0)>>>0;const selected=own.slice(0,2);const used=new Set(selected.map(s=>s.episode));for(let i=0;i<others.length&&selected.length<4;i++){const candidate=others[(seed+i*7)%others.length];if(!used.has(candidate.episode)){selected.push(candidate);used.add(candidate.episode);}}for(const candidate of others){if(selected.length>=4)break;if(!used.has(candidate.episode)){selected.push(candidate);used.add(candidate.episode);}}return selected;};
 })();
+
+window.PONY_PARTNER_STORIES.push({roles:['dj-pon3'],title:'DJ-PON3 与奥塔维亚 · 两种音乐，一次合作',episode:'Slice of Life',story:'奥塔维亚为婚礼准备音乐时，DJ-PON3 用自己的设备加入。大提琴与电子节拍结合，两位音乐伙伴以不同的风格一起完成演出准备。',insight:'先确认共同作品需要什么，再说明各自擅长的部分。尊重差异可以落实成分工、试奏与调整。'});
+const originalStorySelector=window.selectPartnerStories;window.selectPartnerStories=slug=>slug==='dj-pon3'?[window.PONY_PARTNER_STORIES.at(-1),...originalStorySelector(slug).filter(s=>s.episode!=='Slice of Life')].slice(0,4):originalStorySelector(slug);

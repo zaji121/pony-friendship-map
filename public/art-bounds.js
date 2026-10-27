@@ -6,3 +6,19 @@ window.ART_BOUNDS["/images/fullbody-new/twilight-gentle.png"]=[642, 1167, 1, 1, 
 window.ART_BOUNDS["/images/fullbody-new/sunset-flat-2d.png"]=[5890,9718,0,0,5890,9718];
 
 window.ART_BOUNDS['/images/fullbody-new/big-mac-gentle-static.png']=[1800,1517,21,56,1768,1492];
+
+window.ART_BOUNDS['/images/fullbody-new/dj-pon3-full.png']=[5000,5178,0,0,5000,5178];
+window.ART_BOUNDS['/images/fullbody-new/diamond-tiara-standing.png']=[7000,7700,123,27,6822,7570];
+window.ART_BOUNDS['/images/fullbody-new/sugar-belle-standing.png']=[5089,3000,0,0,5089,3000];
+window.ART_BOUNDS['/images/fullbody-new/bon-bon-standing.png']=[813,1024,0,1,755,1024];
+window.ART_BOUNDS['/images/fullbody-new/chrysalis-standing.png']=[4450,5884,160,72,3882,5591];
+window.ART_BOUNDS['/images/fullbody-new/sombra-standing.png']=[7427,10000,0,0,7427,10000];
+window.ART_BOUNDS['/images/fullbody-new/sunset-donut.png']=[3073,4463,0,0,3073,4463];
+
+window.ART_BOUNDS['/images/fullbody-new/dj-pon3-full.png']=[1545,1600,0,0,1545,1600];
+window.ART_BOUNDS['/images/fullbody-new/diamond-tiara-standing.png']=[1455,1600,25,5,1418,1573];
+window.ART_BOUNDS['/images/fullbody-new/sugar-belle-standing.png']=[1600,943,0,0,1600,943];
+window.ART_BOUNDS['/images/fullbody-new/bon-bon-standing.png']=[813,1024,0,1,755,1024];
+window.ART_BOUNDS['/images/fullbody-new/chrysalis-standing.png']=[1210,1600,43,19,1056,1521];
+window.ART_BOUNDS['/images/fullbody-new/sombra-standing.png']=[1188,1600,0,0,1188,1600];
+window.ART_BOUNDS['/images/fullbody-new/sunset-donut.png']=[1102,1600,0,0,1102,1600];
