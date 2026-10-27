@@ -17,3 +17,5 @@ window.EXPANDED_ART.twilight={...(window.EXPANDED_ART.twilight||{}),file:"/image
 
 window.EXPANDED_ART["sunset-shimmer"]={...(window.EXPANDED_ART["sunset-shimmer"]||{}),file:"/images/fullbody-new/sunset-flat-2d.png"};
 Object.assign(window.FULLBODY_ART["sunset-shimmer"],{profile:"/images/fullbody-new/sunset-flat-2d.png",career:"/images/fullbody-new/sunset-flat-2d.png",profileSource:"https://manebooru.art/images/4021392",careerSource:"https://manebooru.art/images/4021392"});
+
+window.EXPANDED_ART['big-mac']={...(window.EXPANDED_ART['big-mac']||{}),file:'/images/fullbody-new/big-mac-gentle-static.png'};Object.assign(window.FULLBODY_ART['big-mac'],{profile:'/images/fullbody-new/big-mac-gentle-static.png',career:'/images/fullbody-new/big-mac-gentle-static.png',profileSource:'https://manebooru.art/images/28083',careerSource:'https://manebooru.art/images/28083'});

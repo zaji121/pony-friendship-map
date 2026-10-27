@@ -102,7 +102,7 @@
   let toastTimer;
   let adminPreview=false;
   function previewRole(slug){
-    const primary=PONIES.findIndex(p=>p.slug===slug);if(primary<0)return;
+    const primary=PONIES.findIndex(p=>p.slug===slug);if(primary<0||(window.INACTIVE_CHARACTERS||[]).includes(slug))return;
     const scores=window.PREFERENCE_PROFILES[slug].slice();
     const secondary=PONIES.map((p,i)=>({i,d:window.PREFERENCE_PROFILES[p.slug].reduce((n,v,j)=>n+(v-scores[j])**2,0)})).filter(x=>x.i!==primary).sort((a,b)=>a.d-b.d)[0].i;
     const result=window.PONY_SCORE(questions,PONIES.map(p=>p.slug),window.PREFERENCE_PROFILES,questions.map((q,i)=>i%q[1].length));
@@ -122,10 +122,10 @@
       const bar=document.createElement('aside');bar.className='admin-preview-bar';
       const label=document.createElement('label');label.textContent='管理员预览 · 非真实测评 ';
       const select=document.createElement('select');select.id='admin-role-select';select.setAttribute('aria-label','选择预览角色');
-      PONIES.forEach(p=>{const option=document.createElement('option');option.value=p.slug;option.textContent=p.name+' · '+p.en;select.append(option);});
+      PONIES.filter(p=>!(window.INACTIVE_CHARACTERS||[]).includes(p.slug)).forEach(p=>{const option=document.createElement('option');option.value=p.slug;option.textContent=p.name+' · '+p.en;select.append(option);});
       select.onchange=()=>previewRole(select.value);label.append(select);
       const back=document.createElement('a');back.href='admin.html';back.textContent='返回后台';bar.append(label,back);document.body.prepend(bar);document.body.classList.add('admin-preview-mode');
-      previewRole(PONIES.some(p=>p.slug===slug)?slug:'twilight');
+      previewRole(PONIES.some(p=>p.slug===slug)&&!(window.INACTIVE_CHARACTERS||[]).includes(slug)?slug:'twilight');
     }catch(error){showView('gate');updateGateError(error.message);const a=document.createElement('a');a.href='admin.html';a.textContent='打开管理员登录';$('gate').append(a);}
   }
   function scrollImmediately(top){const root=document.documentElement,previous=root.style.scrollBehavior;root.style.scrollBehavior='auto';window.scrollTo(0,top);root.style.scrollBehavior=previous;}

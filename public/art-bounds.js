@@ -4,3 +4,5 @@ window.ART_BOUNDS["/images/fullbody-new/twilight-standing.png"]=[812, 984, 0, 0,
 window.ART_BOUNDS["/images/fullbody-new/twilight-gentle.png"]=[642, 1167, 1, 1, 642, 1167];
 
 window.ART_BOUNDS["/images/fullbody-new/sunset-flat-2d.png"]=[5890,9718,0,0,5890,9718];
+
+window.ART_BOUNDS['/images/fullbody-new/big-mac-gentle-static.png']=[1800,1517,21,56,1768,1492];

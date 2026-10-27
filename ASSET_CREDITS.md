@@ -216,3 +216,12 @@ Young Mistmane roster: cheezedoodle96, https://manebooru.art/images/1522425 ; or
 Sunset Shimmer flat 2D replacement (2026-10-26): 8-notes, https://manebooru.art/images/4021392 ; transparent full-body vector raster, replaces shaded roster and merpony career image.
 
 Granny Smith social image replacement (2026-10-27): cheezedoodle96, Apple Family Picnic, https://manebooru.art/images/2058153 ; flat 2D family scene from Going to Seed.
+
+2026-10-27 interaction replacements:
+- Rainbow Dash / Scootaloo: https://manebooru.art/images/4025551 ; exported default frame to a single-frame PNG (animation removed).
+- Pinkie Pie and friends: JP, https://manebooru.art/images/2472404 ; episode-based static vector.
+- Cadance / Twilight: https://manebooru.art/images/2332144 ; original episode screencap, Games Ponies Play.
+- Shining Armor / Twilight: https://manebooru.art/images/2041720 ; original episode screencap, Sparkle's Seven.
+- Sunburst / Starlight: https://manebooru.art/images/1117776 ; original episode screencap.
+- Scootaloo / Cutie Mark Crusaders: https://manebooru.art/images/1995611 ; original episode screencap, Crusaders of the Lost Mark.
+- Big McIntosh full body: https://manebooru.art/images/28083 ; flat 2D vector, all solo display slots.

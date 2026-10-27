@@ -17,12 +17,12 @@ window.PONY_INTERACTIONS = {
   "rainbow-dash": {
     "caption": "云宝与醒目露露",
     "source": "https://manebooru.art/4025551",
-    "file": "/images/interactions/social-rainbow-dash-4025551.png"
+    "file": "/images/interactions/rainbow-scootaloo-static.png"
   },
   "pinkie-pie": {
-    "caption": "碧琪与芝士三明治",
-    "source": "https://manebooru.art/2111197",
-    "file": "/images/interactions/social-pinkie-pie-2111197.png"
+    "caption": "碧琪与朋友们",
+    "source": "https://manebooru.art/images/2472404",
+    "file": "/images/interactions/pinkie-friends-static.png"
   },
   "rarity": {
     "caption": "珍奇与甜心宝宝",
@@ -178,3 +178,5 @@ window.PONY_INTERACTIONS = {
     "caption": "雾鬃与小马国六柱"
   }
 };
+
+Object.assign(window.PONY_INTERACTIONS,{"cadance":{"file":"/images/interactions/cadance-twilight-original.png","caption":"音韵公主与紫悦 · 原动画画面","source":"https://manebooru.art/images/2332144"},"shining-armor":{"file":"/images/interactions/shining-twilight-original.jpg","caption":"闪耀盔甲与紫悦 · 原动画画面","source":"https://manebooru.art/images/2041720"},"sunburst":{"file":"/images/interactions/sunburst-starlight-original.png","caption":"日光耀耀与星光熠熠 · 原动画画面","source":"https://manebooru.art/images/1117776"},"scootaloo":{"file":"/images/interactions/scootaloo-crusaders-original.png","caption":"醒目露露与可爱标志童子军 · 原动画画面","source":"https://manebooru.art/images/1995611"}});
