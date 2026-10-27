@@ -22,3 +22,5 @@ window.ART_BOUNDS['/images/fullbody-new/bon-bon-standing.png']=[813,1024,0,1,755
 window.ART_BOUNDS['/images/fullbody-new/chrysalis-standing.png']=[1210,1600,43,19,1056,1521];
 window.ART_BOUNDS['/images/fullbody-new/sombra-standing.png']=[1188,1600,0,0,1188,1600];
 window.ART_BOUNDS['/images/fullbody-new/sunset-donut.png']=[1102,1600,0,0,1102,1600];
+
+window.ART_BOUNDS['/images/fullbody-new/sugar-belle-standing.png']=[820,943,0,0,820,943];
