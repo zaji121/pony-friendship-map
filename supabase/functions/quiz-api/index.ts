@@ -25,7 +25,6 @@ Deno.serve(async req=>{
  const route=pathname.slice(pathname.indexOf('/quiz-api')+'/quiz-api'.length);
  try{
   if(req.method==='GET'&&route==='/health')return send({ok:true});
-  if(route.startsWith('/diary/'))return send({error:'日记功能已取消。'},410);
   if(route.startsWith('/admin/')){
    let adminBody={};
    if(req.method==='POST'){const text=await req.text();if(text.length>100000)return send({error:'请求过大。'},413);try{adminBody=JSON.parse(text);}catch{return send({error:'请求格式错误。'},400);}}
