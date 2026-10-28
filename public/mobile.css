@@ -105,3 +105,7 @@ img{max-width:100%}
 /* Center the public start action and timing on the same visual axis. */
 #gate .input-row{display:flex;justify-content:center;align-items:center}#gate .input-row #start-button{width:min(100%,240px);margin:0 auto}#gate .gate-meta{justify-content:center;text-align:center}#gate #gate-error:empty{display:none}
 
+
+/* Compact entry card with a soft edge and no decorative divider. */
+#gate .gate-card{padding:18px 24px 14px;border:0;box-shadow:0 8px 24px rgba(75,61,95,.055);border-radius:18px}#gate .gate-meta{border-top:0;padding-top:0;margin:10px 0 0;line-height:1.5}#gate #start-button{border:0;box-shadow:none}#gate #start-button:focus:not(:focus-visible){outline:none}#gate #start-button:focus-visible{outline:2px solid #bca6d1;outline-offset:4px}#gate>.tiny-note{margin-top:12px}@media(max-width:600px){#gate .gate-card{padding:16px 16px 12px}#gate .gate-meta{margin-top:9px}}
+
