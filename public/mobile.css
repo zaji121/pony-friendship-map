@@ -101,3 +101,7 @@ img{max-width:100%}
 @media(prefers-reduced-motion:reduce){body,#toast.toast,#toast.toast.stage-toast,.report-cover .result-character-art{transition:none!important}}
 
 .admin-preview-bar{position:sticky;top:0;z-index:120;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px;background:#fffaf2;border-bottom:1px solid #e1d5e8;font:14px/1.5 sans-serif;color:#51445f}.admin-preview-bar label{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.admin-preview-bar select{max-width:100%;padding:8px;border:1px solid #c8b8d4;border-radius:10px;background:white;font-size:16px}.admin-preview-bar a{white-space:nowrap;color:#765694}.career-job-more{margin-top:20px}.career-job-more summary{cursor:pointer;color:var(--role-accent);font-size:14px}.career-job h4{margin-top:0}.admin-preview-mode .result-actions{display:none}@media(max-width:700px){.admin-preview-bar{padding:8px 12px;font-size:12px}.admin-preview-bar label{gap:4px}.admin-preview-bar select{max-width:250px}}
+
+/* Center the public start action and timing on the same visual axis. */
+#gate .input-row{display:flex;justify-content:center;align-items:center}#gate .input-row #start-button{width:min(100%,240px);margin:0 auto}#gate .gate-meta{justify-content:center;text-align:center}#gate #gate-error:empty{display:none}
+
