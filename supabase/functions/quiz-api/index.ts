@@ -1,5 +1,5 @@
 import {scoreAnswers} from './quiz-data.js';
-import {handleAdmin,ensureLegacyCodes} from './admin.ts';
+import {handleAdmin} from './admin.ts';
 
 const databaseUrl=Deno.env.get('SUPABASE_URL')!;
 const serviceKey=Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
@@ -39,13 +39,10 @@ Deno.serve(async req=>{
   const text=await req.text();if(text.length>100000)return send({error:'请求过大。'},413);
   let body;try{body=JSON.parse(text);}catch{return send({error:'请求格式错误。'},400);}
   if(route==='/start'){
-   const code=String(body.code||'').trim();if(code.length>256)return send({error:'密码不正确，请检查后重试。'},401);
-   const digest=await hash(code);
-   await ensureLegacyCodes();
-   const result=await database('rpc/pony_start',{p_hash:digest,p_token:random()});
+   const result=await database('rpc/pony_start_public',{p_token:random()});
    return send(result,result.status||200);
   }
-  const token=String(body.token||'');if(!/^[a-f0-9]{48}$/.test(token))return send({error:'测评会话已失效，请重新输入密码。'},401);
+  const token=String(body.token||'');if(!/^[a-f0-9]{48}$/.test(token))return send({error:'测评会话已失效，请重新开始。'},401);
   let result;try{result=scoreAnswers(body.result?.answers);}catch(error){return send({error:(error as Error).message},400);}
   const saved=await database('rpc/pony_complete',{p_token:token,p_id:random(),p_result:result});
   return send(saved,saved.status||200);

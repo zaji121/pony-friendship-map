@@ -154,9 +154,8 @@
   }
   function updateGateError(message='') { $('gate-error').textContent=message; }
   async function startQuiz() {
-    const code=$('access-code').value.trim(); if(!code){updateGateError('请先输入测评密码。');return;}
     $('start-button').disabled=true; updateGateError('');
-    try { const data=await api('/api/start',{code}); state={token:data.token,answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false}; sessionStorage.setItem('ponyQuiz',JSON.stringify(state)); renderQuestion(0); showView('quiz'); }
+    try { const data=await api('/api/start',{}); state={token:data.token,answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false}; sessionStorage.setItem('ponyQuiz',JSON.stringify(state)); renderQuestion(0); showView('quiz'); }
     catch(err){updateGateError(err.message);}
     finally{$('start-button').disabled=false;}
   }
@@ -417,13 +416,13 @@
     finally{btn.disabled=false;btn.textContent='✦ 保存结果长图';}
   }
   async function loadShared(id) { try{const result=await api(`/api/result/${encodeURIComponent(id)}`);state.resultId=id;state.result=result;state.shared=true;renderResult(result);showView('result');if(id==='preview-mbti-v2'&&new URLSearchParams(location.search).get('interaction')==='stage'){celebrateStage(5);}}catch(err){showView('gate');updateGateError(err.message);} }
-  $('start-button').addEventListener('click',startQuiz);$('access-code').addEventListener('keydown',e=>{if(e.key==='Enter')startQuiz();});
+  $('start-button').addEventListener('click',startQuiz);
   $('prev-button').addEventListener('click',()=>{const i=Number($('next-button').dataset.index);if(i>0)renderQuestion(i-1);});
   $('next-button').addEventListener('click',()=>{const i=Number($('next-button').dataset.index);if(i===questions.length-1)finishQuiz();else{renderQuestion(i+1);const completed=i+1;if(completed%5===0&&state.answers.slice(0,completed).every(a=>a!==null)&&!(state.celebratedStages||[]).includes(completed)){state.celebratedStages=(state.celebratedStages||[]).concat(completed);sessionStorage.setItem('ponyQuiz',JSON.stringify(state));celebrateStage(completed);}}});
-  $('exit-quiz').addEventListener('click',()=>{if(confirm('退出后本次测评机会仍会计入密码次数。确定退出吗？')){sessionStorage.removeItem('ponyQuiz');state={token:'',answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false};showView('gate');}});
-  $('welcome-share').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.origin+(window.SITE_CONFIG?.basePath||'/'));toast('测评邀请链接已复制，朋友打开后可输入自己的密码开始测试。','success');}catch(err){toast('复制失败，请重试。','error');}});
+  $('exit-quiz').addEventListener('click',()=>{if(confirm('确定退出本次测评吗？退出后可以免费重新开始。')){sessionStorage.removeItem('ponyQuiz');state={token:'',answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false};showView('gate');}});
+  $('welcome-share').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.origin+(window.SITE_CONFIG?.basePath||'/'));toast('测评邀请链接已复制，朋友打开后即可免费开始。','success');}catch(err){toast('复制失败，请重试。','error');}});
   $('copy-link').addEventListener('click',copyLink);$('save-image').addEventListener('click',saveImage);
-  $('retake').addEventListener('click',()=>{state={token:'',answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false};$('access-code').value='';updateGateError('再次测评需要输入密码，会计入该密码的使用次数。');showView('gate');});
+  $('retake').addEventListener('click',()=>{state={token:'',answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false};updateGateError('');showView('gate');});
   const match=location.pathname.match(/^\/r\/([A-Za-z0-9_-]+)$/),sharedId=new URLSearchParams(location.search).get('r')||match?.[1];const previewSlug=new URLSearchParams(location.search).get('admin-preview');if(previewSlug)openAdminPreview(previewSlug);else if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId))loadShared(sharedId);
 })();
 
