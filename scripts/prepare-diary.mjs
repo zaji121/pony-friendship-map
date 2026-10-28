@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import vm from 'node:vm';
+const root=new URL('../',import.meta.url),read=p=>fs.readFileSync(new URL(p,root),'utf8');
+const c={window:{PREFERENCE_PROFILES:{}}};vm.createContext(c);
+for(const f of ['characters.js','expanded-art.js','new-fullbody-art.js'])vm.runInContext(read('public/'+f),c);
+const app=read('public/app.js'),start=app.indexOf('const PONIES = [')+'const PONIES = '.length,end=app.indexOf('\n  ];',start)+4;
+const main=vm.runInContext('('+app.slice(start,end)+')',c);
+const roles=[...main,...c.window.EXTRA_CHARACTERS].filter(p=>!c.window.INACTIVE_CHARACTERS.includes(p.slug)).map(p=>({slug:p.slug,name:c.window.CHARACTER_NAMES[p.slug]||p.name,image:c.window.EXPANDED_ART[p.slug]?.file||c.window.FULLBODY_ART[p.slug]?.profile||'/images/ponies/'+p.slug+'.webp'}));
+if(roles.length!==40||new Set(roles.map(p=>p.slug)).size!==40)throw Error('Expected 40 roles');
+for(const p of roles)if(!fs.existsSync(new URL('public'+p.image,root)))throw Error('Missing art '+p.slug);
+fs.writeFileSync(new URL('public/diary-roles.js',root),'window.DIARY_ROLES='+JSON.stringify(roles)+';\n');
+console.log('Diary: 40 roles and local assets verified.');

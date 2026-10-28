@@ -199,6 +199,7 @@
     PONIES.forEach(p=>p.profile=modern?window.PREFERENCE_PROFILES[p.slug]:p.legacyProfile);
     $('dimension-cards').parentElement.querySelector('h2').textContent=modern?'四种偏好方式拆解':'六种友谊方式拆解';
     const main=PONIES[result.primary], second=PONIES[result.secondary];
+    window.PONY_DIARY?.setContext({slug:main.slug,token:state.shared?'':state.token,demo:!!result.demo,decision:result.evidence?.[0]?.answer||''});
     const [accent,soft]=ROLE_COLORS[main.slug]||ROLE_COLORS.twilight;
     const resultView=$('result');resultView.style.setProperty('--role-accent',accent);resultView.style.setProperty('--role-soft',soft);
     $('result-title').textContent=main.name; $('result-title-en').textContent=main.en; $('result-tagline').textContent=result.demo?'示例结果 · 使用演示作答生成，并非你的个人结果':main.tagline;
