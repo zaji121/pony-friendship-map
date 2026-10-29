@@ -201,3 +201,10 @@ img{max-width:100%}
 #chapter-welcome .welcome-hooves img{width:100%;height:auto;max-height:none;left:0;top:auto;bottom:0;object-fit:fill}
 .chapter-welcome[data-pony=pinkie] .welcome-portrait img{width:119px;left:30px;top:0}
 #chapter-welcome .welcome-hooves{mask-image:linear-gradient(to right,#000 0 19.5%,transparent 19.5% 80.5%,#000 80.5% 100%);-webkit-mask-image:linear-gradient(to right,#000 0 19.5%,transparent 19.5% 80.5%,#000 80.5% 100%)}
+/* Restore Derpy's full flight-in while keeping the centered landing position. */
+.mail-entry .mail-courier{animation:derpy-delivery-arrive 2.7s cubic-bezier(.18,.65,.25,1) both;will-change:transform,opacity}
+.mail-entry .mail-flyer{animation:source-flight-hover 2.2s ease-in-out 2.7s infinite}
+.mail-entry .mail-invitation{animation:mail-text-reveal 1.1s cubic-bezier(.22,.61,.36,1) 2.2s both}
+.mail-entry.mail-loading .mail-courier,.mail-entry.mail-loading .mail-flyer,.mail-entry.mail-loading .mail-invitation{animation-play-state:paused}
+@keyframes derpy-delivery-arrive{0%{opacity:0;transform:translate(calc(-50vw - 320px),calc(-50vh - 280px)) rotate(12deg) scale(.65)}12%{opacity:1}48%{transform:translate(-35vw,-20vh) rotate(7deg) scale(.82)}78%{transform:translate(-12px,-10px) rotate(-4deg) scale(1.04)}100%{opacity:1;transform:translate(0,0) rotate(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){.mail-entry .mail-courier,.mail-entry .mail-flyer,.mail-entry .mail-invitation{animation:none;transform:none;opacity:1}}
