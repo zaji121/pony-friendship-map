@@ -1,5 +1,6 @@
 import {mkdir,readdir,readFile,writeFile,copyFile} from 'node:fs/promises';
 import path from 'node:path';
+import './audit-role-reachability.mjs';
 const root=path.resolve(import.meta.dirname,'..');
 const base=process.env.PAGES_BASE_PATH||'/';
 if(!/^\/(?:[A-Za-z0-9_.-]+\/)*$/.test(base))throw new Error('PAGES_BASE_PATH must start and end with /.');
