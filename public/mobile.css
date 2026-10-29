@@ -176,3 +176,13 @@ img{max-width:100%}
 .chapter-welcome[data-pony=fluttershy]{--frame:#e6d799;--frame-light:#fffbea}.chapter-welcome[data-pony=fluttershy] img{width:208px;left:-44px;top:0}
 .chapter-opening #chapter-opening-context{margin-bottom:24px}
 @media(max-height:650px){.chapter-welcome{zoom:.78;margin-bottom:14px}.chapter-opening-card{padding-top:20px;padding-bottom:20px}}
+/* Front-facing, already-peeking source art: no full-body crop or tail cuts. */
+.chapter-welcome{height:166px;margin-bottom:18px}
+.chapter-welcome .welcome-portrait{inset:0;overflow:visible;filter:drop-shadow(0 3px 2px #46334718);z-index:3}
+.chapter-welcome .welcome-portrait img{width:164px;max-height:150px;object-fit:contain;left:8px;top:auto;bottom:14px}
+.chapter-welcome[data-pony=fluttershy] .welcome-portrait img{width:133px;max-height:166px;left:24px;bottom:0}
+.welcome-frame-back{inset:55px 14px 13px}.welcome-frame-front{bottom:13px;z-index:2}
+.chapter-trinkets{position:absolute;inset:0;pointer-events:none;z-index:4}.trinket{position:absolute;font-size:21px;color:#aa83b5;line-height:1;animation:chapter-trinket-in .65s ease-out both;filter:drop-shadow(0 2px 2px #55446610)}.trinket-0{left:-8px;top:36px;transform:rotate(-20deg)}.trinket-1{right:-7px;top:77px;transform:rotate(18deg)}
+[data-pony=pinkie] .trinket{font-size:15px;color:#d793bf}.trinket-2{left:-1px;top:108px;color:#d6b66c!important}.trinket-3{right:-10px;top:15px;color:#8ebfc3!important}.trinket-4{left:5px;top:4px;color:#a9a0ce!important}.trinket-5{right:-5px;top:121px;color:#d6b66c!important}
+@keyframes chapter-trinket-in{from{opacity:0;translate:0 10px;scale:.65}to{opacity:1;translate:0 0;scale:1}}
+@media(prefers-reduced-motion:reduce){.trinket{animation:none}}

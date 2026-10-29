@@ -28,3 +28,5 @@ window.EXPANDED_ART["bon-bon"]={...(window.EXPANDED_ART["bon-bon"]||{}),file:"/i
 window.EXPANDED_ART["chrysalis"]={...(window.EXPANDED_ART["chrysalis"]||{}),file:"/images/fullbody-new/chrysalis-standing.png"};Object.assign(window.FULLBODY_ART["chrysalis"],{profile:"/images/fullbody-new/chrysalis-standing.png",career:"/images/fullbody-new/chrysalis-standing.png"});
 window.EXPANDED_ART["king-sombra"]={...(window.EXPANDED_ART["king-sombra"]||{}),file:"/images/fullbody-new/sombra-standing.png"};Object.assign(window.FULLBODY_ART["king-sombra"],{profile:"/images/fullbody-new/sombra-standing.png",career:"/images/fullbody-new/sombra-standing.png"});
 window.FULLBODY_ART['sunset-shimmer'].career='/images/fullbody-new/sunset-donut.png';
+window.FULLBODY_ART['sunset-shimmer'].career='/images/fullbody-new/sunset-mirror-magic.webp';
+window.FULLBODY_ART['sunset-shimmer'].careerSource='https://derpibooru.org/images/1448470';

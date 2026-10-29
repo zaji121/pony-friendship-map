@@ -238,3 +238,6 @@ Gummy eye-lick overlay: lick-transparent.png derives from the existing credited 
 
 
 2026-10-29 chapter welcome marks: existing sourced transparent 2D character assets are reused as browser-layered half portraits (no generated redraw). Chapters: Twilight (images/fullbody-new/twilight-gentle.png), Rarity (images/ponies/rarity.webp), Pinkie (images/fullbody-new/pinkie-pie-profile.png), Fluttershy (images/fullbody-new/fluttershy-profile.png). Original source entries are listed above. CSS supplies the frame and foreground rim; the portraits themselves remain flat 2D art.
+
+2026-10-29 front-facing welcome replacement: Twilight https://derpibooru.org/images/1911968 , Rarity https://derpibooru.org/images/1914401 , Pinkie https://derpibooru.org/images/2042363 (artist: Ace Play, original peekaboo compositions); Fluttershy https://derpibooru.org/images/2150652 (artist: cheezedoodle96). Alpha trim and lossless WebP encoding only. These are sourced fan vectors, not original animation screencaps. No generated redraw or full-body silhouette cutting.
+Sunset career replacement: https://derpibooru.org/images/1448470 ; artist lifes-remedy, source http://remcmaximus.deviantart.com/art/Even-Cuter-As-A-Pony-683202068 ; tagged Mirror Magic. It is a source-scene vector, not an untouched animation screenshot. Replaces the previous donut/cupcake pose in the career slot.

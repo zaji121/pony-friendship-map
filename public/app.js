@@ -214,10 +214,10 @@
   }
   let chapterOpening,chapterOpeningPending=false;
   const chapterHosts=[
-    {name:'紫悦',src:'/images/fullbody-new/twilight-gentle.png',pose:'twilight'},
-    {name:'珍奇',src:'/images/ponies/rarity.webp',pose:'rarity'},
-    {name:'碧琪',src:'/images/fullbody-new/pinkie-pie-profile.png',pose:'pinkie'},
-    {name:'柔柔',src:'/images/fullbody-new/fluttershy-profile.png',pose:'fluttershy'}
+    {name:'紫悦',src:'/images/chapter-welcome/twilight-peek.webp',pose:'twilight'},
+    {name:'珍奇',src:'/images/chapter-welcome/rarity-peek.webp',pose:'rarity'},
+    {name:'碧琪',src:'/images/chapter-welcome/pinkie-peek.webp',pose:'pinkie'},
+    {name:'柔柔',src:'/images/chapter-welcome/fluttershy-peek.webp',pose:'fluttershy'}
   ];
   const chapterHostImages=chapterHosts.map(host=>{const img=new Image();img.src=host.src;return img;});
   async function showChapterOpening(index){
@@ -231,7 +231,7 @@
       chapterOpening=document.createElement('dialog');
       chapterOpening.className='chapter-opening';
       chapterOpening.setAttribute('aria-labelledby','chapter-opening-title');
-      chapterOpening.innerHTML='<div class="chapter-opening-card"><div class="chapter-welcome" id="chapter-welcome"><span class="welcome-frame-back" aria-hidden="true"></span><div class="welcome-portrait"><img id="chapter-host-image" alt=""></div><span class="welcome-frame-front" aria-hidden="true"></span><span class="welcome-greeting">欢迎你</span></div><p class="eyebrow" id="chapter-opening-number"></p><h2 id="chapter-opening-title"></h2><p id="chapter-opening-context"></p><button type="button" class="button button-primary" id="chapter-opening-enter">进入这一幕 <span aria-hidden="true">→</span></button></div>';
+      chapterOpening.innerHTML='<div class="chapter-opening-card"><div class="chapter-welcome" id="chapter-welcome"><span class="welcome-frame-back" aria-hidden="true"></span><div class="welcome-portrait"><img id="chapter-host-image" alt=""></div><span class="welcome-frame-front" aria-hidden="true"></span><div class="chapter-trinkets" id="chapter-trinkets" aria-hidden="true"></div></div><p class="eyebrow" id="chapter-opening-number"></p><h2 id="chapter-opening-title"></h2><p id="chapter-opening-context"></p><button type="button" class="button button-primary" id="chapter-opening-enter">进入这一幕 <span aria-hidden="true">→</span></button></div>';
       document.body.append(chapterOpening);
       const dismiss=()=>{chapterOpening.close();$('question-text').setAttribute('tabindex','-1');$('question-text').focus({preventScroll:true});};
       $('chapter-opening-enter').addEventListener('click',dismiss);
@@ -241,6 +241,7 @@
     const chapter=window.QUIZ_CHAPTERS[index];
     const host=chapterHosts[index];
     $('chapter-welcome').dataset.pony=host.pose;
+    $('chapter-trinkets').innerHTML=[['✎','▤'],['🔨','✂'],['▰','●','▱','●','▰','▱'],['☾','♫']][index].map((s,i)=>`<span class="trinket trinket-${i}">${s}</span>`).join('');
     $('chapter-host-image').src=host.src;
     $('chapter-host-image').alt=host.name+'探出相框，欢迎你';
     $('chapter-opening-number').textContent=`小马谷庆典 · 第 ${index+1} 幕 / 共 4 幕`;
