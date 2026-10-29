@@ -383,17 +383,16 @@
   function renderRadar(scores,main) {
     if(DIMS.length===4){
       const ends=[...DIMS.map((d,i)=>({d,i,pole:0,value:Number(scores[i])})),...DIMS.map((d,i)=>({d,i,pole:1,value:1-Number(scores[i])}))];
-      const compact=matchMedia('(max-width:700px)').matches;
-      const cx=compact?280:360,cy=270,r=compact?112:170;
+      const cx=360,cy=270,r=170;
       const xy=(level,i)=>{const a=(-90+i*45)*Math.PI/180;return [cx+Math.cos(a)*r*level,cy+Math.sin(a)*r*level];};
       const points=level=>ends.map((_,i)=>xy(level,i).join(',')).join(' ');
       const rings=[.25,.5,.75,1].map(v=>`<polygon points="${points(v)}"/>`).join('');
       const axes=ends.slice(0,4).map((_,i)=>{const a=xy(1,i),b=xy(1,i+4);return `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}"/>`;}).join('');
-      const labels=ends.map((e,i)=>{const [x,y]=xy(compact?1.5:1.27,i);const anchor=Math.abs(x-cx)<1?'middle':x>cx?'start':'end';return `<text class="radar-axis-label" x="${x}" y="${y}" text-anchor="${anchor}">${e.d.worldPoles[e.pole]} ${e.d.key[e.pole]}<tspan x="${x}" dy="${compact?29:19}">${compact?'':e.d.name+' · '}${Math.round(e.value*100)}%</tspan></text>`;}).join('');
+      const labels=ends.map((e,i)=>{const [x,y]=xy(1.27,i);const anchor=Math.abs(x-cx)<1?'middle':x>cx?'start':'end';return `<text class="radar-axis-label" x="${x}" y="${y}" text-anchor="${anchor}">${e.d.worldPoles[e.pole]} ${e.d.key[e.pole]}<tspan x="${x}" dy="19">${e.d.name} · ${Math.round(e.value*100)}%</tspan></text>`;}).join('');
       const url=showMarkUrl(main);const avatar=url?`<image href="${url}" x="18" y="14" width="58" height="58"/><text x="47" y="89" text-anchor="middle" class="radar-avatar-name">${main.name}</text>`:'';
       const polygon=ends.map((e,i)=>xy(e.value,i).join(',')).join(' ');
       const dots=ends.map((e,i)=>{const [x,y]=xy(e.value,i);return `<circle cx="${x}" cy="${y}" r="5"/>`;}).join('');
-      $('trait-radar').innerHTML=`<svg class="${compact?'radar-compact':'radar-wide'}" viewBox="0 0 ${compact?560:720} 560" role="img" aria-label="四个连续偏好维度，八个方向。${ends.map(e=>e.d.worldPoles[e.pole]+e.d.key[e.pole]+Math.round(e.value*100)+'%').join('，')}">${avatar}<g class="radar-grid">${rings}${axes}</g><polygon class="radar-area" points="${polygon}"/><g class="radar-dots">${dots}</g>${labels}</svg>`;
+      $('trait-radar').innerHTML=`<svg viewBox="0 0 720 560" role="img" aria-label="四个连续偏好维度，八个方向。${ends.map(e=>e.d.worldPoles[e.pole]+e.d.key[e.pole]+Math.round(e.value*100)+'%').join('，')}">${avatar}<g class="radar-grid">${rings}${axes}</g><polygon class="radar-area" points="${polygon}"/><g class="radar-dots">${dots}</g>${labels}</svg>`;
       const legend=$('trait-legend');legend.replaceChildren(...DIMS.map((d,i)=>{const item=document.createElement('div');item.className='trait-legend-item';const title=document.createElement('span');title.textContent=d.name+'（'+d.mbtiName+'）';const value=document.createElement('strong');value.textContent=`${d.worldPoles[0]} ${d.key[0]} ${Math.round(scores[i]*100)}% ↔ ${d.worldPoles[1]} ${d.key[1]} ${Math.round((1-scores[i])*100)}%`;item.append(title,value);return item;}));
       let note=$('radar-reading-note');if(!note){note=document.createElement('p');note.id='radar-reading-note';note.className='radar-reading-note';legend.after(note);}note.textContent='每条直径是一个连续维度：E↔I、S↔N、T↔F、J↔P。对向两端合计100%；各端按本次作答比例绘制，中心为0%，外圈为100%，两端各50%表示均衡。八个方向不代表八种独立能力。';
       return;
@@ -412,10 +411,6 @@
     const legend=$('trait-legend');legend.replaceChildren(...DIMS.map((d,i)=>{const item=document.createElement('div');item.className='trait-legend-item';const name=document.createElement('span');name.textContent=modern?d.name+'（'+d.mbtiName+'）':d.name;const pct=document.createElement('strong');pct.textContent=modern?`${d.worldPoles[0]} ${d.key[0]} ${Math.round(vals[i]*100)}% / ${d.worldPoles[1]} ${d.key[1]} ${Math.round((1-vals[i])*100)}%`:`${Math.round(vals[i]*100)}%`;item.append(name,pct);return item;}));
     if(modern){$('trait-radar').parentElement.querySelector('.profile-sub').textContent='四个连续维度 · 八个方向 · 对向两端合计100%';let note=$('radar-reading-note');if(!note){note=document.createElement('p');note.id='radar-reading-note';note.className='radar-reading-note';legend.after(note);}note.textContent='中心表示两端均衡，外圈表示本次选择明显偏向标注的一端。图形大小不是能力、友谊水平或人格优劣；下方保留两端完整比例。';}
   }
-  const radarLayoutQuery=matchMedia('(max-width:700px)');
-  const refreshRadarLayout=()=>{if(state.result?.scores&&PONIES[state.result.primary])renderRadar(state.result.scores,PONIES[state.result.primary]);};
-  if(radarLayoutQuery.addEventListener)radarLayoutQuery.addEventListener('change',refreshRadarLayout);
-  else radarLayoutQuery.addListener?.(refreshRadarLayout);
   function bindTabs() {
     document.querySelectorAll('.result-tab').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.result-tab').forEach(b=>b.classList.toggle('active',b===btn));$('you-panel').classList.toggle('hidden',btn.dataset.tab!=='you');$('all-panel').classList.toggle('hidden',btn.dataset.tab!=='all');});
   }
