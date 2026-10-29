@@ -133,3 +133,17 @@ img{max-width:100%}
 #quiz .answer-option{height:var(--quiz-answer-height,96px);min-height:var(--quiz-answer-height,96px);flex-shrink:0;transition:background-color .18s,border-color .18s,box-shadow .18s}
 #quiz .answer-list{width:100%;min-width:0}
 
+/* A chapter opening floats above the quiz without changing page geometry. */
+.chapter-opening{border:1px solid #e4d9ee;border-radius:24px;padding:0;width:min(440px,calc(100% - 36px));max-height:calc(100dvh - 48px);color:var(--ink);background:#fffdf9;box-shadow:0 22px 70px #37234333;overflow:auto;overscroll-behavior:contain}
+.chapter-opening::backdrop{background:#30263c66;backdrop-filter:blur(4px)}
+.chapter-opening[open]{animation:chapter-arrive .3s ease-out both}
+.chapter-opening-card{padding:30px 28px;text-align:center;background:radial-gradient(ellipse at top,#eee7f7,transparent 65%)}
+.chapter-opening-star{display:grid;place-items:center;margin:0 auto 18px;width:52px;height:52px;border-radius:18px;background:#eee6f5;color:#8263a8;font-size:32px}
+.chapter-opening .eyebrow{letter-spacing:.08em;font-size:12px;color:#86719d}
+.chapter-opening h2{font-size:25px;line-height:1.4;margin:12px 0 18px}
+#chapter-opening-context{font-size:15px;line-height:1.9;text-align:left;margin:0;color:#615a70}
+.chapter-opening-hint{font-size:12px;line-height:1.8;color:#898193;margin:20px 0}
+.chapter-opening .button{width:100%;height:48px;font-size:15px}
+@keyframes chapter-arrive{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.chapter-opening[open]{animation:none}}
+@media(max-width:380px){.chapter-opening-card{padding:24px 20px}.chapter-opening h2{font-size:22px}}

@@ -210,6 +210,30 @@
     $('next-button').innerHTML=index===questions.length-1?'查看我的结果 <span>✦</span>':'下一题 <span>→</span>';
     $('next-button').dataset.index=index;
     queueQuizSizing();
+    requestAnimationFrame(()=>showChapterOpening(chapterIndex));
+  }
+  let chapterOpening;
+  function showChapterOpening(index){
+    if($('quiz').classList.contains('hidden')||(state.openedChapters||[]).includes(index))return;
+    if(!chapterOpening){
+      chapterOpening=document.createElement('dialog');
+      chapterOpening.className='chapter-opening';
+      chapterOpening.setAttribute('aria-labelledby','chapter-opening-title');
+      chapterOpening.innerHTML='<div class="chapter-opening-card"><span class="chapter-opening-star" aria-hidden="true">✦</span><p class="eyebrow" id="chapter-opening-number"></p><h2 id="chapter-opening-title"></h2><p id="chapter-opening-context"></p><p class="chapter-opening-hint">把自己放进故事里，选择你平时更可能做的事。</p><button type="button" class="button button-primary" id="chapter-opening-enter">进入这一幕 <span aria-hidden="true">→</span></button></div>';
+      document.body.append(chapterOpening);
+      const dismiss=()=>{chapterOpening.close();$('question-text').setAttribute('tabindex','-1');$('question-text').focus({preventScroll:true});};
+      $('chapter-opening-enter').addEventListener('click',dismiss);
+      chapterOpening.addEventListener('wheel',e=>e.preventDefault(),{passive:false});
+      chapterOpening.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
+    }
+    const chapter=window.QUIZ_CHAPTERS[index];
+    $('chapter-opening-number').textContent=`小马谷庆典 · 第 ${index+1} 幕 / 共 4 幕`;
+    $('chapter-opening-title').textContent=chapter.title;
+    $('chapter-opening-context').textContent=chapter.context;
+    state.openedChapters=(state.openedChapters||[]).concat(index);
+    sessionStorage.setItem('ponyQuiz',JSON.stringify(state));
+    chapterOpening.showModal();
+    $('chapter-opening-enter').focus({preventScroll:true});
   }
   function queueQuizSizing(){
     cancelAnimationFrame(quizSizeFrame);
