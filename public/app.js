@@ -96,7 +96,7 @@
     img.alt=`${p.name}（${p.en}）`; img.decoding='async'; img.loading=eager?'eager':'lazy';
     return img;
   }
-  const views = ['gate','quiz','result'].map($);
+  const views = ['gate','quiz','result','shared-status'].map($);
   const questions = window.QUIZ_QUESTIONS;
   let state = { token:'', answers:Array(questions.length).fill(null), resultId:'', result:null, shared:false };
   let toastTimer;
@@ -250,7 +250,7 @@
   async function finishQuiz() {
     $('next-button').disabled=true; $('next-button').textContent='正在生成友谊印记…';
     const result=calculateResult();
-    try { const saved=await api('/api/complete',{token:state.token,result}); state.resultId=saved.id; state.result=result; state.shared=false; sessionStorage.removeItem('ponyQuiz'); renderResult(result); showView('result'); toast('你的友谊印记正在显现…'); }
+    try { const saved=await api('/api/complete',{token:state.token,result}); state.resultId=saved.id; state.result=result; state.shared=false; sessionStorage.removeItem('ponyQuiz');history.replaceState(null,'',resultLink(saved.id)); renderResult(result); showView('result'); toast('你的友谊印记正在显现…'); }
     catch(err){ $('next-button').disabled=false; toast(err.message,'error'); renderQuestion(questions.length-1); }
   }
   function renderResult(result) {
@@ -414,13 +414,32 @@
   function bindTabs() {
     document.querySelectorAll('.result-tab').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.result-tab').forEach(b=>b.classList.toggle('active',b===btn));$('you-panel').classList.toggle('hidden',btn.dataset.tab!=='you');$('all-panel').classList.toggle('hidden',btn.dataset.tab!=='all');});
   }
-  async function ensureResultLink() {
-    const link=id=>window.SITE_CONFIG?.apiBase?`${location.origin}${window.SITE_CONFIG.basePath||'/'}?r=${encodeURIComponent(id)}`:`${location.origin}/r/${id}`;
-    if(state.resultId)return link(state.resultId);
-    if(!state.result)throw new Error('还没有可分享的测评结果。');
-    const saved=await api('/api/complete',{token:state.token,result:state.result});state.resultId=saved.id;return link(saved.id);
+  function resultLink(id){
+    const url=new URL(window.SITE_CONFIG?.basePath||'/',location.origin);
+    url.searchParams.set('r',id);url.hash='result='+encodeURIComponent(id);return url.href;
   }
-  async function copyLink() { try{const link=await ensureResultLink();await navigator.clipboard.writeText(link);toast('结果链接已复制，可以分享给朋友。','success');}catch(err){toast(err.message||'复制失败，请重试。','error');} }
+  async function ensureResultLink() {
+    if(state.result?.demo)throw new Error('管理员示例不能作为个人结果分享。');
+    if(!state.result)throw new Error('还没有可分享的测评结果。');
+    if(!state.resultId){const saved=await api('/api/complete',{token:state.token,result:state.result});if(!saved.id)throw new Error('结果尚未保存，请稍后再试。');state.resultId=saved.id;}
+    const verified=await api('/api/result/'+encodeURIComponent(state.resultId));
+    if(!Number.isInteger(verified.primary)||!PONIES[verified.primary])throw new Error('结果暂时无法读取，请稍后再试。');
+    const url=resultLink(state.resultId);history.replaceState(null,'',url);return url;
+  }
+  async function copyLink(){
+    let link,ready;
+    try{
+      ready=ensureResultLink().then(value=>(link=value));
+      if(navigator.clipboard?.write&&window.ClipboardItem){
+        await navigator.clipboard.write([new ClipboardItem({'text/plain':ready.then(value=>new Blob([value],{type:'text/plain'}))})]);
+      }else{link=await ready;await navigator.clipboard.writeText(link);}
+      toast('已复制这份结果链接，打开即可查看，无需重新答题。','success');
+    }catch(err){
+      if(!link&&ready){try{link=await ready;}catch{}}
+      if(link)window.prompt('请复制这份结果链接，打开即可查看：',link);
+      else toast(err.message||'结果链接暂时无法复制，请重试。','error');
+    }
+  }
   function loadPonyAsset(p){return new Promise(resolve=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=()=>resolve(null);img.src=window.EXPANDED_ART?.[p.slug]?.file||`/images/ponies/${p.slug}.webp?v=20261011-5`;});}
   function wrapText(ctx,text,x,y,maxWidth,lineHeight,maxLines=99){let line='',lines=0;for(const ch of [...text]){const test=line+ch;if(ctx.measureText(test).width>maxWidth&&line){ctx.fillText(line,x,y);line=ch;y+=lineHeight;lines++;if(lines>=maxLines)return y;}else line=test;}if(line)ctx.fillText(line,x,y);return y+lineHeight;}
   async function buildPoster() {
@@ -468,23 +487,44 @@
     c.fillStyle='#8a8290';c.font='21px sans-serif';wrapText(c,'职业名称参考2022版公开目录及2026正式增补。角色联想与练习用于职业探索，不是职业适合度测量。完整依据见结果页。',90,canvas.height-110,900,33,3);
     return new Promise(resolve=>canvas.toBlob(blob=>resolve(blob),'image/png'));
   }
+  function showPosterSave(blob){
+    const file=new File([blob],`小马谷友谊结果-${PONIES[state.result.primary].name}.png`,{type:'image/png'});
+    const url=URL.createObjectURL(blob),dialog=document.createElement('dialog');dialog.className='poster-save-dialog';
+    const head=document.createElement('div');head.className='poster-save-head';
+    const title=document.createElement('h2');title.textContent='保存结果长图';
+    const close=document.createElement('button');close.type='button';close.className='icon-button';close.setAttribute('aria-label','关闭图片预览');close.textContent='×';close.onclick=()=>dialog.close();head.append(title,close);
+    const note=document.createElement('p');note.className='poster-save-note';note.setAttribute('role','status');
+    note.textContent=matchMedia('(pointer:coarse)').matches?'长图已生成。长按下方图片，选择“保存到相册”，保存后可在相册查看。':'长图已生成。点击“下载图片”，可在浏览器下载记录中查看。';
+    const actions=document.createElement('div');actions.className='poster-save-actions';
+    const download=document.createElement('button');download.type='button';download.className='button button-primary';download.textContent='下载图片';
+    download.onclick=()=>{const a=document.createElement('a');a.href=url;a.download=file.name;document.body.append(a);a.click();a.remove();note.textContent='已发起图片下载，请在浏览器下载记录中查看；手机也可长按图片保存到相册。';};actions.append(download);
+    if(navigator.canShare?.({files:[file]})){
+      const share=document.createElement('button');share.type='button';share.className='button button-secondary';share.textContent='系统保存 / 分享';
+      share.onclick=async()=>{try{await navigator.share({files:[file],title:'我的小马谷友谊结果'});note.textContent='系统操作已完成。如已选择“存储图像”，请到相册查看。';}catch(e){if(e.name!=='AbortError')note.textContent='系统菜单暂时无法打开，请长按下方图片保存到相册。';}};actions.append(share);
+    }
+    const image=document.createElement('img');image.src=url;image.alt='我的完整测评结果长图，长按可保存';image.draggable=false;
+    dialog.append(head,note,actions,image);const oldOverflow=document.body.style.overflow;document.body.append(dialog);document.body.style.overflow='hidden';
+    dialog.addEventListener('close',()=>{document.body.style.overflow=oldOverflow;URL.revokeObjectURL(url);dialog.remove();},{once:true});dialog.showModal();
+  }
   async function saveImage() {
     const btn=$('save-image');btn.disabled=true;btn.textContent='正在生成长图…';
-    try{const blob=await buildPoster();if(!blob)throw new Error('图片生成失败');const file=new File([blob],`小马谷友谊结果-${PONIES[state.result.primary].name}.png`,{type:'image/png'});
-      if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'我的小马谷友谊结果',text:PONIES[state.result.primary].share});toast('已打开系统分享面板，可保存图片。','success');}
-      else{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=file.name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),10000);toast('长图已下载；手机可在下载后保存到相册。','success');}
-    }catch(err){if(err.name!=='AbortError')toast(err.message||'保存失败，请重试。','error');}
+    try{const blob=await buildPoster();if(!blob)throw new Error('图片生成失败');showPosterSave(blob);}
+    catch(err){toast(err.message||'图片生成失败，请重试。','error');}
     finally{btn.disabled=false;btn.textContent='✦ 保存结果长图';}
   }
-  async function loadShared(id) { try{const result=await api(`/api/result/${encodeURIComponent(id)}`);state.resultId=id;state.result=result;state.shared=true;renderResult(result);showView('result');if(id==='preview-mbti-v2'&&new URLSearchParams(location.search).get('interaction')==='stage'){celebrateStage(5);}}catch(err){showView('gate');updateGateError(err.message);} }
+  async function loadShared(id){
+    $('shared-status-title').textContent='正在打开结果';$('shared-status-message').textContent='正在读取这份友谊地图，请稍候…';$('shared-retry').hidden=true;showView('shared-status');
+    try{const result=await api('/api/result/'+encodeURIComponent(id));if(!Number.isInteger(result.primary)||!PONIES[result.primary])throw new Error('这份结果的数据不完整。');state.resultId=id;state.result=result;state.shared=true;renderResult(result);showView('result');history.replaceState(null,'',resultLink(id));}
+    catch(err){$('shared-status-title').textContent='这份结果暂时未能打开';$('shared-status-message').textContent=(err.message||'网络暂时不可用。')+' 请点击下方按钮重新读取，无需重新答题。';$('shared-retry').hidden=false;$('shared-retry').onclick=()=>loadShared(id);}
+  }
   $('start-button').addEventListener('click',startQuiz);
   $('prev-button').addEventListener('click',()=>{const i=Number($('next-button').dataset.index);if(i>0)renderQuestion(i-1);});
   $('next-button').addEventListener('click',()=>{const i=Number($('next-button').dataset.index);if(i===questions.length-1)finishQuiz();else{renderQuestion(i+1);const completed=i+1;if(completed%5===0&&state.answers.slice(0,completed).every(a=>a!==null)&&!(state.celebratedStages||[]).includes(completed)){state.celebratedStages=(state.celebratedStages||[]).concat(completed);sessionStorage.setItem('ponyQuiz',JSON.stringify(state));celebrateStage(completed);}}});
   $('exit-quiz').addEventListener('click',()=>{if(confirm('确定退出本次测评吗？退出后可以免费重新开始。')){sessionStorage.removeItem('ponyQuiz');state={token:'',answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false};showView('gate');}});
   $('welcome-share').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.origin+(window.SITE_CONFIG?.basePath||'/'));toast('测评邀请链接已复制，朋友打开后即可免费开始。','success');}catch(err){toast('复制失败，请重试。','error');}});
   $('copy-link').addEventListener('click',copyLink);$('save-image').addEventListener('click',saveImage);
-  $('retake').addEventListener('click',()=>{state={token:'',answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false};updateGateError('');showView('gate');});
-  const match=location.pathname.match(/^\/r\/([A-Za-z0-9_-]+)$/),sharedId=new URLSearchParams(location.search).get('r')||match?.[1];const previewSlug=new URLSearchParams(location.search).get('admin-preview');if(previewSlug)openAdminPreview(previewSlug);else if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId))loadShared(sharedId);
+  $('retake').addEventListener('click',()=>{state={token:'',answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false};updateGateError('');history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');showView('gate');});
+  const match=location.pathname.match(/\/r\/([A-Za-z0-9_-]+)\/?$/),sharedId=new URLSearchParams(location.search).get('r')||new URLSearchParams(location.hash.slice(1)).get('result')||match?.[1];const previewSlug=new URLSearchParams(location.search).get('admin-preview');if(previewSlug)openAdminPreview(previewSlug);else if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId))loadShared(sharedId);
 })();
 
 
