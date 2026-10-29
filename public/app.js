@@ -220,21 +220,17 @@
       const hs=getComputedStyle(heading),cs=getComputedStyle(copy),bs=getComputedStyle(button);
       const hw=Math.floor(heading.getBoundingClientRect().width),cw=Math.floor(copy.getBoundingClientRect().width);
       if(hw<=0||cw<=0)return;
-      const currentIndex=Number($('next-button').dataset.index)||0;
-      const current=questions[currentIndex];
-      const key=[currentIndex,hw,cw,hs.font,hs.lineHeight,cs.font,cs.lineHeight,bs.paddingTop,bs.paddingBottom].join('|');
+      const key=[hw,cw,hs.font,hs.lineHeight,cs.font,cs.lineHeight,bs.paddingTop,bs.paddingBottom].join('|');
       if(key===quizSizeKey)return;
       quizSizeKey=key;
-      // Match the two current answers using the actual device font.
-      // Do not reserve the longest answer from other questions.
+      // Reserve one shared answer height for the entire bank at this viewport.
+      // Question changes and selected states must not resize the answer boxes.
       const host=document.createElement('div');
       host.setAttribute('aria-hidden','true');
       Object.assign(host.style,{position:'fixed',left:'-10000px',top:'0',visibility:'hidden',pointerEvents:'none',contain:'layout style paint'});
       const make=(text,width,style)=>{const n=document.createElement('div');n.textContent=text;Object.assign(n.style,{width:width+'px',margin:'0',padding:'0',border:'0',boxSizing:'content-box',minHeight:'0',height:'auto',whiteSpace:'normal'});for(const k of ['fontFamily','fontSize','fontWeight','fontStyle','lineHeight','letterSpacing','wordBreak','overflowWrap'])n.style[k]=style[k];host.append(n);return n;};
-      const stems=[make(current[0],hw,hs)];
-      const answers=current[1].map(o=>make(o[0],cw,cs));
+      const answers=questions.flatMap(q=>q[1].map(o=>make(o[0],cw,cs)));
       document.body.append(host);
-      const stemHeight=Math.ceil(Math.max(...stems.map(n=>n.getBoundingClientRect().height)));
       const textHeight=Math.max(...answers.map(n=>n.getBoundingClientRect().height));
       const rowHeight=Math.ceil(Math.max(textHeight+parseFloat(cs.paddingTop||0)+parseFloat(cs.paddingBottom||0),28)+parseFloat(bs.paddingTop)+parseFloat(bs.paddingBottom)+parseFloat(bs.borderTopWidth)+parseFloat(bs.borderBottomWidth));
       host.remove();

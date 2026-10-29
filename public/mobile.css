@@ -128,3 +128,8 @@ img{max-width:100%}
 
 #quiz .answer-option{align-items:center;max-width:100%;margin-left:0;margin-right:0;transform:none}#quiz .answer-option.selected{width:100%;border-width:1px}
 
+
+/* Stable answer geometry across all questions; recalculate only for viewport/font changes. */
+#quiz .answer-option{height:var(--quiz-answer-height,96px);min-height:var(--quiz-answer-height,96px);flex-shrink:0;transition:background-color .18s,border-color .18s,box-shadow .18s}
+#quiz .answer-list{width:100%;min-width:0}
+
