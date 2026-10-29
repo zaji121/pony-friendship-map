@@ -236,3 +236,5 @@ Final selected substitutes after alpha-edge review: Daring Do/Rainbow transparen
 
 Gummy eye-lick overlay: lick-transparent.png derives from the existing credited original animation clip lick-original.webm. Non-generative color-key alpha extraction preserves source shapes; APNG replaces the runtime video color filter for iOS compatibility.
 
+
+2026-10-29 chapter welcome marks: existing sourced transparent 2D character assets are reused as browser-layered half portraits (no generated redraw). Chapters: Twilight (images/fullbody-new/twilight-gentle.png), Rarity (images/ponies/rarity.webp), Pinkie (images/fullbody-new/pinkie-pie-profile.png), Fluttershy (images/fullbody-new/fluttershy-profile.png). Original source entries are listed above. CSS supplies the frame and foreground rim; the portraits themselves remain flat 2D art.

@@ -164,3 +164,15 @@ img{max-width:100%}
 @media(max-width:650px){.shell:has(>#gate:not(.hidden)){min-height:calc(100svh - 58px);padding-top:24px;padding-bottom:max(24px,env(safe-area-inset-bottom,0px))}.mail-entry .mail-scene{gap:24px}}
 @media(max-height:620px){.mail-entry .mail-courier{width:160px}.mail-entry .mail-scene{gap:16px}.mail-entry .mail-invitation h1{font-size:23px}.mail-entry .mail-invitation>p:not(.eyebrow){margin-bottom:16px}.shell:has(>#gate:not(.hidden)){align-items:flex-start}}
 @media(prefers-reduced-motion:reduce){.mail-entry .mail-courier,.mail-entry .mail-invitation{animation:none}}
+/* Flat character art breaks the top frame; the lower rim stays in front. */
+.chapter-welcome{position:relative;width:180px;height:174px;margin:0 auto 22px;isolation:isolate;--frame:#d7c5e9;--frame-light:#f4edf9}
+.welcome-frame-back{position:absolute;inset:58px 14px 15px;border:9px solid var(--frame);border-radius:22px;background:linear-gradient(145deg,#fff,var(--frame-light));box-shadow:0 8px 0 #6c527014,0 15px 22px #66516e18;transform:rotate(-3deg);z-index:0}
+.welcome-portrait{position:absolute;inset:0 0 29px;overflow:hidden;z-index:1;filter:drop-shadow(0 4px 3px #46334720)}
+.welcome-portrait img{position:absolute;display:block;max-width:none;height:auto;width:135px;left:23px;top:0}
+.welcome-frame-front{position:absolute;left:14px;right:14px;bottom:15px;height:27px;border:9px solid var(--frame);border-top:0;border-radius:0 0 22px 22px;transform:rotate(-3deg);z-index:2;box-shadow:inset 0 -2px 0 #fff8}
+.welcome-greeting{position:absolute;z-index:3;bottom:0;left:50%;transform:translateX(-50%) rotate(-3deg);border:1px solid #e7ddee;border-radius:20px;padding:5px 18px;background:#fffdf9;color:#826396;white-space:nowrap;font-size:12px;font-weight:600;box-shadow:0 3px 8px #66516e12}
+.chapter-welcome[data-pony=rarity]{--frame:#c7c2e8;--frame-light:#efedfa}.chapter-welcome[data-pony=rarity] img{width:118px;left:32px;top:7px}
+.chapter-welcome[data-pony=pinkie]{--frame:#efbfd7;--frame-light:#fff0f6}.chapter-welcome[data-pony=pinkie] img{width:196px;left:9px;top:0}
+.chapter-welcome[data-pony=fluttershy]{--frame:#e6d799;--frame-light:#fffbea}.chapter-welcome[data-pony=fluttershy] img{width:208px;left:-44px;top:0}
+.chapter-opening #chapter-opening-context{margin-bottom:24px}
+@media(max-height:650px){.chapter-welcome{zoom:.78;margin-bottom:14px}.chapter-opening-card{padding-top:20px;padding-bottom:20px}}
