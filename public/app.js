@@ -214,9 +214,9 @@
   }
   let chapterOpening,chapterOpeningPending=false;
   const chapterHosts=[
-    {name:'紫悦',src:'/images/chapter-welcome/twilight-smile.webp',pose:'twilight',hooves:'/images/chapter-welcome/twilight-peek.webp'},
-    {name:'珍奇',src:'/images/chapter-welcome/rarity-front.webp',pose:'rarity',hooves:'/images/chapter-welcome/rarity-peek.webp'},
-    {name:'碧琪',src:'/images/chapter-welcome/pinkie-smile.webp',pose:'pinkie',hooves:'/images/chapter-welcome/pinkie-peek.webp'},
+    {name:'紫悦',src:'/images/chapter-welcome/twilight-smile.webp',pose:'twilight'},
+    {name:'珍奇',src:'/images/chapter-welcome/rarity-front.webp',pose:'rarity'},
+    {name:'碧琪',src:'/images/chapter-welcome/pinkie-smile.webp',pose:'pinkie'},
     {name:'柔柔',src:'/images/chapter-welcome/fluttershy-peek.webp',pose:'fluttershy'}
   ];
   const chapterHostImages=chapterHosts.map(host=>{const img=new Image();img.src=host.src;return img;});
@@ -244,10 +244,6 @@
     $('chapter-trinkets').innerHTML=[['✎','▤'],['🔨','✂'],['▰','●','▱','●','▰','▱'],['☾','♫']][index].map((s,i)=>`<span class="trinket trinket-${i}">${s}</span>`).join('');
     $('chapter-host-image').src=host.src;
     $('chapter-host-image').alt=host.name+'探出相框，欢迎你';
-    let hooves=$('chapter-welcome').querySelector('.welcome-hooves');
-    if(!hooves){hooves=document.createElement('div');hooves.className='welcome-hooves';hooves.setAttribute('aria-hidden','true');$('chapter-welcome').append(hooves);}
-    hooves.replaceChildren();
-    if(host.hooves){const image=new Image();image.src=host.hooves;hooves.append(image);}
     $('chapter-opening-number').textContent=`小马谷庆典 · 第 ${index+1} 幕 / 共 4 幕`;
     $('chapter-opening-title').textContent=chapter.title;
     $('chapter-opening-context').textContent=chapter.context;
