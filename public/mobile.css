@@ -210,3 +210,9 @@ img{max-width:100%}
 .chapter-welcome[data-pony=fluttershy] .welcome-portrait img{width:148px;max-height:none;height:148px;object-fit:contain;left:16px;top:0;bottom:auto}
 .chapter-welcome[data-pony=fluttershy] .welcome-frame-back{bottom:22px}
 .chapter-welcome[data-pony=fluttershy] .welcome-frame-front{bottom:22px}
+/* Fourth chapter uses the same upper-body crop and sill as the first three. */
+.chapter-welcome[data-pony=fluttershy] .welcome-portrait{inset:0 0 23px;overflow:hidden;z-index:1}
+.chapter-welcome[data-pony=fluttershy] .welcome-portrait img{width:185px;height:auto;max-height:none;object-fit:fill;left:29px;top:0;bottom:auto}
+.chapter-welcome[data-pony=fluttershy] .welcome-frame-back{inset:50px 14px 14px}
+.chapter-welcome[data-pony=fluttershy] .welcome-frame-front{bottom:14px}
+.chapter-welcome[data-pony=fluttershy] .welcome-portrait img{width:220px;left:16px}
