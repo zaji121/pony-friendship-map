@@ -202,3 +202,11 @@ img{max-width:100%}
 .mail-entry.mail-loading .mail-courier,.mail-entry.mail-loading .mail-flyer,.mail-entry.mail-loading .mail-invitation{animation-play-state:paused}
 @keyframes derpy-delivery-arrive{0%{opacity:0;transform:translate(calc(-50vw - 320px),calc(-50vh - 280px)) rotate(12deg) scale(.65)}12%{opacity:1}48%{transform:translate(-35vw,-20vh) rotate(7deg) scale(.82)}78%{transform:translate(-12px,-10px) rotate(-4deg) scale(1.04)}100%{opacity:1;transform:translate(0,0) rotate(0) scale(1)}}
 @media(prefers-reduced-motion:reduce){.mail-entry .mail-courier,.mail-entry .mail-flyer,.mail-entry .mail-invitation{animation:none;transform:none;opacity:1}}
+/* Align the frame opening with the portrait rather than leaving a blank lower panel. */
+.chapter-welcome .welcome-frame-back{inset:50px 14px 14px;border-width:7px;border-radius:20px;transform:none;background:var(--frame-light);box-shadow:0 7px 0 #6c527010,0 12px 20px #66516e12}
+.chapter-welcome .welcome-frame-front{left:14px;right:14px;bottom:14px;height:18px;border-width:7px;border-top:0;border-radius:0 0 20px 20px;transform:none}
+.chapter-welcome[data-pony=twilight] .welcome-portrait img{width:130px;left:25px;top:0}
+.chapter-welcome[data-pony=fluttershy] .welcome-portrait{inset:0;overflow:visible;z-index:3}
+.chapter-welcome[data-pony=fluttershy] .welcome-portrait img{width:148px;max-height:none;height:148px;object-fit:contain;left:16px;top:0;bottom:auto}
+.chapter-welcome[data-pony=fluttershy] .welcome-frame-back{bottom:22px}
+.chapter-welcome[data-pony=fluttershy] .welcome-frame-front{bottom:22px}
