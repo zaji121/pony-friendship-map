@@ -147,3 +147,20 @@ img{max-width:100%}
 @keyframes chapter-arrive{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.chapter-opening[open]{animation:none}}
 @media(max-width:380px){.chapter-opening-card{padding:24px 20px}.chapter-opening h2{font-size:22px}}
+/* Center the invitation as one composition, rather than fixing the pony to a viewport percentage. */
+.mail-entry{padding:max(24px,env(safe-area-inset-top,0px)) 24px max(24px,env(safe-area-inset-bottom,0px));align-items:center}
+.mail-entry .mail-scene{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:26px;width:min(600px,100%);margin:auto;text-align:center}
+.mail-entry .mail-scene:before{display:none}
+.mail-entry .mail-courier{position:relative;left:auto;top:auto;width:clamp(190px,30vh,280px);max-width:70vw;margin:0;transform:none;animation:centered-courier-arrive 1s ease-out both}
+.mail-entry .mail-invitation{width:100%;transform:none;margin:0;animation:mail-text-reveal .7s ease-out .6s both}
+.mail-entry .mail-invitation h1{margin:8px 0 12px}
+.mail-entry .mail-invitation>p:not(.eyebrow){margin:8px 0 22px}
+.mail-entry .mail-spark.spark-a{left:8%;top:18%}
+.mail-entry .mail-spark.spark-b{left:auto;right:7%;bottom:45%}
+@keyframes centered-courier-arrive{from{opacity:0;transform:translate(-28px,-16px)}to{opacity:1;transform:translate(0,0)}}
+/* Keep the revealed homepage centered in the space below the header. */
+.shell:has(>#gate:not(.hidden)){min-height:calc(100svh - 70px);display:flex;align-items:center;justify-content:center;padding-top:28px;padding-bottom:28px}
+#gate:not(.hidden){width:100%;margin:0 auto;padding-top:0;padding-bottom:0}
+@media(max-width:650px){.shell:has(>#gate:not(.hidden)){min-height:calc(100svh - 58px);padding-top:24px;padding-bottom:max(24px,env(safe-area-inset-bottom,0px))}.mail-entry .mail-scene{gap:24px}}
+@media(max-height:620px){.mail-entry .mail-courier{width:160px}.mail-entry .mail-scene{gap:16px}.mail-entry .mail-invitation h1{font-size:23px}.mail-entry .mail-invitation>p:not(.eyebrow){margin-bottom:16px}.shell:has(>#gate:not(.hidden)){align-items:flex-start}}
+@media(prefers-reduced-motion:reduce){.mail-entry .mail-courier,.mail-entry .mail-invitation{animation:none}}
