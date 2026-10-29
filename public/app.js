@@ -100,6 +100,18 @@
   const questions = window.QUIZ_QUESTIONS;
   let state = { token:'', answers:Array(questions.length).fill(null), resultId:'', result:null, shared:false };
   let toastTimer;
+  let quizSizeKey='',quizSizeFrame;
+  let toastRevision=0;
+  // Preload and decode once, before any milestone animation starts.
+  const stageArtwork=new Image();
+  stageArtwork.className='stage-baby';stageArtwork.alt='幼年风雪之心开心地探出脑袋';
+  stageArtwork.width=46;stageArtwork.height=54;stageArtwork.decoding='async';
+  stageArtwork.src='/images/flurry-stage.png';
+  const stageArtworkReady=(async()=>{
+    if(stageArtwork.decode)await stageArtwork.decode();
+    else if(!stageArtwork.complete)await new Promise((resolve,reject)=>{stageArtwork.onload=resolve;stageArtwork.onerror=reject;});
+    return stageArtwork.naturalWidth>0;
+  })().catch(()=>false);
   let adminPreview=false;
   function previewRole(slug){
     const primary=PONIES.findIndex(p=>p.slug===slug);if(primary<0||(window.INACTIVE_CHARACTERS||[]).includes(slug))return;
@@ -134,16 +146,32 @@
     clearTimeout(toastTimer);
     toastTimer=setTimeout(()=>el.classList.remove('show'),duration);
   }
-  function showView(which) { views.forEach(v => v.classList.toggle('hidden', v.id !== which)); scrollImmediately(0); }
-  function toast(message, kind='') { const el=$('toast'); el.textContent=message; el.className='toast '+kind;void el.offsetWidth;el.classList.add('show');revealToast(el,2400); }
-  function celebrateStage(completed) {
-    const el=$('toast'); el.replaceChildren();
-    const art=document.createElement('img'); art.src='/images/flurry-baby-ui.png'; art.alt='幼年风雪之心开心地探出脑袋'; art.className='stage-baby';
+  function showView(which) { ++toastRevision;clearTimeout(toastTimer);$('toast').classList.remove('show');views.forEach(v => v.classList.toggle('hidden', v.id !== which)); scrollImmediately(0); }
+  function animateToast(el,duration,revision){
+    clearTimeout(toastTimer);
+    el.style.transition='none';
+    // Commit the hidden state first; only the whole decoded card is animated.
+    requestAnimationFrame(()=>{
+      if(revision!==toastRevision)return;
+      el.style.transition='';
+      requestAnimationFrame(()=>{
+        if(revision!==toastRevision)return;
+        el.classList.add('show');revealToast(el,duration);
+      });
+    });
+  }
+  function toast(message, kind='') { const revision=++toastRevision;const el=$('toast');el.textContent=message;el.className='toast '+kind;animateToast(el,2400,revision); }
+  async function celebrateStage(completed) {
+    const revision=++toastRevision;
+    const ready=await stageArtworkReady;
+    if(revision!==toastRevision||($('quiz').classList.contains('hidden')&&!state.result?.demo))return;
+    const el=$('toast');
     const copy=document.createElement('div'); copy.className='stage-copy';
     const title=document.createElement('strong'); title.textContent=`已完成 ${completed} / ${questions.length} 题`;
     const text=document.createElement('span'); text.textContent=TOASTS[(completed/5-1)%TOASTS.length];
-    copy.append(title,text); el.append(art,copy); el.className='toast stage-toast';void el.offsetWidth;el.classList.add('show');
-    revealToast(el,3200);
+    copy.append(title,text);el.replaceChildren(...(ready?[stageArtwork,copy]:[copy]));
+    el.className='toast stage-toast'+(ready?'':' stage-no-art');
+    animateToast(el,3200,revision);
   }
   async function api(path, body) {
     const config=window.SITE_CONFIG||{};
@@ -181,7 +209,40 @@
     $('next-button').disabled=selected===null;
     $('next-button').innerHTML=index===questions.length-1?'查看我的结果 <span>✦</span>':'下一题 <span>→</span>';
     $('next-button').dataset.index=index;
+    queueQuizSizing();
   }
+  function queueQuizSizing(){
+    cancelAnimationFrame(quizSizeFrame);
+    quizSizeFrame=requestAnimationFrame(()=>{
+      if($('quiz').classList.contains('hidden'))return;
+      const heading=$('question-text'),copy=$('answer-list').querySelector('.answer-copy'),button=$('answer-list').querySelector('.answer-option');
+      if(!copy||!button)return;
+      const hs=getComputedStyle(heading),cs=getComputedStyle(copy),bs=getComputedStyle(button);
+      const hw=Math.floor(heading.getBoundingClientRect().width),cw=Math.floor(copy.getBoundingClientRect().width);
+      if(hw<=0||cw<=0)return;
+      const key=[hw,cw,hs.font,hs.lineHeight,cs.font,cs.lineHeight,bs.paddingTop,bs.paddingBottom].join('|');
+      if(key===quizSizeKey)return;
+      quizSizeKey=key;
+      // Measure the whole bank once per width/font, using the current device font.
+      // This reserves the same space for short and long questions without clipping.
+      const host=document.createElement('div');
+      host.setAttribute('aria-hidden','true');
+      Object.assign(host.style,{position:'fixed',left:'-10000px',top:'0',visibility:'hidden',pointerEvents:'none',contain:'layout style paint'});
+      const make=(text,width,style)=>{const n=document.createElement('div');n.textContent=text;Object.assign(n.style,{width:width+'px',margin:'0',padding:'0',border:'0',boxSizing:'content-box',minHeight:'0',height:'auto',whiteSpace:'normal'});for(const k of ['fontFamily','fontSize','fontWeight','fontStyle','lineHeight','letterSpacing','wordBreak','overflowWrap'])n.style[k]=style[k];host.append(n);return n;};
+      const stems=questions.map(q=>make(q[0],hw,hs));
+      const answers=questions.flatMap(q=>q[1].map(o=>make(o[0],cw,cs)));
+      document.body.append(host);
+      const stemHeight=Math.ceil(Math.max(...stems.map(n=>n.getBoundingClientRect().height)));
+      const textHeight=Math.max(...answers.map(n=>n.getBoundingClientRect().height));
+      const rowHeight=Math.ceil(Math.max(textHeight+parseFloat(cs.paddingTop||0)+parseFloat(cs.paddingBottom||0),28)+parseFloat(bs.paddingTop)+parseFloat(bs.paddingBottom)+parseFloat(bs.borderTopWidth)+parseFloat(bs.borderBottomWidth));
+      host.remove();
+      $('quiz').style.setProperty('--quiz-stem-height',stemHeight+'px');
+      $('quiz').style.setProperty('--quiz-answer-height',rowHeight+'px');
+    });
+  }
+  window.addEventListener('resize',queueQuizSizing,{passive:true});
+  document.fonts?.ready.then(()=>{quizSizeKey='';queueQuizSizing();});
+  if('ResizeObserver' in window)new ResizeObserver(queueQuizSizing).observe($('question-text'));
   function normalizedVector(values) { const mean=values.reduce((a,b)=>a+b,0)/values.length; const sd=Math.sqrt(values.reduce((a,b)=>a+(b-mean)**2,0)/values.length)||1; return values.map(v=>(v-mean)/sd); }
   function calculateResult() {
     return window.PONY_SCORE(questions,PONIES.map(p=>p.slug),window.PREFERENCE_PROFILES,state.answers);

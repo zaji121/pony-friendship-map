@@ -27,7 +27,7 @@ img{max-width:100%}
  .shell,.shell:has(.illustrated-report){width:calc(100% - 32px);padding:20px 0 calc(36px + env(safe-area-inset-bottom,0px))}
  .topbar{height:60px;gap:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
  .brand{font-size:14px;gap:8px;letter-spacing:0;min-width:0}.brand-mark{width:28px;height:28px;font-size:18px;flex:none}
- .top-note{font-size:10px;line-height:1.5;text-align:right;max-width:105px;letter-spacing:0}
+ .top-note{font-size:10px;line-height:1.5;text-align:right;max-width:none;white-space:nowrap;flex:0 0 auto;letter-spacing:0}
  .eyebrow{font-size:10px;line-height:1.6;letter-spacing:.15em}
  .gate{padding-top:0}.hero-orbit{height:116px}.gate h1{font-size:clamp(30px,8.5vw,38px);line-height:1.4}
  .lead{font-size:14px;line-height:1.85;margin:18px 0 24px}.gate-card{padding:20px 16px}
@@ -109,3 +109,12 @@ img{max-width:100%}
 /* Compact entry card with a soft edge and no decorative divider. */
 #gate .gate-card{padding:18px 24px 14px;border:0;box-shadow:0 8px 24px rgba(75,61,95,.055);border-radius:18px}#gate .gate-meta{border-top:0;padding-top:0;margin:10px 0 0;line-height:1.5}#gate #start-button{border:0;box-shadow:none}#gate #start-button:focus:not(:focus-visible){outline:none}#gate #start-button:focus-visible{outline:2px solid #bca6d1;outline-offset:4px}#gate>.tiny-note{margin-top:12px}@media(max-width:600px){#gate .gate-card{padding:16px 16px 12px}#gate .gate-meta{margin-top:9px}}
 
+
+/* Shared alignment rules: labels stay whole; content retains flexible width. */
+.topbar .brand{white-space:nowrap;flex:0 1 auto;line-height:1.4}.topbar .brand>span:last-child{min-width:0;overflow:hidden;text-overflow:ellipsis}.topbar .top-note{white-space:nowrap;flex-shrink:0}
+.profile-title{gap:16px;min-width:0}.profile-title>div{min-width:0}.profile-title .profile-sub{flex-shrink:0;line-height:1.6}.report-nav-link>span:last-child{white-space:nowrap}.progress-meta>span{white-space:nowrap}.report-chapter,.career-job,.dimension-card,.duo-person,.share-welcome>div{min-width:0}
+#toast.toast{contain:layout paint}#toast.toast.stage-toast{align-items:center;min-height:78px}#toast .stage-baby{display:block;width:46px;height:54px;flex:none;animation:none!important;object-fit:contain}#toast .stage-copy strong{display:block}#toast.toast.stage-no-art{grid-template-columns:minmax(0,1fr)}
+@media(max-width:700px){.topbar .brand{flex-shrink:1}.profile-title{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:flex-start}.profile-title>div{flex:1 0 100%}.profile-title>.profile-sub{flex:1 0 100%;max-width:100%;text-align:left;font-size:12px;overflow-wrap:break-word}.result-tab{white-space:nowrap}.duo-preference-hint{gap:8px}.admin-preview-bar>label{flex:1;min-width:0}.admin-preview-bar select{min-width:0;width:min(100%,250px)}.admin-preview-bar>a{flex-shrink:0}}
+
+/* Stable question geometry across answer lengths and system fonts. */
+.quiz{min-width:0;max-width:100%}.question-panel{width:100%;box-sizing:border-box;min-width:0}.question-panel h3{min-height:var(--quiz-stem-height,0px);box-sizing:border-box}.answer-list{display:grid;grid-template-columns:minmax(0,1fr);grid-auto-rows:1fr}.answer-option{width:100%;min-width:0;box-sizing:border-box;min-height:var(--quiz-answer-height,60px);border-width:1px}.answer-copy{display:block;min-width:0;max-width:100%;white-space:normal;overflow-wrap:break-word}.quiz-nav{width:100%;box-sizing:border-box}
