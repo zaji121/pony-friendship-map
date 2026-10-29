@@ -186,3 +186,18 @@ img{max-width:100%}
 [data-pony=pinkie] .trinket{font-size:15px;color:#d793bf}.trinket-2{left:-1px;top:108px;color:#d6b66c!important}.trinket-3{right:-10px;top:15px;color:#8ebfc3!important}.trinket-4{left:5px;top:4px;color:#a9a0ce!important}.trinket-5{right:-5px;top:121px;color:#d6b66c!important}
 @keyframes chapter-trinket-in{from{opacity:0;translate:0 10px;scale:.65}to{opacity:1;translate:0 0;scale:1}}
 @media(prefers-reduced-motion:reduce){.trinket{animation:none}}
+/* Entire expression above the sill; original foreground hooves overlap the rim. */
+.chapter-welcome .welcome-portrait{inset:0 0 23px;overflow:hidden;z-index:1}
+.chapter-welcome .welcome-portrait img{top:0;bottom:auto;max-height:none;width:130px;left:25px}
+.chapter-welcome[data-pony=rarity] .welcome-portrait img{width:112px;left:34px;top:0}
+.chapter-welcome[data-pony=pinkie] .welcome-portrait img{width:176px;left:2px;top:9px}
+.chapter-welcome[data-pony=fluttershy] .welcome-portrait{inset:0;overflow:visible;z-index:3}
+.chapter-welcome[data-pony=fluttershy] .welcome-portrait img{width:133px;max-height:166px;left:24px;top:auto;bottom:0}
+.welcome-frame-back{top:62px}.welcome-frame-front{z-index:2}
+.welcome-hooves{position:absolute;left:8px;right:8px;bottom:12px;height:19px;overflow:hidden;z-index:4;pointer-events:none}
+.welcome-hooves img{position:absolute;bottom:0;left:0;width:100%;height:auto;max-width:none}
+/* Use only the two original hoof regions; never repeat eyes or mane in the foreground. */
+#chapter-welcome .welcome-hooves{mask-image:linear-gradient(to right,#000 0 23%,transparent 23% 77%,#000 77% 100%);-webkit-mask-image:linear-gradient(to right,#000 0 23%,transparent 23% 77%,#000 77% 100%)}
+#chapter-welcome .welcome-hooves img{width:100%;height:auto;max-height:none;left:0;top:auto;bottom:0;object-fit:fill}
+.chapter-welcome[data-pony=pinkie] .welcome-portrait img{width:119px;left:30px;top:0}
+#chapter-welcome .welcome-hooves{mask-image:linear-gradient(to right,#000 0 19.5%,transparent 19.5% 80.5%,#000 80.5% 100%);-webkit-mask-image:linear-gradient(to right,#000 0 19.5%,transparent 19.5% 80.5%,#000 80.5% 100%)}
