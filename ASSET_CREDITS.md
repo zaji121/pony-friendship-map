@@ -233,3 +233,6 @@ Chrysalis emblem: project-native teal crown/wing SVG using mane palette, a chara
 DJ-PON3 character facts: https://www.equestriadaily.com/2016/05/pony-spotlight-17-dj-pon3.html and episode Slice of Life; https://www.symbiotestudios.com/products/my-little-pony-dj-pon-3-vinyl-scratch-plush (licensed product identity).
 
 Final selected substitutes after alpha-edge review: Daring Do/Rainbow transparent full-body vector (https://manebooru.art/images/1219605); Filthy Rich transparent full-body vector (https://manebooru.art/images/2029204); Diamond Tiara/Silver Spoon by Lumorn (https://www.pngkey.com/detail/u2r5r5t4w7u2r5r5_diamond-tiara-und-silver-spoon-by-lumorn-d50utt3/). Earlier Daring/Filthy/Diamond episode-cutout candidates are not used.
+
+Gummy eye-lick overlay: lick-transparent.png derives from the existing credited original animation clip lick-original.webm. Non-generative color-key alpha extraction preserves source shapes; APNG replaces the runtime video color filter for iOS compatibility.
+

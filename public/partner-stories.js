@@ -6,9 +6,11 @@ window.PONY_PARTNER_STORIES = [
  {roles:['starlight','trixie'],title:'星光熠熠与特丽克西 · 分歧与表达',episode:'All Bottled Up',story:'特丽克西练习魔法时把友谊地图传送走了。星光为了避免伤害友谊，将怒气封进瓶子，却让情绪意外影响了旁人。最后，她直接向特丽克西说明自己的不满，两人再一起面对问题。',insight:'维持关系也需要表达不满。把具体事件、造成的影响和希望怎样处理说清楚，能让对方知道要解决什么，而不只是感受到突然爆发的情绪。'},
  {roles:['pinkie-pie','cheese-sandwich','rainbow-dash'],title:'碧琪与芝士三明治 · 竞争与合作',episode:'Pinkie Pride',story:'为云宝筹备生日派对时，碧琪与芝士三明治开始比拼谁更会制造欢乐。发现竞争让云宝不开心后，碧琪停下来关注寿星的感受。芝士也说明碧琪曾带给自己的启发，最后两匹小马共同办好派对。',insight:'共同目标容易被输赢掩盖。合作出现竞争时，可以重新确认活动是为谁而做，再把各自擅长的部分放到同一个方案里。'},
  {roles:['sunburst','starlight'],title:'星光熠熠与日光耀耀 · 兴趣的变化',episode:'Uncommon Bond',story:'日光耀耀来访时，星光期待重新找回童年共同的兴趣，却发现他也能与其他朋友分享魔法、古物和游戏。她尝试重现小时候的相处，反而让日光感到不自在。两人后来重新寻找当下都愿意参与的活动。',insight:'关系中的共同点也会随成长变化。与其要求对方保持过去的样子，不如了解彼此现在喜欢什么，再创造新的共同经历。'},
- {roles:['luna','celestia','daybreaker'],title:'宇宙公主与月亮公主 · 看见彼此的负担',episode:'A Royal Problem',story:'两位公主都觉得对方的职责更轻松。星光交换了她们的可爱标志，让她们体验对方的工作：白天的公务与笑脸、夜里的梦境与危险。亲自面对这些困难后，她们开始理解彼此原先没有说出口的疲惫。',insight:'看到的成果并不包含全部付出。分工出现不满时，可以把各自的任务与压力列清楚，讨论具体支持，而不是只比较谁看起来更忙。'}
+ {roles:['luna','celestia'],title:'宇宙公主与月亮公主 · 看见彼此的负担',episode:'A Royal Problem',story:'两位公主都觉得对方的职责更轻松。星光交换了她们的可爱标志，让她们体验对方的工作：白天的公务与笑脸、夜里的梦境与危险。亲自面对这些困难后，她们开始理解彼此原先没有说出口的疲惫。',insight:'看到的成果并不包含全部付出。分工出现不满时，可以把各自的任务与压力列清楚，讨论具体支持，而不是只比较谁看起来更忙。'}
 ];
-// 为每位角色补充其已有剧情资料中的独立故事，优先当前角色，避免固定四张卡片。
+window.PONY_PARTNER_STORIES.push({roles:['dj-pon3'],title:'DJ-PON3 与奥塔维亚 · 两种音乐，一次合作',episode:'Slice of Life',story:'奥塔维亚为婚礼准备音乐时，DJ-PON3 用自己的设备加入。大提琴与电子节拍结合，两位音乐伙伴以不同的风格一起完成演出准备。',insight:'先确认共同作品需要什么，再说明各自擅长的部分。尊重差异可以落实成分工、试奏与调整。'});
+
+// 只展示当前角色实际参与的剧情，不用其他角色故事补齐卡片。
 (() => {
 const themes={
 twilight:['紫悦与旧友 · 修复疏远','重新联系时，先了解对方经历了什么，并为自己忽略的部分承担责任。'],
@@ -53,9 +55,8 @@ chrysalis:['虫茧女王与星光 · 拒绝改变','合作无法只靠一方提�
 'sunset-shimmer':['余晖烁烁与紫悦 · 理解新的处境','面对不了解的变化，先探索原因，再听取对方的经历，能为理解留出空间。']
 };
 const pool=[...window.PONY_PARTNER_STORIES];
-Object.entries(themes).forEach(([slug,[title,insight]])=>{const facts=window.CHARACTER_EVIDENCE?.[slug]?.facts||[];const fact=slug==='lyra'?{source:{originalTitle:'The Big Mac Question'},text:'天琴心弦向糖糖拿出求婚戒指时，糖糖也拿出了准备好的戒指。两匹小马在同一个时刻表达了彼此的承诺。'}:facts[0];if(fact)pool.push({roles:[slug],title,episode:fact.source.originalTitle,story:fact.text,insight});});
-window.selectPartnerStories=slug=>{const own=pool.filter(s=>s.roles.includes(slug));const others=pool.filter(s=>!s.roles.includes(slug));const seed=[...slug].reduce((n,c)=>n*31+c.charCodeAt(0),0)>>>0;const selected=own.slice(0,2);const used=new Set(selected.map(s=>s.episode));for(let i=0;i<others.length&&selected.length<4;i++){const candidate=others[(seed+i*7)%others.length];if(!used.has(candidate.episode)){selected.push(candidate);used.add(candidate.episode);}}for(const candidate of others){if(selected.length>=4)break;if(!used.has(candidate.episode)){selected.push(candidate);used.add(candidate.episode);}}return selected;};
+const factIndex={twilight:1,starlight:1,luna:1,'shining-armor':1,maud:1,scootaloo:1,chrysalis:1};
+Object.entries(themes).forEach(([slug,[title,insight]])=>{const facts=window.CHARACTER_EVIDENCE?.[slug]?.facts||[];const fact=slug==='lyra'?{source:{originalTitle:'The Big Mac Question'},text:'天琴心弦向糖糖拿出求婚戒指时，糖糖也拿出了准备好的戒指。两匹小马在同一个时刻表达了彼此的承诺。'}:facts[factIndex[slug]||0];if(fact)pool.push({roles:[slug],title,episode:fact.source.originalTitle,story:fact.text,insight});});
+window.selectPartnerStories=slug=>{const seen=new Set();return pool.filter(s=>s.roles.includes(slug)).filter(s=>{if(seen.has(s.episode))return false;seen.add(s.episode);return true;}).slice(0,4);};
 })();
 
-window.PONY_PARTNER_STORIES.push({roles:['dj-pon3'],title:'DJ-PON3 与奥塔维亚 · 两种音乐，一次合作',episode:'Slice of Life',story:'奥塔维亚为婚礼准备音乐时，DJ-PON3 用自己的设备加入。大提琴与电子节拍结合，两位音乐伙伴以不同的风格一起完成演出准备。',insight:'先确认共同作品需要什么，再说明各自擅长的部分。尊重差异可以落实成分工、试奏与调整。'});
-const originalStorySelector=window.selectPartnerStories;window.selectPartnerStories=slug=>slug==='dj-pon3'?[window.PONY_PARTNER_STORIES.at(-1),...originalStorySelector(slug).filter(s=>s.episode!=='Slice of Life')].slice(0,4):originalStorySelector(slug);

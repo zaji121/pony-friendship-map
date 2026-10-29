@@ -13,7 +13,9 @@
 .gummy-foot-shadow{display:none;position:absolute;left:28px;top:75px;width:65px;height:5px;border-radius:50%;background:#493d4b25;filter:blur(1px);z-index:1}.gummy-visit[data-phase="land"] .gummy-foot-shadow,.gummy-visit[data-phase="walk"] .gummy-foot-shadow{display:block}.gummy-harness path{stroke-width:.85}.gummy-grounded .gummy-character{position:relative;z-index:2}
 .gummy-visit[data-phase="pause"] .gummy-foot-shadow{display:block}
 .gummy-balloon img{display:block;width:39px;height:58px;pointer-events:none}.gummy-balloon.popped img{animation:gummy-pop .16s ease-out forwards}
-.gummy-original-lick{display:none;position:absolute;left:35px;top:0;width:96px;height:53.952px;z-index:5;pointer-events:none;filter:url(#gummy-original-tongue);clip-path:inset(12% 40% 5% 25%)}
-.gummy-visit[data-lick="true"] .gummy-original-lick{display:block}.gummy-video-filter{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
+.gummy-original-lick{display:none;position:absolute;left:35px;top:0;width:96px;height:53.952px;z-index:5;pointer-events:none;clip-path:inset(12% 40% 5% 25%)}
+.gummy-visit[data-lick="true"] .gummy-original-lick{display:block}
 
 .gummy-visit[data-phase="midpoint"] .gummy-foot-shadow{display:block}
+
+.gummy-visit,.gummy-body,.gummy-original-lick{background:transparent!important;border:0;box-shadow:none}.gummy-original-lick{filter:none!important}
