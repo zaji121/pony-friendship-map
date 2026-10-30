@@ -216,3 +216,8 @@ img{max-width:100%}
 .chapter-welcome[data-pony=fluttershy] .welcome-frame-back{inset:50px 14px 14px}
 .chapter-welcome[data-pony=fluttershy] .welcome-frame-front{bottom:14px}
 .chapter-welcome[data-pony=fluttershy] .welcome-portrait img{width:220px;left:16px}
+
+.chapter-welcome[data-pony=fluttershy] .welcome-portrait img{width:108px;left:36px;top:0}
+.chapter-welcome[data-pony=applejack]{--frame:#dfc38e;--frame-light:#fff9ed}
+.chapter-welcome[data-pony=applejack] .welcome-portrait{inset:0;overflow:visible;z-index:3}
+.chapter-welcome[data-pony=applejack] .welcome-portrait img{width:124px;height:124px;object-fit:contain;left:28px;top:25px;bottom:auto;max-height:none}

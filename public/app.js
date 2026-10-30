@@ -217,7 +217,7 @@
     {name:'紫悦',src:'/images/chapter-welcome/twilight-tilt.webp',pose:'twilight'},
     {name:'珍奇',src:'/images/chapter-welcome/rarity-front.webp',pose:'rarity'},
     {name:'碧琪',src:'/images/chapter-welcome/pinkie-smile.webp',pose:'pinkie'},
-    {name:'柔柔',src:'/images/chapter-welcome/fluttershy-stock.webp',pose:'fluttershy'}
+    {name:'苹果嘉儿',src:'/images/chapter-welcome/applejack-bust.webp',pose:'applejack'}
   ];
   const chapterHostImages=chapterHosts.map(host=>{const img=new Image();img.src=host.src;return img;});
   async function showChapterOpening(index){
@@ -401,7 +401,7 @@
     $('social-partner-tips').replaceChildren(...Object.entries(style.tips).map(([partnerKey,text])=>{const item=document.createElement('article');const title=document.createElement('strong');title.textContent=tipLabels[partnerKey];const copy=document.createElement('p');copy.textContent=text;item.append(title,copy);return item;}));
   }
   function renderCharacters(result) {
-    const grid=$('character-grid');grid.replaceChildren();const detail=$('character-detail');
+    const grid=$('character-grid');grid.replaceChildren();const detail=$('character-detail');const count=PONIES.filter(p=>!(window.INACTIVE_CHARACTERS||[]).includes(p.slug)).length;document.querySelector('.result-tab[data-tab=all] span').textContent=count;document.querySelector('.all-intro h2').textContent=count+' 位伙伴，各有自己的闪光方式';
     let dialog=document.getElementById('character-dialog');
     if(!dialog){
       dialog=document.createElement('dialog');dialog.id='character-dialog';dialog.className='character-dialog';
@@ -412,7 +412,7 @@
       dialog.addEventListener('close',()=>{document.body.style.overflow=dialog.dataset.previousOverflow||'';});
     }
     const order=["twilight","applejack","rainbow-dash","pinkie-pie","fluttershy","rarity","spike","starlight","sunset-shimmer","apple-bloom","sweetie-belle","scootaloo","diamond-tiara","cozy-glow","luna","celestia","discord","cadance","trixie","big-mac","shining-armor","zecora","granny-smith","sunburst","maud","pear-butter","bright-mac","bon-bon","lyra","dj-pon3","sugar-belle","daring-do","cheese-sandwich","filthy-rich","gilda","chrysalis","king-sombra","nightmare-moon","daybreaker","mistmane"];
-    order.map(slug=>({p:PONIES.find(p=>p.slug===slug),i:PONIES.findIndex(p=>p.slug===slug)})).filter(x=>x.p).forEach(({p,i})=>{const card=document.createElement('button');card.type='button';card.className='character-card'+(i===result.primary?' is-primary':i===result.secondary?' is-secondary':'');const colors=ROLE_COLORS[p.slug]||ROLE_COLORS.twilight;card.style.setProperty('--pony-accent',colors[0]);card.style.setProperty('--pony-soft',colors[1]);
+    order.map(slug=>({p:PONIES.find(p=>p.slug===slug),i:PONIES.findIndex(p=>p.slug===slug)})).filter(x=>x.p&&!(window.INACTIVE_CHARACTERS||[]).includes(x.p.slug)).forEach(({p,i})=>{const card=document.createElement('button');card.type='button';card.className='character-card'+(i===result.primary?' is-primary':i===result.secondary?' is-secondary':'');const colors=ROLE_COLORS[p.slug]||ROLE_COLORS.twilight;card.style.setProperty('--pony-accent',colors[0]);card.style.setProperty('--pony-soft',colors[1]);
       if(p.slug==='flurry-heart'){const note=document.createElement('span');note.className='character-en';note.textContent='成熟形象 · 同人演绎｜仅供角色展示';card.append(note);}
       const art=document.createElement('span');art.className='character-art-mini';art.append(ponyImage(p,'pony-photo-mini'));const icon=document.createElement('span');icon.className='character-mark';icon.innerHTML=markSvg(p.mark);const name=document.createElement('span');name.className='character-name';name.textContent=p.name;const en=document.createElement('span');en.className='character-en';en.textContent=p.en;const desc=document.createElement('span');desc.className='character-archetype';desc.textContent=p.archetype;card.append(art,icon,name,en,desc);
       if(i===result.primary||i===result.secondary){const badge=document.createElement('span');badge.className='character-badge';badge.textContent=i===result.primary?'你的主角色':'你的副角色';card.append(badge);}
@@ -552,8 +552,8 @@
     finally{btn.disabled=false;btn.textContent='✦ 保存结果长图';}
   }
   async function loadShared(id){
-    $('shared-status-title').textContent='正在打开结果';$('shared-status-message').textContent='正在读取这份友谊地图，请稍候…';$('shared-retry').hidden=true;showView('shared-status');
-    try{const result=await api('/api/result/'+encodeURIComponent(id));if(!Number.isInteger(result.primary)||!PONIES[result.primary])throw new Error('这份结果的数据不完整。');state.resultId=id;state.result=result;state.shared=true;renderResult(result);showView('result');history.replaceState(null,'',resultLink(id));}
+    $('shared-status-title').textContent='正在打开结果';$('shared-status-message').textContent='正在读取这份友谊地图，请稍候…';$('shared-retry').hidden=true;$('shared-retry').textContent='重新读取';showView('shared-status');
+    try{const result=await api('/api/result/'+encodeURIComponent(id));if(!Number.isInteger(result.primary)||!PONIES[result.primary])throw new Error('这份结果的数据不完整。');if([result.primary,result.secondary].some(i=>PONIES[i]?.slug==='dj-pon3')){$('shared-status-title').textContent='这份旧结果包含已移除的角色';$('shared-status-message').textContent='DJ-PON3 已退出当前匹配名单。这份历史记录没有被改成其他角色；你可以按当前名单重新测评。';$('shared-retry').hidden=false;$('shared-retry').textContent='开始新的测评';$('shared-retry').onclick=()=>{history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');startQuiz();};return;}state.resultId=id;state.result=result;state.shared=true;renderResult(result);showView('result');history.replaceState(null,'',resultLink(id));}
     catch(err){$('shared-status-title').textContent='这份结果暂时未能打开';$('shared-status-message').textContent=(err.message||'网络暂时不可用。')+' 请点击下方按钮重新读取，无需重新答题。';$('shared-retry').hidden=false;$('shared-retry').onclick=()=>loadShared(id);}
   }
   $('start-button').addEventListener('click',startQuiz);
