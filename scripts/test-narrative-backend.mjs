@@ -18,4 +18,19 @@ for(const edition of [prior,report])for(const witness of edition.witnesses){
 }
 assert.throws(()=>scoreAnswers(Array(48).fill(0),{version:'bad',choices:[],followups:[]}));
 assert.throws(()=>scoreAnswers(Array(48).fill(0),{version:report.version,choices:report.witnesses[0].choices,followups:[{left:'care',right:'care',choice:'left'}]}));
+const compact=JSON.parse(fs.readFileSync(new URL('../docs/narrative-form-48-audit.json',import.meta.url),'utf8'));
+for(const witness of compact.witnesses){
+ const input={version:compact.modelVersion,formVersion:compact.formVersion,selectionMode:'single',choices:witness.choices,finalAnswers:witness.finalAnswers};
+ const result=scoreAnswers(witness.answers,input);
+ assert.equal(result.narrative.primary.slug,witness.slug);
+ assert.equal(result.matchingVersion,compact.formVersion);
+ assert.equal(result.itemsPerAxis,8);assert.equal(result.sensitivity.items,32);
+ assert.equal(result.answers.length,32);assert.deepEqual(result.answers,witness.answers);
+ assert.deepEqual(result.scores,witness.scores);assert.deepEqual(scoreAnswers(witness.answers,input),result);
+ assert.throws(()=>scoreAnswers(witness.answers.slice(1),input));
+ assert.throws(()=>scoreAnswers(witness.answers,{...input,finalAnswers:[]}));
+ assert.throws(()=>scoreAnswers(witness.answers,{...input,choices:input.choices.map((c,i)=>i===14?{first:0,second:null}:c)}));
+ assert.throws(()=>scoreAnswers(witness.answers,{...input,choices:input.choices.map((c,i)=>i===0?{first:0,second:1}:c)}));
+}
+console.log('48-total form: all 36 strict witnesses, 32 real core answers, 8 items per axis, deterministic adaptive replay and malformed inputs passed.');
 console.log('Generated backend: all 36 witnesses in BOTH narrative editions, unchanged legacy scoring, score/answer preservation, deterministic replay and invalid context rejection passed.');
