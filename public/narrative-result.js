@@ -1,7 +1,7 @@
 // Shared assembly: older inputs retain their scoring path.
 (function(w){
 w.PONY_NARRATIVE_SCORE=function(answers,narrative){
- const form=w.PONY_QUIZ_48,isForm=!!form&&narrative?.formVersion===form.version;
+ const form=narrative?.formVersion===w.PONY_QUIZ_48_V1?.version?w.PONY_QUIZ_48_V1:w.PONY_QUIZ_48,isForm=!!form&&narrative?.formVersion===form.version;
  if(narrative?.formVersion!==undefined&&!isForm)throw Error('题目版本已更新，请重新打开测评。');
  const base=isForm?form.scoreCore(answers):w.PONY_SCORE(w.QUIZ_QUESTIONS,w.CHARACTER_SLUGS,w.PREFERENCE_PROFILES,answers);
  if(narrative===undefined)return base;

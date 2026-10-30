@@ -1,6 +1,6 @@
 {
-  "version": "festival-48-single-20261030-v1",
-  "formVersion": "festival-48-single-20261030-v1",
+  "version": "festival-48-single-20261030-v2",
+  "formVersion": "festival-48-single-20261030-v2",
   "modelVersion": "narrative-content-20261030-v3",
   "inputMode": "single",
   "trials": 20000,
@@ -14,12 +14,12 @@
   "assumptions": "Independent fair binary core choices; 14 uniform single-choice tasks; each of the final two slots is either a uniform task choice or a uniform adaptive response.",
   "eligibleRoles": 36,
   "uniqueWitnesses": 36,
-  "closeShare": 0.53735,
-  "mainSixShare": 0.24075,
-  "topThreeShare": 0.203,
+  "closeShare": 0.5394,
+  "mainSixShare": 0.2699,
+  "topThreeShare": 0.20654999999999998,
   "followupSimulation": {
-    "closeShareAfter": 0.4207,
-    "meanQuestions": 0.91495,
+    "closeShareAfter": 0.42425,
+    "meanQuestions": 0.91515,
     "insideTotal": true
   },
   "tiePreference": "main-six-only-on-exact-equality",
@@ -27,433 +27,433 @@
     {
       "slug": "sweetie-belle",
       "name": "甜心宝宝",
-      "count": 1513,
-      "afterFollowup": 1484,
-      "secondary": 659,
+      "count": 1735,
+      "afterFollowup": 1691,
+      "secondary": 665,
       "baseline": 1192,
-      "share": 0.07565,
-      "afterFollowupShare": 0.0742,
-      "secondaryShare": 0.03295,
+      "share": 0.08675,
+      "afterFollowupShare": 0.08455,
+      "secondaryShare": 0.03325,
       "baselineShare": 0.0596
     },
     {
       "slug": "daring-do",
       "name": "无畏天马",
-      "count": 1304,
-      "afterFollowup": 1307,
-      "secondary": 970,
+      "count": 1278,
+      "afterFollowup": 1245,
+      "secondary": 971,
       "baseline": 55,
-      "share": 0.0652,
-      "afterFollowupShare": 0.06535,
-      "secondaryShare": 0.0485,
+      "share": 0.0639,
+      "afterFollowupShare": 0.06225,
+      "secondaryShare": 0.04855,
       "baselineShare": 0.00275
     },
     {
       "slug": "rarity",
       "name": "珍奇",
-      "count": 1291,
-      "afterFollowup": 1269,
-      "secondary": 734,
+      "count": 1194,
+      "afterFollowup": 1195,
+      "secondary": 657,
       "baseline": 180,
-      "share": 0.06455,
-      "afterFollowupShare": 0.06345,
-      "secondaryShare": 0.0367,
+      "share": 0.0597,
+      "afterFollowupShare": 0.05975,
+      "secondaryShare": 0.03285,
       "baselineShare": 0.009
     },
     {
       "slug": "rainbow-dash",
       "name": "云宝",
-      "count": 1042,
-      "afterFollowup": 1035,
-      "secondary": 816,
+      "count": 1181,
+      "afterFollowup": 1193,
+      "secondary": 887,
       "baseline": 26,
-      "share": 0.0521,
-      "afterFollowupShare": 0.05175,
-      "secondaryShare": 0.0408,
+      "share": 0.05905,
+      "afterFollowupShare": 0.05965,
+      "secondaryShare": 0.04435,
       "baselineShare": 0.0013
-    },
-    {
-      "slug": "discord",
-      "name": "无序",
-      "count": 991,
-      "afterFollowup": 1024,
-      "secondary": 693,
-      "baseline": 49,
-      "share": 0.04955,
-      "afterFollowupShare": 0.0512,
-      "secondaryShare": 0.03465,
-      "baselineShare": 0.00245
-    },
-    {
-      "slug": "cheese-sandwich",
-      "name": "芝士三明治",
-      "count": 920,
-      "afterFollowup": 910,
-      "secondary": 1206,
-      "baseline": 47,
-      "share": 0.046,
-      "afterFollowupShare": 0.0455,
-      "secondaryShare": 0.0603,
-      "baselineShare": 0.00235
-    },
-    {
-      "slug": "starlight",
-      "name": "星光熠熠",
-      "count": 822,
-      "afterFollowup": 831,
-      "secondary": 643,
-      "baseline": 1778,
-      "share": 0.0411,
-      "afterFollowupShare": 0.04155,
-      "secondaryShare": 0.03215,
-      "baselineShare": 0.0889
-    },
-    {
-      "slug": "maud",
-      "name": "灰琪",
-      "count": 807,
-      "afterFollowup": 824,
-      "secondary": 852,
-      "baseline": 1,
-      "share": 0.04035,
-      "afterFollowupShare": 0.0412,
-      "secondaryShare": 0.0426,
-      "baselineShare": 0.00005
-    },
-    {
-      "slug": "scootaloo",
-      "name": "醒目露露",
-      "count": 795,
-      "afterFollowup": 775,
-      "secondary": 832,
-      "baseline": 240,
-      "share": 0.03975,
-      "afterFollowupShare": 0.03875,
-      "secondaryShare": 0.0416,
-      "baselineShare": 0.012
-    },
-    {
-      "slug": "twilight",
-      "name": "紫悦",
-      "count": 703,
-      "afterFollowup": 756,
-      "secondary": 709,
-      "baseline": 93,
-      "share": 0.03515,
-      "afterFollowupShare": 0.0378,
-      "secondaryShare": 0.03545,
-      "baselineShare": 0.00465
     },
     {
       "slug": "applejack",
       "name": "苹果嘉儿",
-      "count": 765,
-      "afterFollowup": 721,
-      "secondary": 779,
+      "count": 1104,
+      "afterFollowup": 1013,
+      "secondary": 933,
       "baseline": 41,
-      "share": 0.03825,
-      "afterFollowupShare": 0.03605,
-      "secondaryShare": 0.03895,
+      "share": 0.0552,
+      "afterFollowupShare": 0.05065,
+      "secondaryShare": 0.04665,
       "baselineShare": 0.00205
+    },
+    {
+      "slug": "scootaloo",
+      "name": "醒目露露",
+      "count": 964,
+      "afterFollowup": 954,
+      "secondary": 985,
+      "baseline": 240,
+      "share": 0.0482,
+      "afterFollowupShare": 0.0477,
+      "secondaryShare": 0.04925,
+      "baselineShare": 0.012
+    },
+    {
+      "slug": "zecora",
+      "name": "可拉",
+      "count": 1018,
+      "afterFollowup": 951,
+      "secondary": 745,
+      "baseline": 1616,
+      "share": 0.0509,
+      "afterFollowupShare": 0.04755,
+      "secondaryShare": 0.03725,
+      "baselineShare": 0.0808
+    },
+    {
+      "slug": "cheese-sandwich",
+      "name": "芝士三明治",
+      "count": 822,
+      "afterFollowup": 830,
+      "secondary": 1174,
+      "baseline": 47,
+      "share": 0.0411,
+      "afterFollowupShare": 0.0415,
+      "secondaryShare": 0.0587,
+      "baselineShare": 0.00235
+    },
+    {
+      "slug": "twilight",
+      "name": "紫悦",
+      "count": 817,
+      "afterFollowup": 798,
+      "secondary": 731,
+      "baseline": 93,
+      "share": 0.04085,
+      "afterFollowupShare": 0.0399,
+      "secondaryShare": 0.03655,
+      "baselineShare": 0.00465
+    },
+    {
+      "slug": "discord",
+      "name": "无序",
+      "count": 682,
+      "afterFollowup": 733,
+      "secondary": 533,
+      "baseline": 49,
+      "share": 0.0341,
+      "afterFollowupShare": 0.03665,
+      "secondaryShare": 0.02665,
+      "baselineShare": 0.00245
     },
     {
       "slug": "sunset-shimmer",
       "name": "余晖烁烁",
-      "count": 730,
-      "afterFollowup": 709,
-      "secondary": 597,
+      "count": 729,
+      "afterFollowup": 694,
+      "secondary": 590,
       "baseline": 1428,
-      "share": 0.0365,
-      "afterFollowupShare": 0.03545,
-      "secondaryShare": 0.02985,
+      "share": 0.03645,
+      "afterFollowupShare": 0.0347,
+      "secondaryShare": 0.0295,
       "baselineShare": 0.0714
+    },
+    {
+      "slug": "chrysalis",
+      "name": "虫茧女王",
+      "count": 658,
+      "afterFollowup": 676,
+      "secondary": 467,
+      "baseline": 109,
+      "share": 0.0329,
+      "afterFollowupShare": 0.0338,
+      "secondaryShare": 0.02335,
+      "baselineShare": 0.00545
+    },
+    {
+      "slug": "shining-armor",
+      "name": "闪耀盔甲",
+      "count": 672,
+      "afterFollowup": 675,
+      "secondary": 643,
+      "baseline": 6,
+      "share": 0.0336,
+      "afterFollowupShare": 0.03375,
+      "secondaryShare": 0.03215,
+      "baselineShare": 0.0003
     },
     {
       "slug": "sugar-belle",
       "name": "舒歌贝",
-      "count": 707,
-      "afterFollowup": 644,
-      "secondary": 448,
+      "count": 703,
+      "afterFollowup": 653,
+      "secondary": 442,
       "baseline": 131,
-      "share": 0.03535,
-      "afterFollowupShare": 0.0322,
-      "secondaryShare": 0.0224,
+      "share": 0.03515,
+      "afterFollowupShare": 0.03265,
+      "secondaryShare": 0.0221,
       "baselineShare": 0.00655
     },
     {
       "slug": "sunburst",
       "name": "日光耀耀",
-      "count": 706,
-      "afterFollowup": 642,
-      "secondary": 894,
+      "count": 649,
+      "afterFollowup": 629,
+      "secondary": 872,
       "baseline": 178,
-      "share": 0.0353,
-      "afterFollowupShare": 0.0321,
-      "secondaryShare": 0.0447,
+      "share": 0.03245,
+      "afterFollowupShare": 0.03145,
+      "secondaryShare": 0.0436,
       "baselineShare": 0.0089
-    },
-    {
-      "slug": "zecora",
-      "name": "可拉",
-      "count": 669,
-      "afterFollowup": 637,
-      "secondary": 721,
-      "baseline": 1616,
-      "share": 0.03345,
-      "afterFollowupShare": 0.03185,
-      "secondaryShare": 0.03605,
-      "baselineShare": 0.0808
-    },
-    {
-      "slug": "shining-armor",
-      "name": "闪耀盔甲",
-      "count": 632,
-      "afterFollowup": 632,
-      "secondary": 565,
-      "baseline": 6,
-      "share": 0.0316,
-      "afterFollowupShare": 0.0316,
-      "secondaryShare": 0.02825,
-      "baselineShare": 0.0003
     },
     {
       "slug": "fluttershy",
       "name": "柔柔",
-      "count": 586,
-      "afterFollowup": 595,
-      "secondary": 539,
+      "count": 604,
+      "afterFollowup": 620,
+      "secondary": 588,
       "baseline": 121,
-      "share": 0.0293,
-      "afterFollowupShare": 0.02975,
-      "secondaryShare": 0.02695,
+      "share": 0.0302,
+      "afterFollowupShare": 0.031,
+      "secondaryShare": 0.0294,
       "baselineShare": 0.00605
     },
     {
-      "slug": "trixie",
-      "name": "特丽克西",
-      "count": 537,
-      "afterFollowup": 556,
-      "secondary": 696,
-      "baseline": 900,
-      "share": 0.02685,
-      "afterFollowupShare": 0.0278,
-      "secondaryShare": 0.0348,
-      "baselineShare": 0.045
-    },
-    {
-      "slug": "apple-bloom",
-      "name": "苹果丽丽",
-      "count": 557,
-      "afterFollowup": 553,
-      "secondary": 389,
-      "baseline": 2481,
-      "share": 0.02785,
-      "afterFollowupShare": 0.02765,
-      "secondaryShare": 0.01945,
-      "baselineShare": 0.12405
-    },
-    {
-      "slug": "chrysalis",
-      "name": "虫茧女王",
-      "count": 492,
-      "afterFollowup": 518,
-      "secondary": 491,
-      "baseline": 109,
-      "share": 0.0246,
-      "afterFollowupShare": 0.0259,
-      "secondaryShare": 0.02455,
-      "baselineShare": 0.00545
+      "slug": "maud",
+      "name": "灰琪",
+      "count": 564,
+      "afterFollowup": 614,
+      "secondary": 751,
+      "baseline": 1,
+      "share": 0.0282,
+      "afterFollowupShare": 0.0307,
+      "secondaryShare": 0.03755,
+      "baselineShare": 0.00005
     },
     {
       "slug": "pinkie-pie",
       "name": "碧琪",
-      "count": 398,
-      "afterFollowup": 439,
-      "secondary": 980,
+      "count": 548,
+      "afterFollowup": 579,
+      "secondary": 1031,
       "baseline": 7,
-      "share": 0.0199,
-      "afterFollowupShare": 0.02195,
-      "secondaryShare": 0.049,
+      "share": 0.0274,
+      "afterFollowupShare": 0.02895,
+      "secondaryShare": 0.05155,
       "baselineShare": 0.00035
+    },
+    {
+      "slug": "starlight",
+      "name": "星光熠熠",
+      "count": 550,
+      "afterFollowup": 559,
+      "secondary": 497,
+      "baseline": 1778,
+      "share": 0.0275,
+      "afterFollowupShare": 0.02795,
+      "secondaryShare": 0.02485,
+      "baselineShare": 0.0889
     },
     {
       "slug": "gilda",
       "name": "吉尔达",
-      "count": 463,
-      "afterFollowup": 430,
-      "secondary": 577,
+      "count": 425,
+      "afterFollowup": 408,
+      "secondary": 597,
       "baseline": 1153,
-      "share": 0.02315,
-      "afterFollowupShare": 0.0215,
-      "secondaryShare": 0.02885,
+      "share": 0.02125,
+      "afterFollowupShare": 0.0204,
+      "secondaryShare": 0.02985,
       "baselineShare": 0.05765
     },
     {
-      "slug": "king-sombra",
-      "name": "黑水晶",
-      "count": 362,
-      "afterFollowup": 372,
-      "secondary": 388,
-      "baseline": 0,
-      "share": 0.0181,
-      "afterFollowupShare": 0.0186,
-      "secondaryShare": 0.0194,
-      "baselineShare": 0
+      "slug": "apple-bloom",
+      "name": "苹果丽丽",
+      "count": 369,
+      "afterFollowup": 356,
+      "secondary": 354,
+      "baseline": 2481,
+      "share": 0.01845,
+      "afterFollowupShare": 0.0178,
+      "secondaryShare": 0.0177,
+      "baselineShare": 0.12405
     },
     {
-      "slug": "cozy-glow",
-      "name": "可西光辉",
-      "count": 341,
-      "afterFollowup": 338,
-      "secondary": 422,
-      "baseline": 27,
-      "share": 0.01705,
-      "afterFollowupShare": 0.0169,
-      "secondaryShare": 0.0211,
-      "baselineShare": 0.00135
-    },
-    {
-      "slug": "granny-smith",
-      "name": "史密夫婆婆",
-      "count": 313,
-      "afterFollowup": 331,
-      "secondary": 367,
-      "baseline": 109,
-      "share": 0.01565,
-      "afterFollowupShare": 0.01655,
-      "secondaryShare": 0.01835,
-      "baselineShare": 0.00545
-    },
-    {
-      "slug": "celestia",
-      "name": "宇宙公主",
-      "count": 250,
-      "afterFollowup": 242,
-      "secondary": 433,
-      "baseline": 115,
-      "share": 0.0125,
-      "afterFollowupShare": 0.0121,
-      "secondaryShare": 0.02165,
-      "baselineShare": 0.00575
-    },
-    {
-      "slug": "diamond-tiara",
-      "name": "珠玉冠冠",
-      "count": 236,
-      "afterFollowup": 235,
-      "secondary": 268,
-      "baseline": 1036,
-      "share": 0.0118,
-      "afterFollowupShare": 0.01175,
-      "secondaryShare": 0.0134,
-      "baselineShare": 0.0518
-    },
-    {
-      "slug": "pear-butter",
-      "name": "梨子酱",
-      "count": 172,
-      "afterFollowup": 218,
-      "secondary": 529,
-      "baseline": 253,
-      "share": 0.0086,
-      "afterFollowupShare": 0.0109,
-      "secondaryShare": 0.02645,
-      "baselineShare": 0.01265
+      "slug": "trixie",
+      "name": "特丽克西",
+      "count": 315,
+      "afterFollowup": 352,
+      "secondary": 536,
+      "baseline": 900,
+      "share": 0.01575,
+      "afterFollowupShare": 0.0176,
+      "secondaryShare": 0.0268,
+      "baselineShare": 0.045
     },
     {
       "slug": "big-mac",
       "name": "麦托什",
-      "count": 192,
-      "afterFollowup": 203,
-      "secondary": 335,
+      "count": 316,
+      "afterFollowup": 335,
+      "secondary": 453,
       "baseline": 2,
-      "share": 0.0096,
-      "afterFollowupShare": 0.01015,
-      "secondaryShare": 0.01675,
+      "share": 0.0158,
+      "afterFollowupShare": 0.01675,
+      "secondaryShare": 0.02265,
       "baselineShare": 0.0001
     },
     {
-      "slug": "luna",
-      "name": "月亮公主",
-      "count": 171,
-      "afterFollowup": 184,
-      "secondary": 336,
-      "baseline": 310,
-      "share": 0.00855,
-      "afterFollowupShare": 0.0092,
-      "secondaryShare": 0.0168,
-      "baselineShare": 0.0155
+      "slug": "granny-smith",
+      "name": "史密夫婆婆",
+      "count": 262,
+      "afterFollowup": 293,
+      "secondary": 317,
+      "baseline": 109,
+      "share": 0.0131,
+      "afterFollowupShare": 0.01465,
+      "secondaryShare": 0.01585,
+      "baselineShare": 0.00545
     },
     {
-      "slug": "bon-bon",
-      "name": "糖糖",
-      "count": 134,
-      "afterFollowup": 156,
-      "secondary": 201,
-      "baseline": 2479,
-      "share": 0.0067,
-      "afterFollowupShare": 0.0078,
-      "secondaryShare": 0.01005,
-      "baselineShare": 0.12395
+      "slug": "cozy-glow",
+      "name": "可西光辉",
+      "count": 295,
+      "afterFollowup": 289,
+      "secondary": 415,
+      "baseline": 27,
+      "share": 0.01475,
+      "afterFollowupShare": 0.01445,
+      "secondaryShare": 0.02075,
+      "baselineShare": 0.00135
     },
     {
-      "slug": "filthy-rich",
-      "name": "富豪",
-      "count": 134,
-      "afterFollowup": 145,
-      "secondary": 239,
-      "baseline": 295,
-      "share": 0.0067,
-      "afterFollowupShare": 0.00725,
-      "secondaryShare": 0.01195,
-      "baselineShare": 0.01475
+      "slug": "pear-butter",
+      "name": "梨子酱",
+      "count": 245,
+      "afterFollowup": 282,
+      "secondary": 640,
+      "baseline": 253,
+      "share": 0.01225,
+      "afterFollowupShare": 0.0141,
+      "secondaryShare": 0.032,
+      "baselineShare": 0.01265
     },
     {
-      "slug": "spike",
-      "name": "穗龙",
-      "count": 87,
-      "afterFollowup": 99,
-      "secondary": 172,
-      "baseline": 36,
-      "share": 0.00435,
-      "afterFollowupShare": 0.00495,
-      "secondaryShare": 0.0086,
-      "baselineShare": 0.0018
-    },
-    {
-      "slug": "cadance",
-      "name": "音韵公主",
-      "count": 78,
-      "afterFollowup": 86,
-      "secondary": 283,
-      "baseline": 37,
-      "share": 0.0039,
-      "afterFollowupShare": 0.0043,
-      "secondaryShare": 0.01415,
-      "baselineShare": 0.00185
+      "slug": "celestia",
+      "name": "宇宙公主",
+      "count": 236,
+      "afterFollowup": 263,
+      "secondary": 475,
+      "baseline": 115,
+      "share": 0.0118,
+      "afterFollowupShare": 0.01315,
+      "secondaryShare": 0.02375,
+      "baselineShare": 0.00575
     },
     {
       "slug": "bright-mac",
       "name": "辉麦",
-      "count": 82,
-      "afterFollowup": 82,
-      "secondary": 198,
+      "count": 237,
+      "afterFollowup": 222,
+      "secondary": 316,
       "baseline": 269,
-      "share": 0.0041,
-      "afterFollowupShare": 0.0041,
-      "secondaryShare": 0.0099,
+      "share": 0.01185,
+      "afterFollowupShare": 0.0111,
+      "secondaryShare": 0.0158,
       "baselineShare": 0.01345
+    },
+    {
+      "slug": "luna",
+      "name": "月亮公主",
+      "count": 167,
+      "afterFollowup": 180,
+      "secondary": 356,
+      "baseline": 310,
+      "share": 0.00835,
+      "afterFollowupShare": 0.009,
+      "secondaryShare": 0.0178,
+      "baselineShare": 0.0155
+    },
+    {
+      "slug": "filthy-rich",
+      "name": "富豪",
+      "count": 159,
+      "afterFollowup": 165,
+      "secondary": 291,
+      "baseline": 295,
+      "share": 0.00795,
+      "afterFollowupShare": 0.00825,
+      "secondaryShare": 0.01455,
+      "baselineShare": 0.01475
+    },
+    {
+      "slug": "diamond-tiara",
+      "name": "珠玉冠冠",
+      "count": 120,
+      "afterFollowup": 141,
+      "secondary": 197,
+      "baseline": 1036,
+      "share": 0.006,
+      "afterFollowupShare": 0.00705,
+      "secondaryShare": 0.00985,
+      "baselineShare": 0.0518
+    },
+    {
+      "slug": "king-sombra",
+      "name": "黑水晶",
+      "count": 128,
+      "afterFollowup": 138,
+      "secondary": 282,
+      "baseline": 0,
+      "share": 0.0064,
+      "afterFollowupShare": 0.0069,
+      "secondaryShare": 0.0141,
+      "baselineShare": 0
+    },
+    {
+      "slug": "cadance",
+      "name": "音韵公主",
+      "count": 117,
+      "afterFollowup": 117,
+      "secondary": 291,
+      "baseline": 37,
+      "share": 0.00585,
+      "afterFollowupShare": 0.00585,
+      "secondaryShare": 0.01455,
+      "baselineShare": 0.00185
+    },
+    {
+      "slug": "bon-bon",
+      "name": "糖糖",
+      "count": 91,
+      "afterFollowup": 94,
+      "secondary": 184,
+      "baseline": 2479,
+      "share": 0.00455,
+      "afterFollowupShare": 0.0047,
+      "secondaryShare": 0.0092,
+      "baselineShare": 0.12395
+    },
+    {
+      "slug": "spike",
+      "name": "穗龙",
+      "count": 46,
+      "afterFollowup": 58,
+      "secondary": 120,
+      "baseline": 36,
+      "share": 0.0023,
+      "afterFollowupShare": 0.0029,
+      "secondaryShare": 0.006,
+      "baselineShare": 0.0018
     },
     {
       "slug": "lyra",
       "name": "天琴心弦",
-      "count": 18,
-      "afterFollowup": 18,
-      "secondary": 39,
+      "count": 0,
+      "afterFollowup": 5,
+      "secondary": 14,
       "baseline": 3200,
-      "share": 0.0009,
-      "afterFollowupShare": 0.0009,
-      "secondaryShare": 0.00195,
+      "share": 0,
+      "afterFollowupShare": 0.00025,
+      "secondaryShare": 0.0007,
       "baselineShare": 0.16
     }
   ],
@@ -507,7 +507,7 @@
           "second": null
         },
         {
-          "first": 1,
+          "first": 0,
           "second": null
         },
         {
@@ -579,7 +579,7 @@
       ],
       "primary": "twilight",
       "strict": true,
-      "margin": 0.11660223032547345,
+      "margin": 0.13787416086335802,
       "limitedEvidence": false
     },
     {
@@ -631,7 +631,7 @@
           "second": null
         },
         {
-          "first": 0,
+          "first": 1,
           "second": null
         },
         {
@@ -679,7 +679,7 @@
           "second": null
         },
         {
-          "first": 3,
+          "first": 1,
           "second": null
         },
         {
@@ -703,7 +703,7 @@
       ],
       "primary": "applejack",
       "strict": true,
-      "margin": 0.1690563143986049,
+      "margin": 0.1313342595335827,
       "limitedEvidence": false
     },
     {
@@ -755,11 +755,11 @@
           "second": null
         },
         {
-          "first": 0,
+          "first": 2,
           "second": null
         },
         {
-          "first": 0,
+          "first": 3,
           "second": null
         },
         {
@@ -803,7 +803,7 @@
           "second": null
         },
         {
-          "first": 1,
+          "first": 0,
           "second": null
         },
         {
@@ -827,7 +827,7 @@
       ],
       "primary": "rainbow-dash",
       "strict": true,
-      "margin": 0.12397911925447103,
+      "margin": 0.07401883369330642,
       "limitedEvidence": false
     },
     {
@@ -879,7 +879,7 @@
           "second": null
         },
         {
-          "first": 2,
+          "first": 3,
           "second": null
         },
         {
@@ -941,8 +941,8 @@
       ],
       "finalAnswers": [
         {
-          "kind": "followup",
-          "choice": "left"
+          "kind": "task",
+          "first": 3
         },
         {
           "kind": "task",
@@ -951,7 +951,7 @@
       ],
       "primary": "pinkie-pie",
       "strict": true,
-      "margin": 0.06534655111626997,
+      "margin": 0.05573407781380679,
       "limitedEvidence": false
     },
     {
@@ -1003,11 +1003,11 @@
           "second": null
         },
         {
-          "first": 3,
+          "first": 1,
           "second": null
         },
         {
-          "first": 2,
+          "first": 1,
           "second": null
         },
         {
@@ -1075,7 +1075,7 @@
       ],
       "primary": "fluttershy",
       "strict": true,
-      "margin": 0.2514730973270116,
+      "margin": 0.24559221804046494,
       "limitedEvidence": false
     },
     {
@@ -1159,7 +1159,7 @@
           "second": null
         },
         {
-          "first": 2,
+          "first": 3,
           "second": null
         },
         {
@@ -1175,7 +1175,7 @@
           "second": null
         },
         {
-          "first": 1,
+          "first": 3,
           "second": null
         },
         {
@@ -1199,7 +1199,7 @@
       ],
       "primary": "rarity",
       "strict": true,
-      "margin": 0.25905111793563074,
+      "margin": 0.26589962093100417,
       "limitedEvidence": false
     },
     {
@@ -1251,11 +1251,11 @@
           "second": null
         },
         {
-          "first": 2,
+          "first": 0,
           "second": null
         },
         {
-          "first": 2,
+          "first": 0,
           "second": null
         },
         {
@@ -1323,7 +1323,7 @@
       ],
       "primary": "starlight",
       "strict": true,
-      "margin": 0.1036057602150029,
+      "margin": 0.054537680480170825,
       "limitedEvidence": false
     },
     {
@@ -1375,11 +1375,11 @@
           "second": null
         },
         {
-          "first": 0,
+          "first": 1,
           "second": null
         },
         {
-          "first": 2,
+          "first": 1,
           "second": null
         },
         {
@@ -1447,7 +1447,7 @@
       ],
       "primary": "spike",
       "strict": true,
-      "margin": 0.06710308722286062,
+      "margin": 0.04810648753417257,
       "limitedEvidence": false
     },
     {
@@ -1499,11 +1499,11 @@
           "second": null
         },
         {
-          "first": 2,
+          "first": 3,
           "second": null
         },
         {
-          "first": 2,
+          "first": 0,
           "second": null
         },
         {
@@ -1571,7 +1571,7 @@
       ],
       "primary": "luna",
       "strict": true,
-      "margin": 0.14183081980938028,
+      "margin": 0.13946868538845636,
       "limitedEvidence": false
     },
     {
@@ -1627,7 +1627,7 @@
           "second": null
         },
         {
-          "first": 2,
+          "first": 0,
           "second": null
         },
         {
@@ -1695,7 +1695,7 @@
       ],
       "primary": "cadance",
       "strict": true,
-      "margin": 0.13263482094473344,
+      "margin": 0.12962541129092342,
       "limitedEvidence": false
     },
     {
@@ -1747,7 +1747,7 @@
           "second": null
         },
         {
-          "first": 2,
+          "first": 0,
           "second": null
         },
         {
@@ -1779,7 +1779,7 @@
           "second": null
         },
         {
-          "first": 3,
+          "first": 0,
           "second": null
         },
         {
@@ -1795,7 +1795,7 @@
           "second": null
         },
         {
-          "first": 1,
+          "first": 3,
           "second": null
         },
         {
@@ -1819,7 +1819,7 @@
       ],
       "primary": "discord",
       "strict": true,
-      "margin": 0.09771513151566014,
+      "margin": 0.08104013807174981,
       "limitedEvidence": false
     },
     {
@@ -1919,7 +1919,7 @@
           "second": null
         },
         {
-          "first": 2,
+          "first": 0,
           "second": null
         },
         {
@@ -1943,7 +1943,7 @@
       ],
       "primary": "shining-armor",
       "strict": true,
-      "margin": 0.19035539221183462,
+      "margin": 0.17004852232372658,
       "limitedEvidence": false
     },
     {
@@ -1995,11 +1995,11 @@
           "second": null
         },
         {
-          "first": 0,
+          "first": 1,
           "second": null
         },
         {
-          "first": 2,
+          "first": 1,
           "second": null
         },
         {
@@ -2043,7 +2043,7 @@
           "second": null
         },
         {
-          "first": 2,
+          "first": 1,
           "second": null
         },
         {
@@ -2067,7 +2067,7 @@
       ],
       "primary": "big-mac",
       "strict": true,
-      "margin": 0.07827208218081783,
+      "margin": 0.0729249396640077,
       "limitedEvidence": false
     },
     {
@@ -2119,7 +2119,7 @@
           "second": null
         },
         {
-          "first": 1,
+          "first": 0,
           "second": null
         },
         {
@@ -2151,7 +2151,7 @@
           "second": null
         },
         {
-          "first": 3,
+          "first": 0,
           "second": null
         },
         {
@@ -2191,7 +2191,7 @@
       ],
       "primary": "maud",
       "strict": true,
-      "margin": 0.18073906593163525,
+      "margin": 0.158586867990402,
       "limitedEvidence": false
     },
     {
@@ -2243,7 +2243,7 @@
           "second": null
         },
         {
-          "first": 2,
+          "first": 0,
           "second": null
         },
         {
@@ -2291,7 +2291,7 @@
           "second": null
         },
         {
-          "first": 1,
+          "first": 0,
           "second": null
         },
         {
@@ -2315,7 +2315,7 @@
       ],
       "primary": "trixie",
       "strict": true,
-      "margin": 0.09308305670685113,
+      "margin": 0.05382568834660184,
       "limitedEvidence": false
     },
     {
@@ -2367,11 +2367,11 @@
           "second": null
         },
         {
-          "first": 1,
+          "first": 0,
           "second": null
         },
         {
-          "first": 0,
+          "first": 2,
           "second": null
         },
         {
@@ -2429,8 +2429,8 @@
       ],
       "finalAnswers": [
         {
-          "kind": "task",
-          "first": 0
+          "kind": "followup",
+          "choice": "left"
         },
         {
           "kind": "task",
@@ -2439,7 +2439,7 @@
       ],
       "primary": "sunburst",
       "strict": true,
-      "margin": 0.018876465664590336,
+      "margin": 0.018639134674305335,
       "limitedEvidence": false
     },
     {
@@ -2495,7 +2495,7 @@
           "second": null
         },
         {
-          "first": 3,
+          "first": 2,
           "second": null
         },
         {
@@ -2563,7 +2563,7 @@
       ],
       "primary": "daring-do",
       "strict": true,
-      "margin": 0.08981626882977323,
+      "margin": 0.11276460974671743,
       "limitedEvidence": false
     },
     {
@@ -2615,11 +2615,11 @@
           "second": null
         },
         {
-          "first": 3,
+          "first": 0,
           "second": null
         },
         {
-          "first": 3,
+          "first": 0,
           "second": null
         },
         {
@@ -2687,7 +2687,7 @@
       ],
       "primary": "celestia",
       "strict": true,
-      "margin": 0.11138450585476867,
+      "margin": 0.06952219416054817,
       "limitedEvidence": false
     },
     {
@@ -2811,7 +2811,7 @@
       ],
       "primary": "zecora",
       "strict": true,
-      "margin": 0.11291543284886807,
+      "margin": 0.16624373365300138,
       "limitedEvidence": false
     },
     {
@@ -2863,7 +2863,7 @@
           "second": null
         },
         {
-          "first": 2,
+          "first": 0,
           "second": null
         },
         {
@@ -2935,7 +2935,7 @@
       ],
       "primary": "cheese-sandwich",
       "strict": true,
-      "margin": 0.08541247042302313,
+      "margin": 0.07429095350306181,
       "limitedEvidence": false
     },
     {
@@ -2987,6 +2987,14 @@
           "second": null
         },
         {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
           "first": 2,
           "second": null
         },
@@ -2995,14 +3003,6 @@
           "second": null
         },
         {
-          "first": 2,
-          "second": null
-        },
-        {
-          "first": 1,
-          "second": null
-        },
-        {
           "first": 0,
           "second": null
         },
@@ -3035,7 +3035,7 @@
           "second": null
         },
         {
-          "first": 0,
+          "first": 3,
           "second": null
         },
         {
@@ -3059,7 +3059,7 @@
       ],
       "primary": "apple-bloom",
       "strict": true,
-      "margin": 0.15842279258483294,
+      "margin": 0.15758838235062234,
       "limitedEvidence": false
     },
     {
@@ -3159,7 +3159,7 @@
           "second": null
         },
         {
-          "first": 1,
+          "first": 0,
           "second": null
         },
         {
@@ -3183,7 +3183,7 @@
       ],
       "primary": "sweetie-belle",
       "strict": true,
-      "margin": 0.2400901667621559,
+      "margin": 0.2499329703297839,
       "limitedEvidence": false
     },
     {
@@ -3235,11 +3235,11 @@
           "second": null
         },
         {
-          "first": 3,
+          "first": 2,
           "second": null
         },
         {
-          "first": 1,
+          "first": 2,
           "second": null
         },
         {
@@ -3307,7 +3307,7 @@
       ],
       "primary": "scootaloo",
       "strict": true,
-      "margin": 0.1415553657530787,
+      "margin": 0.12172928534366012,
       "limitedEvidence": false
     },
     {
@@ -3359,11 +3359,11 @@
           "second": null
         },
         {
-          "first": 2,
+          "first": 1,
           "second": null
         },
         {
-          "first": 2,
+          "first": 0,
           "second": null
         },
         {
@@ -3391,7 +3391,7 @@
           "second": null
         },
         {
-          "first": 3,
+          "first": 0,
           "second": null
         },
         {
@@ -3407,7 +3407,7 @@
           "second": null
         },
         {
-          "first": 3,
+          "first": 1,
           "second": null
         },
         {
@@ -3431,7 +3431,7 @@
       ],
       "primary": "gilda",
       "strict": true,
-      "margin": 0.15811891484215534,
+      "margin": 0.10550182254329277,
       "limitedEvidence": false
     },
     {
@@ -3483,7 +3483,7 @@
           "second": null
         },
         {
-          "first": 1,
+          "first": 0,
           "second": null
         },
         {
@@ -3555,7 +3555,7 @@
       ],
       "primary": "granny-smith",
       "strict": true,
-      "margin": 0.16832345790227998,
+      "margin": 0.1609815460331281,
       "limitedEvidence": false
     },
     {
@@ -3655,7 +3655,7 @@
           "second": null
         },
         {
-          "first": 1,
+          "first": 0,
           "second": null
         },
         {
@@ -3679,7 +3679,7 @@
       ],
       "primary": "diamond-tiara",
       "strict": true,
-      "margin": 0.1192679152633449,
+      "margin": 0.09665289546015021,
       "limitedEvidence": true
     },
     {
@@ -3731,23 +3731,11 @@
           "second": null
         },
         {
-          "first": 0,
-          "second": null
-        },
-        {
           "first": 1,
           "second": null
         },
         {
           "first": 0,
-          "second": null
-        },
-        {
-          "first": 1,
-          "second": null
-        },
-        {
-          "first": 3,
           "second": null
         },
         {
@@ -3767,6 +3755,18 @@
           "second": null
         },
         {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
           "first": 0,
           "second": null
         },
@@ -3779,7 +3779,7 @@
           "second": null
         },
         {
-          "first": 3,
+          "first": 1,
           "second": null
         },
         {
@@ -3803,7 +3803,7 @@
       ],
       "primary": "sugar-belle",
       "strict": true,
-      "margin": 0.18878073591834343,
+      "margin": 0.1569495065751927,
       "limitedEvidence": false
     },
     {
@@ -3903,7 +3903,7 @@
           "second": null
         },
         {
-          "first": 3,
+          "first": 0,
           "second": null
         },
         {
@@ -3927,7 +3927,7 @@
       ],
       "primary": "filthy-rich",
       "strict": true,
-      "margin": 0.07589653220583514,
+      "margin": 0.10353785167593854,
       "limitedEvidence": true
     },
     {
@@ -3979,11 +3979,11 @@
           "second": null
         },
         {
-          "first": 0,
+          "first": 1,
           "second": null
         },
         {
-          "first": 2,
+          "first": 1,
           "second": null
         },
         {
@@ -4042,7 +4042,7 @@
       "finalAnswers": [
         {
           "kind": "followup",
-          "choice": "left"
+          "choice": "right"
         },
         {
           "kind": "task",
@@ -4051,7 +4051,7 @@
       ],
       "primary": "bon-bon",
       "strict": true,
-      "margin": 0.050648767556178864,
+      "margin": 0.03738955661734744,
       "limitedEvidence": true
     },
     {
@@ -4099,19 +4099,7 @@
       ],
       "choices": [
         {
-          "first": 3,
-          "second": null
-        },
-        {
-          "first": 0,
-          "second": null
-        },
-        {
           "first": 2,
-          "second": null
-        },
-        {
-          "first": 0,
           "second": null
         },
         {
@@ -4128,6 +4116,18 @@
         },
         {
           "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
           "second": null
         },
         {
@@ -4165,17 +4165,17 @@
       ],
       "finalAnswers": [
         {
-          "kind": "followup",
-          "choice": "right"
-        },
-        {
           "kind": "task",
           "first": 0
+        },
+        {
+          "kind": "followup",
+          "choice": "right"
         }
       ],
       "primary": "lyra",
       "strict": true,
-      "margin": 0.0025978246055058385,
+      "margin": 0.018600407278288378,
       "limitedEvidence": true
     },
     {
@@ -4231,7 +4231,7 @@
           "second": null
         },
         {
-          "first": 1,
+          "first": 0,
           "second": null
         },
         {
@@ -4275,7 +4275,7 @@
           "second": null
         },
         {
-          "first": 0,
+          "first": 1,
           "second": null
         },
         {
@@ -4290,16 +4290,16 @@
       "finalAnswers": [
         {
           "kind": "followup",
-          "choice": "right"
+          "choice": "left"
         },
         {
-          "kind": "followup",
-          "choice": "left"
+          "kind": "task",
+          "first": 0
         }
       ],
       "primary": "pear-butter",
       "strict": true,
-      "margin": 0.04751191195032478,
+      "margin": 0.061384614393181325,
       "limitedEvidence": true
     },
     {
@@ -4351,11 +4351,11 @@
           "second": null
         },
         {
-          "first": 3,
+          "first": 1,
           "second": null
         },
         {
-          "first": 2,
+          "first": 0,
           "second": null
         },
         {
@@ -4399,7 +4399,7 @@
           "second": null
         },
         {
-          "first": 0,
+          "first": 1,
           "second": null
         },
         {
@@ -4423,7 +4423,7 @@
       ],
       "primary": "bright-mac",
       "strict": true,
-      "margin": 0.0571039471956325,
+      "margin": 0.0961335396619798,
       "limitedEvidence": true
     },
     {
@@ -4479,7 +4479,7 @@
           "second": null
         },
         {
-          "first": 3,
+          "first": 0,
           "second": null
         },
         {
@@ -4547,7 +4547,7 @@
       ],
       "primary": "chrysalis",
       "strict": true,
-      "margin": 0.10947590403956342,
+      "margin": 0.11362347900532155,
       "limitedEvidence": false
     },
     {
@@ -4599,7 +4599,7 @@
           "second": null
         },
         {
-          "first": 2,
+          "first": 0,
           "second": null
         },
         {
@@ -4647,7 +4647,7 @@
           "second": null
         },
         {
-          "first": 1,
+          "first": 2,
           "second": null
         },
         {
@@ -4661,8 +4661,8 @@
       ],
       "finalAnswers": [
         {
-          "kind": "task",
-          "first": 1
+          "kind": "followup",
+          "choice": "left"
         },
         {
           "kind": "task",
@@ -4671,7 +4671,7 @@
       ],
       "primary": "king-sombra",
       "strict": true,
-      "margin": 0.10129548471864669,
+      "margin": 0.04482147403997083,
       "limitedEvidence": true
     },
     {
@@ -4727,7 +4727,7 @@
           "second": null
         },
         {
-          "first": 2,
+          "first": 0,
           "second": null
         },
         {
@@ -4786,7 +4786,7 @@
       "finalAnswers": [
         {
           "kind": "followup",
-          "choice": "left"
+          "choice": "right"
         },
         {
           "kind": "task",
@@ -4795,7 +4795,7 @@
       ],
       "primary": "cozy-glow",
       "strict": true,
-      "margin": 0.041030228737602537,
+      "margin": 0.025269354226611696,
       "limitedEvidence": false
     },
     {
@@ -4847,11 +4847,11 @@
           "second": null
         },
         {
-          "first": 3,
+          "first": 0,
           "second": null
         },
         {
-          "first": 2,
+          "first": 0,
           "second": null
         },
         {
@@ -4895,7 +4895,7 @@
           "second": null
         },
         {
-          "first": 0,
+          "first": 3,
           "second": null
         },
         {
@@ -4919,7 +4919,7 @@
       ],
       "primary": "sunset-shimmer",
       "strict": true,
-      "margin": 0.17143894741427068,
+      "margin": 0.13655304524563106,
       "limitedEvidence": false
     }
   ],

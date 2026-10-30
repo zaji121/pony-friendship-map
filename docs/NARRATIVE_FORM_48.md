@@ -1,4 +1,6 @@
-# Festival single-choice form: 48 total
+# Festival single-choice form v1: 48 total
+
+Historical baseline. The later shared-situation revision is documented in [MAIN_SIX_SHARED_SCENES.md](MAIN_SIX_SHARED_SCENES.md). Its current audit is `narrative-form-48-audit.json`; this v1 baseline is retained in `narrative-form-48-v1-baseline.json`.
 
 The existing Derpy entrance and full character reports are retained. This form runs through the narrative experience entry; legacy scoring and saved results retain their own versions.
 

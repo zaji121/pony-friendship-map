@@ -1,0 +1,4931 @@
+{
+  "version": "festival-48-single-20261030-v1",
+  "formVersion": "festival-48-single-20261030-v1",
+  "modelVersion": "narrative-content-20261030-v3",
+  "inputMode": "single",
+  "trials": 20000,
+  "seed": 20261030,
+  "totalQuestions": 48,
+  "coreQuestions": 32,
+  "taskCount": 16,
+  "fixedTaskCount": 14,
+  "finalSlots": 2,
+  "scope": "Synthetic stress test, not measured accuracy or real user prevalence. Final adaptive questions replace task slots inside 48, never add questions.",
+  "assumptions": "Independent fair binary core choices; 14 uniform single-choice tasks; each of the final two slots is either a uniform task choice or a uniform adaptive response.",
+  "eligibleRoles": 36,
+  "uniqueWitnesses": 36,
+  "closeShare": 0.53735,
+  "mainSixShare": 0.24075,
+  "topThreeShare": 0.203,
+  "followupSimulation": {
+    "closeShareAfter": 0.4207,
+    "meanQuestions": 0.91495,
+    "insideTotal": true
+  },
+  "tiePreference": "main-six-only-on-exact-equality",
+  "roles": [
+    {
+      "slug": "sweetie-belle",
+      "name": "甜心宝宝",
+      "count": 1513,
+      "afterFollowup": 1484,
+      "secondary": 659,
+      "baseline": 1192,
+      "share": 0.07565,
+      "afterFollowupShare": 0.0742,
+      "secondaryShare": 0.03295,
+      "baselineShare": 0.0596
+    },
+    {
+      "slug": "daring-do",
+      "name": "无畏天马",
+      "count": 1304,
+      "afterFollowup": 1307,
+      "secondary": 970,
+      "baseline": 55,
+      "share": 0.0652,
+      "afterFollowupShare": 0.06535,
+      "secondaryShare": 0.0485,
+      "baselineShare": 0.00275
+    },
+    {
+      "slug": "rarity",
+      "name": "珍奇",
+      "count": 1291,
+      "afterFollowup": 1269,
+      "secondary": 734,
+      "baseline": 180,
+      "share": 0.06455,
+      "afterFollowupShare": 0.06345,
+      "secondaryShare": 0.0367,
+      "baselineShare": 0.009
+    },
+    {
+      "slug": "rainbow-dash",
+      "name": "云宝",
+      "count": 1042,
+      "afterFollowup": 1035,
+      "secondary": 816,
+      "baseline": 26,
+      "share": 0.0521,
+      "afterFollowupShare": 0.05175,
+      "secondaryShare": 0.0408,
+      "baselineShare": 0.0013
+    },
+    {
+      "slug": "discord",
+      "name": "无序",
+      "count": 991,
+      "afterFollowup": 1024,
+      "secondary": 693,
+      "baseline": 49,
+      "share": 0.04955,
+      "afterFollowupShare": 0.0512,
+      "secondaryShare": 0.03465,
+      "baselineShare": 0.00245
+    },
+    {
+      "slug": "cheese-sandwich",
+      "name": "芝士三明治",
+      "count": 920,
+      "afterFollowup": 910,
+      "secondary": 1206,
+      "baseline": 47,
+      "share": 0.046,
+      "afterFollowupShare": 0.0455,
+      "secondaryShare": 0.0603,
+      "baselineShare": 0.00235
+    },
+    {
+      "slug": "starlight",
+      "name": "星光熠熠",
+      "count": 822,
+      "afterFollowup": 831,
+      "secondary": 643,
+      "baseline": 1778,
+      "share": 0.0411,
+      "afterFollowupShare": 0.04155,
+      "secondaryShare": 0.03215,
+      "baselineShare": 0.0889
+    },
+    {
+      "slug": "maud",
+      "name": "灰琪",
+      "count": 807,
+      "afterFollowup": 824,
+      "secondary": 852,
+      "baseline": 1,
+      "share": 0.04035,
+      "afterFollowupShare": 0.0412,
+      "secondaryShare": 0.0426,
+      "baselineShare": 0.00005
+    },
+    {
+      "slug": "scootaloo",
+      "name": "醒目露露",
+      "count": 795,
+      "afterFollowup": 775,
+      "secondary": 832,
+      "baseline": 240,
+      "share": 0.03975,
+      "afterFollowupShare": 0.03875,
+      "secondaryShare": 0.0416,
+      "baselineShare": 0.012
+    },
+    {
+      "slug": "twilight",
+      "name": "紫悦",
+      "count": 703,
+      "afterFollowup": 756,
+      "secondary": 709,
+      "baseline": 93,
+      "share": 0.03515,
+      "afterFollowupShare": 0.0378,
+      "secondaryShare": 0.03545,
+      "baselineShare": 0.00465
+    },
+    {
+      "slug": "applejack",
+      "name": "苹果嘉儿",
+      "count": 765,
+      "afterFollowup": 721,
+      "secondary": 779,
+      "baseline": 41,
+      "share": 0.03825,
+      "afterFollowupShare": 0.03605,
+      "secondaryShare": 0.03895,
+      "baselineShare": 0.00205
+    },
+    {
+      "slug": "sunset-shimmer",
+      "name": "余晖烁烁",
+      "count": 730,
+      "afterFollowup": 709,
+      "secondary": 597,
+      "baseline": 1428,
+      "share": 0.0365,
+      "afterFollowupShare": 0.03545,
+      "secondaryShare": 0.02985,
+      "baselineShare": 0.0714
+    },
+    {
+      "slug": "sugar-belle",
+      "name": "舒歌贝",
+      "count": 707,
+      "afterFollowup": 644,
+      "secondary": 448,
+      "baseline": 131,
+      "share": 0.03535,
+      "afterFollowupShare": 0.0322,
+      "secondaryShare": 0.0224,
+      "baselineShare": 0.00655
+    },
+    {
+      "slug": "sunburst",
+      "name": "日光耀耀",
+      "count": 706,
+      "afterFollowup": 642,
+      "secondary": 894,
+      "baseline": 178,
+      "share": 0.0353,
+      "afterFollowupShare": 0.0321,
+      "secondaryShare": 0.0447,
+      "baselineShare": 0.0089
+    },
+    {
+      "slug": "zecora",
+      "name": "可拉",
+      "count": 669,
+      "afterFollowup": 637,
+      "secondary": 721,
+      "baseline": 1616,
+      "share": 0.03345,
+      "afterFollowupShare": 0.03185,
+      "secondaryShare": 0.03605,
+      "baselineShare": 0.0808
+    },
+    {
+      "slug": "shining-armor",
+      "name": "闪耀盔甲",
+      "count": 632,
+      "afterFollowup": 632,
+      "secondary": 565,
+      "baseline": 6,
+      "share": 0.0316,
+      "afterFollowupShare": 0.0316,
+      "secondaryShare": 0.02825,
+      "baselineShare": 0.0003
+    },
+    {
+      "slug": "fluttershy",
+      "name": "柔柔",
+      "count": 586,
+      "afterFollowup": 595,
+      "secondary": 539,
+      "baseline": 121,
+      "share": 0.0293,
+      "afterFollowupShare": 0.02975,
+      "secondaryShare": 0.02695,
+      "baselineShare": 0.00605
+    },
+    {
+      "slug": "trixie",
+      "name": "特丽克西",
+      "count": 537,
+      "afterFollowup": 556,
+      "secondary": 696,
+      "baseline": 900,
+      "share": 0.02685,
+      "afterFollowupShare": 0.0278,
+      "secondaryShare": 0.0348,
+      "baselineShare": 0.045
+    },
+    {
+      "slug": "apple-bloom",
+      "name": "苹果丽丽",
+      "count": 557,
+      "afterFollowup": 553,
+      "secondary": 389,
+      "baseline": 2481,
+      "share": 0.02785,
+      "afterFollowupShare": 0.02765,
+      "secondaryShare": 0.01945,
+      "baselineShare": 0.12405
+    },
+    {
+      "slug": "chrysalis",
+      "name": "虫茧女王",
+      "count": 492,
+      "afterFollowup": 518,
+      "secondary": 491,
+      "baseline": 109,
+      "share": 0.0246,
+      "afterFollowupShare": 0.0259,
+      "secondaryShare": 0.02455,
+      "baselineShare": 0.00545
+    },
+    {
+      "slug": "pinkie-pie",
+      "name": "碧琪",
+      "count": 398,
+      "afterFollowup": 439,
+      "secondary": 980,
+      "baseline": 7,
+      "share": 0.0199,
+      "afterFollowupShare": 0.02195,
+      "secondaryShare": 0.049,
+      "baselineShare": 0.00035
+    },
+    {
+      "slug": "gilda",
+      "name": "吉尔达",
+      "count": 463,
+      "afterFollowup": 430,
+      "secondary": 577,
+      "baseline": 1153,
+      "share": 0.02315,
+      "afterFollowupShare": 0.0215,
+      "secondaryShare": 0.02885,
+      "baselineShare": 0.05765
+    },
+    {
+      "slug": "king-sombra",
+      "name": "黑水晶",
+      "count": 362,
+      "afterFollowup": 372,
+      "secondary": 388,
+      "baseline": 0,
+      "share": 0.0181,
+      "afterFollowupShare": 0.0186,
+      "secondaryShare": 0.0194,
+      "baselineShare": 0
+    },
+    {
+      "slug": "cozy-glow",
+      "name": "可西光辉",
+      "count": 341,
+      "afterFollowup": 338,
+      "secondary": 422,
+      "baseline": 27,
+      "share": 0.01705,
+      "afterFollowupShare": 0.0169,
+      "secondaryShare": 0.0211,
+      "baselineShare": 0.00135
+    },
+    {
+      "slug": "granny-smith",
+      "name": "史密夫婆婆",
+      "count": 313,
+      "afterFollowup": 331,
+      "secondary": 367,
+      "baseline": 109,
+      "share": 0.01565,
+      "afterFollowupShare": 0.01655,
+      "secondaryShare": 0.01835,
+      "baselineShare": 0.00545
+    },
+    {
+      "slug": "celestia",
+      "name": "宇宙公主",
+      "count": 250,
+      "afterFollowup": 242,
+      "secondary": 433,
+      "baseline": 115,
+      "share": 0.0125,
+      "afterFollowupShare": 0.0121,
+      "secondaryShare": 0.02165,
+      "baselineShare": 0.00575
+    },
+    {
+      "slug": "diamond-tiara",
+      "name": "珠玉冠冠",
+      "count": 236,
+      "afterFollowup": 235,
+      "secondary": 268,
+      "baseline": 1036,
+      "share": 0.0118,
+      "afterFollowupShare": 0.01175,
+      "secondaryShare": 0.0134,
+      "baselineShare": 0.0518
+    },
+    {
+      "slug": "pear-butter",
+      "name": "梨子酱",
+      "count": 172,
+      "afterFollowup": 218,
+      "secondary": 529,
+      "baseline": 253,
+      "share": 0.0086,
+      "afterFollowupShare": 0.0109,
+      "secondaryShare": 0.02645,
+      "baselineShare": 0.01265
+    },
+    {
+      "slug": "big-mac",
+      "name": "麦托什",
+      "count": 192,
+      "afterFollowup": 203,
+      "secondary": 335,
+      "baseline": 2,
+      "share": 0.0096,
+      "afterFollowupShare": 0.01015,
+      "secondaryShare": 0.01675,
+      "baselineShare": 0.0001
+    },
+    {
+      "slug": "luna",
+      "name": "月亮公主",
+      "count": 171,
+      "afterFollowup": 184,
+      "secondary": 336,
+      "baseline": 310,
+      "share": 0.00855,
+      "afterFollowupShare": 0.0092,
+      "secondaryShare": 0.0168,
+      "baselineShare": 0.0155
+    },
+    {
+      "slug": "bon-bon",
+      "name": "糖糖",
+      "count": 134,
+      "afterFollowup": 156,
+      "secondary": 201,
+      "baseline": 2479,
+      "share": 0.0067,
+      "afterFollowupShare": 0.0078,
+      "secondaryShare": 0.01005,
+      "baselineShare": 0.12395
+    },
+    {
+      "slug": "filthy-rich",
+      "name": "富豪",
+      "count": 134,
+      "afterFollowup": 145,
+      "secondary": 239,
+      "baseline": 295,
+      "share": 0.0067,
+      "afterFollowupShare": 0.00725,
+      "secondaryShare": 0.01195,
+      "baselineShare": 0.01475
+    },
+    {
+      "slug": "spike",
+      "name": "穗龙",
+      "count": 87,
+      "afterFollowup": 99,
+      "secondary": 172,
+      "baseline": 36,
+      "share": 0.00435,
+      "afterFollowupShare": 0.00495,
+      "secondaryShare": 0.0086,
+      "baselineShare": 0.0018
+    },
+    {
+      "slug": "cadance",
+      "name": "音韵公主",
+      "count": 78,
+      "afterFollowup": 86,
+      "secondary": 283,
+      "baseline": 37,
+      "share": 0.0039,
+      "afterFollowupShare": 0.0043,
+      "secondaryShare": 0.01415,
+      "baselineShare": 0.00185
+    },
+    {
+      "slug": "bright-mac",
+      "name": "辉麦",
+      "count": 82,
+      "afterFollowup": 82,
+      "secondary": 198,
+      "baseline": 269,
+      "share": 0.0041,
+      "afterFollowupShare": 0.0041,
+      "secondaryShare": 0.0099,
+      "baselineShare": 0.01345
+    },
+    {
+      "slug": "lyra",
+      "name": "天琴心弦",
+      "count": 18,
+      "afterFollowup": 18,
+      "secondary": 39,
+      "baseline": 3200,
+      "share": 0.0009,
+      "afterFollowupShare": 0.0009,
+      "secondaryShare": 0.00195,
+      "baselineShare": 0.16
+    }
+  ],
+  "witnesses": [
+    {
+      "slug": "twilight",
+      "name": "紫悦",
+      "scores": [
+        0.375,
+        0.25,
+        0.25,
+        0.875
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 3
+        }
+      ],
+      "primary": "twilight",
+      "strict": true,
+      "margin": 0.11660223032547345,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "applejack",
+      "name": "苹果嘉儿",
+      "scores": [
+        0.625,
+        0.875,
+        0.5,
+        0.875
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 0
+        }
+      ],
+      "primary": "applejack",
+      "strict": true,
+      "margin": 0.1690563143986049,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "rainbow-dash",
+      "name": "云宝",
+      "scores": [
+        0.875,
+        0.75,
+        0.75,
+        0.25
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 0
+        }
+      ],
+      "primary": "rainbow-dash",
+      "strict": true,
+      "margin": 0.12397911925447103,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "pinkie-pie",
+      "name": "碧琪",
+      "scores": [
+        1,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "followup",
+          "choice": "left"
+        },
+        {
+          "kind": "task",
+          "first": 0
+        }
+      ],
+      "primary": "pinkie-pie",
+      "strict": true,
+      "margin": 0.06534655111626997,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "fluttershy",
+      "name": "柔柔",
+      "scores": [
+        0.125,
+        0.75,
+        0.125,
+        0.375
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 2
+        },
+        {
+          "kind": "task",
+          "first": 1
+        }
+      ],
+      "primary": "fluttershy",
+      "strict": true,
+      "margin": 0.2514730973270116,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "rarity",
+      "name": "珍奇",
+      "scores": [
+        0.75,
+        0.375,
+        0.25,
+        0.75
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 2
+        },
+        {
+          "kind": "task",
+          "first": 2
+        }
+      ],
+      "primary": "rarity",
+      "strict": true,
+      "margin": 0.25905111793563074,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "starlight",
+      "name": "星光熠熠",
+      "scores": [
+        0.25,
+        0.25,
+        0.625,
+        0.75
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 0
+        }
+      ],
+      "primary": "starlight",
+      "strict": true,
+      "margin": 0.1036057602150029,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "spike",
+      "name": "穗龙",
+      "scores": [
+        0.375,
+        0.75,
+        0.25,
+        0.75
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 1
+        }
+      ],
+      "primary": "spike",
+      "strict": true,
+      "margin": 0.06710308722286062,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "luna",
+      "name": "月亮公主",
+      "scores": [
+        0.125,
+        0.25,
+        0.25,
+        0.625
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 1
+        }
+      ],
+      "primary": "luna",
+      "strict": true,
+      "margin": 0.14183081980938028,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "cadance",
+      "name": "音韵公主",
+      "scores": [
+        0.75,
+        0.5,
+        0.125,
+        0.875
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 1
+        }
+      ],
+      "primary": "cadance",
+      "strict": true,
+      "margin": 0.13263482094473344,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "discord",
+      "name": "无序",
+      "scores": [
+        0.875,
+        0.125,
+        0.75,
+        0.125
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 3
+        },
+        {
+          "kind": "task",
+          "first": 0
+        }
+      ],
+      "primary": "discord",
+      "strict": true,
+      "margin": 0.09771513151566014,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "shining-armor",
+      "name": "闪耀盔甲",
+      "scores": [
+        0.625,
+        0.875,
+        0.625,
+        0.875
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 1
+        }
+      ],
+      "primary": "shining-armor",
+      "strict": true,
+      "margin": 0.19035539221183462,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "big-mac",
+      "name": "麦托什",
+      "scores": [
+        0.125,
+        0.875,
+        0.5,
+        0.875
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 0
+        }
+      ],
+      "primary": "big-mac",
+      "strict": true,
+      "margin": 0.07827208218081783,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "maud",
+      "name": "灰琪",
+      "scores": [
+        0.125,
+        0.875,
+        0.875,
+        0.625
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 1
+        },
+        {
+          "kind": "task",
+          "first": 3
+        }
+      ],
+      "primary": "maud",
+      "strict": true,
+      "margin": 0.18073906593163525,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "trixie",
+      "name": "特丽克西",
+      "scores": [
+        0.875,
+        0.5,
+        0.625,
+        0.25
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 0
+        }
+      ],
+      "primary": "trixie",
+      "strict": true,
+      "margin": 0.09308305670685113,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "sunburst",
+      "name": "日光耀耀",
+      "scores": [
+        0.25,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 3
+        }
+      ],
+      "primary": "sunburst",
+      "strict": true,
+      "margin": 0.018876465664590336,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "daring-do",
+      "name": "无畏天马",
+      "scores": [
+        0.25,
+        0.75,
+        0.75,
+        0.25
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 1
+        },
+        {
+          "kind": "task",
+          "first": 3
+        }
+      ],
+      "primary": "daring-do",
+      "strict": true,
+      "margin": 0.08981626882977323,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "celestia",
+      "name": "宇宙公主",
+      "scores": [
+        0.625,
+        0.25,
+        0.25,
+        0.875
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 2
+        },
+        {
+          "kind": "task",
+          "first": 1
+        }
+      ],
+      "primary": "celestia",
+      "strict": true,
+      "margin": 0.11138450585476867,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "zecora",
+      "name": "可拉",
+      "scores": [
+        0.25,
+        0.625,
+        0.75,
+        0.625
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 1
+        },
+        {
+          "kind": "task",
+          "first": 1
+        }
+      ],
+      "primary": "zecora",
+      "strict": true,
+      "margin": 0.11291543284886807,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "cheese-sandwich",
+      "name": "芝士三明治",
+      "scores": [
+        0.875,
+        0.375,
+        0.25,
+        0.125
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 3
+        },
+        {
+          "kind": "task",
+          "first": 2
+        }
+      ],
+      "primary": "cheese-sandwich",
+      "strict": true,
+      "margin": 0.08541247042302313,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "apple-bloom",
+      "name": "苹果丽丽",
+      "scores": [
+        0.625,
+        0.75,
+        0.375,
+        0.375
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 2
+        }
+      ],
+      "primary": "apple-bloom",
+      "strict": true,
+      "margin": 0.15842279258483294,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "sweetie-belle",
+      "name": "甜心宝宝",
+      "scores": [
+        0.5,
+        0.25,
+        0.25,
+        0.375
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 1
+        }
+      ],
+      "primary": "sweetie-belle",
+      "strict": true,
+      "margin": 0.2400901667621559,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "scootaloo",
+      "name": "醒目露露",
+      "scores": [
+        0.75,
+        0.75,
+        0.625,
+        0.25
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 0
+        }
+      ],
+      "primary": "scootaloo",
+      "strict": true,
+      "margin": 0.1415553657530787,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "gilda",
+      "name": "吉尔达",
+      "scores": [
+        0.375,
+        0.75,
+        0.75,
+        0.25
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 0
+        }
+      ],
+      "primary": "gilda",
+      "strict": true,
+      "margin": 0.15811891484215534,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "granny-smith",
+      "name": "史密夫婆婆",
+      "scores": [
+        0.75,
+        0.875,
+        0.375,
+        0.75
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 0
+        }
+      ],
+      "primary": "granny-smith",
+      "strict": true,
+      "margin": 0.16832345790227998,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "diamond-tiara",
+      "name": "珠玉冠冠",
+      "scores": [
+        0.75,
+        0.625,
+        0.5,
+        0.75
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 3
+        }
+      ],
+      "primary": "diamond-tiara",
+      "strict": true,
+      "margin": 0.1192679152633449,
+      "limitedEvidence": true
+    },
+    {
+      "slug": "sugar-belle",
+      "name": "舒歌贝",
+      "scores": [
+        0.375,
+        0.75,
+        0.25,
+        0.625
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 0
+        }
+      ],
+      "primary": "sugar-belle",
+      "strict": true,
+      "margin": 0.18878073591834343,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "filthy-rich",
+      "name": "富豪",
+      "scores": [
+        0.625,
+        0.875,
+        0.625,
+        0.75
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 0
+        }
+      ],
+      "primary": "filthy-rich",
+      "strict": true,
+      "margin": 0.07589653220583514,
+      "limitedEvidence": true
+    },
+    {
+      "slug": "bon-bon",
+      "name": "糖糖",
+      "scores": [
+        0.375,
+        0.75,
+        0.375,
+        0.75
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "followup",
+          "choice": "left"
+        },
+        {
+          "kind": "task",
+          "first": 1
+        }
+      ],
+      "primary": "bon-bon",
+      "strict": true,
+      "margin": 0.050648767556178864,
+      "limitedEvidence": true
+    },
+    {
+      "slug": "lyra",
+      "name": "天琴心弦",
+      "scores": [
+        0.625,
+        0.375,
+        0.25,
+        0.375
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "followup",
+          "choice": "right"
+        },
+        {
+          "kind": "task",
+          "first": 0
+        }
+      ],
+      "primary": "lyra",
+      "strict": true,
+      "margin": 0.0025978246055058385,
+      "limitedEvidence": true
+    },
+    {
+      "slug": "pear-butter",
+      "name": "梨子酱",
+      "scores": [
+        0.375,
+        0.625,
+        0.125,
+        0.625
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "followup",
+          "choice": "right"
+        },
+        {
+          "kind": "followup",
+          "choice": "left"
+        }
+      ],
+      "primary": "pear-butter",
+      "strict": true,
+      "margin": 0.04751191195032478,
+      "limitedEvidence": true
+    },
+    {
+      "slug": "bright-mac",
+      "name": "辉麦",
+      "scores": [
+        0.5,
+        0.75,
+        0.25,
+        0.625
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 0
+        }
+      ],
+      "primary": "bright-mac",
+      "strict": true,
+      "margin": 0.0571039471956325,
+      "limitedEvidence": true
+    },
+    {
+      "slug": "chrysalis",
+      "name": "虫茧女王",
+      "scores": [
+        0.625,
+        0.25,
+        0.875,
+        0.875
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 3
+        }
+      ],
+      "primary": "chrysalis",
+      "strict": true,
+      "margin": 0.10947590403956342,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "king-sombra",
+      "name": "黑水晶",
+      "scores": [
+        0.125,
+        0.125,
+        1,
+        1
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 1
+        },
+        {
+          "kind": "task",
+          "first": 0
+        }
+      ],
+      "primary": "king-sombra",
+      "strict": true,
+      "margin": 0.10129548471864669,
+      "limitedEvidence": true
+    },
+    {
+      "slug": "cozy-glow",
+      "name": "可西光辉",
+      "scores": [
+        0.875,
+        0.25,
+        0.75,
+        0.875
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "followup",
+          "choice": "left"
+        },
+        {
+          "kind": "task",
+          "first": 0
+        }
+      ],
+      "primary": "cozy-glow",
+      "strict": true,
+      "margin": 0.041030228737602537,
+      "limitedEvidence": false
+    },
+    {
+      "slug": "sunset-shimmer",
+      "name": "余晖烁烁",
+      "scores": [
+        0.75,
+        0.25,
+        0.375,
+        0.5
+      ],
+      "answers": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "finalAnswers": [
+        {
+          "kind": "task",
+          "first": 0
+        },
+        {
+          "kind": "task",
+          "first": 1
+        }
+      ],
+      "primary": "sunset-shimmer",
+      "strict": true,
+      "margin": 0.17143894741427068,
+      "limitedEvidence": false
+    }
+  ],
+  "limitations": [
+    "Construct coverage and reachability do not establish reliability or validity",
+    "32 core items retain eight per axis, with no fabricated answers to omitted items",
+    "Role mappings and initial 60/40 weights remain editorial and uncalibrated"
+  ]
+}

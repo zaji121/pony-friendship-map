@@ -78,12 +78,13 @@ const followupActions={knowledge:'翻查资料，把庆典介绍中缺的一条�
 followupActions.foodcraft='和伙伴做一小份果派或饮品，试好口味再装盒';
 followupActions.fieldwork='到果园边收好果篮，和伙伴把收成送回摊位';
 function choicesValid(choices){return Array.isArray(choices)&&choices.length===scenes.length&&choices.every(c=>c!==null&&typeof c==='object'&&(c.first===null||Number.isInteger(c.first)&&c.first>=0&&c.first<4)&&(c.second===null||Number.isInteger(c.second)&&c.second>=0&&c.second<4&&c.second!==c.first)&&!(c.first===null&&c.second!==null));}
-function rank(w,scores,choices,followups=[]){
+function rank(w,scores,choices,followups=[],content={}){
  if(!Array.isArray(scores)||scores.length!==4||scores.some(v=>!Number.isFinite(v)||v<0||v>1)||!choicesValid(choices))throw Error('匹配输入无效');
  if(!Array.isArray(followups)||followups.length>3||followups.some(f=>!keys.includes(f.left)||!keys.includes(f.right)||f.left===f.right||!['left','right','both','unknown'].includes(f.choice)))throw Error('附加任务输入无效');
+ const activeScenes=content.scenes||scenes;
  const active=w.CHARACTER_SLUGS.map((slug,index)=>({slug,index})).filter(r=>!w.INACTIVE_CHARACTERS.includes(r.slug));
  const user=Object.fromEntries(keys.map(k=>[k,0])),observations=[];
- choices.forEach((choice,i)=>{for(const [slot,value]of [['first',1],['second',.5]]){const selected=choice[slot];if(selected===null)continue;const o=scenes[i].options[selected];o.traits.forEach(k=>user[k]+=value/o.traits.length);observations.push({scene:i,priority:slot,text:o.text,traits:o.traits});}});
+ choices.forEach((choice,i)=>{for(const [slot,value]of [['first',1],['second',.5]]){const selected=choice[slot];if(selected===null)continue;const o=activeScenes[i].options[selected];o.traits.forEach(k=>user[k]+=value/o.traits.length);observations.push({scene:i,priority:slot,text:o.text,traits:o.traits});}});
  followups.forEach((f,i)=>{const selected=f.choice==='left'?[f.left]:f.choice==='right'?[f.right]:f.choice==='both'?[f.left,f.right]:[];for(const trait of selected){user[trait]+=.75/selected.length;observations.push({scene:'followup-'+i,priority:'followup',text:followupActions[trait],traits:[trait]});}});
  const idf=Object.fromEntries(keys.map(k=>[k,1+Math.log((active.length+1)/(1+active.filter(r=>(roleTraits[r.slug]||[]).includes(k)).length))]));
  const userVector=keys.map(k=>user[k]*idf[k]),userNorm=Math.hypot(...userVector),mbtiVector=scores.map(v=>v-.5),mbtiNorm=Math.hypot(...mbtiVector);

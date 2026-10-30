@@ -3,7 +3,7 @@
 (function(w){
 const axes=['EI','SN','TF','JP'],picks={EI:[0,1,3,4,6,7,9,10],SN:[0,1,4,5,6,7,9,10],TF:[0,1,3,4,6,7,10,11],JP:[0,1,3,4,7,8,9,10]};
 const indexes=[];axes.forEach((axis,j)=>picks[axis].forEach(k=>indexes.push(k*4+j)));indexes.sort((a,b)=>a-b);
-const questions=indexes.map(i=>w.QUIZ_QUESTIONS[i]),version='festival-48-single-20261030-v1';
+const questions=indexes.map(i=>w.QUIZ_QUESTIONS[i]),version='festival-48-single-20261030-v2';
 // Same feature coding as the experimental model; concrete wording belongs to
 // this form so older saved editions retain their own question text.
 const sceneCopy=[
@@ -89,6 +89,55 @@ const sceneCopy=[
   '把今天查到的东西写成小纸条，留给下次帮忙的人']]
 ];
 const scenes=w.PONY_NARRATIVE_MATCH.scenes.map((scene,i)=>({...scene,stem:sceneCopy[i][0],options:scene.options.map((o,j)=>({...o,text:sceneCopy[i][1][j]}))}));
+// Replace four existing slots: compare responses to one shared problem rather
+// than assigning a different hobby to every answer. All are editorial cues;
+// no option is keyed to an exclusive character or changes MBTI axis scores.
+const revise=(i,stem,options)=>{scenes[i]={...scenes[i],stem,options:options.map(([text,...traits])=>({text,traits}))};};
+revise(1,'筹备会刚结束，几组还没接上。你只有二十分钟，想先怎么帮忙？',[
+ ['把各组要做的事排一遍，查清哪里接不上，再约好交接时间','coordination','analysis'],
+ ['认领一件还没完成的活，拿上工具先做，做完交给下一组','practical','service'],
+ ['把开场的几个动作再跑一遍，找出卡住的地方，练到顺手','athletic','mastery'],
+ ['请伙伴穿上演出服，按他的动作调整尺寸，再配好饰品','aesthetics','care']]);
+revise(2,'试演快结束了，一位新伙伴一直站在旁边。你更想先做什么？',[
+ ['把游戏改成不用表演也能参加的版本，拉大家试一轮','play','care'],
+ ['陪他到旁边坐坐，听听他想不想参加，再一起选个小任务','care','service'],
+ ['把流程拆成几步，陪他试一遍，看看哪一步需要换个讲法','knowledge','mentoring'],
+ ['把刚才没演顺的一段再排一次，准备在正式演出时试好','stage','mastery']]);
+revise(9,'下午的小表演还差一点就能上场。下面几件事你都能做，想先接哪件？',[
+ ['按自己想的角色设计一句反转台词，排一个让人意外的出场','stage','strategy'],
+ ['照道具单核对物品，记好交接顺序，在幕后提醒大家','discretion','service'],
+ ['陪第一次上场的伙伴练一段，让他按舒服的节奏再试','mentoring','care'],
+ ['拿着半成品试穿，边看动作边改细节，让造型和人更合适','aesthetics','craft']]);
+revise(13,'收尾时发现还有几件事没做完，你更愿意先留哪一份给下次庆典？',[
+ ['把查清的办法写成步骤，和下一组说明哪些地方需要改','knowledge','coordination'],
+ ['把今天用得不顺手的架子修好，照老办法加固几个地方','practical','heritage'],
+ ['把需要留意的环节单独写给筹备组，标好下次怎么避开','discretion','strategy'],
+ ['把试过的摊位重新组合，算算下次换一种摆法能不能经营','commerce','experiment']]);
+const contrasts=[
+ ['twilight','applejack','knowledge','practical','摊位的小机关又卡住了，你更想先怎么处理？','把图纸和刚才的记录找来，弄清它卡住的原因','拿工具检查松动的地方，先把眼前这一处修好'],
+ ['twilight','rainbow-dash','analysis','athletic','挑战路线有一段总不顺，你更想怎样帮忙？','看路线和几次试跑的记录，找出问题出在哪一步','自己跑一遍那一段，边试边调整转弯和发力'],
+ ['twilight','pinkie-pie','coordination','play','散场前还有十分钟，大家想再聚一下，你先做什么？','把集合地点和剩下的安排说清楚，让大家知道接下来做什么','临时想个不用准备的小游戏，把还没走的人招呼到一起'],
+ ['twilight','fluttershy','knowledge','care','新伙伴说刚才一直没跟上，你更想先做什么？','找出他没弄懂的步骤，换个例子给他讲，再让他试试','先听听哪一段让他不舒服，陪他挑一个能安心参与的位置'],
+ ['twilight','rarity','knowledge','aesthetics','纪念册的最后一页还空着，你更想怎样补完？','补一张讲得清楚的步骤图，让下次的人能照着学','调整照片、颜色和留白，让这一页和整本册子搭起来'],
+ ['applejack','rainbow-dash','practical','mastery','今天的器材已经收好了，下次还要用，你先做什么？','把用着不顺手的连接处修稳，保证下次拿来就能用','用现有器材再练几次，看看怎样把自己的动作做得更稳'],
+ ['applejack','pinkie-pie','practical','play','朋友还想在散场前给来宾留点东西，你更愿意做哪件？','动手做好一批能带走的小物件，再分装给大家','设计一个临走前的小惊喜，让愿意的人一起玩完再走'],
+ ['applejack','fluttershy','practical','mentoring','新伙伴接手的小摊还有一点没做完，你先怎么帮？','和他分开做，把剩下的几件东西一起完成','陪他做一件，让他再自己试一件，等他会了再交接'],
+ ['applejack','rarity','heritage','aesthetics','大家想留下这场庆典的样子，你更想先做什么？','收集居民讲的旧习俗，记下今年哪些做法接着保留','挑出能代表这次庆典的颜色和造型，做一张完整的纪念页'],
+ ['rainbow-dash','pinkie-pie','mastery','play','游戏区最后还有一轮空档，你更想怎么玩？','再试一次刚才的挑战，把卡住的那一步练顺','换一条新规则，让大家试试会发生什么好玩的变化'],
+ ['rainbow-dash','fluttershy','athletic','care','几位伙伴还想在广场待一会儿，你更想去做哪件事？','陪想动一动的伙伴再跑一轮路线，边跑边试动作','陪累了的伙伴和小动物找个安静的位置，把水和垫子放好'],
+ ['rainbow-dash','rarity','athletic','aesthetics','表演结束后，你最想再调整哪一处？','回到场地试几个动作，看看转身和落点还能怎么改','让伙伴穿着服装动一动，调整线条和饰品的位置'],
+ ['pinkie-pie','fluttershy','play','service','一位来宾没参加刚才的活动，散场前你更想怎么接上他？','找个不用上台的小玩法，邀请他和大家试一轮','陪他选一件轻松的小事，帮他拿好需要的东西'],
+ ['pinkie-pie','rarity','play','aesthetics','准备送出的纪念品还可以改一点，你先改什么？','加一个打开时会出现的小惊喜，让收到的人一起试','按收礼人的样子调整颜色和配饰，把细节搭好'],
+ ['fluttershy','rarity','service','aesthetics','伙伴穿上演出服后有些不自在，你更想先做什么？','陪他找个舒服的位置，帮他备好水和要用的东西','请他走几步，改改服装和配饰，让它更合身也更好看']
+];
+function nextFollowup(result,answered=[]){
+ if(result.primary===null||!result.close||answered.length>=2)return null;
+ const [a,b]=result.ranked,used=new Set(answered.flatMap(f=>[f.left,f.right]));
+ const row=contrasts.find(c=>((c[0]===a.slug&&c[1]===b.slug)||(c[1]===a.slug&&c[0]===b.slug))&&!used.has(c[2])&&!used.has(c[3]));
+ if(!row)return w.PONY_NARRATIVE_MATCH.nextFollowup(result,answered);
+ const forward=row[0]===a.slug;
+ return {left:row[forward?2:3],right:row[forward?3:2],stem:row[4],leftText:row[forward?5:6],rightText:row[forward?6:5],candidateSlugs:[a.slug,b.slug],contrast:'shared-situation'};
+}
 const mainSix=new Set(['twilight','applejack','rainbow-dash','pinkie-pie','fluttershy','rarity']);
 function scoreCore(answers){
  if(!Array.isArray(answers)||answers.length!==32||answers.some((v,i)=>!Number.isInteger(v)||v<0||v>=questions[i][1].length))throw Error('请完成本版的32道做事方式题。');
@@ -97,8 +146,8 @@ function scoreCore(answers){
  return {model:'four-preferences-v2',formVersion:version,questionVersion:version,answers:answers.slice(),questionIndexes:indexes.slice(),scores,totals,itemsPerAxis:8,type:scores.map((v,i)=>Math.abs(v-.5)<.1?'X':axes[i][v>.5?0:1]).join(''),closeAxes:axes.filter((_,i)=>Math.abs(scores[i]-.5)<.1),evidence};
 }
 function rank(env,scores,choices,followups=[]){
- const result=env.PONY_NARRATIVE_MATCH.rank(env,scores,choices,followups);
- const actualText=o=>Number.isInteger(o.scene)?{...o,text:scenes[o.scene].options[choices[o.scene][o.priority]].text}:o;
+ const result=env.PONY_NARRATIVE_MATCH.rank(env,scores,choices,followups,{scenes});
+ const actualText=o=>{if(Number.isInteger(o.scene))return {...o,text:scenes[o.scene].options[choices[o.scene][o.priority]].text};const f=followups[Number(String(o.scene).replace('followup-',''))];return f?.leftText?{...o,text:o.traits[0]===f.left?f.leftText:f.rightText}:o;};
  result.observations=result.observations.map(actualText);
  result.ranked.forEach(r=>r.explanations=r.explanations.map(actualText));
  // Product preference is used ONLY for mathematically identical scores.
@@ -113,13 +162,13 @@ function plan(env,scores,fixedChoices,finalAnswers=[]){
  const choices=fixedChoices.map(c=>({...c}));if(choices.some(c=>c.second!==null))throw Error('本版为单选题，每题只能选择一项。');
  const followups=[];let result=rank(env,scores,choices,followups),next=null;
  for(let slot=0;slot<2;slot++){
-  const adaptive=model.nextFollowup(result,followups);
+  const adaptive=nextFollowup(result,followups);
   next=adaptive?{kind:'followup',slot,question:adaptive}:{kind:'task',slot,sceneIndex:14+slot};
   const answer=finalAnswers[slot];if(answer===undefined)return {result,choices,followups,next};
   if(!answer||answer.kind!==next.kind)throw Error('最后两题已根据前面的选择调整，请重新选择。');
   if(next.kind==='followup'){
    if(!['left','right','both','unknown'].includes(answer.choice))throw Error('请选择一个答案。');
-   followups.push({left:adaptive.left,right:adaptive.right,choice:answer.choice});
+   followups.push({left:adaptive.left,right:adaptive.right,choice:answer.choice,leftText:adaptive.leftText,rightText:adaptive.rightText,stem:adaptive.stem});
   }else{
    if(answer.first!==null&&(!Number.isInteger(answer.first)||answer.first<0||answer.first>3))throw Error('请选择一个答案。');
    choices[next.sceneIndex]={first:answer.first,second:null};
@@ -128,5 +177,5 @@ function plan(env,scores,fixedChoices,finalAnswers=[]){
  }
  return {result,choices,followups,next:null};
 }
-w.PONY_QUIZ_48={version,questions,scenes,indexes,axes,scoreCore,rank,plan,total:48,coreCount:32,itemsPerAxis:8,fixedTaskCount:14,finalSlots:2};
+w.PONY_QUIZ_48={version,questions,scenes,indexes,axes,scoreCore,rank,plan,nextFollowup,contrasts,total:48,coreCount:32,itemsPerAxis:8,fixedTaskCount:14,finalSlots:2};
 })(window);
