@@ -1,0 +1,2808 @@
+{
+  "version": "narrative-content-20261030-v2",
+  "trials": 20000,
+  "seed": 20261030,
+  "scope": "Synthetic independent-choice simulation. All outputs are provisional closest-character recommendations; no accuracy, identity probability, or validity claim.",
+  "assumptions": "48 independent fair binary MBTI answers; 12 independent uniform first-task choices; optional distinct second task with probability .5.",
+  "parameters": {
+    "mbtiWeight": 0.6,
+    "interestWeight": 0.4,
+    "secondPriority": 0.5
+  },
+  "uniqueWitnesses": 36,
+  "eligibleRoles": 36,
+  "closeResults": 11207,
+  "closeShare": 0.56035,
+  "noMBTIDirection": 59,
+  "mainSixShare": 0.18605,
+  "topThreeShare": 0.208,
+  "roles": [
+    {
+      "slug": "daring-do",
+      "name": "无畏天马",
+      "count": 1595,
+      "secondary": 975,
+      "baseline": 33,
+      "afterFollowup": 1587,
+      "share": 0.07975,
+      "secondaryShare": 0.04875,
+      "baselineShare": 0.00165,
+      "afterFollowupShare": 0.07935
+    },
+    {
+      "slug": "discord",
+      "name": "无序",
+      "count": 1422,
+      "secondary": 830,
+      "baseline": 47,
+      "afterFollowup": 1427,
+      "share": 0.0711,
+      "secondaryShare": 0.0415,
+      "baselineShare": 0.00235,
+      "afterFollowupShare": 0.07135
+    },
+    {
+      "slug": "sweetie-belle",
+      "name": "甜心宝宝",
+      "count": 1143,
+      "secondary": 609,
+      "baseline": 1179,
+      "afterFollowup": 1164,
+      "share": 0.05715,
+      "secondaryShare": 0.03045,
+      "baselineShare": 0.05895,
+      "afterFollowupShare": 0.0582
+    },
+    {
+      "slug": "starlight",
+      "name": "星光熠熠",
+      "count": 1088,
+      "secondary": 808,
+      "baseline": 1765,
+      "afterFollowup": 1050,
+      "share": 0.0544,
+      "secondaryShare": 0.0404,
+      "baselineShare": 0.08825,
+      "afterFollowupShare": 0.0525
+    },
+    {
+      "slug": "maud",
+      "name": "灰琪",
+      "count": 862,
+      "secondary": 845,
+      "baseline": 2,
+      "afterFollowup": 803,
+      "share": 0.0431,
+      "secondaryShare": 0.04225,
+      "baselineShare": 0.0001,
+      "afterFollowupShare": 0.04015
+    },
+    {
+      "slug": "rarity",
+      "name": "珍奇",
+      "count": 853,
+      "secondary": 520,
+      "baseline": 190,
+      "afterFollowup": 878,
+      "share": 0.04265,
+      "secondaryShare": 0.026,
+      "baselineShare": 0.0095,
+      "afterFollowupShare": 0.0439
+    },
+    {
+      "slug": "cheese-sandwich",
+      "name": "芝士三明治",
+      "count": 850,
+      "secondary": 1235,
+      "baseline": 39,
+      "afterFollowup": 900,
+      "share": 0.0425,
+      "secondaryShare": 0.06175,
+      "baselineShare": 0.00195,
+      "afterFollowupShare": 0.045
+    },
+    {
+      "slug": "trixie",
+      "name": "特丽克西",
+      "count": 849,
+      "secondary": 935,
+      "baseline": 933,
+      "afterFollowup": 776,
+      "share": 0.04245,
+      "secondaryShare": 0.04675,
+      "baselineShare": 0.04665,
+      "afterFollowupShare": 0.0388
+    },
+    {
+      "slug": "shining-armor",
+      "name": "闪耀盔甲",
+      "count": 810,
+      "secondary": 606,
+      "baseline": 1,
+      "afterFollowup": 734,
+      "share": 0.0405,
+      "secondaryShare": 0.0303,
+      "baselineShare": 0.00005,
+      "afterFollowupShare": 0.0367
+    },
+    {
+      "slug": "fluttershy",
+      "name": "柔柔",
+      "count": 803,
+      "secondary": 563,
+      "baseline": 145,
+      "afterFollowup": 770,
+      "share": 0.04015,
+      "secondaryShare": 0.02815,
+      "baselineShare": 0.00725,
+      "afterFollowupShare": 0.0385
+    },
+    {
+      "slug": "apple-bloom",
+      "name": "苹果丽丽",
+      "count": 696,
+      "secondary": 532,
+      "baseline": 2595,
+      "afterFollowup": 710,
+      "share": 0.0348,
+      "secondaryShare": 0.0266,
+      "baselineShare": 0.12975,
+      "afterFollowupShare": 0.0355
+    },
+    {
+      "slug": "rainbow-dash",
+      "name": "云宝",
+      "count": 670,
+      "secondary": 715,
+      "baseline": 23,
+      "afterFollowup": 692,
+      "share": 0.0335,
+      "secondaryShare": 0.03575,
+      "baselineShare": 0.00115,
+      "afterFollowupShare": 0.0346
+    },
+    {
+      "slug": "granny-smith",
+      "name": "史密夫婆婆",
+      "count": 630,
+      "secondary": 409,
+      "baseline": 111,
+      "afterFollowup": 598,
+      "share": 0.0315,
+      "secondaryShare": 0.02045,
+      "baselineShare": 0.00555,
+      "afterFollowupShare": 0.0299
+    },
+    {
+      "slug": "sunset-shimmer",
+      "name": "余晖烁烁",
+      "count": 579,
+      "secondary": 533,
+      "baseline": 1382,
+      "afterFollowup": 535,
+      "share": 0.02895,
+      "secondaryShare": 0.02665,
+      "baselineShare": 0.0691,
+      "afterFollowupShare": 0.02675
+    },
+    {
+      "slug": "pinkie-pie",
+      "name": "碧琪",
+      "count": 567,
+      "secondary": 960,
+      "baseline": 7,
+      "afterFollowup": 562,
+      "share": 0.02835,
+      "secondaryShare": 0.048,
+      "baselineShare": 0.00035,
+      "afterFollowupShare": 0.0281
+    },
+    {
+      "slug": "twilight",
+      "name": "紫悦",
+      "count": 520,
+      "secondary": 560,
+      "baseline": 72,
+      "afterFollowup": 496,
+      "share": 0.026,
+      "secondaryShare": 0.028,
+      "baselineShare": 0.0036,
+      "afterFollowupShare": 0.0248
+    },
+    {
+      "slug": "king-sombra",
+      "name": "黑水晶",
+      "count": 516,
+      "secondary": 704,
+      "baseline": 1,
+      "afterFollowup": 535,
+      "share": 0.0258,
+      "secondaryShare": 0.0352,
+      "baselineShare": 0.00005,
+      "afterFollowupShare": 0.02675
+    },
+    {
+      "slug": "chrysalis",
+      "name": "虫茧女王",
+      "count": 507,
+      "secondary": 499,
+      "baseline": 111,
+      "afterFollowup": 516,
+      "share": 0.02535,
+      "secondaryShare": 0.02495,
+      "baselineShare": 0.00555,
+      "afterFollowupShare": 0.0258
+    },
+    {
+      "slug": "cozy-glow",
+      "name": "可西光辉",
+      "count": 457,
+      "secondary": 473,
+      "baseline": 22,
+      "afterFollowup": 463,
+      "share": 0.02285,
+      "secondaryShare": 0.02365,
+      "baselineShare": 0.0011,
+      "afterFollowupShare": 0.02315
+    },
+    {
+      "slug": "scootaloo",
+      "name": "醒目露露",
+      "count": 450,
+      "secondary": 613,
+      "baseline": 238,
+      "afterFollowup": 491,
+      "share": 0.0225,
+      "secondaryShare": 0.03065,
+      "baselineShare": 0.0119,
+      "afterFollowupShare": 0.02455
+    },
+    {
+      "slug": "sugar-belle",
+      "name": "舒歌贝",
+      "count": 405,
+      "secondary": 329,
+      "baseline": 115,
+      "afterFollowup": 384,
+      "share": 0.02025,
+      "secondaryShare": 0.01645,
+      "baselineShare": 0.00575,
+      "afterFollowupShare": 0.0192
+    },
+    {
+      "slug": "zecora",
+      "name": "可拉",
+      "count": 362,
+      "secondary": 551,
+      "baseline": 1611,
+      "afterFollowup": 404,
+      "share": 0.0181,
+      "secondaryShare": 0.02755,
+      "baselineShare": 0.08055,
+      "afterFollowupShare": 0.0202
+    },
+    {
+      "slug": "gilda",
+      "name": "吉尔达",
+      "count": 350,
+      "secondary": 662,
+      "baseline": 1224,
+      "afterFollowup": 345,
+      "share": 0.0175,
+      "secondaryShare": 0.0331,
+      "baselineShare": 0.0612,
+      "afterFollowupShare": 0.01725
+    },
+    {
+      "slug": "sunburst",
+      "name": "日光耀耀",
+      "count": 338,
+      "secondary": 581,
+      "baseline": 155,
+      "afterFollowup": 383,
+      "share": 0.0169,
+      "secondaryShare": 0.02905,
+      "baselineShare": 0.00775,
+      "afterFollowupShare": 0.01915
+    },
+    {
+      "slug": "diamond-tiara",
+      "name": "珠玉冠冠",
+      "count": 322,
+      "secondary": 381,
+      "baseline": 1081,
+      "afterFollowup": 351,
+      "share": 0.0161,
+      "secondaryShare": 0.01905,
+      "baselineShare": 0.05405,
+      "afterFollowupShare": 0.01755
+    },
+    {
+      "slug": "luna",
+      "name": "月亮公主",
+      "count": 318,
+      "secondary": 412,
+      "baseline": 301,
+      "afterFollowup": 322,
+      "share": 0.0159,
+      "secondaryShare": 0.0206,
+      "baselineShare": 0.01505,
+      "afterFollowupShare": 0.0161
+    },
+    {
+      "slug": "applejack",
+      "name": "苹果嘉儿",
+      "count": 308,
+      "secondary": 458,
+      "baseline": 36,
+      "afterFollowup": 305,
+      "share": 0.0154,
+      "secondaryShare": 0.0229,
+      "baselineShare": 0.0018,
+      "afterFollowupShare": 0.01525
+    },
+    {
+      "slug": "celestia",
+      "name": "宇宙公主",
+      "count": 307,
+      "secondary": 452,
+      "baseline": 112,
+      "afterFollowup": 300,
+      "share": 0.01535,
+      "secondaryShare": 0.0226,
+      "baselineShare": 0.0056,
+      "afterFollowupShare": 0.015
+    },
+    {
+      "slug": "big-mac",
+      "name": "麦托什",
+      "count": 276,
+      "secondary": 368,
+      "baseline": 3,
+      "afterFollowup": 270,
+      "share": 0.0138,
+      "secondaryShare": 0.0184,
+      "baselineShare": 0.00015,
+      "afterFollowupShare": 0.0135
+    },
+    {
+      "slug": "bon-bon",
+      "name": "糖糖",
+      "count": 275,
+      "secondary": 410,
+      "baseline": 2415,
+      "afterFollowup": 306,
+      "share": 0.01375,
+      "secondaryShare": 0.0205,
+      "baselineShare": 0.12075,
+      "afterFollowupShare": 0.0153
+    },
+    {
+      "slug": "filthy-rich",
+      "name": "富豪",
+      "count": 210,
+      "secondary": 256,
+      "baseline": 287,
+      "afterFollowup": 249,
+      "share": 0.0105,
+      "secondaryShare": 0.0128,
+      "baselineShare": 0.01435,
+      "afterFollowupShare": 0.01245
+    },
+    {
+      "slug": "spike",
+      "name": "穗龙",
+      "count": 206,
+      "secondary": 278,
+      "baseline": 32,
+      "afterFollowup": 211,
+      "share": 0.0103,
+      "secondaryShare": 0.0139,
+      "baselineShare": 0.0016,
+      "afterFollowupShare": 0.01055
+    },
+    {
+      "slug": "pear-butter",
+      "name": "梨子酱",
+      "count": 189,
+      "secondary": 365,
+      "baseline": 224,
+      "afterFollowup": 194,
+      "share": 0.00945,
+      "secondaryShare": 0.01825,
+      "baselineShare": 0.0112,
+      "afterFollowupShare": 0.0097
+    },
+    {
+      "slug": "cadance",
+      "name": "音韵公主",
+      "count": 150,
+      "secondary": 277,
+      "baseline": 38,
+      "afterFollowup": 148,
+      "share": 0.0075,
+      "secondaryShare": 0.01385,
+      "baselineShare": 0.0019,
+      "afterFollowupShare": 0.0074
+    },
+    {
+      "slug": "bright-mac",
+      "name": "辉麦",
+      "count": 81,
+      "secondary": 212,
+      "baseline": 311,
+      "afterFollowup": 106,
+      "share": 0.00405,
+      "secondaryShare": 0.0106,
+      "baselineShare": 0.01555,
+      "afterFollowupShare": 0.0053
+    },
+    {
+      "slug": "lyra",
+      "name": "天琴心弦",
+      "count": 36,
+      "secondary": 84,
+      "baseline": 3159,
+      "afterFollowup": 35,
+      "share": 0.0018,
+      "secondaryShare": 0.0042,
+      "baselineShare": 0.15795,
+      "afterFollowupShare": 0.00175
+    }
+  ],
+  "witnesses": [
+    {
+      "slug": "twilight",
+      "name": "紫悦",
+      "scores": [
+        0.3333333333333333,
+        0.25,
+        0.3333333333333333,
+        0.9166666666666666
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": 1
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": 0
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        }
+      ],
+      "primary": "twilight",
+      "strict": true,
+      "margin": 0.16128605742777435,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "applejack",
+      "name": "苹果嘉儿",
+      "scores": [
+        0.5833333333333334,
+        0.8333333333333334,
+        0.5833333333333334,
+        0.8333333333333334
+      ],
+      "choices": [
+        {
+          "first": 1,
+          "second": 0
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": 0
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        }
+      ],
+      "primary": "applejack",
+      "strict": true,
+      "margin": 0.19341677539913027,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "rainbow-dash",
+      "name": "云宝",
+      "scores": [
+        0.9166666666666666,
+        0.75,
+        0.75,
+        0.25
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": 1
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "primary": "rainbow-dash",
+      "strict": true,
+      "margin": 0.17831443318036067,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "pinkie-pie",
+      "name": "碧琪",
+      "scores": [
+        0.9166666666666666,
+        0.3333333333333333,
+        0.25,
+        0.16666666666666666
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": 2
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": 3
+        }
+      ],
+      "primary": "pinkie-pie",
+      "strict": true,
+      "margin": 0.10437946357252426,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "fluttershy",
+      "name": "柔柔",
+      "scores": [
+        0.16666666666666666,
+        0.75,
+        0.16666666666666666,
+        0.4166666666666667
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": 0
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": 1
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        }
+      ],
+      "primary": "fluttershy",
+      "strict": true,
+      "margin": 0.30786289337175454,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "rarity",
+      "name": "珍奇",
+      "scores": [
+        0.6666666666666666,
+        0.3333333333333333,
+        0.25,
+        0.8333333333333334
+      ],
+      "choices": [
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": 1
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        }
+      ],
+      "primary": "rarity",
+      "strict": true,
+      "margin": 0.3303296009790567,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "starlight",
+      "name": "星光熠熠",
+      "scores": [
+        0.25,
+        0.25,
+        0.5833333333333334,
+        0.75
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": 1
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": 2
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": 3
+        },
+        {
+          "first": 0,
+          "second": 3
+        },
+        {
+          "first": 2,
+          "second": 1
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        }
+      ],
+      "primary": "starlight",
+      "strict": true,
+      "margin": 0.2425091321397369,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "spike",
+      "name": "穗龙",
+      "scores": [
+        0.4166666666666667,
+        0.75,
+        0.25,
+        0.8333333333333334
+      ],
+      "choices": [
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        }
+      ],
+      "primary": "spike",
+      "strict": true,
+      "margin": 0.13221762730184639,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "luna",
+      "name": "月亮公主",
+      "scores": [
+        0.16666666666666666,
+        0.25,
+        0.25,
+        0.6666666666666666
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": 2
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": 1
+        }
+      ],
+      "primary": "luna",
+      "strict": true,
+      "margin": 0.23837529960853066,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "cadance",
+      "name": "音韵公主",
+      "scores": [
+        0.75,
+        0.4166666666666667,
+        0.08333333333333333,
+        0.8333333333333334
+      ],
+      "choices": [
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": 3
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": 2
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": 0
+        }
+      ],
+      "primary": "cadance",
+      "strict": true,
+      "margin": 0.1877643367498648,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "discord",
+      "name": "无序",
+      "scores": [
+        0.8333333333333334,
+        0.08333333333333333,
+        0.6666666666666666,
+        0.08333333333333333
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": 3
+        },
+        {
+          "first": 0,
+          "second": 2
+        },
+        {
+          "first": 2,
+          "second": 3
+        },
+        {
+          "first": 1,
+          "second": 3
+        },
+        {
+          "first": 3,
+          "second": null
+        }
+      ],
+      "primary": "discord",
+      "strict": true,
+      "margin": 0.19725355632984232,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "shining-armor",
+      "name": "闪耀盔甲",
+      "scores": [
+        0.6666666666666666,
+        0.8333333333333334,
+        0.5833333333333334,
+        0.9166666666666666
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": 3
+        },
+        {
+          "first": 2,
+          "second": 0
+        },
+        {
+          "first": 2,
+          "second": 3
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        }
+      ],
+      "primary": "shining-armor",
+      "strict": true,
+      "margin": 0.24786708213038744,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "big-mac",
+      "name": "麦托什",
+      "scores": [
+        0.16666666666666666,
+        0.9166666666666666,
+        0.5,
+        0.8333333333333334
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": 1
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": 1
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "primary": "big-mac",
+      "strict": true,
+      "margin": 0.131965944486224,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "maud",
+      "name": "灰琪",
+      "scores": [
+        0.08333333333333333,
+        0.9166666666666666,
+        0.8333333333333334,
+        0.5833333333333334
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        }
+      ],
+      "primary": "maud",
+      "strict": true,
+      "margin": 0.23840397548132186,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "trixie",
+      "name": "特丽克西",
+      "scores": [
+        0.9166666666666666,
+        0.4166666666666667,
+        0.6666666666666666,
+        0.3333333333333333
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": 0
+        },
+        {
+          "first": 1,
+          "second": 3
+        },
+        {
+          "first": 1,
+          "second": 2
+        },
+        {
+          "first": 0,
+          "second": 3
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": 1
+        }
+      ],
+      "primary": "trixie",
+      "strict": true,
+      "margin": 0.17497690222298334,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "sunburst",
+      "name": "日光耀耀",
+      "scores": [
+        0.16666666666666666,
+        0.25,
+        0.4166666666666667,
+        0.75
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": 2
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "primary": "sunburst",
+      "strict": true,
+      "margin": 0.14844642853324663,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "daring-do",
+      "name": "无畏天马",
+      "scores": [
+        0.3333333333333333,
+        0.8333333333333334,
+        0.8333333333333334,
+        0.16666666666666666
+      ],
+      "choices": [
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": 1
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": 2
+        },
+        {
+          "first": 1,
+          "second": null
+        }
+      ],
+      "primary": "daring-do",
+      "strict": true,
+      "margin": 0.2034963931624323,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "celestia",
+      "name": "宇宙公主",
+      "scores": [
+        0.5833333333333334,
+        0.16666666666666666,
+        0.3333333333333333,
+        0.8333333333333334
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": 0
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": 2
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": 0
+        },
+        {
+          "first": 2,
+          "second": null
+        }
+      ],
+      "primary": "celestia",
+      "strict": true,
+      "margin": 0.2301720330466892,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "zecora",
+      "name": "可拉",
+      "scores": [
+        0.16666666666666666,
+        0.5833333333333334,
+        0.6666666666666666,
+        0.6666666666666666
+      ],
+      "choices": [
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": 3
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": 3
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": 1
+        }
+      ],
+      "primary": "zecora",
+      "strict": true,
+      "margin": 0.1936835256332231,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "cheese-sandwich",
+      "name": "芝士三明治",
+      "scores": [
+        0.8333333333333334,
+        0.3333333333333333,
+        0.25,
+        0.16666666666666666
+      ],
+      "choices": [
+        {
+          "first": 2,
+          "second": 1
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        }
+      ],
+      "primary": "cheese-sandwich",
+      "strict": true,
+      "margin": 0.14050935060148873,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "apple-bloom",
+      "name": "苹果丽丽",
+      "scores": [
+        0.6666666666666666,
+        0.6666666666666666,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "choices": [
+        {
+          "first": 1,
+          "second": 2
+        },
+        {
+          "first": 3,
+          "second": 2
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": 0
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": 3
+        },
+        {
+          "first": 0,
+          "second": 3
+        }
+      ],
+      "primary": "apple-bloom",
+      "strict": true,
+      "margin": 0.23007759776852055,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "sweetie-belle",
+      "name": "甜心宝宝",
+      "scores": [
+        0.4166666666666667,
+        0.3333333333333333,
+        0.16666666666666666,
+        0.3333333333333333
+      ],
+      "choices": [
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": 3
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": 2
+        }
+      ],
+      "primary": "sweetie-belle",
+      "strict": true,
+      "margin": 0.3203667338897328,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "scootaloo",
+      "name": "醒目露露",
+      "scores": [
+        0.8333333333333334,
+        0.8333333333333334,
+        0.5833333333333334,
+        0.25
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": 0
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "primary": "scootaloo",
+      "strict": true,
+      "margin": 0.1797425628966629,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "gilda",
+      "name": "吉尔达",
+      "scores": [
+        0.3333333333333333,
+        0.8333333333333334,
+        0.75,
+        0.3333333333333333
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "primary": "gilda",
+      "strict": true,
+      "margin": 0.24266254755113315,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "granny-smith",
+      "name": "史密夫婆婆",
+      "scores": [
+        0.75,
+        0.8333333333333334,
+        0.3333333333333333,
+        0.6666666666666666
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": 2
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        }
+      ],
+      "primary": "granny-smith",
+      "strict": true,
+      "margin": 0.29369068761573847,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "diamond-tiara",
+      "name": "珠玉冠冠",
+      "scores": [
+        0.8333333333333334,
+        0.5833333333333334,
+        0.5833333333333334,
+        0.8333333333333334
+      ],
+      "choices": [
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": 2
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": 3
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": 3
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        }
+      ],
+      "primary": "diamond-tiara",
+      "strict": true,
+      "margin": 0.23443537515187418,
+      "limitedEvidence": true,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "sugar-belle",
+      "name": "舒歌贝",
+      "scores": [
+        0.4166666666666667,
+        0.75,
+        0.16666666666666666,
+        0.6666666666666666
+      ],
+      "choices": [
+        {
+          "first": 1,
+          "second": 2
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "primary": "sugar-belle",
+      "strict": true,
+      "margin": 0.2508041789877641,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "filthy-rich",
+      "name": "富豪",
+      "scores": [
+        0.5833333333333334,
+        0.8333333333333334,
+        0.6666666666666666,
+        0.8333333333333334
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": 2
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "primary": "filthy-rich",
+      "strict": true,
+      "margin": 0.2436720069495587,
+      "limitedEvidence": true,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "bon-bon",
+      "name": "糖糖",
+      "scores": [
+        0.3333333333333333,
+        0.6666666666666666,
+        0.4166666666666667,
+        0.6666666666666666
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "primary": "bon-bon",
+      "strict": true,
+      "margin": 0.1961683697255875,
+      "limitedEvidence": true,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "lyra",
+      "name": "天琴心弦",
+      "scores": [
+        0.6666666666666666,
+        0.4166666666666667,
+        0.3333333333333333,
+        0.4166666666666667
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        }
+      ],
+      "primary": "lyra",
+      "strict": true,
+      "margin": 0.28806662645397607,
+      "limitedEvidence": true,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "pear-butter",
+      "name": "梨子酱",
+      "scores": [
+        0.3333333333333333,
+        0.6666666666666666,
+        0.08333333333333333,
+        0.5833333333333334
+      ],
+      "choices": [
+        {
+          "first": 2,
+          "second": 0
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": 1
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "primary": "pear-butter",
+      "strict": true,
+      "margin": 0.1825369883143081,
+      "limitedEvidence": true,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "bright-mac",
+      "name": "辉麦",
+      "scores": [
+        0.5833333333333334,
+        0.8333333333333334,
+        0.25,
+        0.6666666666666666
+      ],
+      "choices": [
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": 1
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "primary": "bright-mac",
+      "strict": true,
+      "margin": 0.16620047974697572,
+      "limitedEvidence": true,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "chrysalis",
+      "name": "虫茧女王",
+      "scores": [
+        0.5833333333333334,
+        0.25,
+        0.9166666666666666,
+        0.9166666666666666
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        }
+      ],
+      "primary": "chrysalis",
+      "strict": true,
+      "margin": 0.1925374827933095,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "king-sombra",
+      "name": "黑水晶",
+      "scores": [
+        0.08333333333333333,
+        0.16666666666666666,
+        0.9166666666666666,
+        0.9166666666666666
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": 3
+        },
+        {
+          "first": 1,
+          "second": 3
+        },
+        {
+          "first": 2,
+          "second": 3
+        },
+        {
+          "first": 3,
+          "second": 2
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": 1
+        }
+      ],
+      "primary": "king-sombra",
+      "strict": true,
+      "margin": 0.21359189810546608,
+      "limitedEvidence": true,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "cozy-glow",
+      "name": "可西光辉",
+      "scores": [
+        0.9166666666666666,
+        0.16666666666666666,
+        0.8333333333333334,
+        0.8333333333333334
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 1,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": null
+        }
+      ],
+      "primary": "cozy-glow",
+      "strict": true,
+      "margin": 0.17786501360009133,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    },
+    {
+      "slug": "sunset-shimmer",
+      "name": "余晖烁烁",
+      "scores": [
+        0.6666666666666666,
+        0.25,
+        0.3333333333333333,
+        0.5833333333333334
+      ],
+      "choices": [
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": 1
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 3,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": 3
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": null,
+          "second": null
+        },
+        {
+          "first": 2,
+          "second": null
+        },
+        {
+          "first": 0,
+          "second": 1
+        },
+        {
+          "first": 1,
+          "second": 2
+        },
+        {
+          "first": 0,
+          "second": 3
+        },
+        {
+          "first": 0,
+          "second": 2
+        }
+      ],
+      "primary": "sunset-shimmer",
+      "strict": true,
+      "margin": 0.2398133479313984,
+      "limitedEvidence": false,
+      "scope": "Synthetic algorithm witness, not real user or validated character typing"
+    }
+  ],
+  "limitations": [
+    "Similarity is not a calibrated probability",
+    "Weights and role activity associations remain provisional",
+    "Sparse-source characters retain evidence warnings",
+    "A unique synthetic witness does not prove discriminant validity",
+    "All close results remain in the denominator; no abstention-based distribution claim"
+  ],
+  "followupSimulation": {
+    "seed": 20261031,
+    "assumptions": "Each offered follow-up independently chooses left/right/both/unknown with equal probability; not real users.",
+    "closeShareAfter": 0.2838,
+    "meanQuestions": 1.042
+  }
+}
