@@ -3,10 +3,10 @@
  const steps=[];
  for(let chapter=0;chapter<4;chapter++){
   q.forEach((item,i)=>{if(item[2].chapter===chapter)steps.push({kind:'core',i,chapter});});
-  model.scenes.forEach((scene,i)=>{if(scene.chapter===chapter)steps.push(i<14?{kind:'task',i,chapter}:{kind:'final',slot:i-14,chapter});});
+  form.scenes.forEach((scene,i)=>{if(scene.chapter===chapter)steps.push(i<14?{kind:'task',i,chapter}:{kind:'final',slot:i-14,chapter});});
  }
  if(steps.length!==48)throw Error('题目配置不完整');
- const fresh=()=>({version:form.version,index:0,answers:Array(32).fill(null),choices:model.scenes.map(()=>({first:null,second:null})),completedTasks:[],finalAnswers:[null,null]});
+ const fresh=()=>({version:form.version,index:0,answers:Array(32).fill(null),choices:form.scenes.map(()=>({first:null,second:null})),completedTasks:[],finalAnswers:[null,null]});
  let state=fresh(),activeFinal=null,lastView='',lastQuestion=-1;
  try{const saved=JSON.parse(sessionStorage.getItem(key)||'null');if(saved?.version===form.version&&saved.answers?.length===32&&model.choicesValid(saved.choices)&&Array.isArray(saved.finalAnswers)&&saved.finalAnswers.length===2&&Array.isArray(saved.completedTasks)&&Number.isInteger(saved.index)&&saved.index>=0&&saved.index<=48)state=saved;}catch{}
  const save=()=>sessionStorage.setItem(key,JSON.stringify(state));
@@ -25,7 +25,7 @@
   if(step.kind==='core'){
    $('stem').textContent=q[step.i][0];q[step.i][1].forEach((answer,i)=>$('options').append(option(answer[0],'AB'[i],state.answers[step.i]===i,()=>{state.answers[step.i]=i;invalidateFinal();save();render();})));answered=state.answers[step.i]!==null;
   }else if(step.kind==='task'){
-   const scene=model.scenes[step.i],choice=state.choices[step.i];$('stem').textContent=scene.stem;
+   const scene=form.scenes[step.i],choice=state.choices[step.i];$('stem').textContent=scene.stem;
    scene.options.forEach((answer,i)=>$('options').append(option(answer.text,'ABCD'[i],choice.first===i,()=>{state.choices[step.i]={first:i,second:null};if(!state.completedTasks.includes(step.i))state.completedTasks.push(step.i);invalidateFinal();save();render();})));answered=state.completedTasks.includes(step.i);
   }else{
    activeFinal=finalPlan(step.slot);let current=state.finalAnswers[step.slot];
@@ -35,7 +35,7 @@
     const options=[['left',activeFinal.question.leftText],['right',activeFinal.question.rightText],['both','两件都愿意，没有明显先后'],['unknown','都不太想／暂时说不准']];
     options.forEach(([choice,text],i)=>$('options').append(option(text,'ABCD'[i],current?.choice===choice,()=>{state.finalAnswers[step.slot]={kind:'followup',choice};if(step.slot===0)state.finalAnswers[1]=null;state.resultId='';save();render();})));
    }else{
-    const scene=model.scenes[activeFinal.sceneIndex];$('stem').textContent=scene.stem;
+    const scene=form.scenes[activeFinal.sceneIndex];$('stem').textContent=scene.stem;
     scene.options.forEach((answer,i)=>$('options').append(option(answer.text,'ABCD'[i],current?.first===i,()=>{state.finalAnswers[step.slot]={kind:'task',first:i};if(step.slot===0)state.finalAnswers[1]=null;state.resultId='';save();render();})));
    }
    answered=state.finalAnswers[step.slot]!==null;
