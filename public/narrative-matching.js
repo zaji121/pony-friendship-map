@@ -113,5 +113,5 @@ function nextFollowup(result,answered=[]){
  // the other character dislikes it. The new answer reranks all 36 candidates.
  return {left:left[0],right:right[0],stem:'庆典已经收尾，还能留一点时间做自己的事。这两件事都有人愿意配合，你更想先做哪件？',leftText:followupActions[left[0]],rightText:followupActions[right[0]],candidateSlugs:[a.slug,b.slug]};
 }
-root.PONY_NARRATIVE_MATCH={features,scenes,roleTraits,rank,nextFollowup,version,choicesValid};
+root.PONY_NARRATIVE_MATCH={features,scenes,roleTraits,followupActions,rank,nextFollowup,version,choicesValid};
 })(typeof window==='object'?window:globalThis);

@@ -3,7 +3,7 @@
 (function(w){
 const axes=['EI','SN','TF','JP'],picks={EI:[0,1,3,4,6,7,9,10],SN:[0,1,4,5,6,7,9,10],TF:[0,1,3,4,6,7,10,11],JP:[0,1,3,4,7,8,9,10]};
 const indexes=[];axes.forEach((axis,j)=>picks[axis].forEach(k=>indexes.push(k*4+j)));indexes.sort((a,b)=>a-b);
-const questions=indexes.map(i=>w.QUIZ_QUESTIONS[i]),version='festival-48-single-20261030-v2';
+const questions=indexes.map(i=>w.QUIZ_QUESTIONS[i]),version='festival-48-single-20261030-v3';
 // Same feature coding as the experimental model; concrete wording belongs to
 // this form so older saved editions retain their own question text.
 const sceneCopy=[
@@ -113,6 +113,26 @@ revise(13,'收尾时发现还有几件事没做完，你更愿意先留哪一份
  ['把今天用得不顺手的架子修好，照老办法加固几个地方','practical','heritage'],
  ['把需要留意的环节单独写给筹备组，标好下次怎么避开','discretion','strategy'],
  ['把试过的摊位重新组合，算算下次换一种摆法能不能经营','commerce','experiment']]);
+revise(3,'试演结束，还有二十分钟可以调整。几件事都有人接手，你最想先接哪件？',[
+ ['把没唱顺的一段再练几遍，试试怎样唱出想表达的感觉','stage','aesthetics'],
+ ['请伙伴穿着演出服走一遍，修改影响动作的细节','aesthetics','craft'],
+ ['把开场环节改成一个小玩法，让台下的人也能一起参加','play','belonging'],
+ ['听刚才紧张的伙伴说说顾虑，陪他找一种舒服的上场方式','care','service']]);
+revise(7,'开场前还剩半小时，你最想接哪一件准备工作？',[
+ ['把答应送到的果篮搬好，再和摊主点清份数','fieldwork','service'],
+ ['照记录查清机关为什么停了，写下下一组能用的处理步骤','analysis','knowledge'],
+ ['再跑几次绕桩路线，试试怎样把那个弯转得更稳','athletic','mastery'],
+ ['试一种没用过的材料组合，做个和原样不同的新版本','experiment','independence']]);
+revise(11,'庆典进行到一半，你可以调换一次工作。接下来的半小时，你更愿意接哪项？',[
+ ['看几位来宾试穿的样子，把配饰和衣服改得更合适','aesthetics','craft'],
+ ['和愿意挑战的来宾再练一轮，试着把刚才的动作做得更稳','athletic','mastery'],
+ ['换个简单的小玩法，让一直没加入的人也能一起玩','play','belonging'],
+ ['陪有些累的来宾歇歇，帮他拿好水和需要的东西','care','service']]);
+revise(12,'庆典结束了，还有一小段时间。你最想先把哪件事做完？',[
+ ['清点借来的工具，把答应归还的东西送回去','service','coordination'],
+ ['和搭档把没唱顺的一段再唱一次，换种表达试试','stage','aesthetics'],
+ ['和居民核对老照片里的故事，记清哪些做法保留到了今天','heritage','knowledge'],
+ ['沿附近一条没走过的小路找一找，把落下的指示牌带回来','exploration','independence']]);
 const contrasts=[
  ['twilight','applejack','knowledge','practical','摊位的小机关又卡住了，你更想先怎么处理？','把图纸和刚才的记录找来，弄清它卡住的原因','拿工具检查松动的地方，先把眼前这一处修好'],
  ['twilight','rainbow-dash','analysis','athletic','挑战路线有一段总不顺，你更想怎样帮忙？','看路线和几次试跑的记录，找出问题出在哪一步','自己跑一遍那一段，边试边调整转弯和发力'],
@@ -131,12 +151,21 @@ const contrasts=[
  ['fluttershy','rarity','service','aesthetics','伙伴穿上演出服后有些不自在，你更想先做什么？','陪他找个舒服的位置，帮他备好水和要用的东西','请他走几步，改改服装和配饰，让它更合身也更好看']
 ];
 function nextFollowup(result,answered=[]){
- if(result.primary===null||!result.close||answered.length>=2)return null;
+ if(result.primary===null||(!result.close&&result.ranked[0].support.sufficient)||answered.length>=2)return null;
  const [a,b]=result.ranked,used=new Set(answered.flatMap(f=>[f.left,f.right]));
  const row=contrasts.find(c=>((c[0]===a.slug&&c[1]===b.slug)||(c[1]===a.slug&&c[0]===b.slug))&&!used.has(c[2])&&!used.has(c[3]));
- if(!row)return w.PONY_NARRATIVE_MATCH.nextFollowup(result,answered);
- const forward=row[0]===a.slug;
- return {left:row[forward?2:3],right:row[forward?3:2],stem:row[4],leftText:row[forward?5:6],rightText:row[forward?6:5],candidateSlugs:[a.slug,b.slug],contrast:'shared-situation'};
+ if(row){const forward=row[0]===a.slug;return {left:row[forward?2:3],right:row[forward?3:2],stem:row[4],leftText:row[forward?5:6],rightText:row[forward?6:5],candidateSlugs:[a.slug,b.slug],contrast:'shared-situation'};}
+ // Prefer differences that separate the nearby candidate set, rather than
+ // picking a feature merely because it is rare across the whole roster.
+ const pool=result.ranked.slice(0,5),peak=Math.max(...pool.map(r=>r.similarity)),weights=pool.map(r=>Math.exp((r.similarity-peak)/.05));
+ let best=null;
+ for(const left of a.traits.filter(t=>!b.traits.includes(t)&&!used.has(t)))for(const right of b.traits.filter(t=>!a.traits.includes(t)&&!used.has(t))){
+  const values=pool.map(r=>Number(r.traits.includes(left))-Number(r.traits.includes(right))),sum=weights.reduce((s,v)=>s+v,0),mean=values.reduce((s,v,i)=>s+v*weights[i],0)/sum,spread=values.reduce((s,v,i)=>s+weights[i]*(v-mean)**2,0)/sum;
+  if(!best||spread>best.spread)best={left,right,spread};
+ }
+ if(!best)return null;
+ const actions=w.PONY_NARRATIVE_MATCH.followupActions;
+ return {left:best.left,right:best.right,stem:'庆典收尾后，还能选一件事做。两边都有人帮忙，你更想先接哪件？',leftText:actions[best.left],rightText:actions[best.right],candidateSlugs:[a.slug,b.slug],contrast:'nearby-candidate-difference'};
 }
 const mainSix=new Set(['twilight','applejack','rainbow-dash','pinkie-pie','fluttershy','rarity']);
 function scoreCore(answers){
@@ -147,14 +176,34 @@ function scoreCore(answers){
 }
 function rank(env,scores,choices,followups=[]){
  const result=env.PONY_NARRATIVE_MATCH.rank(env,scores,choices,followups,{scenes});
- const actualText=o=>{if(Number.isInteger(o.scene))return {...o,text:scenes[o.scene].options[choices[o.scene][o.priority]].text};const f=followups[Number(String(o.scene).replace('followup-',''))];return f?.leftText?{...o,text:o.traits[0]===f.left?f.leftText:f.rightText}:o;};
- result.observations=result.observations.map(actualText);
- result.ranked.forEach(r=>r.explanations=r.explanations.map(actualText));
+ // Every answered scene supplies an opportunity baseline: an unchosen action
+ // means lower priority in this scene, not dislike or a negative personality.
+ const observations=[],items=[];
+ choices.forEach((c,i)=>{if(c.first===null)return;const scene=scenes[i],o=scene.options[c.first];items.push({options:scene.options,selected:c.first,chapter:scene.chapter,scene:i});observations.push({scene:i,chapter:scene.chapter,priority:'first',text:o.text,traits:o.traits});});
+ followups.forEach((f,i)=>{if(!['left','right'].includes(f.choice))return;const options=[{traits:[f.left]},{traits:[f.right]}],selected=f.choice==='left'?0:1;items.push({options,selected,chapter:3,scene:'followup-'+i});observations.push({scene:'followup-'+i,chapter:3,priority:'followup',text:selected===0?(f.leftText||env.PONY_NARRATIVE_MATCH.followupActions[f.left]):(f.rightText||env.PONY_NARRATIVE_MATCH.followupActions[f.right]),traits:options[selected].traits});});
+ const centered=scores.map(v=>v-.5),norm=Math.hypot(...centered),hasCore=norm>1e-12;
+ const affinity=(traits,option)=>(option.traits.filter(t=>traits.includes(t)).length/option.traits.length)**2;
+ result.observations=observations;
+ result.ranked.forEach(r=>{
+  const profile=env.PREFERENCE_PROFILES[r.slug].map(v=>v-.5),profileNorm=Math.hypot(...profile);
+  // A two-item step regularizer prevents a near-midpoint direction from
+  // having the same strength as a highly one-sided response pattern.
+  r.mbti=hasCore&&profileNorm>0 ? .5+.5*centered.reduce((s,v,i)=>s+v*profile[i],0)/(Math.sqrt(norm*norm+.25**2)*profileNorm) : null;
+  let sum=0,variance=0,informative=0;const chapters=new Set(),supported=new Set(),positive=[];
+  items.forEach(item=>{const values=item.options.map(o=>affinity(r.traits,o)),mean=values.reduce((s,v)=>s+v,0)/values.length,v=values.reduce((s,n)=>s+(n-mean)**2,0)/values.length,delta=values[item.selected]-mean;if(v<1e-12)return;informative++;sum+=delta;variance+=v;if(delta>1e-12){chapters.add(item.chapter);item.options[item.selected].traits.filter(t=>r.traits.includes(t)).forEach(t=>supported.add(t));positive.push(item.scene);}});
+  const z=variance>1e-12?sum/Math.sqrt(variance):null;
+  r.interest=z===null?null:.5+.5*Math.tanh(z/2);
+  r.similarity=r.mbti!==null&&r.interest!==null?.6*r.mbti+.4*r.interest:r.mbti??r.interest;
+  r.support={positiveScenes:positive,chapters:[...chapters],traits:[...supported],informativeItems:informative,relativeEvidence:z,sufficient:chapters.size>=2&&supported.size>=2&&positive.length>=2};
+  r.explanations=observations.filter(o=>positive.includes(o.scene)).map(o=>({...o,supportedTraits:o.traits.filter(t=>r.traits.includes(t))}));
+ });
  // Product preference is used ONLY for mathematically identical scores.
  // No bonus, quota, random selection or near-score override.
- result.ranked.sort((a,b)=>((b.similarity??0)-(a.similarity??0))||(Number(mainSix.has(b.slug))-Number(mainSix.has(a.slug)))||a.index-b.index);
- if(result.primary!==null){result.primary=result.ranked[0].index;result.secondary=result.ranked[1].index;result.similarityGap=result.ranked[0].similarity-result.ranked[1].similarity;result.close=result.similarityGap<.03;}
- result.version=version;return result;
+ result.ranked.sort((a,b)=>Number(b.support.sufficient)-Number(a.support.sufficient)||((b.similarity??0)-(a.similarity??0))||(Number(mainSix.has(b.slug))-Number(mainSix.has(a.slug)))||a.index-b.index);
+ if(result.ranked.every(r=>r.similarity===null))result.primary=null;
+ if(result.primary!==null){result.primary=result.ranked[0].index;result.secondary=result.ranked[1].index;result.similarityGap=result.ranked[0].similarity-result.ranked[1].similarity;result.close=result.similarityGap<.03||!result.ranked[0].support.sufficient;}
+ result.version=version;result.signal={mbti:hasCore,interests:items.length>0,answeredTasks:choices.filter(c=>c.first!==null).length};result.neutralContrasts=followups.filter(f=>f.choice==='both'||f.choice==='unknown').length;
+ result.parameters={mbtiWeight:.6,interestWeight:.4,midpointRegularizer:.25,relativeEvidenceScale:2,closeGap:.03,minChapters:2};return result;
 }
 function plan(env,scores,fixedChoices,finalAnswers=[]){
  const model=env.PONY_NARRATIVE_MATCH;

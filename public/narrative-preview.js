@@ -1,5 +1,5 @@
 (function(){
- const $=id=>document.getElementById(id),model=window.PONY_NARRATIVE_MATCH,form=window.PONY_QUIZ_48,q=form.questions,key='ponyNarrative48-v2';
+ const $=id=>document.getElementById(id),model=window.PONY_NARRATIVE_MATCH,form=window.PONY_QUIZ_48,q=form.questions,key='ponyNarrative48-v3';
  const steps=[];
  for(let chapter=0;chapter<4;chapter++){
   q.forEach((item,i)=>{if(item[2].chapter===chapter)steps.push({kind:'core',i,chapter});});
@@ -65,4 +65,5 @@
  $('none').onclick=()=>{const step=steps[state.index];if(step.kind==='task'){state.choices[step.i]={first:null,second:null};if(!state.completedTasks.includes(step.i))state.completedTasks.push(step.i);invalidateFinal();}else if(step.kind==='final'&&activeFinal.kind==='task'){state.finalAnswers[step.slot]={kind:'task',first:null};if(step.slot===0)state.finalAnswers[1]=null;}save();render();};
  $('restart').onclick=()=>{state=fresh();save();render();};if(new URLSearchParams(location.search).get('start')==='1')render();
 })();
+
 

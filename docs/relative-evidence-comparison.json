@@ -1,0 +1,257 @@
+{
+  "seed": 20261031,
+  "trials": 2000,
+  "scope": "Paired uniform synthetic ordinal streams; final questions held fixed for one-answer sensitivity. Different item text does not imply identical semantic responses. Not accuracy or retest reliability.",
+  "versions": [
+    {
+      "version": "festival-48-single-20261030-v2",
+      "coreFlips": 692,
+      "taskFlips": 288,
+      "unsupported": 0,
+      "coreFlipShare": 0.346,
+      "taskFlipShare": 0.144,
+      "unsupportedShare": 0
+    },
+    {
+      "version": "festival-48-single-20261030-v3",
+      "coreFlips": 562,
+      "taskFlips": 405,
+      "unsupported": 0,
+      "coreFlipShare": 0.281,
+      "taskFlipShare": 0.2025,
+      "unsupportedShare": 0
+    }
+  ],
+  "distribution": {
+    "beforeVersion": "festival-48-single-20261030-v2",
+    "afterVersion": "festival-48-single-20261030-v3",
+    "trials": 20000,
+    "beforeClose": 0.42425,
+    "afterClose": 0.38295,
+    "beforeMainSix": 0.2699,
+    "afterMainSix": 0.15835000000000002,
+    "roles": [
+      {
+        "slug": "sweetie-belle",
+        "name": "甜心宝宝",
+        "before": 0.08455,
+        "after": 0.0466
+      },
+      {
+        "slug": "gilda",
+        "name": "吉尔达",
+        "before": 0.0204,
+        "after": 0.0426
+      },
+      {
+        "slug": "discord",
+        "name": "无序",
+        "before": 0.03665,
+        "after": 0.0419
+      },
+      {
+        "slug": "daring-do",
+        "name": "无畏天马",
+        "before": 0.06225,
+        "after": 0.03815
+      },
+      {
+        "slug": "apple-bloom",
+        "name": "苹果丽丽",
+        "before": 0.0178,
+        "after": 0.0368
+      },
+      {
+        "slug": "trixie",
+        "name": "特丽克西",
+        "before": 0.0176,
+        "after": 0.0367
+      },
+      {
+        "slug": "starlight",
+        "name": "星光熠熠",
+        "before": 0.02795,
+        "after": 0.0346
+      },
+      {
+        "slug": "scootaloo",
+        "name": "醒目露露",
+        "before": 0.0477,
+        "after": 0.03345
+      },
+      {
+        "slug": "king-sombra",
+        "name": "黑水晶",
+        "before": 0.0069,
+        "after": 0.0325
+      },
+      {
+        "slug": "sunset-shimmer",
+        "name": "余晖烁烁",
+        "before": 0.0347,
+        "after": 0.03215
+      },
+      {
+        "slug": "rarity",
+        "name": "珍奇",
+        "before": 0.05975,
+        "after": 0.032
+      },
+      {
+        "slug": "rainbow-dash",
+        "name": "云宝",
+        "before": 0.05965,
+        "after": 0.03175
+      },
+      {
+        "slug": "cozy-glow",
+        "name": "可西光辉",
+        "before": 0.01445,
+        "after": 0.03075
+      },
+      {
+        "slug": "fluttershy",
+        "name": "柔柔",
+        "before": 0.031,
+        "after": 0.03065
+      },
+      {
+        "slug": "luna",
+        "name": "月亮公主",
+        "before": 0.009,
+        "after": 0.03055
+      },
+      {
+        "slug": "zecora",
+        "name": "可拉",
+        "before": 0.04755,
+        "after": 0.0298
+      },
+      {
+        "slug": "sunburst",
+        "name": "日光耀耀",
+        "before": 0.03145,
+        "after": 0.02965
+      },
+      {
+        "slug": "maud",
+        "name": "灰琪",
+        "before": 0.0307,
+        "after": 0.02925
+      },
+      {
+        "slug": "granny-smith",
+        "name": "史密夫婆婆",
+        "before": 0.01465,
+        "after": 0.0276
+      },
+      {
+        "slug": "filthy-rich",
+        "name": "富豪",
+        "before": 0.00825,
+        "after": 0.0246
+      },
+      {
+        "slug": "shining-armor",
+        "name": "闪耀盔甲",
+        "before": 0.03375,
+        "after": 0.0244
+      },
+      {
+        "slug": "cheese-sandwich",
+        "name": "芝士三明治",
+        "before": 0.0415,
+        "after": 0.02425
+      },
+      {
+        "slug": "chrysalis",
+        "name": "虫茧女王",
+        "before": 0.0338,
+        "after": 0.0239
+      },
+      {
+        "slug": "twilight",
+        "name": "紫悦",
+        "before": 0.0399,
+        "after": 0.0238
+      },
+      {
+        "slug": "sugar-belle",
+        "name": "舒歌贝",
+        "before": 0.03265,
+        "after": 0.0237
+      },
+      {
+        "slug": "celestia",
+        "name": "宇宙公主",
+        "before": 0.01315,
+        "after": 0.02235
+      },
+      {
+        "slug": "pear-butter",
+        "name": "梨子酱",
+        "before": 0.0141,
+        "after": 0.02215
+      },
+      {
+        "slug": "pinkie-pie",
+        "name": "碧琪",
+        "before": 0.02895,
+        "after": 0.02035
+      },
+      {
+        "slug": "diamond-tiara",
+        "name": "珠玉冠冠",
+        "before": 0.00705,
+        "after": 0.02035
+      },
+      {
+        "slug": "applejack",
+        "name": "苹果嘉儿",
+        "before": 0.05065,
+        "after": 0.0198
+      },
+      {
+        "slug": "bright-mac",
+        "name": "辉麦",
+        "before": 0.0111,
+        "after": 0.01945
+      },
+      {
+        "slug": "lyra",
+        "name": "天琴心弦",
+        "before": 0.00025,
+        "after": 0.01755
+      },
+      {
+        "slug": "cadance",
+        "name": "音韵公主",
+        "before": 0.00585,
+        "after": 0.0167
+      },
+      {
+        "slug": "big-mac",
+        "name": "麦托什",
+        "before": 0.01675,
+        "after": 0.0166
+      },
+      {
+        "slug": "bon-bon",
+        "name": "糖糖",
+        "before": 0.0047,
+        "after": 0.0164
+      },
+      {
+        "slug": "spike",
+        "name": "穗龙",
+        "before": 0.0029,
+        "after": 0.0162
+      }
+    ]
+  },
+  "limitations": [
+    "No ground truth character labels",
+    "Parameters and support gate remain uncalibrated",
+    "Reduced sensitivity can also mean under-responsiveness; this does not establish validity"
+  ]
+}

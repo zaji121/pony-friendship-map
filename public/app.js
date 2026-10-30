@@ -185,8 +185,8 @@
     // The narrative trial uses the same original landing and Derpy delivery.
     // Only the question flow branches after the user presses Start.
     if(new URLSearchParams(location.search).get('experience')==='narrative'){
-      try{for(const key of ['ponyNarrative48-v2','ponyNarrative48-v1','ponyNarrativePreview-v3']){const completed=JSON.parse(sessionStorage.getItem(key)||'null');if(completed?.resultId)sessionStorage.removeItem(key);}}catch{}
-      location.assign(new URL('narrative-preview.html?start=1&v=20261030-48distinctions',location.href).href);
+      try{for(const key of ['ponyNarrative48-v3','ponyNarrative48-v2','ponyNarrative48-v1','ponyNarrativePreview-v3']){const completed=JSON.parse(sessionStorage.getItem(key)||'null');if(completed?.resultId)sessionStorage.removeItem(key);}}catch{}
+      location.assign(new URL('narrative-preview.html?start=1&v=20261030-48evidence',location.href).href);
       return;
     }
     $('start-button').disabled=true; updateGateError('');
@@ -375,13 +375,14 @@
     renderCharacters(result); bindTabs(); window.renderResultExperience?.(result,main,second); window.designFriendshipReport?.(result,main,second);
     if(result.narrative){
       const n=result.narrative;
-      $('match-reading').textContent='这次的四维偏好：'+result.type+'。庆典任务也参与了角色联想。'+(n.close?'两位候选仍接近，保留另一种可能。':'这是试验版的暂定角色联想。');
-      const explain=p=>p.explanations.slice(0,3).map(e=>'你选择了「'+e.text+'」').join('；');
+      $('match-reading').textContent='这次的四维偏好：'+result.type+'。庆典任务也参与了角色联想。'+(n.primary.support&&!n.primary.support.sufficient?'跨场景支持暂时不足，当前只展示候选联想，不锁定角色。':n.close?'两位候选仍接近，保留另一种可能。':'这是试验版的暂定角色联想。');
+      const explain=p=>p.explanations.length?p.explanations.slice(0,3).map(e=>'你选择了「'+e.text+'」').join('；'):'这次还没有足够的具体任务线索支持这位候选';
       $('primary-duo-why').textContent=explain(n.primary)+(n.primary.limitedEvidence?'。这位角色剧情依据有限，不能据此确定人格类型。':'。这些线索与角色的故事主题有相似之处，不是身份判定。');
       $('secondary-why').textContent=explain(n.secondary)+'。这位伙伴来自同一份作答的第二候选，没有随机抽取。';
       $('secondary-reading').children[0].querySelector('p').textContent='本试验按四维偏好模式和具体任务的内容特征共同排序，任务兴趣不会改变你的四维分数；相似度不是准确率。';
       const method=document.querySelector('.career-method');
       if(method){const paragraphs=method.querySelectorAll(':scope > p'),compact=n.formVersion?.startsWith('festival-48-single-20261030-');if(compact&&paragraphs[1])paragraphs[1].textContent='本版共48题，全部单选：32道做事方式题（E/I、S/N、T/F、J/P各8题）与16道庆典情境题。四维按实际作答比例绘制；最后两题根据已有选择调整，包含在48题内，不额外加题。';if(paragraphs[2])paragraphs[2].textContent='本次使用庆典任务试验规则：角色排序采用居中余弦与任务内容相似度，初始权重为四维60%、兴趣40%，尚未经过真实样本校准。'+(compact?'只有匹配分数完全相同时，才优先展示主角团。':'任务采用'+(n.selectionMode==='single'?'单选':'首选、次选')+'，接近时最多追问3次。')+'角色与行为联想为剧情编辑推断，不是已验证的人格分类，也不据反派联想判断用户善恶。';}
+      if(n.formVersion==='festival-48-single-20261030-v3'&&method){const p=method.querySelectorAll(':scope > p')[2];if(p)p.textContent='角色联想比较每题所选动作与其他可选动作的相对支持；至少两个不同场景、两类线索的支持才优先进入候选。四维接近中间时减弱方向信号，“都愿意”和“说不准”不增加两侧的区分证据。四维与任务的初始权重仍为60%／40%；内容要求、参数和接近阈值均未经过真人样本校准。只有支持条件和分数均相同时才优先主角团，不设置角色配额。剧情联想不等于人格分类，相似度也不是准确率。';}
     }
   }
   function makeTraitTag(label){const tag=document.createElement('span');tag.className='duo-tag';tag.textContent=label;return tag;}
@@ -579,9 +580,10 @@
   $('exit-quiz').addEventListener('click',()=>{if(confirm('确定退出本次测评吗？退出后可以免费重新开始。')){sessionStorage.removeItem('ponyQuiz');state={token:'',answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false};showView('gate');}});
   $('welcome-share').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.origin+(window.SITE_CONFIG?.basePath||'/'));toast('测评邀请链接已复制，朋友打开后即可免费开始。','success');}catch(err){toast('复制失败，请重试。','error');}});
   $('copy-link').addEventListener('click',copyLink);$('save-image').addEventListener('click',saveImage);
-  $('retake').addEventListener('click',()=>{const trial=!!state.result?.narrative;if(trial){sessionStorage.removeItem('ponyNarrative48-v2');sessionStorage.removeItem('ponyNarrative48-v1');sessionStorage.removeItem('ponyNarrativePreview-v3');sessionStorage.removeItem('ponyNarrativePreview-v2');}state={token:'',answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false};updateGateError('');history.replaceState(null,'',(window.SITE_CONFIG?.basePath||'/')+(trial?'?experience=narrative':''));showView('gate');});
+  $('retake').addEventListener('click',()=>{const trial=!!state.result?.narrative;if(trial){sessionStorage.removeItem('ponyNarrative48-v3');sessionStorage.removeItem('ponyNarrative48-v2');sessionStorage.removeItem('ponyNarrative48-v1');sessionStorage.removeItem('ponyNarrativePreview-v3');sessionStorage.removeItem('ponyNarrativePreview-v2');}state={token:'',answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false};updateGateError('');history.replaceState(null,'',(window.SITE_CONFIG?.basePath||'/')+(trial?'?experience=narrative':''));showView('gate');});
   const match=location.pathname.match(/\/r\/([A-Za-z0-9_-]+)\/?$/),sharedId=new URLSearchParams(location.search).get('r')||new URLSearchParams(location.hash.slice(1)).get('result')||match?.[1];const previewSlug=new URLSearchParams(location.search).get('admin-preview');if(previewSlug)openAdminPreview(previewSlug);else if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId))loadShared(sharedId);
 })();
+
 
 
 
