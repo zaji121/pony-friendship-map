@@ -7,7 +7,7 @@
   const header=node('tr');for(const text of ['角色','随机二选一假设','等权分数格点'])header.append(node('th',text));table.append(header);
   for(const role of report.roles){const row=node('tr');for(const text of [role.name,(100*role.answerPatternShare).toFixed(2)+'%',(100*role.equalScoreGridShare).toFixed(2)+'%']){const cell=node('td',text);cell.style.cssText='padding:7px 4px;border-bottom:1px solid #eee4da';row.append(cell);}table.append(row);}
   const details=node('details');details.append(node('summary','展开当前角色分布明细与测试假设'),node('p',report.assumptions.answerPatternShare),node('p',report.assumptions.equalScoreGridShare),table);
-  section.append(node('p','前三位：'+report.roles.slice(0,3).map(r=>r.name+' '+(100*r.answerPatternShare).toFixed(2)+'%').join('；')+'。'),node('p','DJ-PON3、梦魇之月、破灭之阳已从当前名单移除。部分集中转移到了其他中心侧写，算法仍未完成实测校准；覆盖通过不等于评估有效。'),details);
+  section.append(node('p','前三位：'+report.roles.slice(0,3).map(r=>r.name+' '+(100*r.answerPatternShare).toFixed(2)+'%').join('；')+'。'),node('p','DJ-PON3、梦魇之月、破灭之阳、雾鬃已从当前名单移除。部分集中转移到了其他中心侧写，算法仍未完成实测校准；覆盖通过不等于评估有效。'),details);
   document.getElementById('status').before(section);
  }).catch(()=>{});
  fetch(new URL('./role-audit.json',location.href)).then(r=>{if(!r.ok)throw Error('暂时无法读取检查结果，请刷新重试。');return r.json();}).then(report=>{

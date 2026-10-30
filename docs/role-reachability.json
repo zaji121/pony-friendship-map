@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-30T03:09:04.814Z",
+  "generatedAt": "2026-10-30T03:13:02.108Z",
   "questionVersion": "festival-chapters-20261029-choice",
-  "fingerprint": "f779fa5f28dcc1581a98d6f8d22b2147fb272735004a5651316dcf5c74a7398f",
+  "fingerprint": "e5d4a283ef9147a3528e93f4b6051733dfd99f5a587e1a5ddd329ed61d31b04a",
   "dimensions": [
     "EI",
     "SN",
@@ -12,10 +12,10 @@
   "itemsPerDimension": 12,
   "scoreCells": 28561,
   "representedAnswerPatterns": "281474976710656",
-  "eligibleRoles": 37,
-  "reachableRoles": 37,
-  "strictReachableRoles": 37,
-  "productionWitnessesVerified": 37,
+  "eligibleRoles": 36,
+  "reachableRoles": 36,
+  "strictReachableRoles": 36,
+  "productionWitnessesVerified": 36,
   "scope": "算法覆盖检查，不是心理测量效度验证。角色侧写是剧情编辑推断，不是官方MBTI类型。格点数不是实际用户出现概率。",
   "roles": [
     {
@@ -28,19 +28,19 @@
         0.3,
         0.88
       ],
-      "primaryCells": 485,
-      "strictPrimaryCells": 485,
-      "secondaryCells": 477,
-      "answerPatterns": 1062168599859,
+      "primaryCells": 672,
+      "strictPrimaryCells": 672,
+      "secondaryCells": 488,
+      "answerPatterns": 1153101235873,
       "witness": {
         "answers": [
           0,
-          1,
           0,
           0,
-          1,
           0,
           1,
+          1,
+          0,
           1,
           0,
           1,
@@ -83,21 +83,21 @@
           0,
           1
         ],
-        "letters": "ABAABABBABBAAAABBBBAAAABBBBAAAABBBBAAAABBBBAAAAB",
+        "letters": "AAAABBABABBAAAABBBBAAAABBBBAAAABBBBAAAABBBBAAAAB",
         "positiveCounts": [
           3,
-          0,
           2,
+          1,
           12
         ],
         "scores": [
           0.25,
-          0,
           0.16666666666666669,
+          0.08333333333333331,
           1
         ],
-        "secondary": "mistmane",
-        "margin": 0.10196666666666668
+        "secondary": "luna",
+        "margin": 0.11939999999999999
       },
       "evidence": {
         "facts": [
@@ -500,10 +500,10 @@
         0.13,
         0.43
       ],
-      "primaryCells": 1416,
-      "strictPrimaryCells": 1416,
-      "secondaryCells": 444,
-      "answerPatterns": 1771296217872,
+      "primaryCells": 1421,
+      "strictPrimaryCells": 1421,
+      "secondaryCells": 474,
+      "answerPatterns": 1771329227640,
       "witness": {
         "answers": [
           1,
@@ -620,7 +620,7 @@
       ],
       "primaryCells": 522,
       "strictPrimaryCells": 522,
-      "secondaryCells": 1020,
+      "secondaryCells": 1026,
       "answerPatterns": 2735949945393,
       "witness": {
         "answers": [
@@ -854,10 +854,10 @@
         0.28,
         0.8
       ],
-      "primaryCells": 498,
-      "strictPrimaryCells": 498,
-      "secondaryCells": 492,
-      "answerPatterns": 433705992822,
+      "primaryCells": 525,
+      "strictPrimaryCells": 525,
+      "secondaryCells": 500,
+      "answerPatterns": 435343495887,
       "witness": {
         "answers": [
           0,
@@ -972,13 +972,22 @@
         0.27,
         0.64
       ],
-      "primaryCells": 768,
-      "strictPrimaryCells": 768,
-      "secondaryCells": 1083,
-      "answerPatterns": 4273273495513,
+      "primaryCells": 1038,
+      "strictPrimaryCells": 1038,
+      "secondaryCells": 1073,
+      "answerPatterns": 4401682947322,
       "witness": {
         "answers": [
           1,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          1,
+          1,
+          0,
           1,
           0,
           0,
@@ -988,7 +997,6 @@
           1,
           1,
           1,
-          1,
           0,
           0,
           0,
@@ -998,14 +1006,6 @@
           1,
           1,
           0,
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          1,
-          1,
           0,
           0,
           0,
@@ -1027,21 +1027,21 @@
           0,
           0
         ],
-        "letters": "BBAAAABBBBBAAAABBBBAAAAABBBBAAAABBBBAAAABBBBAAAA",
+        "letters": "BABAABABBABAAAABBBBAAAABBBBAAAAABBBBAAAABBBBAAAA",
         "positiveCounts": [
           0,
+          3,
           0,
-          2,
-          5
+          7
         ],
         "scores": [
           0,
+          0.25,
           0,
-          0.16666666666666669,
-          0.4166666666666667
+          0.5833333333333334
         ],
-        "secondary": "mistmane",
-        "margin": 0.11089999999999994
+        "secondary": "sunburst",
+        "margin": 0.17006666666666667
       },
       "evidence": {
         "facts": [
@@ -1090,10 +1090,10 @@
         0.12,
         0.85
       ],
-      "primaryCells": 665,
-      "strictPrimaryCells": 665,
-      "secondaryCells": 372,
-      "answerPatterns": 442210287607,
+      "primaryCells": 670,
+      "strictPrimaryCells": 670,
+      "secondaryCells": 381,
+      "answerPatterns": 442374003511,
       "witness": {
         "answers": [
           0,
@@ -1444,10 +1444,10 @@
         0.47,
         0.86
       ],
-      "primaryCells": 600,
-      "strictPrimaryCells": 600,
-      "secondaryCells": 332,
-      "answerPatterns": 58362080086,
+      "primaryCells": 602,
+      "strictPrimaryCells": 602,
+      "secondaryCells": 339,
+      "answerPatterns": 58362646366,
       "witness": {
         "answers": [
           1,
@@ -1800,7 +1800,7 @@
       ],
       "primaryCells": 452,
       "strictPrimaryCells": 452,
-      "secondaryCells": 1066,
+      "secondaryCells": 1222,
       "answerPatterns": 2199877025049,
       "witness": {
         "answers": [
@@ -2034,10 +2034,10 @@
         0.3,
         0.85
       ],
-      "primaryCells": 583,
-      "strictPrimaryCells": 571,
-      "secondaryCells": 556,
-      "answerPatterns": 1499845353655,
+      "primaryCells": 584,
+      "strictPrimaryCells": 572,
+      "secondaryCells": 621,
+      "answerPatterns": 1499845745695,
       "witness": {
         "answers": [
           0,
@@ -2506,10 +2506,10 @@
         0.2,
         0.35
       ],
-      "primaryCells": 1932,
-      "strictPrimaryCells": 1928,
-      "secondaryCells": 788,
-      "answerPatterns": 17057200465827,
+      "primaryCells": 1938,
+      "strictPrimaryCells": 1934,
+      "secondaryCells": 881,
+      "answerPatterns": 17058116140587,
       "witness": {
         "answers": [
           0,
@@ -3084,7 +3084,7 @@
       ],
       "primaryCells": 182,
       "strictPrimaryCells": 182,
-      "secondaryCells": 702,
+      "secondaryCells": 732,
       "answerPatterns": 1745912478871,
       "witness": {
         "answers": [
@@ -3318,10 +3318,10 @@
         0.4,
         0.7
       ],
-      "primaryCells": 380,
-      "strictPrimaryCells": 375,
-      "secondaryCells": 477,
-      "answerPatterns": 34296169503948,
+      "primaryCells": 382,
+      "strictPrimaryCells": 377,
+      "secondaryCells": 488,
+      "answerPatterns": 34318444694028,
       "witness": {
         "answers": [
           0,
@@ -3526,10 +3526,10 @@
         0.1,
         0.6
       ],
-      "primaryCells": 306,
-      "strictPrimaryCells": 306,
-      "secondaryCells": 876,
-      "answerPatterns": 3313953647191,
+      "primaryCells": 397,
+      "strictPrimaryCells": 397,
+      "secondaryCells": 919,
+      "answerPatterns": 3469334962093,
       "witness": {
         "answers": [
           0,
@@ -3544,22 +3544,22 @@
           0,
           1,
           0,
-          1,
-          1,
-          0,
-          1,
-          1,
-          0,
-          1,
-          0,
           0,
           1,
           0,
           1,
           1,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
           1,
           1,
           1,
+          1,
+          0,
           0,
           0,
           0,
@@ -3581,21 +3581,21 @@
           0,
           0
         ],
-        "letters": "AABABBABAABABBABBABAABABBBBBAAAABBBBAAAABBBBAAAA",
+        "letters": "AABABBABAABAABABBABAABABBBBAAAAABBBBAAAABBBBAAAA",
         "positiveCounts": [
-          4,
+          3,
           6,
           0,
-          6
+          7
         ],
         "scores": [
-          0.33333333333333337,
+          0.25,
           0.5,
           0,
-          0.5
+          0.5833333333333334
         ],
-        "secondary": "mistmane",
-        "margin": 0.07
+        "secondary": "fluttershy",
+        "margin": 0.07863333333333335
       },
       "evidence": {
         "facts": [
@@ -4164,124 +4164,6 @@
         ],
         "interpretation": "采用改变后的余晖，记录推理与理解双方的材料。",
         "limits": "跨世界和成长阶段影响行为；不将同理心魔法直接当作F量表。",
-        "limited": false,
-        "special": false
-      }
-    },
-    {
-      "slug": "mistmane",
-      "index": 51,
-      "name": "雾鬃",
-      "profile": [
-        0.2,
-        0.35,
-        0.1,
-        0.75
-      ],
-      "primaryCells": 596,
-      "strictPrimaryCells": 596,
-      "secondaryCells": 459,
-      "answerPatterns": 399749454622,
-      "witness": {
-        "answers": [
-          1,
-          0,
-          1,
-          0,
-          0,
-          1,
-          0,
-          1,
-          1,
-          0,
-          1,
-          0,
-          0,
-          1,
-          0,
-          1,
-          1,
-          0,
-          1,
-          0,
-          0,
-          1,
-          0,
-          1,
-          1,
-          1,
-          1,
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          1,
-          1,
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          1,
-          1,
-          0,
-          0,
-          0,
-          0,
-          1
-        ],
-        "letters": "BABAABABBABAABABBABAABABBBBAAAABBBBAAAABBBBAAAAB",
-        "positiveCounts": [
-          0,
-          6,
-          0,
-          12
-        ],
-        "scores": [
-          0,
-          0.5,
-          0,
-          1
-        ],
-        "secondary": "luna",
-        "margin": 0.1341
-      },
-      "evidence": {
-        "facts": [
-          {
-            "source": {
-              "originalTitle": "Campfire Tales",
-              "title": "第7季第16集《营火传奇》",
-              "episode": {
-                "season": 7,
-                "episode": 16,
-                "title": "营火传奇"
-              },
-              "url": "https://mlp.fandom.com/wiki/Transcripts/Campfire_Tales",
-              "kind": "社区维护的动画转录入口"
-            },
-            "text": "付出自己的美貌，恢复家园与朋友的生活。"
-          },
-          {
-            "source": {
-              "originalTitle": "Shadow Play - Part 2",
-              "title": "第7季第26集《光影对决（下）》",
-              "episode": {
-                "season": 7,
-                "episode": 26,
-                "title": "光影对决（下）"
-              },
-              "url": "https://mlp.fandom.com/wiki/Transcripts/Shadow_Play_-_Part_2",
-              "kind": "社区维护的动画转录入口"
-            },
-            "text": "与六栋梁共同参与阻止威胁。"
-          }
-        ],
-        "interpretation": "兼顾朋友与共同环境是故事主题。",
-        "limits": "牺牲是道德选择，不足以判定F；传说叙述不能提供四维稳定数据。",
         "limited": false,
         "special": false
       }
