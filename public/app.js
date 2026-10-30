@@ -217,7 +217,7 @@
     {name:'紫悦',src:'/images/chapter-welcome/twilight-tilt.webp',pose:'twilight'},
     {name:'珍奇',src:'/images/chapter-welcome/rarity-front.webp',pose:'rarity'},
     {name:'碧琪',src:'/images/chapter-welcome/pinkie-smile.webp',pose:'pinkie'},
-    {name:'苹果嘉儿',src:'/images/chapter-welcome/applejack-bust.webp',pose:'applejack'}
+    {name:'苹果嘉儿',src:'/images/chapter-welcome/applejack-tilt.webp',pose:'applejack'}
   ];
   const chapterHostImages=chapterHosts.map(host=>{const img=new Image();img.src=host.src;return img;});
   async function showChapterOpening(index){

@@ -221,3 +221,6 @@ img{max-width:100%}
 .chapter-welcome[data-pony=applejack]{--frame:#dfc38e;--frame-light:#fff9ed}
 .chapter-welcome[data-pony=applejack] .welcome-portrait{inset:0;overflow:visible;z-index:3}
 .chapter-welcome[data-pony=applejack] .welcome-portrait img{width:124px;height:124px;object-fit:contain;left:28px;top:25px;bottom:auto;max-height:none}
+
+.chapter-welcome[data-pony=applejack] .welcome-portrait{inset:0 0 23px;overflow:hidden;z-index:1}
+.chapter-welcome[data-pony=applejack] .welcome-portrait img{width:120px;height:auto;object-fit:fill;left:30px;top:0;bottom:auto;max-height:none}

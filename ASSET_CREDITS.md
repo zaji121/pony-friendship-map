@@ -249,3 +249,5 @@ Sunset career replacement: https://derpibooru.org/images/1448470 ; artist lifes-
 2026-10-29 fourth chapter portrait: https://derpibooru.org/images/3147975 (tagged official stock vector/show accurate), replaces close-up 2150659 in chapter UI. Existing original pixels, alpha trim and lossless WebP encoding only. The crop uses the same upper-body viewport and lower sill as the other three chapters; no synthetic hoof overlay.
 
 2026-10-29 fourth chapter alternative: removes Fluttershy from chapter welcome UI; Applejack uses the native full-face bust https://derpibooru.org/images/2153913 (artist cheezedoodle96). Original hooves are part of that one source image, not composited from another character.
+
+2026-10-30 chapter Applejack hair correction: https://derpibooru.org/images/1181153 (artist dashiesparkle; original source http://www.deviantart.com/art/Vector-506-Applejack-24-616143753). Replaces the peekaboo bust with a natural mane, hat and slight head tilt. Original pixels are alpha-trimmed/resized, not redrawn.
