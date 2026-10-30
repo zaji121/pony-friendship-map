@@ -182,6 +182,12 @@
   }
   function updateGateError(message='') { $('gate-error').textContent=message; }
   async function startQuiz() {
+    // The narrative trial uses the same original landing and Derpy delivery.
+    // Only the question flow branches after the user presses Start.
+    if(new URLSearchParams(location.search).get('experience')==='narrative'){
+      location.assign(new URL('narrative-preview.html?start=1',location.href).href);
+      return;
+    }
     $('start-button').disabled=true; updateGateError('');
     try { const data=await api('/api/start',{}); state={token:data.token,answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false}; sessionStorage.setItem('ponyQuiz',JSON.stringify(state)); renderQuestion(0); showView('quiz'); }
     catch(err){updateGateError(err.message);}
@@ -366,6 +372,16 @@
 
 
     renderCharacters(result); bindTabs(); window.renderResultExperience?.(result,main,second); window.designFriendshipReport?.(result,main,second);
+    if(result.narrative){
+      const n=result.narrative;
+      $('match-reading').textContent='这次的四维偏好：'+result.type+'。庆典任务也参与了角色联想。'+(n.close?'两位候选仍接近，保留另一种可能。':'这是试验版的暂定角色联想。');
+      const explain=p=>p.explanations.slice(0,3).map(e=>'你选择了「'+e.text+'」').join('；');
+      $('primary-duo-why').textContent=explain(n.primary)+(n.primary.limitedEvidence?'。这位角色剧情依据有限，不能据此确定人格类型。':'。这些线索与角色的故事主题有相似之处，不是身份判定。');
+      $('secondary-why').textContent=explain(n.secondary)+'。这位伙伴来自同一份作答的第二候选，没有随机抽取。';
+      $('secondary-reading').children[0].querySelector('p').textContent='本试验按四维偏好模式和具体任务的内容特征共同排序，任务兴趣不会改变你的四维分数；相似度不是准确率。';
+      const method=document.querySelector('.career-method');
+      if(method){const paragraphs=method.querySelectorAll(':scope > p');if(paragraphs[2])paragraphs[2].textContent='本次使用庆典任务试验规则：四维偏好保留原计分，角色排序采用居中余弦与任务内容相似度。初始权重为四维60%、兴趣40%，尚未经过真实样本校准。任务可选首选、次选，接近时最多追问3次。角色与行为联想为剧情编辑推断，不是已验证的人格分类，也不据反派联想判断用户善恶。';}
+    }
   }
   function makeTraitTag(label){const tag=document.createElement('span');tag.className='duo-tag';tag.textContent=label;return tag;}
   function renderDimensionCards(ranked){
@@ -562,7 +578,7 @@
   $('exit-quiz').addEventListener('click',()=>{if(confirm('确定退出本次测评吗？退出后可以免费重新开始。')){sessionStorage.removeItem('ponyQuiz');state={token:'',answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false};showView('gate');}});
   $('welcome-share').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.origin+(window.SITE_CONFIG?.basePath||'/'));toast('测评邀请链接已复制，朋友打开后即可免费开始。','success');}catch(err){toast('复制失败，请重试。','error');}});
   $('copy-link').addEventListener('click',copyLink);$('save-image').addEventListener('click',saveImage);
-  $('retake').addEventListener('click',()=>{state={token:'',answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false};updateGateError('');history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');showView('gate');});
+  $('retake').addEventListener('click',()=>{const trial=!!state.result?.narrative;state={token:'',answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false};updateGateError('');history.replaceState(null,'',(window.SITE_CONFIG?.basePath||'/')+(trial?'?experience=narrative':''));showView('gate');});
   const match=location.pathname.match(/\/r\/([A-Za-z0-9_-]+)\/?$/),sharedId=new URLSearchParams(location.search).get('r')||new URLSearchParams(location.hash.slice(1)).get('result')||match?.[1];const previewSlug=new URLSearchParams(location.search).get('admin-preview');if(previewSlug)openAdminPreview(previewSlug);else if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId))loadShared(sharedId);
 })();
 

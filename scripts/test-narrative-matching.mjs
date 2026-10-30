@@ -29,5 +29,5 @@ assert.equal(report.roles.reduce((s,r)=>s+r.count,0),report.trials);
 assert.equal(report.roles.reduce((s,r)=>s+r.afterFollowup,0),report.trials);
 assert.equal(new Set(Object.values(model.roleTraits).map(v=>[...v].sort().join(','))).size,36);
 assert(!fs.readFileSync(new URL('public/index.html',root),'utf8').includes('narrative-matching.js'));
-assert(!fs.readFileSync(new URL('scripts/prepare-backend.mjs',root),'utf8').includes('narrative-matching.js'));
+assert(fs.readFileSync(new URL('scripts/prepare-backend.mjs',root),'utf8').includes('narrative-result.js'));
 console.log('36 full-answer witness round trips and deterministic, missing-input, traceability, validation, follow-up, roster and production-isolation checks passed.');

@@ -43,7 +43,7 @@ Deno.serve(async req=>{
    return send(result,result.status||200);
   }
   const token=String(body.token||'');if(!/^[a-f0-9]{48}$/.test(token))return send({error:'测评会话已失效，请重新开始。'},401);
-  let result;try{result=scoreAnswers(body.result?.answers);}catch(error){return send({error:(error as Error).message},400);}
+  let result;try{result=scoreAnswers(body.result?.answers,body.result?.narrative);}catch(error){return send({error:(error as Error).message},400);}
   const saved=await database('rpc/pony_complete',{p_token:token,p_id:random(),p_result:result});
   return send(saved,saved.status||200);
  }catch(error){console.error('Quiz API error:',(error as Error).message);return send({error:'服务暂时不可用，请稍后重试。'},503);}
