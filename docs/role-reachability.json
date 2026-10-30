@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-30T03:02:35.062Z",
+  "generatedAt": "2026-10-30T03:09:04.814Z",
   "questionVersion": "festival-chapters-20261029-choice",
-  "fingerprint": "941e8f0edae30f5ad7329a98b380087b878e7b7915a647dc3139680aec813c47",
+  "fingerprint": "f779fa5f28dcc1581a98d6f8d22b2147fb272735004a5651316dcf5c74a7398f",
   "dimensions": [
     "EI",
     "SN",
@@ -12,10 +12,10 @@
   "itemsPerDimension": 12,
   "scoreCells": 28561,
   "representedAnswerPatterns": "281474976710656",
-  "eligibleRoles": 39,
-  "reachableRoles": 39,
-  "strictReachableRoles": 39,
-  "productionWitnessesVerified": 39,
+  "eligibleRoles": 37,
+  "reachableRoles": 37,
+  "strictReachableRoles": 37,
+  "productionWitnessesVerified": 37,
   "scope": "算法覆盖检查，不是心理测量效度验证。角色侧写是剧情编辑推断，不是官方MBTI类型。格点数不是实际用户出现概率。",
   "roles": [
     {
@@ -28,10 +28,10 @@
         0.3,
         0.88
       ],
-      "primaryCells": 439,
-      "strictPrimaryCells": 439,
-      "secondaryCells": 421,
-      "answerPatterns": 1062085380316,
+      "primaryCells": 485,
+      "strictPrimaryCells": 485,
+      "secondaryCells": 477,
+      "answerPatterns": 1062168599859,
       "witness": {
         "answers": [
           0,
@@ -96,8 +96,8 @@
           0.16666666666666669,
           1
         ],
-        "secondary": "nightmare-moon",
-        "margin": 0.0928
+        "secondary": "mistmane",
+        "margin": 0.10196666666666668
       },
       "evidence": {
         "facts": [
@@ -264,10 +264,10 @@
         0.73,
         0.25
       ],
-      "primaryCells": 918,
-      "strictPrimaryCells": 918,
-      "secondaryCells": 697,
-      "answerPatterns": 352952284789,
+      "primaryCells": 926,
+      "strictPrimaryCells": 926,
+      "secondaryCells": 754,
+      "answerPatterns": 353743661089,
       "witness": {
         "answers": [
           0,
@@ -736,10 +736,10 @@
         0.61,
         0.71
       ],
-      "primaryCells": 1330,
-      "strictPrimaryCells": 1330,
-      "secondaryCells": 1080,
-      "answerPatterns": 25367597714150,
+      "primaryCells": 1362,
+      "strictPrimaryCells": 1362,
+      "secondaryCells": 1315,
+      "answerPatterns": 25372643659901,
       "witness": {
         "answers": [
           0,
@@ -972,10 +972,10 @@
         0.27,
         0.64
       ],
-      "primaryCells": 739,
-      "strictPrimaryCells": 739,
-      "secondaryCells": 1018,
-      "answerPatterns": 4272652006722,
+      "primaryCells": 768,
+      "strictPrimaryCells": 768,
+      "secondaryCells": 1083,
+      "answerPatterns": 4273273495513,
       "witness": {
         "answers": [
           1,
@@ -1040,8 +1040,8 @@
           0.16666666666666669,
           0.4166666666666667
         ],
-        "secondary": "nightmare-moon",
-        "margin": 0.1100666666666667
+        "secondary": "mistmane",
+        "margin": 0.11089999999999994
       },
       "evidence": {
         "facts": [
@@ -1208,10 +1208,10 @@
         0.7,
         0.1
       ],
-      "primaryCells": 1333,
-      "strictPrimaryCells": 1329,
-      "secondaryCells": 509,
-      "answerPatterns": 637022939164,
+      "primaryCells": 1346,
+      "strictPrimaryCells": 1342,
+      "secondaryCells": 570,
+      "answerPatterns": 638065523212,
       "witness": {
         "answers": [
           0,
@@ -1326,10 +1326,10 @@
         0.6,
         0.91
       ],
-      "primaryCells": 345,
-      "strictPrimaryCells": 345,
-      "secondaryCells": 741,
-      "answerPatterns": 53616081390,
+      "primaryCells": 346,
+      "strictPrimaryCells": 346,
+      "secondaryCells": 758,
+      "answerPatterns": 53616114060,
       "witness": {
         "answers": [
           0,
@@ -1680,10 +1680,10 @@
         0.67,
         0.3
       ],
-      "primaryCells": 912,
-      "strictPrimaryCells": 906,
-      "secondaryCells": 1218,
-      "answerPatterns": 12210366004958,
+      "primaryCells": 1018,
+      "strictPrimaryCells": 1012,
+      "secondaryCells": 1257,
+      "answerPatterns": 12558804299162,
       "witness": {
         "answers": [
           0,
@@ -1798,35 +1798,18 @@
         0.45,
         0.75
       ],
-      "primaryCells": 177,
-      "strictPrimaryCells": 147,
-      "secondaryCells": 1076,
-      "answerPatterns": 2186336176662,
+      "primaryCells": 452,
+      "strictPrimaryCells": 452,
+      "secondaryCells": 1066,
+      "answerPatterns": 2199877025049,
       "witness": {
         "answers": [
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          1,
           1,
           0,
           0,
           0,
           0,
-          0,
           1,
-          1,
-          1,
-          1,
-          1,
-          0,
-          0,
-          0,
-          0,
-          0,
           1,
           1,
           1,
@@ -1843,31 +1826,48 @@
           0,
           0,
           0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
           0,
           1,
           1,
           1,
           1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0,
           0,
           0,
           0,
           0
         ],
-        "letters": "AAAABBBBAAAAABBBBBAAAAABBBBAAAABBBBAAAAABBBBAAAA",
+        "letters": "BAAAABBBBBAAAABBBBAAAABBBBBAAAABBBBAAAABBBBAAAAA",
         "positiveCounts": [
-          3,
-          4,
-          5,
-          9
+          0,
+          2,
+          6,
+          11
         ],
         "scores": [
-          0.25,
-          0.33333333333333337,
-          0.4166666666666667,
-          0.75
+          0,
+          0.16666666666666669,
+          0.5,
+          0.9166666666666667
         ],
-        "secondary": "nightmare-moon",
-        "margin": 0.03333333333333334
+        "secondary": "starlight",
+        "margin": 0.06293333333333337
       },
       "evidence": {
         "facts": [
@@ -1918,7 +1918,7 @@
       ],
       "primaryCells": 1646,
       "strictPrimaryCells": 1646,
-      "secondaryCells": 963,
+      "secondaryCells": 964,
       "answerPatterns": 641445360719,
       "witness": {
         "answers": [
@@ -2036,7 +2036,7 @@
       ],
       "primaryCells": 583,
       "strictPrimaryCells": 571,
-      "secondaryCells": 541,
+      "secondaryCells": 556,
       "answerPatterns": 1499845353655,
       "witness": {
         "answers": [
@@ -2152,10 +2152,10 @@
         0.7,
         0.65
       ],
-      "primaryCells": 1118,
-      "strictPrimaryCells": 1102,
-      "secondaryCells": 948,
-      "answerPatterns": 22497155553224,
+      "primaryCells": 1120,
+      "strictPrimaryCells": 1104,
+      "secondaryCells": 980,
+      "answerPatterns": 22497190209560,
       "witness": {
         "answers": [
           0,
@@ -2744,7 +2744,7 @@
       ],
       "primaryCells": 862,
       "strictPrimaryCells": 862,
-      "secondaryCells": 2037,
+      "secondaryCells": 2042,
       "answerPatterns": 17108553195294,
       "witness": {
         "answers": [
@@ -2978,10 +2978,10 @@
         0.55,
         0.8
       ],
-      "primaryCells": 802,
-      "strictPrimaryCells": 800,
-      "secondaryCells": 441,
-      "answerPatterns": 15129464502119,
+      "primaryCells": 871,
+      "strictPrimaryCells": 862,
+      "secondaryCells": 537,
+      "answerPatterns": 15400612730404,
       "witness": {
         "answers": [
           0,
@@ -3200,10 +3200,10 @@
         0.65,
         0.8
       ],
-      "primaryCells": 802,
-      "strictPrimaryCells": 802,
-      "secondaryCells": 568,
-      "answerPatterns": 4469714023788,
+      "primaryCells": 815,
+      "strictPrimaryCells": 815,
+      "secondaryCells": 613,
+      "answerPatterns": 4486772344584,
       "witness": {
         "answers": [
           0,
@@ -3424,7 +3424,7 @@
       ],
       "primaryCells": 399,
       "strictPrimaryCells": 398,
-      "secondaryCells": 1204,
+      "secondaryCells": 1205,
       "answerPatterns": 44882038628559,
       "witness": {
         "answers": [
@@ -3725,214 +3725,6 @@
       }
     },
     {
-      "slug": "nightmare-moon",
-      "index": 45,
-      "name": "梦魇之月",
-      "profile": [
-        0.1,
-        0.2,
-        0.45,
-        0.8
-      ],
-      "primaryCells": 405,
-      "strictPrimaryCells": 394,
-      "secondaryCells": 327,
-      "answerPatterns": 15002065287,
-      "witness": {
-        "answers": [
-          1,
-          1,
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          1,
-          1,
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          1,
-          1,
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          1,
-          1,
-          1,
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          1,
-          1,
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          1,
-          1,
-          0,
-          0,
-          0,
-          0,
-          1
-        ],
-        "letters": "BBAAAABBBBAAAABBBBAAAABBBBBAAAABBBBAAAABBBBAAAAB",
-        "positiveCounts": [
-          0,
-          0,
-          6,
-          12
-        ],
-        "scores": [
-          0,
-          0,
-          0.5,
-          1
-        ],
-        "secondary": "sunburst",
-        "margin": 0.07500000000000002
-      },
-      "evidence": {
-        "facts": [
-          {
-            "source": {
-              "originalTitle": "Friendship is Magic, part 2",
-              "title": "第1季第2集《友谊是魔法（下）》",
-              "episode": {
-                "season": 1,
-                "episode": 2,
-                "title": "友谊是魔法（下）"
-              },
-              "url": "https://mlp.fandom.com/wiki/Transcripts/Friendship_is_Magic%2C_part_2",
-              "kind": "社区维护的动画转录入口"
-            },
-            "text": "阻挠主角团，试图维持永夜，最后恢复为月亮公主。"
-          }
-        ],
-        "interpretation": "仅作为渴望被看见的特殊形态联想。",
-        "limits": "不是独立稳定人格；嫉妒、邪恶、魔法效果均不用于MBTI判断。",
-        "limited": true,
-        "special": true
-      }
-    },
-    {
-      "slug": "daybreaker",
-      "index": 46,
-      "name": "破灭之阳",
-      "profile": [
-        0.85,
-        0.3,
-        0.9,
-        0.75
-      ],
-      "primaryCells": 695,
-      "strictPrimaryCells": 695,
-      "secondaryCells": 927,
-      "answerPatterns": 1534598780253,
-      "witness": {
-        "answers": [
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          1,
-          1,
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          1,
-          1,
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          1,
-          1,
-          0,
-          0,
-          0,
-          0,
-          1,
-          0,
-          1,
-          1,
-          0,
-          1,
-          0,
-          1,
-          1,
-          0,
-          1,
-          0,
-          1,
-          1,
-          0,
-          1,
-          0,
-          0,
-          1,
-          0
-        ],
-        "letters": "AAAABBBBAAAABBBBAAAABBBBAAAABABBABABBABABBABAABA",
-        "positiveCounts": [
-          10,
-          7,
-          12,
-          8
-        ],
-        "scores": [
-          0.8333333333333333,
-          0.5833333333333334,
-          1,
-          0.6666666666666666
-        ],
-        "secondary": "diamond-tiara",
-        "margin": 0.12416666666666662
-      },
-      "evidence": {
-        "facts": [
-          {
-            "source": {
-              "originalTitle": "A Royal Problem",
-              "title": "第7季第10集《姐妹阋墙》",
-              "episode": {
-                "season": 7,
-                "episode": 10,
-                "title": "姐妹阋墙"
-              },
-              "url": "https://mlp.fandom.com/wiki/Transcripts/A_Royal_Problem",
-              "kind": "社区维护的动画转录入口"
-            },
-            "text": "出现在星光的噩梦中，代表对公主冲突升级的恐惧。"
-          }
-        ],
-        "interpretation": "可作为力量与控制的故事意象。",
-        "limits": "不是宇宙公主现实行为，也没有独立生活史；四维侧写证据极少。",
-        "limited": true,
-        "special": true
-      }
-    },
-    {
       "slug": "chrysalis",
       "index": 47,
       "name": "虫茧女王",
@@ -3942,10 +3734,10 @@
         0.9,
         0.9
       ],
-      "primaryCells": 716,
-      "strictPrimaryCells": 716,
-      "secondaryCells": 524,
-      "answerPatterns": 959114250809,
+      "primaryCells": 861,
+      "strictPrimaryCells": 861,
+      "secondaryCells": 867,
+      "answerPatterns": 1543907676366,
       "witness": {
         "answers": [
           0,
@@ -3965,11 +3757,11 @@
           1,
           1,
           0,
+          0,
+          0,
+          0,
           1,
-          0,
-          0,
           1,
-          0,
           1,
           1,
           1,
@@ -3997,21 +3789,21 @@
           1,
           1
         ],
-        "letters": "AAAABBBBAAAABBBBABAABABBBBAAAABBBBAAAABBBBAAAABB",
+        "letters": "AAAABBBBAAAABBBBAAAABBBBBBAAAABBBBAAAABBBBAAAABB",
         "positiveCounts": [
           6,
-          4,
+          6,
           12,
           12
         ],
         "scores": [
           0.5,
-          0.33333333333333337,
+          0.5,
           1,
           1
         ],
-        "secondary": "daybreaker",
-        "margin": 0.15916666666666668
+        "secondary": "king-sombra",
+        "margin": 0.19500000000000006
       },
       "evidence": {
         "facts": [
@@ -4060,10 +3852,10 @@
         0.95,
         0.95
       ],
-      "primaryCells": 514,
-      "strictPrimaryCells": 510,
-      "secondaryCells": 321,
-      "answerPatterns": 3533959225,
+      "primaryCells": 532,
+      "strictPrimaryCells": 528,
+      "secondaryCells": 332,
+      "answerPatterns": 3554756452,
       "witness": {
         "answers": [
           1,
@@ -4164,10 +3956,10 @@
         0.8,
         0.85
       ],
-      "primaryCells": 544,
-      "strictPrimaryCells": 544,
-      "secondaryCells": 598,
-      "answerPatterns": 90847137892,
+      "primaryCells": 878,
+      "strictPrimaryCells": 878,
+      "secondaryCells": 697,
+      "answerPatterns": 322617763165,
       "witness": {
         "answers": [
           0,
@@ -4200,15 +3992,7 @@
           0,
           1,
           0,
-          0,
           1,
-          0,
-          1,
-          1,
-          0,
-          1,
-          0,
-          0,
           1,
           0,
           1,
@@ -4217,23 +4001,31 @@
           1,
           0,
           0,
-          1
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0
         ],
-        "letters": "ABAABABBABAABABBABAABABBABAABAABABBABAABABBABAAB",
+        "letters": "ABAABABBABAABABBABAABABBABAABABBABBABAAAABBBBAAA",
         "positiveCounts": [
           12,
           0,
-          7,
-          12
+          8,
+          9
         ],
         "scores": [
           1,
           0,
-          0.5833333333333334,
-          1
+          0.6666666666666666,
+          0.75
         ],
-        "secondary": "daybreaker",
-        "margin": 0.15583333333333332
+        "secondary": "sunset-shimmer",
+        "margin": 0.21499999999999997
       },
       "evidence": {
         "facts": [
@@ -4282,10 +4074,10 @@
         0.35,
         0.55
       ],
-      "primaryCells": 794,
-      "strictPrimaryCells": 794,
-      "secondaryCells": 673,
-      "answerPatterns": 18975440504493,
+      "primaryCells": 799,
+      "strictPrimaryCells": 799,
+      "secondaryCells": 719,
+      "answerPatterns": 19050649458093,
       "witness": {
         "answers": [
           0,
@@ -4386,10 +4178,10 @@
         0.1,
         0.75
       ],
-      "primaryCells": 592,
-      "strictPrimaryCells": 592,
-      "secondaryCells": 419,
-      "answerPatterns": 399747405850,
+      "primaryCells": 596,
+      "strictPrimaryCells": 596,
+      "secondaryCells": 459,
+      "answerPatterns": 399749454622,
       "witness": {
         "answers": [
           1,

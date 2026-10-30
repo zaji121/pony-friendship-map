@@ -1,11 +1,13 @@
 {
-  "generatedAt": "2026-10-30T03:02:35.077Z",
-  "fingerprint": "941e8f0edae30f5ad7329a98b380087b878e7b7915a647dc3139680aec813c47",
+  "generatedAt": "2026-10-30T03:09:04.834Z",
+  "fingerprint": "f779fa5f28dcc1581a98d6f8d22b2147fb272735004a5651316dcf5c74a7398f",
   "questionVersion": "festival-chapters-20261029-choice",
-  "matchingVersion": "20261030-without-dj",
-  "eligibleRoles": 39,
+  "matchingVersion": "20261030-roster37",
+  "eligibleRoles": 37,
   "retiredRoles": [
-    "dj-pon3"
+    "dj-pon3",
+    "nightmare-moon",
+    "daybreaker"
   ],
   "scope": "算法分布敏感性审查，不是实际人群频率，也不是要求角色均匀分配。",
   "assumptions": {
@@ -68,8 +70,8 @@
         0.71
       ],
       "limitedEvidence": false,
-      "answerPatternShare": 0.09012381139736902,
-      "equalScoreGridShare": 0.04656699695388817,
+      "answerPatternShare": 0.09014173819786109,
+      "equalScoreGridShare": 0.04768740590315465,
       "beforeDJRemovalShare": 0.04149555418481654
     },
     {
@@ -82,8 +84,8 @@
         0.65
       ],
       "limitedEvidence": false,
-      "answerPatternShare": 0.07992595226804156,
-      "equalScoreGridShare": 0.03914428766499772,
+      "answerPatternShare": 0.07992607539208052,
+      "equalScoreGridShare": 0.03921431322432688,
       "beforeDJRemovalShare": 0.041394850124760296
     },
     {
@@ -96,8 +98,8 @@
         0.55
       ],
       "limitedEvidence": false,
-      "answerPatternShare": 0.06741430704157736,
-      "equalScoreGridShare": 0.02780014705367459,
+      "answerPatternShare": 0.06768150291980035,
+      "equalScoreGridShare": 0.027975210951997478,
       "beforeDJRemovalShare": 0.04098502611102006
     },
     {
@@ -138,8 +140,8 @@
         0.8
       ],
       "limitedEvidence": true,
-      "answerPatternShare": 0.05375065548960478,
-      "equalScoreGridShare": 0.028080249290991212,
+      "answerPatternShare": 0.05471396750921542,
+      "equalScoreGridShare": 0.030496131087847066,
       "beforeDJRemovalShare": 0.029964535222827493
     },
     {
@@ -152,8 +154,8 @@
         0.3
       ],
       "limitedEvidence": false,
-      "answerPatternShare": 0.04337993432897491,
-      "equalScoreGridShare": 0.031931655054094746,
+      "answerPatternShare": 0.044617835823011376,
+      "equalScoreGridShare": 0.035643009698539965,
       "beforeDJRemovalShare": 0.02421072953561776
     },
     {
@@ -166,8 +168,8 @@
         0.8
       ],
       "limitedEvidence": true,
-      "answerPatternShare": 0.015879614152638055,
-      "equalScoreGridShare": 0.028080249290991212,
+      "answerPatternShare": 0.01594021748226737,
+      "equalScoreGridShare": 0.028535415426630722,
       "beforeDJRemovalShare": 0.0127518412642047
     },
     {
@@ -180,8 +182,8 @@
         0.64
       ],
       "limitedEvidence": false,
-      "answerPatternShare": 0.01517950922903566,
-      "equalScoreGridShare": 0.025874444172122826,
+      "answerPatternShare": 0.015181717200764666,
+      "equalScoreGridShare": 0.026889814782395573,
       "beforeDJRemovalShare": 0.011638367157623009
     },
     {
@@ -250,8 +252,8 @@
         0.75
       ],
       "limitedEvidence": false,
-      "answerPatternShare": 0.007767426441283476,
-      "equalScoreGridShare": 0.00619726200063023,
+      "answerPatternShare": 0.007815533198570535,
+      "equalScoreGridShare": 0.015825776408389062,
       "beforeDJRemovalShare": 0.006893769459644261
     },
     {
@@ -297,18 +299,18 @@
       "beforeDJRemovalShare": 0.00552881345389622
     },
     {
-      "slug": "daybreaker",
-      "name": "破灭之阳",
+      "slug": "chrysalis",
+      "name": "虫茧女王",
       "profile": [
-        0.85,
-        0.3,
+        0.6,
+        0.25,
         0.9,
-        0.75
+        0.9
       ],
-      "limitedEvidence": true,
-      "answerPatternShare": 0.005451990078075397,
-      "equalScoreGridShare": 0.024333881866881412,
-      "beforeDJRemovalShare": 0.004250638188171507
+      "limitedEvidence": false,
+      "answerPatternShare": 0.005485061920630585,
+      "equalScoreGridShare": 0.03014600329120129,
+      "beforeDJRemovalShare": 0.003164775823481847
     },
     {
       "slug": "celestia",
@@ -334,23 +336,9 @@
         0.88
       ],
       "limitedEvidence": false,
-      "answerPatternShare": 0.0037732852587026855,
-      "equalScoreGridShare": 0.015370610272749554,
+      "answerPatternShare": 0.003773580913911445,
+      "equalScoreGridShare": 0.016981198137320123,
       "beforeDJRemovalShare": 0.0037732852587026855
-    },
-    {
-      "slug": "chrysalis",
-      "name": "虫茧女王",
-      "profile": [
-        0.6,
-        0.25,
-        0.9,
-        0.9
-      ],
-      "limitedEvidence": false,
-      "answerPatternShare": 0.0034074583183816287,
-      "equalScoreGridShare": 0.02506915023983754,
-      "beforeDJRemovalShare": 0.003164775823481847
     },
     {
       "slug": "daring-do",
@@ -376,8 +364,8 @@
         0.1
       ],
       "limitedEvidence": false,
-      "answerPatternShare": 0.002263160109677642,
-      "equalScoreGridShare": 0.0466720352928819,
+      "answerPatternShare": 0.002266864112286271,
+      "equalScoreGridShare": 0.04712720142852141,
       "beforeDJRemovalShare": 0.0018828111349620258
     },
     {
@@ -446,8 +434,8 @@
         0.75
       ],
       "limitedEvidence": false,
-      "answerPatternShare": 0.0014201880768283104,
-      "equalScoreGridShare": 0.020727565561429923,
+      "answerPatternShare": 0.0014201953555286195,
+      "equalScoreGridShare": 0.02086761668008823,
       "beforeDJRemovalShare": 0.0014201880768283104
     },
     {
@@ -460,8 +448,8 @@
         0.25
       ],
       "limitedEvidence": false,
-      "answerPatternShare": 0.0012539384101337703,
-      "equalScoreGridShare": 0.03214173173208221,
+      "answerPatternShare": 0.0012567499435398588,
+      "equalScoreGridShare": 0.03242183396939883,
       "beforeDJRemovalShare": 0.0012539384101337703
     },
     {
@@ -474,8 +462,8 @@
         0.85
       ],
       "limitedEvidence": false,
-      "answerPatternShare": 0.0003227538694687837,
-      "equalScoreGridShare": 0.019046952137530198,
+      "answerPatternShare": 0.0011461685402203159,
+      "equalScoreGridShare": 0.030741220545499107,
       "beforeDJRemovalShare": 0.0003227538694687837
     },
     {
@@ -530,23 +518,9 @@
         0.91
       ],
       "limitedEvidence": false,
-      "answerPatternShare": 0.00019048258575793398,
-      "equalScoreGridShare": 0.012079408984279262,
+      "answerPatternShare": 0.00019048270182508986,
+      "equalScoreGridShare": 0.012114421763943839,
       "beforeDJRemovalShare": 0.00019048258575793398
-    },
-    {
-      "slug": "nightmare-moon",
-      "name": "梦魇之月",
-      "profile": [
-        0.1,
-        0.2,
-        0.45,
-        0.8
-      ],
-      "limitedEvidence": true,
-      "answerPatternShare": 0.00005329804255538306,
-      "equalScoreGridShare": 0.014180175764153917,
-      "beforeDJRemovalShare": 0.00005329804255538306
     },
     {
       "slug": "king-sombra",
@@ -558,8 +532,8 @@
         0.95
       ],
       "limitedEvidence": true,
-      "answerPatternShare": 0.000012555145278980717,
-      "equalScoreGridShare": 0.01799656874759287,
+      "answerPatternShare": 0.000012629031871824736,
+      "equalScoreGridShare": 0.01862679878155527,
       "beforeDJRemovalShare": 0.000012555145278980717
     }
   ]
