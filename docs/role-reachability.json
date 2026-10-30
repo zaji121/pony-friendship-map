@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-29T06:07:53.227Z",
+  "generatedAt": "2026-10-30T03:02:35.062Z",
   "questionVersion": "festival-chapters-20261029-choice",
-  "fingerprint": "4b02b87061296117a5793110cd8e0f8b2dc0a857afeaf093276bb8332be23ad4",
+  "fingerprint": "941e8f0edae30f5ad7329a98b380087b878e7b7915a647dc3139680aec813c47",
   "dimensions": [
     "EI",
     "SN",
@@ -12,10 +12,10 @@
   "itemsPerDimension": 12,
   "scoreCells": 28561,
   "representedAnswerPatterns": "281474976710656",
-  "eligibleRoles": 40,
-  "reachableRoles": 40,
-  "strictReachableRoles": 40,
-  "productionWitnessesVerified": 40,
+  "eligibleRoles": 39,
+  "reachableRoles": 39,
+  "strictReachableRoles": 39,
+  "productionWitnessesVerified": 39,
   "scope": "算法覆盖检查，不是心理测量效度验证。角色侧写是剧情编辑推断，不是官方MBTI类型。格点数不是实际用户出现概率。",
   "roles": [
     {
@@ -30,7 +30,7 @@
       ],
       "primaryCells": 439,
       "strictPrimaryCells": 439,
-      "secondaryCells": 420,
+      "secondaryCells": 421,
       "answerPatterns": 1062085380316,
       "witness": {
         "answers": [
@@ -148,7 +148,7 @@
       ],
       "primaryCells": 187,
       "strictPrimaryCells": 187,
-      "secondaryCells": 406,
+      "secondaryCells": 408,
       "answerPatterns": 489960941580,
       "witness": {
         "answers": [
@@ -266,7 +266,7 @@
       ],
       "primaryCells": 918,
       "strictPrimaryCells": 918,
-      "secondaryCells": 689,
+      "secondaryCells": 697,
       "answerPatterns": 352952284789,
       "witness": {
         "answers": [
@@ -500,10 +500,10 @@
         0.13,
         0.43
       ],
-      "primaryCells": 1414,
-      "strictPrimaryCells": 1414,
-      "secondaryCells": 439,
-      "answerPatterns": 1672627590672,
+      "primaryCells": 1416,
+      "strictPrimaryCells": 1416,
+      "secondaryCells": 444,
+      "answerPatterns": 1771296217872,
       "witness": {
         "answers": [
           1,
@@ -618,10 +618,10 @@
         0.22,
         0.8
       ],
-      "primaryCells": 520,
-      "strictPrimaryCells": 520,
-      "secondaryCells": 1017,
-      "answerPatterns": 2377327434993,
+      "primaryCells": 522,
+      "strictPrimaryCells": 522,
+      "secondaryCells": 1020,
+      "answerPatterns": 2735949945393,
       "witness": {
         "answers": [
           0,
@@ -736,10 +736,10 @@
         0.61,
         0.71
       ],
-      "primaryCells": 1243,
-      "strictPrimaryCells": 1243,
-      "secondaryCells": 1073,
-      "answerPatterns": 11679960147767,
+      "primaryCells": 1330,
+      "strictPrimaryCells": 1330,
+      "secondaryCells": 1080,
+      "answerPatterns": 25367597714150,
       "witness": {
         "answers": [
           0,
@@ -856,7 +856,7 @@
       ],
       "primaryCells": 498,
       "strictPrimaryCells": 498,
-      "secondaryCells": 488,
+      "secondaryCells": 492,
       "answerPatterns": 433705992822,
       "witness": {
         "answers": [
@@ -972,10 +972,10 @@
         0.27,
         0.64
       ],
-      "primaryCells": 732,
-      "strictPrimaryCells": 732,
-      "secondaryCells": 994,
-      "answerPatterns": 3275909124642,
+      "primaryCells": 739,
+      "strictPrimaryCells": 739,
+      "secondaryCells": 1018,
+      "answerPatterns": 4272652006722,
       "witness": {
         "answers": [
           1,
@@ -1208,10 +1208,10 @@
         0.7,
         0.1
       ],
-      "primaryCells": 1322,
-      "strictPrimaryCells": 1318,
-      "secondaryCells": 494,
-      "answerPatterns": 529964220364,
+      "primaryCells": 1333,
+      "strictPrimaryCells": 1329,
+      "secondaryCells": 509,
+      "answerPatterns": 637022939164,
       "witness": {
         "answers": [
           0,
@@ -1680,10 +1680,10 @@
         0.67,
         0.3
       ],
-      "primaryCells": 866,
-      "strictPrimaryCells": 860,
-      "secondaryCells": 1217,
-      "answerPatterns": 6814714532186,
+      "primaryCells": 912,
+      "strictPrimaryCells": 906,
+      "secondaryCells": 1218,
+      "answerPatterns": 12210366004958,
       "witness": {
         "answers": [
           0,
@@ -1798,10 +1798,10 @@
         0.45,
         0.75
       ],
-      "primaryCells": 176,
-      "strictPrimaryCells": 146,
-      "secondaryCells": 1023,
-      "answerPatterns": 1940423598102,
+      "primaryCells": 177,
+      "strictPrimaryCells": 147,
+      "secondaryCells": 1076,
+      "answerPatterns": 2186336176662,
       "witness": {
         "answers": [
           0,
@@ -1916,10 +1916,10 @@
         0.8,
         0.2
       ],
-      "primaryCells": 1639,
-      "strictPrimaryCells": 1639,
-      "secondaryCells": 902,
-      "answerPatterns": 603147291833,
+      "primaryCells": 1646,
+      "strictPrimaryCells": 1646,
+      "secondaryCells": 963,
+      "answerPatterns": 641445360719,
       "witness": {
         "answers": [
           1,
@@ -2034,10 +2034,10 @@
         0.3,
         0.85
       ],
-      "primaryCells": 582,
-      "strictPrimaryCells": 570,
-      "secondaryCells": 535,
-      "answerPatterns": 1372335127735,
+      "primaryCells": 583,
+      "strictPrimaryCells": 571,
+      "secondaryCells": 541,
+      "answerPatterns": 1499845353655,
       "witness": {
         "answers": [
           0,
@@ -2152,10 +2152,10 @@
         0.7,
         0.65
       ],
-      "primaryCells": 1062,
-      "strictPrimaryCells": 1049,
-      "secondaryCells": 893,
-      "answerPatterns": 11651614474808,
+      "primaryCells": 1118,
+      "strictPrimaryCells": 1102,
+      "secondaryCells": 948,
+      "answerPatterns": 22497155553224,
       "witness": {
         "answers": [
           0,
@@ -2272,7 +2272,7 @@
       ],
       "primaryCells": 717,
       "strictPrimaryCells": 705,
-      "secondaryCells": 1030,
+      "secondaryCells": 1031,
       "answerPatterns": 522169017722,
       "witness": {
         "answers": [
@@ -2388,10 +2388,10 @@
         0.35,
         0.35
       ],
-      "primaryCells": 1232,
-      "strictPrimaryCells": 1211,
-      "secondaryCells": 747,
-      "answerPatterns": 20510391462654,
+      "primaryCells": 1284,
+      "strictPrimaryCells": 1258,
+      "secondaryCells": 764,
+      "answerPatterns": 35141648532006,
       "witness": {
         "answers": [
           0,
@@ -2506,10 +2506,10 @@
         0.2,
         0.35
       ],
-      "primaryCells": 1878,
-      "strictPrimaryCells": 1874,
-      "secondaryCells": 777,
-      "answerPatterns": 10844950146255,
+      "primaryCells": 1932,
+      "strictPrimaryCells": 1928,
+      "secondaryCells": 788,
+      "answerPatterns": 17057200465827,
       "witness": {
         "answers": [
           0,
@@ -2624,10 +2624,10 @@
         0.6,
         0.25
       ],
-      "primaryCells": 731,
-      "strictPrimaryCells": 729,
-      "secondaryCells": 1239,
-      "answerPatterns": 2914499843805,
+      "primaryCells": 734,
+      "strictPrimaryCells": 732,
+      "secondaryCells": 1263,
+      "answerPatterns": 3230073421905,
       "witness": {
         "answers": [
           0,
@@ -2742,10 +2742,10 @@
         0.75,
         0.3
       ],
-      "primaryCells": 796,
-      "strictPrimaryCells": 796,
-      "secondaryCells": 2016,
-      "answerPatterns": 9608720415162,
+      "primaryCells": 862,
+      "strictPrimaryCells": 862,
+      "secondaryCells": 2037,
+      "answerPatterns": 17108553195294,
       "witness": {
         "answers": [
           0,
@@ -2862,7 +2862,7 @@
       ],
       "primaryCells": 834,
       "strictPrimaryCells": 834,
-      "secondaryCells": 493,
+      "secondaryCells": 497,
       "answerPatterns": 1556222638173,
       "witness": {
         "answers": [
@@ -2978,10 +2978,10 @@
         0.55,
         0.8
       ],
-      "primaryCells": 770,
-      "strictPrimaryCells": 768,
+      "primaryCells": 802,
+      "strictPrimaryCells": 800,
       "secondaryCells": 441,
-      "answerPatterns": 8434266853991,
+      "answerPatterns": 15129464502119,
       "witness": {
         "answers": [
           0,
@@ -3073,114 +3073,6 @@
       }
     },
     {
-      "slug": "dj-pon3",
-      "index": 37,
-      "name": "DJ-PON3",
-      "profile": [
-        0.5,
-        0.5,
-        0.5,
-        0.5
-      ],
-      "primaryCells": 610,
-      "strictPrimaryCells": 610,
-      "secondaryCells": 592,
-      "answerPatterns": 121753304118633,
-      "witness": {
-        "answers": [
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          1,
-          1,
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          1,
-          1,
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          0,
-          1,
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          1,
-          1,
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          1,
-          1,
-          0,
-          0,
-          0,
-          0
-        ],
-        "letters": "AAAABBBBAAAABBBBAAAABBBBBBABAAAABBBBAAAABBBBAAAA",
-        "positiveCounts": [
-          6,
-          6,
-          7,
-          6
-        ],
-        "scores": [
-          0.5,
-          0.5,
-          0.5833333333333334,
-          0.5
-        ],
-        "secondary": "lyra",
-        "margin": 0.11583333333333336
-      },
-      "evidence": {
-        "facts": [
-          {
-            "source": {
-              "originalTitle": "Slice of Life",
-              "title": "Slice of Life",
-              "url": "https://mlp.fandom.com/wiki/Transcripts/Slice_of_Life",
-              "kind": "动画剧情转录"
-            },
-            "text": "与奥塔维亚共同准备婚礼音乐，电子节拍与大提琴形成合作。"
-          },
-          {
-            "source": {
-              "originalTitle": "Suited for Success",
-              "title": "Suited for Success",
-              "url": "https://mlp.fandom.com/wiki/Transcripts/Suited_for_Success",
-              "kind": "动画剧情转录"
-            },
-            "text": "在珍奇的服装展示活动中担任打碟工作。"
-          }
-        ],
-        "interpretation": "从音乐创作与合作行为整理角色主题；不以少台词或戴耳机判定内向。",
-        "limits": "日常决策与安排方面材料有限，四维采用中点，不宣称官方类型。",
-        "limited": true,
-        "special": false
-      }
-    },
-    {
       "slug": "sugar-belle",
       "index": 38,
       "name": "舒歌贝",
@@ -3192,7 +3084,7 @@
       ],
       "primaryCells": 182,
       "strictPrimaryCells": 182,
-      "secondaryCells": 685,
+      "secondaryCells": 702,
       "answerPatterns": 1745912478871,
       "witness": {
         "answers": [
@@ -3308,10 +3200,10 @@
         0.65,
         0.8
       ],
-      "primaryCells": 795,
-      "strictPrimaryCells": 795,
-      "secondaryCells": 546,
-      "answerPatterns": 3589324222860,
+      "primaryCells": 802,
+      "strictPrimaryCells": 802,
+      "secondaryCells": 568,
+      "answerPatterns": 4469714023788,
       "witness": {
         "answers": [
           0,
@@ -3426,10 +3318,10 @@
         0.4,
         0.7
       ],
-      "primaryCells": 324,
-      "strictPrimaryCells": 321,
-      "secondaryCells": 479,
-      "answerPatterns": 15457583559660,
+      "primaryCells": 380,
+      "strictPrimaryCells": 375,
+      "secondaryCells": 477,
+      "answerPatterns": 34296169503948,
       "witness": {
         "answers": [
           0,
@@ -3448,28 +3340,28 @@
           1,
           1,
           1,
-          1,
           0,
           0,
           0,
           0,
-          1,
-          1,
-          1,
-          1,
           0,
           1,
-          0,
+          1,
+          1,
+          1,
           0,
           1,
           0,
           0,
           1,
           0,
+          0,
+          1,
+          1,
           1,
           1,
           0,
-          1,
+          0,
           0,
           0,
           1,
@@ -3481,21 +3373,21 @@
           0,
           0
         ],
-        "letters": "AAAABBBBAAAABBBBBAAAABBBBABAABAABABBABAABBBBAAAA",
+        "letters": "AAAABBBBAAAABBBBAAAAABBBBABAABAABBBBAAAABBBBAAAA",
         "positiveCounts": [
-          4,
-          10,
+          5,
+          8,
           6,
           7
         ],
         "scores": [
-          0.33333333333333337,
-          0.8333333333333333,
+          0.4166666666666667,
+          0.6666666666666666,
           0.5,
           0.5833333333333334
         ],
-        "secondary": "spike",
-        "margin": 0.05870000000000001
+        "secondary": "zecora",
+        "margin": 0.06666666666666668
       },
       "evidence": {
         "facts": [
@@ -3530,10 +3422,10 @@
         0.3,
         0.4
       ],
-      "primaryCells": 320,
-      "strictPrimaryCells": 320,
-      "secondaryCells": 1097,
-      "answerPatterns": 18594626677803,
+      "primaryCells": 399,
+      "strictPrimaryCells": 398,
+      "secondaryCells": 1204,
+      "answerPatterns": 44882038628559,
       "witness": {
         "answers": [
           0,
@@ -3634,10 +3526,10 @@
         0.1,
         0.6
       ],
-      "primaryCells": 305,
-      "strictPrimaryCells": 305,
-      "secondaryCells": 872,
-      "answerPatterns": 3160258285591,
+      "primaryCells": 306,
+      "strictPrimaryCells": 306,
+      "secondaryCells": 876,
+      "answerPatterns": 3313953647191,
       "witness": {
         "answers": [
           0,
@@ -3738,10 +3630,10 @@
         0.25,
         0.65
       ],
-      "primaryCells": 380,
-      "strictPrimaryCells": 380,
-      "secondaryCells": 696,
-      "answerPatterns": 3716690343168,
+      "primaryCells": 382,
+      "strictPrimaryCells": 382,
+      "secondaryCells": 711,
+      "answerPatterns": 4208515500288,
       "witness": {
         "answers": [
           0,
@@ -3946,10 +3838,10 @@
         0.9,
         0.75
       ],
-      "primaryCells": 689,
-      "strictPrimaryCells": 689,
-      "secondaryCells": 905,
-      "answerPatterns": 1196448285021,
+      "primaryCells": 695,
+      "strictPrimaryCells": 695,
+      "secondaryCells": 927,
+      "answerPatterns": 1534598780253,
       "witness": {
         "answers": [
           0,
@@ -4050,10 +3942,10 @@
         0.9,
         0.9
       ],
-      "primaryCells": 715,
-      "strictPrimaryCells": 715,
-      "secondaryCells": 498,
-      "answerPatterns": 890805201209,
+      "primaryCells": 716,
+      "strictPrimaryCells": 716,
+      "secondaryCells": 524,
+      "answerPatterns": 959114250809,
       "witness": {
         "answers": [
           0,
@@ -4390,10 +4282,10 @@
         0.35,
         0.55
       ],
-      "primaryCells": 763,
-      "strictPrimaryCells": 763,
-      "secondaryCells": 615,
-      "answerPatterns": 11536259270085,
+      "primaryCells": 794,
+      "strictPrimaryCells": 794,
+      "secondaryCells": 673,
+      "answerPatterns": 18975440504493,
       "witness": {
         "answers": [
           0,

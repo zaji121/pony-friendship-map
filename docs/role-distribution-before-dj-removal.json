@@ -1,0 +1,577 @@
+{
+  "generatedAt": "2026-10-29T06:07:53.462Z",
+  "fingerprint": "4b02b87061296117a5793110cd8e0f8b2dc0a857afeaf093276bb8332be23ad4",
+  "questionVersion": "festival-chapters-20261029-choice",
+  "scope": "算法分布敏感性审查，不是实际人群频率，也不是角色应各占2.5%的假设。",
+  "assumptions": {
+    "answerPatternShare": "48道题独立、每个选项各50%，对全部2^48作答组合精确计权。",
+    "equalScoreGridShare": "13^4个可达分数组合各占相同权重；与随机作答假设不同。",
+    "withoutDJShare": "仅用于诊断：假设暂不参与DJ-PON3，查看集中是否转移；未修改线上算法。"
+  },
+  "topThreeShare": 0.5714835618387681,
+  "unknownMidpointProfiles": [
+    "dj-pon3"
+  ],
+  "roles": [
+    {
+      "slug": "dj-pon3",
+      "name": "DJ-PON3",
+      "profile": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "limitedEvidence": true,
+      "answerPatternShare": 0.4325546289814248,
+      "equalScoreGridShare": 0.021357795595392318,
+      "withoutDJShare": 0
+    },
+    {
+      "slug": "apple-bloom",
+      "name": "苹果丽丽",
+      "profile": [
+        0.65,
+        0.7,
+        0.35,
+        0.35
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.07286754830692388,
+      "equalScoreGridShare": 0.043135744546759565,
+      "withoutDJShare": 0.12484821543525726
+    },
+    {
+      "slug": "lyra",
+      "name": "天琴心弦",
+      "profile": [
+        0.65,
+        0.4,
+        0.3,
+        0.4
+      ],
+      "limitedEvidence": true,
+      "answerPatternShare": 0.06606138455041943,
+      "equalScoreGridShare": 0.011204089492664823,
+      "withoutDJShare": 0.15945303256813403
+    },
+    {
+      "slug": "bon-bon",
+      "name": "糖糖",
+      "profile": [
+        0.35,
+        0.7,
+        0.4,
+        0.7
+      ],
+      "limitedEvidence": true,
+      "answerPatternShare": 0.05491636855360582,
+      "equalScoreGridShare": 0.011344140611323134,
+      "withoutDJShare": 0.12184447052713665
+    },
+    {
+      "slug": "starlight",
+      "name": "星光熠熠",
+      "profile": [
+        0.28,
+        0.25,
+        0.61,
+        0.71
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.04149555418481654,
+      "equalScoreGridShare": 0.04352088512306992,
+      "withoutDJShare": 0.09012381139736902
+    },
+    {
+      "slug": "zecora",
+      "name": "可拉",
+      "profile": [
+        0.2,
+        0.6,
+        0.7,
+        0.65
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.041394850124760296,
+      "equalScoreGridShare": 0.03718357200378138,
+      "withoutDJShare": 0.07992595226804156
+    },
+    {
+      "slug": "sunset-shimmer",
+      "name": "余晖烁烁",
+      "profile": [
+        0.7,
+        0.25,
+        0.35,
+        0.55
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.04098502611102006,
+      "equalScoreGridShare": 0.026714750884072685,
+      "withoutDJShare": 0.06741430704157736
+    },
+    {
+      "slug": "sweetie-belle",
+      "name": "甜心宝宝",
+      "profile": [
+        0.45,
+        0.3,
+        0.2,
+        0.35
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.03852900273050963,
+      "equalScoreGridShare": 0.06575400021007667,
+      "withoutDJShare": 0.06059934941698586
+    },
+    {
+      "slug": "gilda",
+      "name": "吉尔达",
+      "profile": [
+        0.35,
+        0.8,
+        0.75,
+        0.3
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.034137032454715666,
+      "equalScoreGridShare": 0.027870172613003747,
+      "withoutDJShare": 0.06078179096140701
+    },
+    {
+      "slug": "diamond-tiara",
+      "name": "珠玉冠冠",
+      "profile": [
+        0.8,
+        0.6,
+        0.55,
+        0.8
+      ],
+      "limitedEvidence": true,
+      "answerPatternShare": 0.029964535222827493,
+      "equalScoreGridShare": 0.02695984034172473,
+      "withoutDJShare": 0.05375065548960478
+    },
+    {
+      "slug": "trixie",
+      "name": "特丽克西",
+      "profile": [
+        0.9,
+        0.44,
+        0.67,
+        0.3
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.02421072953561776,
+      "equalScoreGridShare": 0.030321067189524178,
+      "withoutDJShare": 0.04337993432897491
+    },
+    {
+      "slug": "bright-mac",
+      "name": "辉麦",
+      "profile": [
+        0.55,
+        0.8,
+        0.25,
+        0.65
+      ],
+      "limitedEvidence": true,
+      "answerPatternShare": 0.013204336622038682,
+      "equalScoreGridShare": 0.013304856272539477,
+      "withoutDJShare": 0.014951650585317111
+    },
+    {
+      "slug": "filthy-rich",
+      "name": "富豪",
+      "profile": [
+        0.6,
+        0.85,
+        0.65,
+        0.8
+      ],
+      "limitedEvidence": true,
+      "answerPatternShare": 0.0127518412642047,
+      "equalScoreGridShare": 0.02783515983333917,
+      "withoutDJShare": 0.015879614152638055
+    },
+    {
+      "slug": "luna",
+      "name": "月亮公主",
+      "profile": [
+        0.15,
+        0.29,
+        0.27,
+        0.64
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.011638367157623009,
+      "equalScoreGridShare": 0.02562935471447078,
+      "withoutDJShare": 0.01517950922903566
+    },
+    {
+      "slug": "pear-butter",
+      "name": "梨子酱",
+      "profile": [
+        0.35,
+        0.65,
+        0.1,
+        0.6
+      ],
+      "limitedEvidence": true,
+      "answerPatternShare": 0.011227492839761766,
+      "equalScoreGridShare": 0.010678897797696159,
+      "withoutDJShare": 0.011773528453286275
+    },
+    {
+      "slug": "scootaloo",
+      "name": "醒目露露",
+      "profile": [
+        0.8,
+        0.8,
+        0.6,
+        0.25
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.010354383461947947,
+      "equalScoreGridShare": 0.025594341934806204,
+      "withoutDJShare": 0.011475526029531835
+    },
+    {
+      "slug": "rarity",
+      "name": "珍奇",
+      "profile": [
+        0.7,
+        0.32,
+        0.22,
+        0.8
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.00844596369728734,
+      "equalScoreGridShare": 0.018206645425580335,
+      "withoutDJShare": 0.009720046795511195
+    },
+    {
+      "slug": "sunburst",
+      "name": "日光耀耀",
+      "profile": [
+        0.2,
+        0.25,
+        0.45,
+        0.75
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.006893769459644261,
+      "equalScoreGridShare": 0.006162249220965653,
+      "withoutDJShare": 0.007767426441283476
+    },
+    {
+      "slug": "sugar-belle",
+      "name": "舒歌贝",
+      "profile": [
+        0.4,
+        0.75,
+        0.2,
+        0.65
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.006202727145673492,
+      "equalScoreGridShare": 0.0063723258989531175,
+      "withoutDJShare": 0.006202727145673492
+    },
+    {
+      "slug": "fluttershy",
+      "name": "柔柔",
+      "profile": [
+        0.16,
+        0.77,
+        0.13,
+        0.43
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.0059423669209195396,
+      "equalScoreGridShare": 0.04950807044571268,
+      "withoutDJShare": 0.006292908302441447
+    },
+    {
+      "slug": "granny-smith",
+      "name": "史密夫婆婆",
+      "profile": [
+        0.75,
+        0.85,
+        0.35,
+        0.7
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.00552881345389622,
+      "equalScoreGridShare": 0.029200658240257693,
+      "withoutDJShare": 0.00552881345389622
+    },
+    {
+      "slug": "celestia",
+      "name": "宇宙公主",
+      "profile": [
+        0.6,
+        0.2,
+        0.3,
+        0.85
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.004875513780202567,
+      "equalScoreGridShare": 0.020377437764784147,
+      "withoutDJShare": 0.005328521104015493
+    },
+    {
+      "slug": "daybreaker",
+      "name": "破灭之阳",
+      "profile": [
+        0.85,
+        0.3,
+        0.9,
+        0.75
+      ],
+      "limitedEvidence": true,
+      "answerPatternShare": 0.004250638188171507,
+      "equalScoreGridShare": 0.024123805188893947,
+      "withoutDJShare": 0.005451990078075397
+    },
+    {
+      "slug": "twilight",
+      "name": "紫悦",
+      "profile": [
+        0.32,
+        0.23,
+        0.3,
+        0.88
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.0037732852587026855,
+      "equalScoreGridShare": 0.015370610272749554,
+      "withoutDJShare": 0.0037732852587026855
+    },
+    {
+      "slug": "chrysalis",
+      "name": "虫茧女王",
+      "profile": [
+        0.6,
+        0.25,
+        0.9,
+        0.9
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.003164775823481847,
+      "equalScoreGridShare": 0.025034137460172964,
+      "withoutDJShare": 0.0034074583183816287
+    },
+    {
+      "slug": "daring-do",
+      "name": "无畏天马",
+      "profile": [
+        0.3,
+        0.8,
+        0.8,
+        0.2
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.0021428096340265768,
+      "equalScoreGridShare": 0.057385945870242636,
+      "withoutDJShare": 0.002278871707229513
+    },
+    {
+      "slug": "discord",
+      "name": "无序",
+      "profile": [
+        0.85,
+        0.1,
+        0.7,
+        0.1
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.0018828111349620258,
+      "equalScoreGridShare": 0.04628689471657155,
+      "withoutDJShare": 0.002263160109677642
+    },
+    {
+      "slug": "cheese-sandwich",
+      "name": "芝士三明治",
+      "profile": [
+        0.85,
+        0.35,
+        0.25,
+        0.15
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.0018551170119067706,
+      "equalScoreGridShare": 0.025104163019502117,
+      "withoutDJShare": 0.0018551170119067706
+    },
+    {
+      "slug": "applejack",
+      "name": "苹果嘉儿",
+      "profile": [
+        0.58,
+        0.87,
+        0.55,
+        0.86
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.0017406909392292391,
+      "equalScoreGridShare": 0.0065473897972760054,
+      "withoutDJShare": 0.0017406909392292391
+    },
+    {
+      "slug": "cadance",
+      "name": "音韵公主",
+      "profile": [
+        0.73,
+        0.45,
+        0.12,
+        0.85
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.0015710465376876925,
+      "equalScoreGridShare": 0.023283498476944085,
+      "withoutDJShare": 0.0015710465376876925
+    },
+    {
+      "slug": "spike",
+      "name": "穗龙",
+      "profile": [
+        0.38,
+        0.78,
+        0.28,
+        0.8
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.0015408332132764713,
+      "equalScoreGridShare": 0.01743636427295963,
+      "withoutDJShare": 0.0015408332132764713
+    },
+    {
+      "slug": "mistmane",
+      "name": "雾鬃",
+      "profile": [
+        0.2,
+        0.35,
+        0.1,
+        0.75
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.0014201880768283104,
+      "equalScoreGridShare": 0.020727565561429923,
+      "withoutDJShare": 0.0014201880768283104
+    },
+    {
+      "slug": "rainbow-dash",
+      "name": "云宝",
+      "profile": [
+        0.88,
+        0.79,
+        0.73,
+        0.25
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.0012539384101337703,
+      "equalScoreGridShare": 0.03214173173208221,
+      "withoutDJShare": 0.0012539384101337703
+    },
+    {
+      "slug": "cozy-glow",
+      "name": "可西光辉",
+      "profile": [
+        0.9,
+        0.2,
+        0.8,
+        0.85
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.0003227538694687837,
+      "equalScoreGridShare": 0.019046952137530198,
+      "withoutDJShare": 0.0003227538694687837
+    },
+    {
+      "slug": "maud",
+      "name": "灰琪",
+      "profile": [
+        0.08,
+        0.88,
+        0.86,
+        0.59
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.00022097864098569175,
+      "equalScoreGridShare": 0.023283498476944085,
+      "withoutDJShare": 0.00022097864098569175
+    },
+    {
+      "slug": "pinkie-pie",
+      "name": "碧琪",
+      "profile": [
+        0.94,
+        0.31,
+        0.22,
+        0.2
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.00021421716746061747,
+      "equalScoreGridShare": 0.020727565561429923,
+      "withoutDJShare": 0.00021421716746061747
+    },
+    {
+      "slug": "big-mac",
+      "name": "麦托什",
+      "profile": [
+        0.13,
+        0.93,
+        0.47,
+        0.86
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.00020734376024478252,
+      "equalScoreGridShare": 0.021007667798746542,
+      "withoutDJShare": 0.00020734376024478252
+    },
+    {
+      "slug": "shining-armor",
+      "name": "闪耀盔甲",
+      "profile": [
+        0.64,
+        0.85,
+        0.6,
+        0.91
+      ],
+      "limitedEvidence": false,
+      "answerPatternShare": 0.00019048258575793398,
+      "equalScoreGridShare": 0.012079408984279262,
+      "withoutDJShare": 0.00019048258575793398
+    },
+    {
+      "slug": "nightmare-moon",
+      "name": "梦魇之月",
+      "profile": [
+        0.1,
+        0.2,
+        0.45,
+        0.8
+      ],
+      "limitedEvidence": true,
+      "answerPatternShare": 0.00005329804255538306,
+      "equalScoreGridShare": 0.014180175764153917,
+      "withoutDJShare": 0.00005329804255538306
+    },
+    {
+      "slug": "king-sombra",
+      "name": "黑水晶",
+      "profile": [
+        0.1,
+        0.15,
+        0.95,
+        0.95
+      ],
+      "limitedEvidence": true,
+      "answerPatternShare": 0.000012555145278980717,
+      "equalScoreGridShare": 0.01799656874759287,
+      "withoutDJShare": 0.000012555145278980717
+    }
+  ]
+}

@@ -1,9 +1,12 @@
-import {cp,mkdir,writeFile} from 'node:fs/promises';
+import {access,cp,mkdir,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 const root=path.resolve(import.meta.dirname,'..');
 const destination=path.join(root,'deployment-private','publication');
 await mkdir(destination,{recursive:true});
 for(const relative of ['public','scripts','supabase','.github','package.json','.gitignore','ASSET_CREDITS.md']){
+ if(['package.json','.gitignore','ASSET_CREDITS.md'].includes(relative)){
+  try{await access(path.join(root,relative));}catch{await access(path.join(destination,relative));console.log('Preserving publication copy: '+relative);continue;}
+ }
  await cp(path.join(root,relative),path.join(destination,relative),{recursive:true,filter:source=>!source.includes(`${path.sep}.temp${path.sep}`)&&!source.includes(`${path.sep}.branches${path.sep}`)});
 }
 await mkdir(path.join(destination,'docs'),{recursive:true});
