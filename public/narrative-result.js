@@ -4,7 +4,7 @@
 w.PONY_NARRATIVE_SCORE=function(answers,narrative){
  const base=w.PONY_SCORE(w.QUIZ_QUESTIONS,w.CHARACTER_SLUGS,w.PREFERENCE_PROFILES,answers);
  if(narrative===undefined)return base;
- const model=w.PONY_NARRATIVE_MATCH;
+ const model=narrative?.version===w.PONY_NARRATIVE_MATCH_V2?.version?w.PONY_NARRATIVE_MATCH_V2:w.PONY_NARRATIVE_MATCH;
  if(!narrative||narrative.version!==model.version||!Array.isArray(narrative.followups))throw Error('情境版本已更新，请重新打开试验测评。');
  let ranked=model.rank(w,base.scores,narrative.choices),accepted=[];
  for(const answer of narrative.followups){const question=model.nextFollowup(ranked,accepted);if(!question||answer.left!==question.left||answer.right!==question.right)throw Error('附加任务与前面的答案不一致。');accepted.push({left:answer.left,right:answer.right,choice:answer.choice});ranked=model.rank(w,base.scores,narrative.choices,accepted);}

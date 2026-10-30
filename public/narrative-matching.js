@@ -2,6 +2,8 @@
 // Similarity is not a calibrated probability of identity or psychological type.
 (function(root){
 const features={knowledge:'查阅知识',analysis:'核对原理',experiment:'尝试新办法',coordination:'安排协作',service:'幕后支援',practical:'实际修复',craft:'动手制作',aesthetics:'视觉搭配',stage:'舞台表达',play:'趣味惊喜',athletic:'身体活动',mastery:'练习技巧',exploration:'探索新地方',independence:'自主完成',care:'照料需要',mentoring:'帮助学习',belonging:'参与伙伴活动',loyalty:'维系信任',heritage:'家乡故事',commerce:'经营交换',influence:'说服协调',recognition:'展示成果',discretion:'谨慎保管信息',strategy:'设计策略'};
+features.foodcraft='制作点心与饮品';
+features.fieldwork='果园与搬运劳动';
 const option=(text,...traits)=>({text,traits});
 const scenes=[
  {chapter:0,title:'选一处准备台',stem:'周五下午，筹备会结束。下面四处都缺帮手，也都有人教。你最想先去哪边？',options:[option('查庆典来历，挑几段故事写进介绍牌','knowledge','heritage'),option('做一盘点心，再装进送给来宾的小盒子','practical','craft'),option('搭配演出服和桌布，看看颜色放在一起怎样','aesthetics','craft'),option('准备开场小游戏，想个让大家笑起来的点子','play','belonging')]},
@@ -17,6 +19,16 @@ const scenes=[
  {chapter:3,title:'为下一次留一点东西',stem:'不用急着交稿，大家可以留下自己愿意做的那一部分。你更想留下什么？',options:[option('一本资料小册子，把查到的知识和学习提示整理好','knowledge','mentoring'),option('一张成果展板，让大家看见这次做得好的地方','recognition','aesthetics'),option('一份只给筹备组看的复盘，记录需要谨慎处理的细节','discretion','strategy'),option('一套更合适的摊位组合，讨论怎样经营下去','commerce','experiment')]},
  {chapter:3,title:'忙完之后，你想把时间留给什么',stem:'任务都交接好了，伙伴也各有安排。接下来你最想做哪件事？',options:[option('约聊得来的伙伴坐坐，把今天没说完的话说完','loyalty','belonging'),option('自己去附近逛逛，看看没见过的地方','independence','exploration'),option('陪照护员把小动物安顿好，再一起歇歇','care','service'),option('找伙伴玩一轮自己设计的小游戏，看看新点子效果','play','experiment')]}
 ];
+// Add omitted everyday contributions, not extra points for named characters.
+// Each act retains the same setting and four equally legitimate activities.
+scenes.forEach((scene,i)=>scene.originalIndex=i);
+const additions=[
+ {chapter:0,title:'先试做一小份',stem:'准备台开了四个小体验，材料都备好，也有人示范。你更想去哪边试一试？',options:[option('照着家常做法做一小份果派，尝尝味道再调整','foodcraft','practical'),option('看几页资料，弄清一种机关为什么这样运作','knowledge','analysis'),option('给演出服搭一组颜色，再做个小配饰','aesthetics','craft'),option('陪新伙伴给小动物添水，教他怎样轻轻靠近','care','mentoring')]},
+ {chapter:1,title:'开场前的一小时',stem:'广场旁的几组需要帮手，每项都可以按自己的体力和经验来。你愿意先接哪项？',options:[option('和伙伴把果篮送到摊位，再把空筐搬回去','fieldwork','athletic'),option('把松动的木架修好，再装稳招牌','practical','craft'),option('陪演出组练几遍节目，把容易出错的动作练顺','stage','mastery'),option('对照试用记录，把装置的操作说明核对清楚','analysis','knowledge')]},
+ {chapter:2,title:'选一个摊位一起招呼来宾',stem:'庆典正热闹，几处都能让你试着帮忙，也都有熟悉流程的伙伴。你更愿意去哪边？',options:[option('点心摊，边分装果派和饮品，边介绍做法与口味','foodcraft','commerce'),option('运动摊，陪大家试一轮，再挑战自己的最好成绩','athletic','mastery'),option('惊喜摊，和来宾玩一个刚想出来的新花样','play','experiment'),option('服装展示桌，帮来宾试不同的搭配，看实际穿上的效果','aesthetics','care')]},
+ {chapter:3,title:'给庆典留一份温暖的收尾',stem:'收尾已经交接好，下面几件事都来得及做。你更想把最后一点时间留给哪件？',options:[option('和居民做一份家常点心，边做边听听这道做法的来历','foodcraft','heritage'),option('陪照护员收好水盆和垫子，把小动物安顿妥当','care','service'),option('把演出服的小配饰修整好，留给下次继续用','aesthetics','craft'),option('把今天查到的资料理成一页说明，交给下次的筹备组','knowledge','coordination')]}
+];
+additions.forEach((scene,i)=>scenes.splice(i*4+3,0,{...scene,originalIndex:null}));
 // Editorial activity/motivation associations, NOT independently measured MBTI.
 // Every entry is explicitly provisional; source episodes are in CHARACTER_EVIDENCE.
 const roleTraits={
@@ -57,8 +69,14 @@ const roleTraits={
  'cozy-glow':['influence','strategy','belonging','discretion'],
  'sunset-shimmer':['experiment','analysis','care','loyalty','mentoring']
 };
-const version='narrative-content-20261030-v2',keys=Object.keys(features);
+// Shared traits are added to every supported role, not only to the main six.
+for(const slug of ['applejack','pinkie-pie','sugar-belle','pear-butter','granny-smith','big-mac'])roleTraits[slug].push('foodcraft');
+for(const slug of ['applejack','big-mac','bright-mac','granny-smith','apple-bloom'])roleTraits[slug].push('fieldwork');
+roleTraits.applejack.push('athletic','commerce');
+const version='narrative-content-20261030-v3',keys=Object.keys(features);
 const followupActions={knowledge:'翻查资料，把庆典介绍中缺的一条信息补上',analysis:'对照记录，弄清装置刚才为什么出现故障',experiment:'试一个新材料组合，看看能不能改善装饰效果',coordination:'把收尾任务和伙伴对一遍，约好怎样交接',service:'收好公用物品，让还在忙的伙伴方便取用',practical:'把松动的小架子修稳，下次还能继续用',craft:'做一件小手工，留下今天庆典的纪念',aesthetics:'给照片册搭配封面和颜色，让整体更协调',stage:'在散场前给伙伴表演一小段节目',play:'设计一个不伤人的小惊喜，邀请愿意参与的人试试',athletic:'陪伙伴再走一轮运动路线，活动一下身体',mastery:'把刚学的一个动作再练几遍，看看能否更稳',exploration:'到附近没逛过的小路走走，看看还有什么发现',independence:'独自完成一份自己选的小项目，按自己的想法来',care:'看看有没有需要照料的小动物，帮它们安顿好',mentoring:'陪新伙伴复习今天学到的办法，让他自己试试',belonging:'约伙伴再玩一轮游戏，让想参加的人都能加入',loyalty:'找熟悉的伙伴坐坐，把今天没说完的话说完',heritage:'听居民讲一段小镇旧事，把它写进纪念册',commerce:'整理摊位的交换记录，想想下次怎样经营',influence:'向伙伴讲清自己的提议，争取大家一起采用',recognition:'挑出自己的满意作品，放到成果墙上展示',discretion:'把只给筹备组看的资料整理好，确认交给谁',strategy:'为下次的闯关活动画一条路线，安排几个有趣的转折'};
+followupActions.foodcraft='和伙伴做一小份果派或饮品，试好口味再装盒';
+followupActions.fieldwork='到果园边收好果篮，和伙伴把收成送回摊位';
 function choicesValid(choices){return Array.isArray(choices)&&choices.length===scenes.length&&choices.every(c=>c!==null&&typeof c==='object'&&(c.first===null||Number.isInteger(c.first)&&c.first>=0&&c.first<4)&&(c.second===null||Number.isInteger(c.second)&&c.second>=0&&c.second<4&&c.second!==c.first)&&!(c.first===null&&c.second!==null));}
 function rank(w,scores,choices,followups=[]){
  if(!Array.isArray(scores)||scores.length!==4||scores.some(v=>!Number.isFinite(v)||v<0||v>1)||!choicesValid(choices))throw Error('匹配输入无效');
@@ -86,7 +104,9 @@ function rank(w,scores,choices,followups=[]){
 function nextFollowup(result,answered=[]){
  if(result.primary===null||!result.ranked[0]||!result.ranked[1]||answered.length>=3||!result.close)return null;
  const [a,b]=result.ranked,used=new Set(answered.flatMap(f=>[f.left,f.right]));
- const left=a.traits.filter(t=>!b.traits.includes(t)&&!used.has(t)),right=b.traits.filter(t=>!a.traits.includes(t)&&!used.has(t));
+ const frequency=t=>result.ranked.filter(r=>r.traits.includes(t)).length;
+ const distinctive=(x,y)=>frequency(x)-frequency(y);
+ const left=a.traits.filter(t=>!b.traits.includes(t)&&!used.has(t)).sort(distinctive),right=b.traits.filter(t=>!a.traits.includes(t)&&!used.has(t)).sort(distinctive);
  if(!left.length||!right.length)return null;
  // Ask about a previously uncontrasted positive association, never assume that
  // the other character dislikes it. The new answer reranks all 36 candidates.

@@ -1,0 +1,372 @@
+{
+  "trials": 20000,
+  "oldVersion": "narrative-content-20261030-v2",
+  "newVersion": "narrative-content-20261030-v3",
+  "method": "Paired identical 48-item answers and original 12 task choices; only four newly authored task choices use a separate random stream. Both follow-up branches use independent uniform simulated choices. Not real user rates or accuracy.",
+  "oldMainSix": 0.18514999999999998,
+  "newMainSix": 0.25095,
+  "oldClose": 0.2838,
+  "newClose": 0.3286,
+  "roles": [
+    {
+      "slug": "twilight",
+      "name": "紫悦",
+      "old": 496,
+      "next": 705,
+      "omittedNewQuestions": 540,
+      "oldShare": 0.0248,
+      "nextShare": 0.03525,
+      "omittedNewQuestionsShare": 0.027
+    },
+    {
+      "slug": "applejack",
+      "name": "苹果嘉儿",
+      "old": 305,
+      "next": 774,
+      "omittedNewQuestions": 222,
+      "oldShare": 0.01525,
+      "nextShare": 0.0387,
+      "omittedNewQuestionsShare": 0.0111
+    },
+    {
+      "slug": "rainbow-dash",
+      "name": "云宝",
+      "old": 692,
+      "next": 889,
+      "omittedNewQuestions": 702,
+      "oldShare": 0.0346,
+      "nextShare": 0.04445,
+      "omittedNewQuestionsShare": 0.0351
+    },
+    {
+      "slug": "pinkie-pie",
+      "name": "碧琪",
+      "old": 562,
+      "next": 570,
+      "omittedNewQuestions": 225,
+      "oldShare": 0.0281,
+      "nextShare": 0.0285,
+      "omittedNewQuestionsShare": 0.01125
+    },
+    {
+      "slug": "fluttershy",
+      "name": "柔柔",
+      "old": 770,
+      "next": 736,
+      "omittedNewQuestions": 908,
+      "oldShare": 0.0385,
+      "nextShare": 0.0368,
+      "omittedNewQuestionsShare": 0.0454
+    },
+    {
+      "slug": "rarity",
+      "name": "珍奇",
+      "old": 878,
+      "next": 1345,
+      "omittedNewQuestions": 892,
+      "oldShare": 0.0439,
+      "nextShare": 0.06725,
+      "omittedNewQuestionsShare": 0.0446
+    },
+    {
+      "slug": "starlight",
+      "name": "星光熠熠",
+      "old": 1050,
+      "next": 863,
+      "omittedNewQuestions": 1092,
+      "oldShare": 0.0525,
+      "nextShare": 0.04315,
+      "omittedNewQuestionsShare": 0.0546
+    },
+    {
+      "slug": "spike",
+      "name": "穗龙",
+      "old": 211,
+      "next": 88,
+      "omittedNewQuestions": 283,
+      "oldShare": 0.01055,
+      "nextShare": 0.0044,
+      "omittedNewQuestionsShare": 0.01415
+    },
+    {
+      "slug": "luna",
+      "name": "月亮公主",
+      "old": 322,
+      "next": 161,
+      "omittedNewQuestions": 333,
+      "oldShare": 0.0161,
+      "nextShare": 0.00805,
+      "omittedNewQuestionsShare": 0.01665
+    },
+    {
+      "slug": "cadance",
+      "name": "音韵公主",
+      "old": 148,
+      "next": 78,
+      "omittedNewQuestions": 188,
+      "oldShare": 0.0074,
+      "nextShare": 0.0039,
+      "omittedNewQuestionsShare": 0.0094
+    },
+    {
+      "slug": "discord",
+      "name": "无序",
+      "old": 1427,
+      "next": 1133,
+      "omittedNewQuestions": 1435,
+      "oldShare": 0.07135,
+      "nextShare": 0.05665,
+      "omittedNewQuestionsShare": 0.07175
+    },
+    {
+      "slug": "shining-armor",
+      "name": "闪耀盔甲",
+      "old": 734,
+      "next": 693,
+      "omittedNewQuestions": 936,
+      "oldShare": 0.0367,
+      "nextShare": 0.03465,
+      "omittedNewQuestionsShare": 0.0468
+    },
+    {
+      "slug": "big-mac",
+      "name": "麦托什",
+      "old": 270,
+      "next": 232,
+      "omittedNewQuestions": 75,
+      "oldShare": 0.0135,
+      "nextShare": 0.0116,
+      "omittedNewQuestionsShare": 0.00375
+    },
+    {
+      "slug": "maud",
+      "name": "灰琪",
+      "old": 803,
+      "next": 855,
+      "omittedNewQuestions": 913,
+      "oldShare": 0.04015,
+      "nextShare": 0.04275,
+      "omittedNewQuestionsShare": 0.04565
+    },
+    {
+      "slug": "trixie",
+      "name": "特丽克西",
+      "old": 776,
+      "next": 609,
+      "omittedNewQuestions": 878,
+      "oldShare": 0.0388,
+      "nextShare": 0.03045,
+      "omittedNewQuestionsShare": 0.0439
+    },
+    {
+      "slug": "sunburst",
+      "name": "日光耀耀",
+      "old": 383,
+      "next": 535,
+      "omittedNewQuestions": 343,
+      "oldShare": 0.01915,
+      "nextShare": 0.02675,
+      "omittedNewQuestionsShare": 0.01715
+    },
+    {
+      "slug": "daring-do",
+      "name": "无畏天马",
+      "old": 1587,
+      "next": 1490,
+      "omittedNewQuestions": 1658,
+      "oldShare": 0.07935,
+      "nextShare": 0.0745,
+      "omittedNewQuestionsShare": 0.0829
+    },
+    {
+      "slug": "celestia",
+      "name": "宇宙公主",
+      "old": 300,
+      "next": 192,
+      "omittedNewQuestions": 315,
+      "oldShare": 0.015,
+      "nextShare": 0.0096,
+      "omittedNewQuestionsShare": 0.01575
+    },
+    {
+      "slug": "zecora",
+      "name": "可拉",
+      "old": 404,
+      "next": 743,
+      "omittedNewQuestions": 402,
+      "oldShare": 0.0202,
+      "nextShare": 0.03715,
+      "omittedNewQuestionsShare": 0.0201
+    },
+    {
+      "slug": "cheese-sandwich",
+      "name": "芝士三明治",
+      "old": 900,
+      "next": 917,
+      "omittedNewQuestions": 1166,
+      "oldShare": 0.045,
+      "nextShare": 0.04585,
+      "omittedNewQuestionsShare": 0.0583
+    },
+    {
+      "slug": "apple-bloom",
+      "name": "苹果丽丽",
+      "old": 710,
+      "next": 549,
+      "omittedNewQuestions": 541,
+      "oldShare": 0.0355,
+      "nextShare": 0.02745,
+      "omittedNewQuestionsShare": 0.02705
+    },
+    {
+      "slug": "sweetie-belle",
+      "name": "甜心宝宝",
+      "old": 1164,
+      "next": 1554,
+      "omittedNewQuestions": 1170,
+      "oldShare": 0.0582,
+      "nextShare": 0.0777,
+      "omittedNewQuestionsShare": 0.0585
+    },
+    {
+      "slug": "scootaloo",
+      "name": "醒目露露",
+      "old": 491,
+      "next": 655,
+      "omittedNewQuestions": 511,
+      "oldShare": 0.02455,
+      "nextShare": 0.03275,
+      "omittedNewQuestionsShare": 0.02555
+    },
+    {
+      "slug": "gilda",
+      "name": "吉尔达",
+      "old": 345,
+      "next": 255,
+      "omittedNewQuestions": 327,
+      "oldShare": 0.01725,
+      "nextShare": 0.01275,
+      "omittedNewQuestionsShare": 0.01635
+    },
+    {
+      "slug": "granny-smith",
+      "name": "史密夫婆婆",
+      "old": 598,
+      "next": 433,
+      "omittedNewQuestions": 345,
+      "oldShare": 0.0299,
+      "nextShare": 0.02165,
+      "omittedNewQuestionsShare": 0.01725
+    },
+    {
+      "slug": "diamond-tiara",
+      "name": "珠玉冠冠",
+      "old": 351,
+      "next": 182,
+      "omittedNewQuestions": 367,
+      "oldShare": 0.01755,
+      "nextShare": 0.0091,
+      "omittedNewQuestionsShare": 0.01835
+    },
+    {
+      "slug": "sugar-belle",
+      "name": "舒歌贝",
+      "old": 384,
+      "next": 494,
+      "omittedNewQuestions": 279,
+      "oldShare": 0.0192,
+      "nextShare": 0.0247,
+      "omittedNewQuestionsShare": 0.01395
+    },
+    {
+      "slug": "filthy-rich",
+      "name": "富豪",
+      "old": 249,
+      "next": 106,
+      "omittedNewQuestions": 229,
+      "oldShare": 0.01245,
+      "nextShare": 0.0053,
+      "omittedNewQuestionsShare": 0.01145
+    },
+    {
+      "slug": "bon-bon",
+      "name": "糖糖",
+      "old": 306,
+      "next": 137,
+      "omittedNewQuestions": 380,
+      "oldShare": 0.0153,
+      "nextShare": 0.00685,
+      "omittedNewQuestionsShare": 0.019
+    },
+    {
+      "slug": "lyra",
+      "name": "天琴心弦",
+      "old": 35,
+      "next": 3,
+      "omittedNewQuestions": 46,
+      "oldShare": 0.00175,
+      "nextShare": 0.00015,
+      "omittedNewQuestionsShare": 0.0023
+    },
+    {
+      "slug": "pear-butter",
+      "name": "梨子酱",
+      "old": 194,
+      "next": 338,
+      "omittedNewQuestions": 122,
+      "oldShare": 0.0097,
+      "nextShare": 0.0169,
+      "omittedNewQuestionsShare": 0.0061
+    },
+    {
+      "slug": "bright-mac",
+      "name": "辉麦",
+      "old": 106,
+      "next": 86,
+      "omittedNewQuestions": 71,
+      "oldShare": 0.0053,
+      "nextShare": 0.0043,
+      "omittedNewQuestionsShare": 0.00355
+    },
+    {
+      "slug": "chrysalis",
+      "name": "虫茧女王",
+      "old": 516,
+      "next": 453,
+      "omittedNewQuestions": 507,
+      "oldShare": 0.0258,
+      "nextShare": 0.02265,
+      "omittedNewQuestionsShare": 0.02535
+    },
+    {
+      "slug": "king-sombra",
+      "name": "黑水晶",
+      "old": 535,
+      "next": 264,
+      "omittedNewQuestions": 520,
+      "oldShare": 0.02675,
+      "nextShare": 0.0132,
+      "omittedNewQuestionsShare": 0.026
+    },
+    {
+      "slug": "cozy-glow",
+      "name": "可西光辉",
+      "old": 463,
+      "next": 268,
+      "omittedNewQuestions": 458,
+      "oldShare": 0.02315,
+      "nextShare": 0.0134,
+      "omittedNewQuestionsShare": 0.0229
+    },
+    {
+      "slug": "sunset-shimmer",
+      "name": "余晖烁烁",
+      "old": 535,
+      "next": 615,
+      "omittedNewQuestions": 621,
+      "oldShare": 0.02675,
+      "nextShare": 0.03075,
+      "omittedNewQuestionsShare": 0.03105
+    }
+  ]
+}

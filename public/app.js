@@ -185,7 +185,7 @@
     // The narrative trial uses the same original landing and Derpy delivery.
     // Only the question flow branches after the user presses Start.
     if(new URLSearchParams(location.search).get('experience')==='narrative'){
-      location.assign(new URL('narrative-preview.html?start=1',location.href).href);
+      location.assign(new URL('narrative-preview.html?start=1&v=20261030-v3',location.href).href);
       return;
     }
     $('start-button').disabled=true; updateGateError('');
