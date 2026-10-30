@@ -30,3 +30,4 @@ window.EXPANDED_ART["king-sombra"]={...(window.EXPANDED_ART["king-sombra"]||{}),
 window.FULLBODY_ART['sunset-shimmer'].career='/images/fullbody-new/sunset-donut.png';
 window.FULLBODY_ART['sunset-shimmer'].career='/images/fullbody-new/sunset-mirror-magic.webp';
 window.FULLBODY_ART['sunset-shimmer'].careerSource='https://derpibooru.org/images/1448470';
+window.FULLBODY_ART['bon-bon'].career='/images/fullbody-new/bon-bon-career-alternate.png';window.FULLBODY_ART['bon-bon'].careerSource='https://www.nicepng.com/ourpic/u2w7u2i1w7i1i1u2_sweetie-drops-bon-bon-my-little-pony/';

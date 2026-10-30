@@ -80,7 +80,7 @@ followupActions.fieldwork='到果园边收好果篮，和伙伴把收成送回�
 function choicesValid(choices){return Array.isArray(choices)&&choices.length===scenes.length&&choices.every(c=>c!==null&&typeof c==='object'&&(c.first===null||Number.isInteger(c.first)&&c.first>=0&&c.first<4)&&(c.second===null||Number.isInteger(c.second)&&c.second>=0&&c.second<4&&c.second!==c.first)&&!(c.first===null&&c.second!==null));}
 function rank(w,scores,choices,followups=[],content={}){
  if(!Array.isArray(scores)||scores.length!==4||scores.some(v=>!Number.isFinite(v)||v<0||v>1)||!choicesValid(choices))throw Error('匹配输入无效');
- if(!Array.isArray(followups)||followups.length>3||followups.some(f=>!keys.includes(f.left)||!keys.includes(f.right)||f.left===f.right||!['left','right','both','unknown'].includes(f.choice)))throw Error('附加任务输入无效');
+ if(!Array.isArray(followups)||followups.length>(content.maxFollowups??3)||followups.some(f=>!keys.includes(f.left)||!keys.includes(f.right)||f.left===f.right||!['left','right','both','unknown'].includes(f.choice)))throw Error('附加任务输入无效');
  const activeScenes=content.scenes||scenes;
  const active=w.CHARACTER_SLUGS.map((slug,index)=>({slug,index})).filter(r=>!w.INACTIVE_CHARACTERS.includes(r.slug));
  const user=Object.fromEntries(keys.map(k=>[k,0])),observations=[];

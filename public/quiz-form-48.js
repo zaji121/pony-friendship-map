@@ -1,9 +1,12 @@
 // 48 displayed questions: 32 MBTI-framework items + 16 narrative slots.
-// The final two slots adapt in place, never increasing the total question count.
+// The final four slots adapt in place, never increasing the total question count.
 (function(w){
 const axes=['EI','SN','TF','JP'],picks={EI:[0,1,3,4,6,7,9,10],SN:[0,1,4,5,6,7,9,10],TF:[0,1,3,4,6,7,10,11],JP:[0,1,3,4,7,8,9,10]};
 const indexes=[];axes.forEach((axis,j)=>picks[axis].forEach(k=>indexes.push(k*4+j)));indexes.sort((a,b)=>a-b);
-const questions=indexes.map(i=>w.QUIZ_QUESTIONS[i]),version='festival-48-single-20261030-v3';
+const questions=indexes.map(i=>{const q=w.QUIZ_QUESTIONS[i];return [q[0],q[1].map(a=>a.slice()),{...q[2]}];}),version='festival-48-single-20261030-v4';
+const reviseCore=(i,stem,left,right)=>{const q=questions[i];questions[i]=[stem,q[1].map(([,score])=>[score===1?left:right,score]),{...q[2],left,right}];};
+reviseCore(17,'入口重新布置好了，你要给照片配一句说明。下面两句，你更想用哪句？','蓝色彩带挂在两边，门口还多了几幅画。','入口像个小剧场，和今天的故事主题很搭。');
+reviseCore(21,'节目临时取消，大家只能补办一场活动。两种方案都办得成，你更支持哪种？','能多接待一些来宾，把场地和材料充分用起来的方案','人数少一些，但更贴近原来那批来宾期待的方案');
 // Same feature coding as the experimental model; concrete wording belongs to
 // this form so older saved editions retain their own question text.
 const sceneCopy=[
@@ -151,7 +154,7 @@ const contrasts=[
  ['fluttershy','rarity','service','aesthetics','伙伴穿上演出服后有些不自在，你更想先做什么？','陪他找个舒服的位置，帮他备好水和要用的东西','请他走几步，改改服装和配饰，让它更合身也更好看']
 ];
 function nextFollowup(result,answered=[]){
- if(result.primary===null||(!result.close&&result.ranked[0].support.sufficient)||answered.length>=2)return null;
+ if(result.primary===null||(!result.close&&result.ranked[0].support.sufficient)||answered.length>=4)return null;
  const [a,b]=result.ranked,used=new Set(answered.flatMap(f=>[f.left,f.right]));
  const row=contrasts.find(c=>((c[0]===a.slug&&c[1]===b.slug)||(c[1]===a.slug&&c[0]===b.slug))&&!used.has(c[2])&&!used.has(c[3]));
  if(row){const forward=row[0]===a.slug;return {left:row[forward?2:3],right:row[forward?3:2],stem:row[4],leftText:row[forward?5:6],rightText:row[forward?6:5],candidateSlugs:[a.slug,b.slug],contrast:'shared-situation'};}
@@ -164,6 +167,10 @@ function nextFollowup(result,answered=[]){
   if(!best||spread>best.spread)best={left,right,spread};
  }
  if(!best)return null;
+ if([best.left,best.right].includes('strategy')&&[best.left,best.right].includes('heritage')){
+  const leftText='按闯关顺序藏线索，安排几处需要猜一猜的转折',rightText='按小镇旧事串起地点，把居民的故事写进沿途介绍',forward=best.left==='strategy';
+  return {left:best.left,right:best.right,stem:'下次庆典想做一条“小镇寻宝路线”，先做一个版本来试。你更想做哪一版？',leftText:forward?leftText:rightText,rightText:forward?rightText:leftText,candidateSlugs:[a.slug,b.slug],contrast:'shared-route-proposal'};
+ }
  const actions=w.PONY_NARRATIVE_MATCH.followupActions;
  return {left:best.left,right:best.right,stem:'庆典收尾后，还能选一件事做。两边都有人帮忙，你更想先接哪件？',leftText:actions[best.left],rightText:actions[best.right],candidateSlugs:[a.slug,b.slug],contrast:'nearby-candidate-difference'};
 }
@@ -175,7 +182,7 @@ function scoreCore(answers){
  return {model:'four-preferences-v2',formVersion:version,questionVersion:version,answers:answers.slice(),questionIndexes:indexes.slice(),scores,totals,itemsPerAxis:8,type:scores.map((v,i)=>Math.abs(v-.5)<.1?'X':axes[i][v>.5?0:1]).join(''),closeAxes:axes.filter((_,i)=>Math.abs(scores[i]-.5)<.1),evidence};
 }
 function rank(env,scores,choices,followups=[]){
- const result=env.PONY_NARRATIVE_MATCH.rank(env,scores,choices,followups,{scenes});
+ const result=env.PONY_NARRATIVE_MATCH.rank(env,scores,choices,followups,{scenes,maxFollowups:4});
  // Every answered scene supplies an opportunity baseline: an unchosen action
  // means lower priority in this scene, not dislike or a negative personality.
  const observations=[],items=[];
@@ -207,14 +214,14 @@ function rank(env,scores,choices,followups=[]){
 }
 function plan(env,scores,fixedChoices,finalAnswers=[]){
  const model=env.PONY_NARRATIVE_MATCH;
- if(!model.choicesValid(fixedChoices)||fixedChoices[14].first!==null||fixedChoices[15].first!==null||!Array.isArray(finalAnswers)||finalAnswers.length>2)throw Error('庆典任务与当前48题版本不一致。');
+ if(!model.choicesValid(fixedChoices)||fixedChoices.slice(12).some(c=>c.first!==null)||!Array.isArray(finalAnswers)||finalAnswers.length>4)throw Error('庆典任务与当前48题版本不一致。');
  const choices=fixedChoices.map(c=>({...c}));if(choices.some(c=>c.second!==null))throw Error('本版为单选题，每题只能选择一项。');
  const followups=[];let result=rank(env,scores,choices,followups),next=null;
- for(let slot=0;slot<2;slot++){
+ for(let slot=0;slot<4;slot++){
   const adaptive=nextFollowup(result,followups);
-  next=adaptive?{kind:'followup',slot,question:adaptive}:{kind:'task',slot,sceneIndex:14+slot};
+  next=adaptive?{kind:'followup',slot,question:adaptive}:{kind:'task',slot,sceneIndex:12+slot};
   const answer=finalAnswers[slot];if(answer===undefined)return {result,choices,followups,next};
-  if(!answer||answer.kind!==next.kind)throw Error('最后两题已根据前面的选择调整，请重新选择。');
+  if(!answer||answer.kind!==next.kind)throw Error('后面的情境已根据前面的选择调整，请重新选择。');
   if(next.kind==='followup'){
    if(!['left','right','both','unknown'].includes(answer.choice))throw Error('请选择一个答案。');
    followups.push({left:adaptive.left,right:adaptive.right,choice:answer.choice,leftText:adaptive.leftText,rightText:adaptive.rightText,stem:adaptive.stem});
@@ -226,5 +233,6 @@ function plan(env,scores,fixedChoices,finalAnswers=[]){
  }
  return {result,choices,followups,next:null};
 }
-w.PONY_QUIZ_48={version,questions,scenes,indexes,axes,scoreCore,rank,plan,nextFollowup,contrasts,total:48,coreCount:32,itemsPerAxis:8,fixedTaskCount:14,finalSlots:2};
+w.PONY_QUIZ_48={version,questions,scenes,indexes,axes,scoreCore,rank,plan,nextFollowup,contrasts,total:48,coreCount:32,itemsPerAxis:8,fixedTaskCount:12,finalSlots:4};
 })(window);
+

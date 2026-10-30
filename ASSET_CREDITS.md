@@ -251,3 +251,10 @@ Sunset career replacement: https://derpibooru.org/images/1448470 ; artist lifes-
 2026-10-29 fourth chapter alternative: removes Fluttershy from chapter welcome UI; Applejack uses the native full-face bust https://derpibooru.org/images/2153913 (artist cheezedoodle96). Original hooves are part of that one source image, not composited from another character.
 
 2026-10-30 chapter Applejack hair correction: https://derpibooru.org/images/1181153 (artist dashiesparkle; original source http://www.deviantart.com/art/Vector-506-Applejack-24-616143753). Replaces the peekaboo bust with a natural mane, hat and slight head tilt. Original pixels are alpha-trimmed/resized, not redrawn.
+
+## 2026-10-30: Bon Bon career image
+
+- Local asset: `public/images/fullbody-new/bon-bon-career-alternate.png`.
+- Source page: https://www.nicepng.com/ourpic/u2w7u2i1w7i1i1u2_sweetie-drops-bon-bon-my-little-pony/
+- Original PNG: https://www.nicepng.com/png/full/287-2872981_sweetie-drops-bon-bon-my-little-pony.png
+- 1280 × 1455 RGBA PNG; downloaded without redrawing. Used only in the Bon Bon career section. The source page labels the asset for personal use; this project does not claim authorship or ownership.

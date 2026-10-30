@@ -1,0 +1,23 @@
+.chapter-opening{border:1px solid #e4d9ee;border-radius:24px;padding:0;width:min(440px,calc(100% - 36px));max-height:calc(100dvh - 48px);color:#342d48;background:#fffdf9;box-shadow:0 22px 70px #37234333;overflow:auto;overscroll-behavior:contain;margin:auto}
+.chapter-opening::backdrop{background:#30263c66;backdrop-filter:blur(4px)}
+.chapter-opening[open]{animation:chapter-arrive .3s ease-out both}
+.chapter-opening-card{padding:30px 28px;text-align:center;background:radial-gradient(ellipse at top,#eee7f7,transparent 65%)}
+.chapter-opening .eyebrow{letter-spacing:.08em;font-size:12px;color:#86719d}
+.chapter-opening h2{font-family:'Noto Serif SC',serif;font-size:25px;line-height:1.4;margin:12px 0 18px}
+#chapter-opening-context{font-size:15px;line-height:1.9;text-align:left;margin:0 0 24px;color:#615a70}
+.chapter-opening button{width:100%;min-height:48px;font-size:15px}
+.chapter-welcome{position:relative;width:180px;height:166px;margin:0 auto 18px;isolation:isolate;--frame:#d7c5e9;--frame-light:#f4edf9}
+.welcome-frame-back{position:absolute;inset:50px 14px 14px;border:7px solid var(--frame);border-radius:20px;background:var(--frame-light);box-shadow:0 7px 0 #6c527010,0 12px 20px #66516e12;z-index:0}
+.welcome-portrait{position:absolute;inset:0 0 23px;overflow:hidden;z-index:1;filter:drop-shadow(0 3px 2px #46334718)}
+.welcome-portrait img{position:absolute;display:block;max-width:none;height:auto;width:130px;left:25px;top:0}
+.welcome-frame-front{position:absolute;left:14px;right:14px;bottom:14px;height:18px;border:7px solid var(--frame);border-top:0;border-radius:0 0 20px 20px;z-index:2;box-shadow:inset 0 -2px 0 #fff8}
+.chapter-welcome[data-pony=rarity]{--frame:#c7c2e8;--frame-light:#efedfa}.chapter-welcome[data-pony=rarity] img{width:112px;left:34px}
+.chapter-welcome[data-pony=pinkie]{--frame:#efbfd7;--frame-light:#fff0f6}.chapter-welcome[data-pony=pinkie] img{width:119px;left:30px}
+.chapter-welcome[data-pony=applejack]{--frame:#dfc38e;--frame-light:#fff9ed}.chapter-welcome[data-pony=applejack] img{width:120px;left:30px}
+.chapter-trinkets{position:absolute;inset:0;pointer-events:none;z-index:4}.trinket{position:absolute;font-size:21px;color:#aa83b5;line-height:1;animation:chapter-trinket-in .65s ease-out both}.trinket-0{left:-8px;top:36px;transform:rotate(-20deg)}.trinket-1{right:-7px;top:77px;transform:rotate(18deg)}
+[data-pony=pinkie] .trinket{font-size:15px;color:#d793bf}.trinket-2{left:-1px;top:108px;color:#d6b66c!important}.trinket-3{right:-10px;top:15px;color:#8ebfc3!important}.trinket-4{left:5px;top:4px;color:#a9a0ce!important}.trinket-5{right:-5px;top:121px;color:#d6b66c!important}
+@keyframes chapter-arrive{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes chapter-trinket-in{from{opacity:0;translate:0 10px;scale:.65}to{opacity:1;translate:0 0;scale:1}}
+@media(max-width:380px){.chapter-opening-card{padding:24px 20px}.chapter-opening h2{font-size:22px}}
+@media(max-height:650px){.chapter-welcome{zoom:.78;margin-bottom:14px}.chapter-opening-card{padding-top:20px;padding-bottom:20px}}
+@media(prefers-reduced-motion:reduce){.chapter-opening[open],.trinket{animation:none}}

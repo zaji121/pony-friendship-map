@@ -1,7 +1,7 @@
 // Shared assembly: older inputs retain their scoring path.
 (function(w){
 w.PONY_NARRATIVE_SCORE=function(answers,narrative){
- const form=[w.PONY_QUIZ_48_V1,w.PONY_QUIZ_48_V2,w.PONY_QUIZ_48].find(f=>f&&f.version===narrative?.formVersion)||w.PONY_QUIZ_48,isForm=!!form&&narrative?.formVersion===form.version;
+ const form=[w.PONY_QUIZ_48_V1,w.PONY_QUIZ_48_V2,w.PONY_QUIZ_48_V3,w.PONY_QUIZ_48].find(f=>f&&f.version===narrative?.formVersion)||w.PONY_QUIZ_48,isForm=!!form&&narrative?.formVersion===form.version;
  if(narrative?.formVersion!==undefined&&!isForm)throw Error('题目版本已更新，请重新打开测评。');
  const base=isForm?form.scoreCore(answers):w.PONY_SCORE(w.QUIZ_QUESTIONS,w.CHARACTER_SLUGS,w.PREFERENCE_PROFILES,answers);
  if(narrative===undefined)return base;
@@ -11,7 +11,7 @@ w.PONY_NARRATIVE_SCORE=function(answers,narrative){
  if(single&&(!Array.isArray(narrative.choices)||narrative.choices.some(c=>c?.second!==null)))throw Error('单选题每题只能选择一项。');
  let ranked,effectiveChoices,accepted=[];
  if(isForm){
-  if(model!==w.PONY_NARRATIVE_MATCH||!Array.isArray(narrative.finalAnswers)||narrative.finalAnswers.length!==2)throw Error('请完成最后两道情境题。');
+  if(model!==w.PONY_NARRATIVE_MATCH||!Array.isArray(narrative.finalAnswers)||narrative.finalAnswers.length!==form.finalSlots)throw Error('请完成后面的情境题。');
   const planned=form.plan(w,base.scores,narrative.choices,narrative.finalAnswers);
   ranked=planned.result;effectiveChoices=planned.choices;accepted=planned.followups;
  }else{
