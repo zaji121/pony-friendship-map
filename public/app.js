@@ -185,6 +185,7 @@
     // The narrative trial uses the same original landing and Derpy delivery.
     // Only the question flow branches after the user presses Start.
     if(new URLSearchParams(location.search).get('experience')==='narrative'){
+      try{const completed=JSON.parse(sessionStorage.getItem('ponyNarrativePreview-v3')||'null');if(completed?.resultId)sessionStorage.removeItem('ponyNarrativePreview-v3');}catch{}
       location.assign(new URL('narrative-preview.html?start=1&v=20261030-v3',location.href).href);
       return;
     }
@@ -578,7 +579,7 @@
   $('exit-quiz').addEventListener('click',()=>{if(confirm('确定退出本次测评吗？退出后可以免费重新开始。')){sessionStorage.removeItem('ponyQuiz');state={token:'',answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false};showView('gate');}});
   $('welcome-share').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.origin+(window.SITE_CONFIG?.basePath||'/'));toast('测评邀请链接已复制，朋友打开后即可免费开始。','success');}catch(err){toast('复制失败，请重试。','error');}});
   $('copy-link').addEventListener('click',copyLink);$('save-image').addEventListener('click',saveImage);
-  $('retake').addEventListener('click',()=>{const trial=!!state.result?.narrative;state={token:'',answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false};updateGateError('');history.replaceState(null,'',(window.SITE_CONFIG?.basePath||'/')+(trial?'?experience=narrative':''));showView('gate');});
+  $('retake').addEventListener('click',()=>{const trial=!!state.result?.narrative;if(trial){sessionStorage.removeItem('ponyNarrativePreview-v3');sessionStorage.removeItem('ponyNarrativePreview-v2');}state={token:'',answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false};updateGateError('');history.replaceState(null,'',(window.SITE_CONFIG?.basePath||'/')+(trial?'?experience=narrative':''));showView('gate');});
   const match=location.pathname.match(/\/r\/([A-Za-z0-9_-]+)\/?$/),sharedId=new URLSearchParams(location.search).get('r')||new URLSearchParams(location.hash.slice(1)).get('result')||match?.[1];const previewSlug=new URLSearchParams(location.search).get('admin-preview');if(previewSlug)openAdminPreview(previewSlug);else if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId))loadShared(sharedId);
 })();
 

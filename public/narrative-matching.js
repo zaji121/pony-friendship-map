@@ -23,10 +23,10 @@ const scenes=[
 // Each act retains the same setting and four equally legitimate activities.
 scenes.forEach((scene,i)=>scene.originalIndex=i);
 const additions=[
- {chapter:0,title:'先试做一小份',stem:'准备台开了四个小体验，材料都备好，也有人示范。你更想去哪边试一试？',options:[option('照着家常做法做一小份果派，尝尝味道再调整','foodcraft','practical'),option('看几页资料，弄清一种机关为什么这样运作','knowledge','analysis'),option('给演出服搭一组颜色，再做个小配饰','aesthetics','craft'),option('陪新伙伴给小动物添水，教他怎样轻轻靠近','care','mentoring')]},
- {chapter:1,title:'开场前的一小时',stem:'广场旁的几组需要帮手，每项都可以按自己的体力和经验来。你愿意先接哪项？',options:[option('和伙伴把果篮送到摊位，再把空筐搬回去','fieldwork','athletic'),option('把松动的木架修好，再装稳招牌','practical','craft'),option('陪演出组练几遍节目，把容易出错的动作练顺','stage','mastery'),option('对照试用记录，把装置的操作说明核对清楚','analysis','knowledge')]},
- {chapter:2,title:'选一个摊位一起招呼来宾',stem:'庆典正热闹，几处都能让你试着帮忙，也都有熟悉流程的伙伴。你更愿意去哪边？',options:[option('点心摊，边分装果派和饮品，边介绍做法与口味','foodcraft','commerce'),option('运动摊，陪大家试一轮，再挑战自己的最好成绩','athletic','mastery'),option('惊喜摊，和来宾玩一个刚想出来的新花样','play','experiment'),option('服装展示桌，帮来宾试不同的搭配，看实际穿上的效果','aesthetics','care')]},
- {chapter:3,title:'给庆典留一份温暖的收尾',stem:'收尾已经交接好，下面几件事都来得及做。你更想把最后一点时间留给哪件？',options:[option('和居民做一份家常点心，边做边听听这道做法的来历','foodcraft','heritage'),option('陪照护员收好水盆和垫子，把小动物安顿妥当','care','service'),option('把演出服的小配饰修整好，留给下次继续用','aesthetics','craft'),option('把今天查到的资料理成一页说明，交给下次的筹备组','knowledge','coordination')]}
+ {chapter:0,title:'先试做一小份',stem:'准备台上，果派刚出炉，旁边还摆着书、布料和几个小水盆。每处都有人带着做，你想先去哪边？',options:[option('尝尝果派，跟着做一小份，看看还能怎么调味','foodcraft','practical'),option('翻翻桌上的书，弄清那个小机关为什么会转','knowledge','analysis'),option('挑两块布配配颜色，再做个衣服上的小饰品','aesthetics','craft'),option('带新来的伙伴给兔子添水，告诉他怎样轻轻靠近','care','mentoring')]},
+ {chapter:1,title:'开场前的一小时',stem:'离开场还有一小时，大家各忙各的。你想去帮哪边？',options:[option('和伙伴把果篮搬到摊位，再把空筐收回来','fieldwork','athletic'),option('修好松动的小木架，把招牌挂稳','practical','craft'),option('去小舞台跟着排练，把那几个动作练熟','stage','mastery'),option('翻翻机关的说明书，看看刚才为什么没转起来','analysis','knowledge')]},
+ {chapter:2,title:'选一个摊位一起招呼来宾',stem:'庆典开场了，几处摊位都缺个帮手。每处都有熟悉玩法的人，你先去哪里？',options:[option('点心摊，分果派、倒饮料，给来宾推荐口味','foodcraft','commerce'),option('运动摊，陪人跑一轮，再试试自己能不能更快','athletic','mastery'),option('游戏摊，把刚想到的新玩法拉上大家试一遍','play','experiment'),option('试衣镜旁，帮人挑颜色、换配饰，看看哪套更合适','aesthetics','care')]},
+ {chapter:3,title:'忙完以后',stem:'收拾得差不多了，离回家还有一会儿。你更想做哪件事？',options:[option('跟居民做点家常点心，听听这道做法是谁教的','foodcraft','heritage'),option('收好小水盆和垫子，把小动物安顿好再走','care','service'),option('把衣服上松掉的小配饰缝好，下次还能穿','aesthetics','craft'),option('把今天查到的东西写成小纸条，留给下次来帮忙的人','knowledge','coordination')]}
 ];
 additions.forEach((scene,i)=>scenes.splice(i*4+3,0,{...scene,originalIndex:null}));
 // Editorial activity/motivation associations, NOT independently measured MBTI.
