@@ -107,16 +107,59 @@
   useForm(defaultForm);
   const freshState=()=>({formVersion:form.version,token:'',answers:Array(form.coreCount).fill(null),choices:form.scenes.map(()=>({first:null,second:null})),completedTasks:[],finalAnswers:Array(form.finalSlots).fill(null),openedChapters:[],celebratedStages:[],index:0,resultId:'',result:null,shared:false});
   let state=freshState();
-  const saveDraft=()=>sessionStorage.setItem(flowKey,JSON.stringify(state));
+  const visit=window.PONY_VISIT;let currentView='gate',restoringVisit=false,resumeTimer,restoreRevision=0,leftPage=false;
+  const saveDraft=()=>{try{sessionStorage.setItem(flowKey,JSON.stringify({...state,savedAt:Date.now()}));}catch{}persistVisit();};
   function readDraft(){
     for(const key of [flowKey,'ponyNarrative48-v4'])try{
       const draft=JSON.parse(sessionStorage.getItem(key)||'null');
+      if(draft?.savedAt&&Date.now()-draft.savedAt>=15*60*1000){sessionStorage.removeItem(key);continue;}
       const edition=[defaultForm,window.PONY_QUIZ_48_V4,window.PONY_QUIZ_48_V5].find(f=>f&&f.version===(draft?.formVersion||draft?.version));
       if(edition&&draft.answers?.length===edition.coreCount&&window.PONY_NARRATIVE_MATCH.choicesValid(draft.choices)&&draft.finalAnswers?.length===edition.finalSlots&&Array.isArray(draft.completedTasks)&&Number.isInteger(draft.index)&&draft.index>=0&&draft.index<=48){useForm(edition);const restored={...freshState(),...draft,formVersion:form.version};if(key!==flowKey)restored.openedChapters=(Array.isArray(draft.openedChapters)?draft.openedChapters:[]).filter(c=>c!==steps[Math.min(draft.index,47)].chapter);return restored;}
     }catch{}
     return null;
   }
-  const clearCurrentDraft=()=>{sessionStorage.removeItem(flowKey);sessionStorage.removeItem('ponyNarrative48-v4');};
+  const clearCurrentDraft=()=>{try{sessionStorage.removeItem(flowKey);sessionStorage.removeItem('ponyNarrative48-v4');}catch{}visit?.clear();};
+  function captureVisitUI(){return {scrollY:Math.max(0,window.scrollY),hash:/^#report-[a-z-]+$/.test(location.hash)?location.hash:'',tab:document.querySelector('.result-tab.active')?.dataset.tab==='all'?'all':'you',profileOpen:document.querySelector('.cover-profile-toggle')?.getAttribute('aria-expanded')==='true',chapterOpen:!!document.querySelector('.chapter-opening[open]'),openDetails:[...$('result').querySelectorAll('details')].flatMap((d,i)=>d.open?[i]:[]),duoExpanded:document.querySelector('.duo-expand-all')?.getAttribute('aria-expanded')==='true'};}
+  function persistVisit(force=false){
+    if(!visit||restoringVisit||adminPreview||state.result?.demo||(!force&&document.hidden))return;
+    const ui=captureVisitUI();
+    if(currentView==='quiz')visit.write({view:'quiz',draft:{...state,savedAt:Date.now()},ui});
+    else if(currentView==='result'&&state.resultId&&state.result)visit.write({view:'result',resultId:state.resultId,result:state.result,shared:state.shared,ui});
+  }
+  function queueVisitSave(){clearTimeout(resumeTimer);resumeTimer=setTimeout(()=>persistVisit(),150);}
+  async function restoreVisit(record){
+    if(!record)return false;const revision=++restoreRevision;restoringVisit=true;
+    try{
+      if(record.view==='quiz'){
+        try{sessionStorage.setItem(flowKey,JSON.stringify({...record.draft,savedAt:Date.now()}));}catch{}
+        const draft=readDraft();if(!draft)return false;state=draft;
+        if(record.ui?.chapterOpen)state.openedChapters=(state.openedChapters||[]).filter(c=>c!==steps[Math.min(state.index,47)].chapter);
+        history.replaceState(null,'',(window.SITE_CONFIG?.basePath||'/')+'?quiz=1');showView('quiz');renderQuestion(Math.min(state.index,47));void ensureQuizSession().catch(()=>{});
+      }else{
+        if(!PONIES[record.result.primary]||!PONIES[record.result.secondary]||[record.result.primary,record.result.secondary].some(i=>(window.INACTIVE_CHARACTERS||[]).includes(PONIES[i].slug)))return false;
+        state.resultId=record.resultId;state.result=record.result;state.shared=!!record.shared;renderResult(state.result);showView('result');
+        history.replaceState(null,'',resultLink(state.resultId));
+        if(record.ui?.tab==='all')document.querySelector('.result-tab[data-tab="all"]')?.click();
+        if(record.ui?.profileOpen)document.querySelector('.cover-profile-toggle')?.click();
+        if(record.ui?.duoExpanded)document.querySelector('.duo-expand-all')?.click();
+        const details=[...$('result').querySelectorAll('details')];for(const i of record.ui?.openDetails||[])if(Number.isInteger(i)&&details[i])details[i].open=true;
+      }
+      if(document.readyState==='loading')await new Promise(resolve=>document.addEventListener('DOMContentLoaded',resolve,{once:true}));
+      await Promise.race([document.fonts?.ready||Promise.resolve(),new Promise(resolve=>setTimeout(resolve,1000))]);
+      await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+      if(revision!==restoreRevision)return true;
+      if(record.view==='result'&&record.ui?.hash){const url=new URL(location.href);url.hash=record.ui.hash;history.replaceState(null,'',url);}
+      const top=Number(record.ui?.scrollY);scrollImmediately(Number.isFinite(top)?Math.max(0,top):0);
+      if(record.view==='quiz'&&record.ui?.chapterOpen)chapterOpeningScroll=Math.max(0,top||0);
+      return true;
+    }finally{restoringVisit=false;document.documentElement.classList.remove('visit-resuming');persistVisit();}
+  }
+  function leavePage(){if(leftPage)return;leftPage=true;clearTimeout(resumeTimer);persistVisit(true);}
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)leavePage();else if(leftPage){leftPage=false;const saved=visit?.read();if(!saved&&visit?.expired){clearCurrentDraft();location.replace(window.SITE_CONFIG?.basePath||'/');return;}persistVisit();}});
+  window.addEventListener('pagehide',leavePage);
+  window.addEventListener('pageshow',event=>{if(event.persisted){leftPage=false;if(!visit?.read()&&visit?.expired){clearCurrentDraft();location.replace(window.SITE_CONFIG?.basePath||'/');}else persistVisit();}});
+  window.addEventListener('scroll',queueVisitSave,{passive:true});window.addEventListener('hashchange',queueVisitSave);
+  document.addEventListener('click',queueVisitSave);document.addEventListener('toggle',queueVisitSave,true);
   const answeredAt=index=>{const s=steps[index];return s.kind==='core'?state.answers[s.i]!==null:s.kind==='task'?state.completedTasks.includes(s.i):state.finalAnswers[s.slot]!==null;};
   function clearFinals(from=0){for(let i=from;i<form.finalSlots;i++)state.finalAnswers[i]=null;state.resultId='';state.result=null;}
   const narrativeInput=()=>({version:window.PONY_NARRATIVE_MATCH.version,formVersion:form.version,selectionMode:'single',choices:state.choices,finalAnswers:state.finalAnswers});
@@ -167,7 +210,7 @@
     clearTimeout(toastTimer);
     toastTimer=setTimeout(()=>el.classList.remove('show'),duration);
   }
-  function showView(which) { ++toastRevision;clearTimeout(toastTimer);$('toast').classList.remove('show');views.forEach(v => v.classList.toggle('hidden', v.id !== which)); scrollImmediately(0); }
+  function showView(which) { currentView=which;++toastRevision;clearTimeout(toastTimer);$('toast').classList.remove('show');views.forEach(v => v.classList.toggle('hidden', v.id !== which));if(which==='gate')$('start-button').innerHTML=(!state.result&&(state.index>0||state.answers.some(a=>a!==null))?'继续探索':'开始探索')+' <span aria-hidden="true">→</span>';scrollImmediately(0);persistVisit(); }
   function animateToast(el,duration,revision){
     clearTimeout(toastTimer);
     el.style.transition='none';
@@ -221,7 +264,7 @@
       void ensureQuizSession().catch(()=>{});
     }
     catch(err){updateGateError(err.message);}
-    finally{$('start-button').disabled=false;}
+    finally{$('start-button').disabled=false;document.documentElement.classList.remove('visit-resuming');}
   }
   function renderQuestion(index) {
     const previousIndex=state.index;state.index=index;if(previousIndex!==index)scrollImmediately(0);
@@ -639,13 +682,17 @@
     catch(err){$('shared-status-title').textContent='这份结果暂时未能打开';$('shared-status-message').textContent=(err.message||'网络暂时不可用。')+' 请点击下方按钮重新读取，无需重新答题。';$('shared-retry').hidden=false;$('shared-retry').onclick=()=>loadShared(id);}
   }
   $('start-button').addEventListener('click',startQuiz);
+  document.querySelector('.brand')?.addEventListener('click',event=>{if(!adminPreview&&(currentView==='quiz'||currentView==='result')){event.preventDefault();persistVisit(true);history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');showView('gate');}});
   $('prev-button').addEventListener('click',()=>{const i=Number($('next-button').dataset.index);if(i>0)renderQuestion(i-1);});
   $('next-button').addEventListener('click',()=>{const i=Number($('next-button').dataset.index);if(i===questions.length-1)finishQuiz();else{renderQuestion(i+1);const completed=i+1;if(completed%5===0&&steps.slice(0,completed).every((_,n)=>answeredAt(n))&&!(state.celebratedStages||[]).includes(completed)){state.celebratedStages=(state.celebratedStages||[]).concat(completed);saveDraft();celebrateStage(completed);}}});
-  $('exit-quiz').addEventListener('click',()=>{if(confirm('确定退出本次测评吗？退出后可以重新开始。')){clearCurrentDraft();state=freshState();history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');showView('gate');}});
+  $('exit-quiz').addEventListener('click',()=>{if(confirm('先离开答题？进度会保留15分钟，回来可以继续。')){saveDraft();history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');showView('gate');}});
   $('welcome-share').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.origin+(window.SITE_CONFIG?.basePath||'/'));toast('测评邀请链接已复制，朋友打开后即可免费开始。','success');}catch(err){toast('复制失败，请重试。','error');}});
   $('copy-link').addEventListener('click',copyLink);$('save-image').addEventListener('click',saveImage);
   $('retake').addEventListener('click',()=>{clearCurrentDraft();state=freshState();updateGateError('');history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');showView('gate');});
-  const params=new URLSearchParams(location.search),match=location.pathname.match(/\/r\/([A-Za-z0-9_-]+)\/?$/),sharedId=params.get('r')||new URLSearchParams(location.hash.slice(1)).get('result')||match?.[1];const previewSlug=params.get('admin-preview');if(previewSlug)openAdminPreview(previewSlug);else if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId))loadShared(sharedId);else if(params.get('quiz')==='1'||params.get('resume')==='1')startQuiz();
+  const params=new URLSearchParams(location.search),match=location.pathname.match(/\/r\/([A-Za-z0-9_-]+)\/?$/),sharedId=params.get('r')||new URLSearchParams(location.hash.slice(1)).get('result')||match?.[1],recent=visit?.initial;
+  const resumeRecent=()=>restoreVisit(recent).then(ok=>{if(!ok){clearCurrentDraft();location.replace(window.SITE_CONFIG?.basePath||'/');}}).catch(()=>{document.documentElement.classList.remove('visit-resuming');visit?.clear();location.replace(window.SITE_CONFIG?.basePath||'/');});
+  if(visit?.expired)clearCurrentDraft();
+  const previewSlug=params.get('admin-preview');if(previewSlug)openAdminPreview(previewSlug);else if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId)){if(recent?.view==='result'&&recent.resultId===sharedId)resumeRecent();else loadShared(sharedId);}else if(recent&&!(params.get('quiz')==='1'&&recent.view==='result'))resumeRecent();else if(params.get('quiz')==='1'||params.get('resume')==='1')startQuiz();
 })();
 
 
