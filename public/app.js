@@ -98,7 +98,26 @@
   }
   const views = ['gate','quiz','result','shared-status'].map($);
   const questions = window.QUIZ_QUESTIONS;
-  let state = { token:'', answers:Array(questions.length).fill(null), resultId:'', result:null, shared:false };
+  const form=window.PONY_QUIZ_48,flowKey='ponyFestival48-v4',steps=[];
+  for(let chapter=0;chapter<4;chapter++){
+    form.questions.forEach((q,i)=>{if(q[2].chapter===chapter)steps.push({kind:'core',i,chapter});});
+    form.scenes.forEach((scene,i)=>{if(scene.chapter===chapter)steps.push(i<form.fixedTaskCount?{kind:'task',i,chapter}:{kind:'final',slot:i-form.fixedTaskCount,chapter});});
+  }
+  if(steps.length!==48)throw Error('题目配置不完整');
+  const freshState=()=>({formVersion:form.version,token:'',answers:Array(form.coreCount).fill(null),choices:form.scenes.map(()=>({first:null,second:null})),completedTasks:[],finalAnswers:Array(form.finalSlots).fill(null),openedChapters:[],celebratedStages:[],index:0,resultId:'',result:null,shared:false});
+  let state=freshState();
+  const saveDraft=()=>sessionStorage.setItem(flowKey,JSON.stringify(state));
+  function readDraft(){
+    for(const key of [flowKey,'ponyNarrative48-v4'])try{
+      const draft=JSON.parse(sessionStorage.getItem(key)||'null');
+      if(draft&&(draft.formVersion||draft.version)===form.version&&draft.answers?.length===form.coreCount&&window.PONY_NARRATIVE_MATCH.choicesValid(draft.choices)&&draft.finalAnswers?.length===form.finalSlots&&Array.isArray(draft.completedTasks)&&Number.isInteger(draft.index)&&draft.index>=0&&draft.index<=48){const restored={...freshState(),...draft,formVersion:form.version};if(key!==flowKey)restored.openedChapters=(Array.isArray(draft.openedChapters)?draft.openedChapters:[]).filter(c=>c!==steps[Math.min(draft.index,47)].chapter);return restored;}
+    }catch{}
+    return null;
+  }
+  const clearCurrentDraft=()=>{sessionStorage.removeItem(flowKey);sessionStorage.removeItem('ponyNarrative48-v4');};
+  const answeredAt=index=>{const s=steps[index];return s.kind==='core'?state.answers[s.i]!==null:s.kind==='task'?state.completedTasks.includes(s.i):state.finalAnswers[s.slot]!==null;};
+  function clearFinals(from=0){for(let i=from;i<form.finalSlots;i++)state.finalAnswers[i]=null;state.resultId='';state.result=null;}
+  const narrativeInput=()=>({version:window.PONY_NARRATIVE_MATCH.version,formVersion:form.version,selectionMode:'single',choices:state.choices,finalAnswers:state.finalAnswers});
   let toastTimer;
   let quizSizeKey='',quizSizeFrame;
   let toastRevision=0;
@@ -182,44 +201,65 @@
   }
   function updateGateError(message='') { $('gate-error').textContent=message; }
   async function startQuiz() {
-    // The narrative trial uses the same original landing and Derpy delivery.
-    // Only the question flow branches after the user presses Start.
-    if(new URLSearchParams(location.search).get('experience')==='narrative'){
-      try{for(const key of ['ponyNarrative48-v4','ponyNarrative48-v3','ponyNarrative48-v2','ponyNarrative48-v1','ponyNarrativePreview-v3']){const completed=JSON.parse(sessionStorage.getItem(key)||'null');if(completed?.resultId)sessionStorage.removeItem(key);}}catch{}
-      location.assign(new URL('narrative-preview.html?start=1&v=20261030-chapters',location.href).href);
-      return;
-    }
     $('start-button').disabled=true; updateGateError('');
-    try { const data=await api('/api/start',{}); state={token:data.token,answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false}; sessionStorage.setItem('ponyQuiz',JSON.stringify(state)); renderQuestion(0); showView('quiz'); }
+    try {
+      const draft=readDraft();state=draft&&!draft.resultId?draft:freshState();
+      if(!state.token){const data=await api('/api/start',{});state.token=data.token;}
+      saveDraft();history.replaceState(null,'',(window.SITE_CONFIG?.basePath||'/')+'?quiz=1');showView('quiz');renderQuestion(Math.min(state.index,47));
+    }
     catch(err){updateGateError(err.message);}
     finally{$('start-button').disabled=false;}
   }
   function renderQuestion(index) {
-    const q=questions[index]; const selected=state.answers[index];
+    const previousIndex=state.index;state.index=index;if(previousIndex!==index)scrollImmediately(0);
+    const step=steps[index];let stem,options=[],selected,select,skip=null;
+    if(step.kind==='core'){
+      const q=form.questions[step.i];stem=q[0];options=q[1].map(o=>o[0]);selected=state.answers[step.i];
+      select=oi=>{state.answers[step.i]=oi;clearFinals();};
+    }else if(step.kind==='task'){
+      const scene=form.scenes[step.i];stem=scene.stem;options=scene.options.map(o=>o.text);selected=state.choices[step.i].first;
+      select=oi=>{state.choices[step.i]={first:oi,second:null};if(!state.completedTasks.includes(step.i))state.completedTasks.push(step.i);clearFinals();};skip=()=>select(null);
+    }else{
+      if(state.answers.some(a=>a===null)){renderQuestion(steps.findIndex(s=>s.kind==='core'&&state.answers[s.i]===null));return;}
+      const planned=form.plan(window,form.scoreCore(state.answers).scores,state.choices,state.finalAnswers.slice(0,step.slot)).next;
+      if(state.finalAnswers[step.slot]?.kind!==planned.kind)clearFinals(step.slot);
+      const current=state.finalAnswers[step.slot];
+      if(planned.kind==='followup'){
+        stem=planned.question.stem;options=[planned.question.leftText,planned.question.rightText,'两种都可以，暂时选不出','都不太想／暂时说不准'];
+        selected=current?['left','right','both','unknown'].indexOf(current.choice):null;
+        select=oi=>{clearFinals(step.slot);state.finalAnswers[step.slot]={kind:'followup',choice:['left','right','both','unknown'][oi]};};
+      }else{
+        const scene=form.scenes[planned.sceneIndex];stem=scene.stem;options=scene.options.map(o=>o.text);selected=current?.first??null;
+        select=oi=>{clearFinals(step.slot);state.finalAnswers[step.slot]={kind:'task',first:oi};};skip=()=>select(null);
+      }
+    }
     $('question-count').textContent=`第 ${index+1} 题 / 共 ${questions.length} 题`;
     $('question-number').textContent=`Q${String(index+1).padStart(2,'0')}`;
     $('progress-percent').textContent=`${Math.round((index+1)/questions.length*100)}%`;
     $('progress-fill').style.width=`${(index+1)/questions.length*100}%`;
-    const chapterIndex=Math.floor(index/12);
+    const chapterIndex=step.chapter;
     const chapter=window.QUIZ_CHAPTERS[chapterIndex];
     $('chapter-title').textContent=`第 ${chapterIndex+1} 幕 / 共 4 幕 · ${chapter.title}`;
     $('chapter-context').textContent=chapter.context;
-    $('question-text').textContent=q[0];
+    $('question-text').textContent=stem;
     $('answer-list').replaceChildren();
-    q[1].forEach((option,oi)=>{
+    options.forEach((option,oi)=>{
       const button=document.createElement('button'); button.type='button'; button.className='answer-option'+(selected===oi?' selected':'');
       const letter=document.createElement('span'); letter.className='answer-letter'; letter.textContent='ABCD'[oi];
-      const copy=document.createElement('span'); copy.className='answer-copy'; copy.textContent=option[0];
-      button.append(letter,copy); button.addEventListener('click',()=>{state.answers[index]=oi;sessionStorage.setItem('ponyQuiz',JSON.stringify(state));renderQuestion(index);}); $('answer-list').append(button);
+      const copy=document.createElement('span'); copy.className='answer-copy'; copy.textContent=option;
+      button.append(letter,copy); button.addEventListener('click',()=>{select(oi);saveDraft();renderQuestion(index);}); $('answer-list').append(button);
     });
+    let skipButton=$('skip-task');if(!skipButton){skipButton=document.createElement('button');skipButton.id='skip-task';skipButton.type='button';skipButton.className='quiz-skip';skipButton.textContent='这些都不太想／暂时说不准';$('answer-list').after(skipButton);}
+    skipButton.hidden=!skip;skipButton.onclick=()=>{skip?.();saveDraft();renderQuestion(index);};skipButton.classList.toggle('selected',!!skip&&answeredAt(index)&&selected===null);
     $('prev-button').disabled=index===0;
-    $('next-button').disabled=selected===null;
+    $('next-button').disabled=!answeredAt(index);
     $('next-button').innerHTML=index===questions.length-1?'查看我的结果 <span>✦</span>':'下一题 <span>→</span>';
     $('next-button').dataset.index=index;
+    saveDraft();
     queueQuizSizing();
     requestAnimationFrame(()=>showChapterOpening(chapterIndex));
   }
-  let chapterOpening,chapterOpeningPending=false;
+  let chapterOpening,chapterOpeningPending=false,chapterOpeningScroll=0;
   const chapterHosts=[
     {name:'紫悦',src:'/images/chapter-welcome/twilight-tilt.webp',pose:'twilight'},
     {name:'珍奇',src:'/images/chapter-welcome/rarity-front.webp',pose:'rarity'},
@@ -231,7 +271,7 @@
     if($('quiz').classList.contains('hidden')||(state.openedChapters||[]).includes(index))return;
     if(chapterOpeningPending)return;
     chapterOpeningPending=true;
-    await chapterHostImages[index].decode().catch(()=>{});
+    await Promise.allSettled([chapterHostImages[index].decode(),...$('quiz').getAnimations().map(animation=>animation.finished)]);
     chapterOpeningPending=false;
     if($('quiz').classList.contains('hidden')||(state.openedChapters||[]).includes(index))return;
     if(!chapterOpening){
@@ -240,7 +280,7 @@
       chapterOpening.setAttribute('aria-labelledby','chapter-opening-title');
       chapterOpening.innerHTML='<div class="chapter-opening-card"><div class="chapter-welcome" id="chapter-welcome"><span class="welcome-frame-back" aria-hidden="true"></span><div class="welcome-portrait"><img id="chapter-host-image" alt=""></div><span class="welcome-frame-front" aria-hidden="true"></span><div class="chapter-trinkets" id="chapter-trinkets" aria-hidden="true"></div></div><p class="eyebrow" id="chapter-opening-number"></p><h2 id="chapter-opening-title"></h2><p id="chapter-opening-context"></p><button type="button" class="button button-primary" id="chapter-opening-enter">进入这一幕 <span aria-hidden="true">→</span></button></div>';
       document.body.append(chapterOpening);
-      const dismiss=()=>{chapterOpening.close();$('question-text').setAttribute('tabindex','-1');$('question-text').focus({preventScroll:true});};
+      const dismiss=()=>{chapterOpening.close();$('question-text').setAttribute('tabindex','-1');$('question-text').focus({preventScroll:true});scrollImmediately(chapterOpeningScroll);};
       $('chapter-opening-enter').addEventListener('click',dismiss);
       chapterOpening.addEventListener('wheel',e=>e.preventDefault(),{passive:false});
       chapterOpening.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
@@ -255,9 +295,12 @@
     $('chapter-opening-title').textContent=chapter.title;
     $('chapter-opening-context').textContent=chapter.context;
     state.openedChapters=(state.openedChapters||[]).concat(index);
-    sessionStorage.setItem('ponyQuiz',JSON.stringify(state));
+    saveDraft();
+    const chapterScroll=window.scrollY;chapterOpeningScroll=chapterScroll;
+    chapterOpening.addEventListener('close',()=>{$('question-text').focus({preventScroll:true});scrollImmediately(chapterScroll);},{once:true});
     chapterOpening.showModal();
     $('chapter-opening-enter').focus({preventScroll:true});
+    scrollImmediately(chapterScroll);
   }
   function queueQuizSizing(){
     cancelAnimationFrame(quizSizeFrame);
@@ -277,7 +320,8 @@
       host.setAttribute('aria-hidden','true');
       Object.assign(host.style,{position:'fixed',left:'-10000px',top:'0',visibility:'hidden',pointerEvents:'none',contain:'layout style paint'});
       const make=(text,width,style)=>{const n=document.createElement('div');n.textContent=text;Object.assign(n.style,{width:width+'px',margin:'0',padding:'0',border:'0',boxSizing:'content-box',minHeight:'0',height:'auto',whiteSpace:'normal'});for(const k of ['fontFamily','fontSize','fontWeight','fontStyle','lineHeight','letterSpacing','wordBreak','overflowWrap'])n.style[k]=style[k];host.append(n);return n;};
-      const answers=questions.flatMap(q=>q[1].map(o=>make(o[0],cw,cs)));
+      const labels=[...form.questions.flatMap(q=>q[1].map(o=>o[0])),...form.scenes.flatMap(s=>s.options.map(o=>o.text)),...form.contrasts.flatMap(c=>[c[5],c[6]]),...Object.values(window.PONY_NARRATIVE_MATCH.followupActions),'两种都可以，暂时选不出','都不太想／暂时说不准'];
+      const answers=labels.map(text=>make(text,cw,cs));
       document.body.append(host);
       const textHeight=Math.max(...answers.map(n=>n.getBoundingClientRect().height));
       const rowHeight=Math.ceil(Math.max(textHeight+parseFloat(cs.paddingTop||0)+parseFloat(cs.paddingBottom||0),28)+parseFloat(bs.paddingTop)+parseFloat(bs.paddingBottom)+parseFloat(bs.borderTopWidth)+parseFloat(bs.borderBottomWidth));
@@ -291,12 +335,11 @@
   if('ResizeObserver' in window)new ResizeObserver(queueQuizSizing).observe($('question-text'));
   function normalizedVector(values) { const mean=values.reduce((a,b)=>a+b,0)/values.length; const sd=Math.sqrt(values.reduce((a,b)=>a+(b-mean)**2,0)/values.length)||1; return values.map(v=>(v-mean)/sd); }
   function calculateResult() {
-    return window.PONY_SCORE(questions,PONIES.map(p=>p.slug),window.PREFERENCE_PROFILES,state.answers);
+    return window.PONY_NARRATIVE_SCORE(state.answers,narrativeInput());
   }
   async function finishQuiz() {
     $('next-button').disabled=true; $('next-button').textContent='正在生成友谊印记…';
-    const result=calculateResult();
-    try { const saved=await api('/api/complete',{token:state.token,result}); state.resultId=saved.id; state.result=result; state.shared=false; sessionStorage.removeItem('ponyQuiz');history.replaceState(null,'',resultLink(saved.id)); renderResult(result); showView('result'); toast('你的友谊印记正在显现…'); }
+    try { const missing=steps.findIndex((_,i)=>!answeredAt(i));if(missing>=0){renderQuestion(missing);return;}const result=calculateResult();if(!state.token){const started=await api('/api/start',{});state.token=started.token;saveDraft();}const saved=await api('/api/complete',{token:state.token,result}); state.resultId=saved.id; state.result=result; state.shared=false;clearCurrentDraft();history.replaceState(null,'',resultLink(saved.id)); renderResult(result); showView('result'); toast('你的友谊印记正在显现…'); }
     catch(err){ $('next-button').disabled=false; toast(err.message,'error'); renderQuestion(questions.length-1); }
   }
   function renderResult(result) {
@@ -375,13 +418,13 @@
     renderCharacters(result); bindTabs(); window.renderResultExperience?.(result,main,second); window.designFriendshipReport?.(result,main,second);
     if(result.narrative){
       const n=result.narrative;
-      $('match-reading').textContent='这次的四维偏好：'+result.type+'。庆典任务也参与了角色联想。'+(n.primary.support&&!n.primary.support.sufficient?'跨场景支持暂时不足，当前只展示候选联想，不锁定角色。':n.close?'两位候选仍接近，保留另一种可能。':'这是试验版的暂定角色联想。');
+      $('match-reading').textContent='这次的四维偏好：'+result.type+'。庆典任务也参与了角色联想。'+(n.primary.support&&!n.primary.support.sufficient?'跨场景支持暂时不足，当前只展示候选联想，不锁定角色。':n.close?'两位候选仍接近，保留另一种可能。':'这是根据本次选择得到的角色联想。');
       const explain=p=>p.explanations.length?p.explanations.slice(0,3).map(e=>'你选择了「'+e.text+'」').join('；'):'这次还没有足够的具体任务线索支持这位候选';
       $('primary-duo-why').textContent=explain(n.primary)+(n.primary.limitedEvidence?'。这位角色剧情依据有限，不能据此确定人格类型。':'。这些线索与角色的故事主题有相似之处，不是身份判定。');
       $('secondary-why').textContent=explain(n.secondary)+'。这位伙伴来自同一份作答的第二候选，没有随机抽取。';
-      $('secondary-reading').children[0].querySelector('p').textContent='本试验按四维偏好模式和具体任务的内容特征共同排序，任务兴趣不会改变你的四维分数；相似度不是准确率。';
+      $('secondary-reading').children[0].querySelector('p').textContent='角色按四维偏好模式和具体任务的内容特征共同排序，任务兴趣不会改变你的四维分数；相似度不是准确率。';
       const method=document.querySelector('.career-method');
-      if(method){const paragraphs=method.querySelectorAll(':scope > p'),compact=n.formVersion?.startsWith('festival-48-single-20261030-');if(compact&&paragraphs[1])paragraphs[1].textContent='本版共48题，全部单选：32道做事方式题（E/I、S/N、T/F、J/P各8题）与16道庆典情境题。四维按实际作答比例绘制；最后两题根据已有选择调整，包含在48题内，不额外加题。';if(paragraphs[2])paragraphs[2].textContent='本次使用庆典任务试验规则：角色排序采用居中余弦与任务内容相似度，初始权重为四维60%、兴趣40%，尚未经过真实样本校准。'+(compact?'只有匹配分数完全相同时，才优先展示主角团。':'任务采用'+(n.selectionMode==='single'?'单选':'首选、次选')+'，接近时最多追问3次。')+'角色与行为联想为剧情编辑推断，不是已验证的人格分类，也不据反派联想判断用户善恶。';}
+      if(method){const paragraphs=method.querySelectorAll(':scope > p'),compact=n.formVersion?.startsWith('festival-48-single-20261030-');if(compact&&paragraphs[1])paragraphs[1].textContent='本版共48题，全部单选：32道做事方式题（E/I、S/N、T/F、J/P各8题）与16道庆典情境题。四维按实际作答比例绘制；最后两题根据已有选择调整，包含在48题内，不额外加题。';if(paragraphs[2])paragraphs[2].textContent='本次使用庆典任务匹配规则：角色排序采用居中余弦与任务内容相似度，初始权重为四维60%、兴趣40%，尚未经过真实样本校准。'+(compact?'只有匹配分数完全相同时，才优先展示主角团。':'任务采用'+(n.selectionMode==='single'?'单选':'首选、次选')+'，接近时最多追问3次。')+'角色与行为联想为剧情编辑推断，不是已验证的人格分类，也不据反派联想判断用户善恶。';}
       if(['festival-48-single-20261030-v3','festival-48-single-20261030-v4'].includes(n.formVersion)&&method){const p=method.querySelectorAll(':scope > p')[2];if(p)p.textContent='角色联想比较每题所选动作与其他可选动作的相对支持；至少两个不同场景、两类线索的支持才优先进入候选。四维接近中间时减弱方向信号，“都愿意”和“说不准”不增加两侧的区分证据。四维与任务的初始权重仍为60%／40%；内容要求、参数和接近阈值均未经过真人样本校准。只有支持条件和分数均相同时才优先主角团，不设置角色配额。剧情联想不等于人格分类，相似度也不是准确率。';}
       if(n.formVersion==='festival-48-single-20261030-v4'&&method){const p=method.querySelectorAll(':scope > p')[1];if(p)p.textContent='本版共48题，全部单选：32道做事方式题（每维8题）与16道庆典情境题。最后四个情境位会根据已有候选选择对比题或普通题，不额外增加题数。四维百分比只按实际作答计算，活动选择不改写四维分数。';}
     }
@@ -577,13 +620,14 @@
   }
   $('start-button').addEventListener('click',startQuiz);
   $('prev-button').addEventListener('click',()=>{const i=Number($('next-button').dataset.index);if(i>0)renderQuestion(i-1);});
-  $('next-button').addEventListener('click',()=>{const i=Number($('next-button').dataset.index);if(i===questions.length-1)finishQuiz();else{renderQuestion(i+1);const completed=i+1;if(completed%5===0&&state.answers.slice(0,completed).every(a=>a!==null)&&!(state.celebratedStages||[]).includes(completed)){state.celebratedStages=(state.celebratedStages||[]).concat(completed);sessionStorage.setItem('ponyQuiz',JSON.stringify(state));celebrateStage(completed);}}});
-  $('exit-quiz').addEventListener('click',()=>{if(confirm('确定退出本次测评吗？退出后可以免费重新开始。')){sessionStorage.removeItem('ponyQuiz');state={token:'',answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false};showView('gate');}});
+  $('next-button').addEventListener('click',()=>{const i=Number($('next-button').dataset.index);if(i===questions.length-1)finishQuiz();else{renderQuestion(i+1);const completed=i+1;if(completed%5===0&&steps.slice(0,completed).every((_,n)=>answeredAt(n))&&!(state.celebratedStages||[]).includes(completed)){state.celebratedStages=(state.celebratedStages||[]).concat(completed);saveDraft();celebrateStage(completed);}}});
+  $('exit-quiz').addEventListener('click',()=>{if(confirm('确定退出本次测评吗？退出后可以重新开始。')){clearCurrentDraft();state=freshState();history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');showView('gate');}});
   $('welcome-share').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.origin+(window.SITE_CONFIG?.basePath||'/'));toast('测评邀请链接已复制，朋友打开后即可免费开始。','success');}catch(err){toast('复制失败，请重试。','error');}});
   $('copy-link').addEventListener('click',copyLink);$('save-image').addEventListener('click',saveImage);
-  $('retake').addEventListener('click',()=>{const trial=!!state.result?.narrative;if(trial){sessionStorage.removeItem('ponyNarrative48-v4');sessionStorage.removeItem('ponyNarrative48-v3');sessionStorage.removeItem('ponyNarrative48-v2');sessionStorage.removeItem('ponyNarrative48-v1');sessionStorage.removeItem('ponyNarrativePreview-v3');sessionStorage.removeItem('ponyNarrativePreview-v2');}state={token:'',answers:Array(questions.length).fill(null),resultId:'',result:null,shared:false};updateGateError('');history.replaceState(null,'',(window.SITE_CONFIG?.basePath||'/')+(trial?'?experience=narrative':''));showView('gate');});
-  const match=location.pathname.match(/\/r\/([A-Za-z0-9_-]+)\/?$/),sharedId=new URLSearchParams(location.search).get('r')||new URLSearchParams(location.hash.slice(1)).get('result')||match?.[1];const previewSlug=new URLSearchParams(location.search).get('admin-preview');if(previewSlug)openAdminPreview(previewSlug);else if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId))loadShared(sharedId);
+  $('retake').addEventListener('click',()=>{clearCurrentDraft();state=freshState();updateGateError('');history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');showView('gate');});
+  const params=new URLSearchParams(location.search),match=location.pathname.match(/\/r\/([A-Za-z0-9_-]+)\/?$/),sharedId=params.get('r')||new URLSearchParams(location.hash.slice(1)).get('result')||match?.[1];const previewSlug=params.get('admin-preview');if(previewSlug)openAdminPreview(previewSlug);else if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId))loadShared(sharedId);else if(params.get('quiz')==='1'||params.get('resume')==='1')startQuiz();
 })();
+
 
 
 
