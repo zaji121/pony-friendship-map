@@ -1,6 +1,6 @@
 import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';
 const w={},context={window:w};vm.createContext(context);
-for(const file of ['mbti-questions.js','quiz-world.js','characters.js','scoring.js','episode-titles.js','character-evidence.js','narrative-matching.js','personalized-followups.js','quiz-form-48.js'])vm.runInContext(fs.readFileSync(new URL('../public/'+file,import.meta.url),'utf8'),context);
+for(const file of ['mbti-questions.js','quiz-world.js','characters.js','scoring.js','episode-titles.js','character-evidence.js','narrative-matching.js','personalized-followups.js','quiz-form-48-v5.js','quiz-form-48.js'])vm.runInContext(fs.readFileSync(new URL('../public/'+file,import.meta.url),'utf8'),context);
 const form=w.PONY_QUIZ_48,blank=()=>form.scenes.map(()=>({first:null,second:null})),mid=[.5,.5,.5,.5];
 assert.equal(form.rank(w,mid,blank()).primary,null);
 const neutral={left:'stage',right:'craft',choice:'both',leftText:'左侧动作',rightText:'右侧动作'};

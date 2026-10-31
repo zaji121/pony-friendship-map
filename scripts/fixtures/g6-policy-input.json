@@ -1,0 +1,125 @@
+{
+  "answers": [
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1
+  ],
+  "narrative": {
+    "version": "narrative-content-20261030-v3",
+    "formVersion": "festival-48-single-20261031-v6",
+    "selectionMode": "single",
+    "choices": [
+      {
+        "first": 0,
+        "second": null
+      },
+      {
+        "first": 0,
+        "second": null
+      },
+      {
+        "first": 1,
+        "second": null
+      },
+      {
+        "first": 1,
+        "second": null
+      },
+      {
+        "first": 0,
+        "second": null
+      },
+      {
+        "first": 1,
+        "second": null
+      },
+      {
+        "first": 2,
+        "second": null
+      },
+      {
+        "first": 0,
+        "second": null
+      },
+      {
+        "first": 0,
+        "second": null
+      },
+      {
+        "first": 3,
+        "second": null
+      },
+      {
+        "first": 0,
+        "second": null
+      },
+      {
+        "first": 1,
+        "second": null
+      },
+      {
+        "first": null,
+        "second": null
+      },
+      {
+        "first": null,
+        "second": null
+      },
+      {
+        "first": null,
+        "second": null
+      },
+      {
+        "first": null,
+        "second": null
+      }
+    ],
+    "finalAnswers": [
+      {
+        "kind": "followup",
+        "choice": "left"
+      },
+      {
+        "kind": "task",
+        "first": 2
+      },
+      {
+        "kind": "task",
+        "first": 1
+      },
+      {
+        "kind": "task",
+        "first": 2
+      }
+    ]
+  }
+}

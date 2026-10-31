@@ -3,7 +3,7 @@
 (function(w){
 const axes=['EI','SN','TF','JP'],picks={EI:[0,1,3,4,6,7,9,10],SN:[0,1,4,5,6,7,9,10],TF:[0,1,3,4,6,7,10,11],JP:[0,1,3,4,7,8,9,10]};
 const indexes=[];axes.forEach((axis,j)=>picks[axis].forEach(k=>indexes.push(k*4+j)));indexes.sort((a,b)=>a-b);
-const questions=indexes.map(i=>{const q=w.QUIZ_QUESTIONS[i];return [q[0],q[1].map(a=>a.slice()),{...q[2]}];}),version=w.PONY_PERSONALIZED_FOLLOWUPS?'festival-48-single-20261031-v5':'festival-48-single-20261030-v4';
+const questions=indexes.map(i=>{const q=w.QUIZ_QUESTIONS[i];return [q[0],q[1].map(a=>a.slice()),{...q[2]}];}),version=w.PONY_PERSONALIZED_FOLLOWUPS?(w.PONY_QUIZ_48_V5?'festival-48-single-20261031-v6':'festival-48-single-20261031-v5'):'festival-48-single-20261030-v4';
 const reviseCore=(i,stem,left,right)=>{const q=questions[i];questions[i]=[stem,q[1].map(([,score])=>[score===1?left:right,score]),{...q[2],left,right}];};
 reviseCore(17,'入口重新布置好了，你要给照片配一句说明。下面两句，你更想用哪句？','蓝色彩带挂在两边，门口还多了几幅画。','入口像个小剧场，和今天的故事主题很搭。');
 reviseCore(21,'节目临时取消，大家只能补办一场活动。两种方案都办得成，你更支持哪种？','能多接待一些来宾，把场地和材料充分用起来的方案','人数少一些，但更贴近原来那批来宾期待的方案');
@@ -198,7 +198,7 @@ function scoreCore(answers){
  const evidence=axes.map((axis,j)=>{const rows=questions.map((q,i)=>({q,i,value:q[1][answers[i]][1]})).filter(x=>x.q[2].axis===axis),positive=rows.filter(x=>x.value>0).length,sign=totals[j]>=0?1:-1,first=rows.find(x=>Math.sign(x.value)===sign),opposite=rows.find(x=>Math.sign(x.value)!==sign);return {axis,positive,negative:8-positive,stem:first.q[0],answer:first.q[1][answers[first.i]][0],counterexample:opposite?{stem:opposite.q[0],answer:opposite.q[1][answers[opposite.i]][0]}:null};});
  return {model:'four-preferences-v2',formVersion:version,questionVersion:version,answers:answers.slice(),questionIndexes:indexes.slice(),scores,totals,itemsPerAxis:8,type:scores.map((v,i)=>Math.abs(v-.5)<.1?'X':axes[i][v>.5?0:1]).join(''),closeAxes:axes.filter((_,i)=>Math.abs(scores[i]-.5)<.1),evidence};
 }
-function rank(env,scores,choices,followups=[]){
+function rank(env,scores,choices,followups=[],applyPreference=true){
  const result=env.PONY_NARRATIVE_MATCH.rank(env,scores,choices,followups,{scenes,maxFollowups:4});
  // Every answered scene supplies an opportunity baseline: an unchosen action
  // means lower priority in this scene, not dislike or a negative personality.
@@ -227,13 +227,24 @@ function rank(env,scores,choices,followups=[]){
  if(result.ranked.every(r=>r.similarity===null))result.primary=null;
  if(result.primary!==null){result.primary=result.ranked[0].index;result.secondary=result.ranked[1].index;result.similarityGap=result.ranked[0].similarity-result.ranked[1].similarity;result.close=result.similarityGap<.03||!result.ranked[0].support.sufficient;}
  result.version=version;result.signal={mbti:hasCore,interests:items.length>0,answeredTasks:choices.filter(c=>c.first!==null).length};result.neutralContrasts=followups.filter(f=>f.choice==='both'||f.choice==='unknown').length;
- result.parameters={mbtiWeight:.6,interestWeight:.4,midpointRegularizer:.25,relativeEvidenceScale:2,closeGap:.03,minChapters:2};return result;
+ result.parameters={mbtiWeight:.6,interestWeight:.4,midpointRegularizer:.25,relativeEvidenceScale:2,closeGap:.03,minChapters:2};return applyPreference?preferMainSix(result):result;
+}
+// Explicit product preference at final presentation, not an accuracy claim.
+const mainSixPreference={id:'main-six-near-score-v1',scoreTolerance:.03,mbtiTolerance:.03};
+function preferMainSix(result){
+ if(version!=='festival-48-single-20261031-v6')return result;
+ const leader=result.ranked[0],policy={...mainSixPreference,applied:false};result.productPreference=policy;
+ if(result.primary===null||!leader?.support.sufficient||mainSix.has(leader.slug))return result;
+ const candidate=result.ranked.find(r=>mainSix.has(r.slug)&&r.support.sufficient&&leader.similarity-r.similarity<=mainSixPreference.scoreTolerance+1e-12&&(leader.mbti===null||r.mbti===null||leader.mbti-r.mbti<=mainSixPreference.mbtiTolerance+1e-12));
+ if(!candidate)return result;
+ const gap=leader.similarity-candidate.similarity;result.ranked.splice(result.ranked.indexOf(candidate),1);result.ranked.unshift(candidate);result.primary=candidate.index;result.secondary=leader.index;result.similarityGap=Math.abs(gap);result.close=true;
+ Object.assign(policy,{applied:true,rawPrimary:leader.slug,displayedPrimary:candidate.slug,similarityGap:gap,mbtiGap:leader.mbti!==null&&candidate.mbti!==null?leader.mbti-candidate.mbti:null});return result;
 }
 function plan(env,scores,fixedChoices,finalAnswers=[]){
  const model=env.PONY_NARRATIVE_MATCH;
  if(!model.choicesValid(fixedChoices)||fixedChoices.slice(12).some(c=>c.first!==null)||!Array.isArray(finalAnswers)||finalAnswers.length>4)throw Error('庆典任务与当前48题版本不一致。');
  const choices=fixedChoices.map(c=>({...c}));if(choices.some(c=>c.second!==null))throw Error('本版为单选题，每题只能选择一项。');
- const followups=[];let result=rank(env,scores,choices,followups),next=null;
+ const followups=[];let result=rank(env,scores,choices,followups,false),next=null;
  for(let slot=0;slot<4;slot++){
   const adaptive=nextFollowup(result,followups);
   next=adaptive?{kind:'followup',slot,question:adaptive}:{kind:'task',slot,sceneIndex:12+slot};
@@ -247,10 +258,10 @@ function plan(env,scores,fixedChoices,finalAnswers=[]){
    if(answer.first!==null&&(!Number.isInteger(answer.first)||answer.first<0||answer.first>3))throw Error('请选择一个答案。');
    choices[next.sceneIndex]={first:answer.first,second:null};
   }
-  result=rank(env,scores,choices,followups);
+  result=rank(env,scores,choices,followups,false);
  }
- return {result,choices,followups,next:null};
+ return {result:preferMainSix(result),choices,followups,next:null};
 }
-w.PONY_QUIZ_48={version,questions,scenes,indexes,axes,scoreCore,rank,plan,nextFollowup,contrasts,personalizedQuestions:w.PONY_PERSONALIZED_FOLLOWUPS?.items||[],total:48,coreCount:32,itemsPerAxis:8,fixedTaskCount:12,finalSlots:4};
+w.PONY_QUIZ_48={version,questions,scenes,indexes,axes,scoreCore,rank,plan,nextFollowup,contrasts,mainSixPreference:version==='festival-48-single-20261031-v6'?mainSixPreference:null,preferMainSix,personalizedQuestions:w.PONY_PERSONALIZED_FOLLOWUPS?.items||[],total:48,coreCount:32,itemsPerAxis:8,fixedTaskCount:12,finalSlots:4};
 })(window);
 
