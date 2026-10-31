@@ -3,7 +3,7 @@
 (function(w){
 const axes=['EI','SN','TF','JP'],picks={EI:[0,1,3,4,6,7,9,10],SN:[0,1,4,5,6,7,9,10],TF:[0,1,3,4,6,7,10,11],JP:[0,1,3,4,7,8,9,10]};
 const indexes=[];axes.forEach((axis,j)=>picks[axis].forEach(k=>indexes.push(k*4+j)));indexes.sort((a,b)=>a-b);
-const questions=indexes.map(i=>{const q=w.QUIZ_QUESTIONS[i];return [q[0],q[1].map(a=>a.slice()),{...q[2]}];}),version='festival-48-single-20261030-v4';
+const questions=indexes.map(i=>{const q=w.QUIZ_QUESTIONS[i];return [q[0],q[1].map(a=>a.slice()),{...q[2]}];}),version=w.PONY_PERSONALIZED_FOLLOWUPS?'festival-48-single-20261031-v5':'festival-48-single-20261030-v4';
 const reviseCore=(i,stem,left,right)=>{const q=questions[i];questions[i]=[stem,q[1].map(([,score])=>[score===1?left:right,score]),{...q[2],left,right}];};
 reviseCore(17,'入口重新布置好了，你要给照片配一句说明。下面两句，你更想用哪句？','蓝色彩带挂在两边，门口还多了几幅画。','入口像个小剧场，和今天的故事主题很搭。');
 reviseCore(21,'节目临时取消，大家只能补办一场活动。两种方案都办得成，你更支持哪种？','能多接待一些来宾，把场地和材料充分用起来的方案','人数少一些，但更贴近原来那批来宾期待的方案');
@@ -171,6 +171,7 @@ const contrasts=[
 ];
 function nextFollowup(result,answered=[]){
  if(result.primary===null||(!result.close&&result.ranked[0].support.sufficient)||answered.length>=4)return null;
+ const personalized=w.PONY_PERSONALIZED_FOLLOWUPS?.select(result,answered);if(personalized)return personalized;
  const [a,b]=result.ranked,used=new Set(answered.flatMap(f=>[f.left,f.right]));
  const row=contrasts.find(c=>((c[0]===a.slug&&c[1]===b.slug)||(c[1]===a.slug&&c[0]===b.slug))&&!used.has(c[2])&&!used.has(c[3]));
  if(row){const forward=row[0]===a.slug;return {left:row[forward?2:3],right:row[forward?3:2],stem:row[4],leftText:row[forward?5:6],rightText:row[forward?6:5],candidateSlugs:[a.slug,b.slug],contrast:'shared-situation'};}
@@ -240,7 +241,8 @@ function plan(env,scores,fixedChoices,finalAnswers=[]){
   if(!answer||answer.kind!==next.kind)throw Error('后面的情境已根据前面的选择调整，请重新选择。');
   if(next.kind==='followup'){
    if(!['left','right','both','unknown'].includes(answer.choice))throw Error('请选择一个答案。');
-   followups.push({left:adaptive.left,right:adaptive.right,choice:answer.choice,leftText:adaptive.leftText,rightText:adaptive.rightText,stem:adaptive.stem});
+   if(answer.questionId!==undefined&&answer.questionId!==(adaptive.id||null))throw Error('追问已根据前面的答案更新，请重新选择。');
+   followups.push({questionId:adaptive.id||null,left:adaptive.left,right:adaptive.right,choice:answer.choice,leftText:adaptive.leftText,rightText:adaptive.rightText,stem:adaptive.stem});
   }else{
    if(answer.first!==null&&(!Number.isInteger(answer.first)||answer.first<0||answer.first>3))throw Error('请选择一个答案。');
    choices[next.sceneIndex]={first:answer.first,second:null};
@@ -249,6 +251,6 @@ function plan(env,scores,fixedChoices,finalAnswers=[]){
  }
  return {result,choices,followups,next:null};
 }
-w.PONY_QUIZ_48={version,questions,scenes,indexes,axes,scoreCore,rank,plan,nextFollowup,contrasts,total:48,coreCount:32,itemsPerAxis:8,fixedTaskCount:12,finalSlots:4};
+w.PONY_QUIZ_48={version,questions,scenes,indexes,axes,scoreCore,rank,plan,nextFollowup,contrasts,personalizedQuestions:w.PONY_PERSONALIZED_FOLLOWUPS?.items||[],total:48,coreCount:32,itemsPerAxis:8,fixedTaskCount:12,finalSlots:4};
 })(window);
 

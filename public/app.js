@@ -98,19 +98,21 @@
   }
   const views = ['gate','quiz','result','shared-status'].map($);
   const questions = window.QUIZ_QUESTIONS;
-  const form=window.PONY_QUIZ_48,flowKey='ponyFestival48-v4',steps=[];
-  for(let chapter=0;chapter<4;chapter++){
+  const defaultForm=window.PONY_QUIZ_48,flowKey='ponyFestival48-v4';let form=defaultForm,steps=[];
+  function useForm(next){form=next;steps=[];for(let chapter=0;chapter<4;chapter++){
     form.questions.forEach((q,i)=>{if(q[2].chapter===chapter)steps.push({kind:'core',i,chapter});});
     form.scenes.forEach((scene,i)=>{if(scene.chapter===chapter)steps.push(i<form.fixedTaskCount?{kind:'task',i,chapter}:{kind:'final',slot:i-form.fixedTaskCount,chapter});});
   }
-  if(steps.length!==48)throw Error('题目配置不完整');
+  if(steps.length!==48)throw Error('题目配置不完整');}
+  useForm(defaultForm);
   const freshState=()=>({formVersion:form.version,token:'',answers:Array(form.coreCount).fill(null),choices:form.scenes.map(()=>({first:null,second:null})),completedTasks:[],finalAnswers:Array(form.finalSlots).fill(null),openedChapters:[],celebratedStages:[],index:0,resultId:'',result:null,shared:false});
   let state=freshState();
   const saveDraft=()=>sessionStorage.setItem(flowKey,JSON.stringify(state));
   function readDraft(){
     for(const key of [flowKey,'ponyNarrative48-v4'])try{
       const draft=JSON.parse(sessionStorage.getItem(key)||'null');
-      if(draft&&(draft.formVersion||draft.version)===form.version&&draft.answers?.length===form.coreCount&&window.PONY_NARRATIVE_MATCH.choicesValid(draft.choices)&&draft.finalAnswers?.length===form.finalSlots&&Array.isArray(draft.completedTasks)&&Number.isInteger(draft.index)&&draft.index>=0&&draft.index<=48){const restored={...freshState(),...draft,formVersion:form.version};if(key!==flowKey)restored.openedChapters=(Array.isArray(draft.openedChapters)?draft.openedChapters:[]).filter(c=>c!==steps[Math.min(draft.index,47)].chapter);return restored;}
+      const edition=[defaultForm,window.PONY_QUIZ_48_V4].find(f=>f&&f.version===(draft?.formVersion||draft?.version));
+      if(edition&&draft.answers?.length===edition.coreCount&&window.PONY_NARRATIVE_MATCH.choicesValid(draft.choices)&&draft.finalAnswers?.length===edition.finalSlots&&Array.isArray(draft.completedTasks)&&Number.isInteger(draft.index)&&draft.index>=0&&draft.index<=48){useForm(edition);const restored={...freshState(),...draft,formVersion:form.version};if(key!==flowKey)restored.openedChapters=(Array.isArray(draft.openedChapters)?draft.openedChapters:[]).filter(c=>c!==steps[Math.min(draft.index,47)].chapter);return restored;}
     }catch{}
     return null;
   }
@@ -214,7 +216,7 @@
   async function startQuiz() {
     $('start-button').disabled=true; updateGateError('');
     try {
-      const draft=readDraft();state=draft&&!draft.resultId?draft:freshState();
+      const draft=readDraft();if(draft&&!draft.resultId)state=draft;else{useForm(defaultForm);state=freshState();}
       saveDraft();history.replaceState(null,'',(window.SITE_CONFIG?.basePath||'/')+'?quiz=1');showView('quiz');renderQuestion(Math.min(state.index,47));
       void ensureQuizSession().catch(()=>{});
     }
@@ -223,7 +225,7 @@
   }
   function renderQuestion(index) {
     const previousIndex=state.index;state.index=index;if(previousIndex!==index)scrollImmediately(0);
-    const step=steps[index];let stem,options=[],selected,select,skip=null;
+    const step=steps[index];let stem,options=[],selected,select,skip=null,questionId='';
     if(step.kind==='core'){
       const q=form.questions[step.i];stem=q[0];options=q[1].map(o=>o[0]);selected=state.answers[step.i];
       select=oi=>{state.answers[step.i]=oi;clearFinals();};
@@ -236,9 +238,10 @@
       if(state.finalAnswers[step.slot]?.kind!==planned.kind)clearFinals(step.slot);
       const current=state.finalAnswers[step.slot];
       if(planned.kind==='followup'){
+        questionId=planned.question.id||'';
         stem=planned.question.stem;options=[planned.question.leftText,planned.question.rightText];
         selected=current?['left','right'].indexOf(current.choice):null;if(selected<0)selected=null;
-        const choose=choice=>{clearFinals(step.slot);state.finalAnswers[step.slot]={kind:'followup',choice};};
+        const choose=choice=>{clearFinals(step.slot);state.finalAnswers[step.slot]={kind:'followup',choice,...(questionId?{questionId}:{})};};
         select=oi=>choose(['left','right'][oi]);skip=()=>choose('unknown');
       }else{
         const scene=form.scenes[planned.sceneIndex];stem=scene.stem;options=scene.options.map(o=>o.text);selected=current?.first??null;
@@ -254,6 +257,7 @@
     $('chapter-title').textContent=`第 ${chapterIndex+1} 幕 / 共 4 幕 · ${chapter.title}`;
     $('chapter-context').textContent=chapter.context;
     $('question-text').textContent=stem;
+    $('question-text').dataset.questionId=questionId;
     $('answer-list').replaceChildren();
     options.forEach((option,oi)=>{
       const button=document.createElement('button'); button.type='button'; button.className='answer-option'+(selected===oi?' selected':'');
@@ -325,7 +329,7 @@
       const hs=getComputedStyle(heading),cs=getComputedStyle(copy),bs=getComputedStyle(button);
       const hw=Math.floor(heading.getBoundingClientRect().width),cw=Math.floor(copy.getBoundingClientRect().width);
       if(hw<=0||cw<=0)return;
-      const key=[hw,cw,hs.font,hs.lineHeight,cs.font,cs.lineHeight,bs.paddingTop,bs.paddingBottom].join('|');
+      const key=[form.version,hw,cw,hs.font,hs.lineHeight,cs.font,cs.lineHeight,bs.paddingTop,bs.paddingBottom].join('|');
       if(key===quizSizeKey)return;
       quizSizeKey=key;
       // Reserve one shared answer height for the entire bank at this viewport.
@@ -334,7 +338,7 @@
       host.setAttribute('aria-hidden','true');
       Object.assign(host.style,{position:'fixed',left:'-10000px',top:'0',visibility:'hidden',pointerEvents:'none',contain:'layout style paint'});
       const make=(text,width,style)=>{const n=document.createElement('div');n.textContent=text;Object.assign(n.style,{width:width+'px',margin:'0',padding:'0',border:'0',boxSizing:'content-box',minHeight:'0',height:'auto',whiteSpace:'normal'});for(const k of ['fontFamily','fontSize','fontWeight','fontStyle','lineHeight','letterSpacing','wordBreak','overflowWrap'])n.style[k]=style[k];host.append(n);return n;};
-      const labels=[...form.questions.flatMap(q=>q[1].map(o=>o[0])),...form.scenes.flatMap(s=>s.options.map(o=>o.text)),...form.contrasts.flatMap(c=>[c[5],c[6]]),...Object.values(window.PONY_NARRATIVE_MATCH.followupActions)];
+      const labels=[...form.questions.flatMap(q=>q[1].map(o=>o[0])),...form.scenes.flatMap(s=>s.options.map(o=>o.text)),...form.contrasts.flatMap(c=>[c[5],c[6]]),...(form.personalizedQuestions||[]).flatMap(q=>[q.leftText,q.rightText]),...Object.values(window.PONY_NARRATIVE_MATCH.followupActions)];
       const answers=labels.map(text=>make(text,cw,cs));
       document.body.append(host);
       const textHeight=Math.max(...answers.map(n=>n.getBoundingClientRect().height));
@@ -438,9 +442,9 @@
       $('secondary-why').textContent=explain(n.secondary)+'。这位伙伴来自同一份作答的第二候选，没有随机抽取。';
       $('secondary-reading').children[0].querySelector('p').textContent='角色按四维偏好模式和具体任务的内容特征共同排序，任务兴趣不会改变你的四维分数；相似度不是准确率。';
       const method=document.querySelector('.career-method');
-      if(method){const paragraphs=method.querySelectorAll(':scope > p'),compact=n.formVersion?.startsWith('festival-48-single-20261030-');if(compact&&paragraphs[1])paragraphs[1].textContent='本版共48题，全部单选：32道做事方式题（E/I、S/N、T/F、J/P各8题）与16道庆典情境题。四维按实际作答比例绘制；最后两题根据已有选择调整，包含在48题内，不额外加题。';if(paragraphs[2])paragraphs[2].textContent='本次使用庆典任务匹配规则：角色排序采用居中余弦与任务内容相似度，初始权重为四维60%、兴趣40%，尚未经过真实样本校准。'+(compact?'只有匹配分数完全相同时，才优先展示主角团。':'任务采用'+(n.selectionMode==='single'?'单选':'首选、次选')+'，接近时最多追问3次。')+'角色与行为联想为剧情编辑推断，不是已验证的人格分类，也不据反派联想判断用户善恶。';}
-      if(['festival-48-single-20261030-v3','festival-48-single-20261030-v4'].includes(n.formVersion)&&method){const p=method.querySelectorAll(':scope > p')[2];if(p)p.textContent='角色联想比较每题所选动作与其他可选动作的相对支持；至少两个不同场景、两类线索的支持才优先进入候选。四维接近中间时减弱方向信号，“都愿意”和“说不准”不增加两侧的区分证据。四维与任务的初始权重仍为60%／40%；内容要求、参数和接近阈值均未经过真人样本校准。只有支持条件和分数均相同时才优先主角团，不设置角色配额。剧情联想不等于人格分类，相似度也不是准确率。';}
-      if(n.formVersion==='festival-48-single-20261030-v4'&&method){const p=method.querySelectorAll(':scope > p')[1];if(p)p.textContent='本版共48题，全部单选：32道做事方式题（每维8题）与16道庆典情境题。最后四个情境位会根据已有候选选择对比题或普通题，不额外增加题数。四维百分比只按实际作答计算，活动选择不改写四维分数。';}
+      if(method){const paragraphs=method.querySelectorAll(':scope > p'),compact=n.formVersion?.startsWith('festival-48-single-');if(compact&&paragraphs[1])paragraphs[1].textContent='本版共48题，全部单选：32道做事方式题（E/I、S/N、T/F、J/P各8题）与16道庆典情境题。四维按实际作答比例绘制；最后两题根据已有选择调整，包含在48题内，不额外加题。';if(paragraphs[2])paragraphs[2].textContent='本次使用庆典任务匹配规则：角色排序采用居中余弦与任务内容相似度，初始权重为四维60%、兴趣40%，尚未经过真实样本校准。'+(compact?'只有匹配分数完全相同时，才优先展示主角团。':'任务采用'+(n.selectionMode==='single'?'单选':'首选、次选')+'，接近时最多追问3次。')+'角色与行为联想为剧情编辑推断，不是已验证的人格分类，也不据反派联想判断用户善恶。';}
+      if(['festival-48-single-20261030-v3','festival-48-single-20261030-v4','festival-48-single-20261031-v5'].includes(n.formVersion)&&method){const p=method.querySelectorAll(':scope > p')[2];if(p)p.textContent='角色联想比较每题所选动作与其他可选动作的相对支持；至少两个不同场景、两类线索的支持才优先进入候选。四维接近中间时减弱方向信号，“都愿意”和“说不准”不增加两侧的区分证据。四维与任务的初始权重仍为60%／40%；内容要求、参数和接近阈值均未经过真人样本校准。只有支持条件和分数均相同时才优先主角团，不设置角色配额。剧情联想不等于人格分类，相似度也不是准确率。';}
+      if(['festival-48-single-20261030-v4','festival-48-single-20261031-v5'].includes(n.formVersion)&&method){const p=method.querySelectorAll(':scope > p')[1];if(p)p.textContent='本版共48题，全部单选：32道做事方式题（每维8题）与16道庆典情境题。最后四个情境位会根据已有候选选择对比题或普通题，不额外增加题数。四维百分比只按实际作答计算，活动选择不改写四维分数。';}
     }
   }
   function makeTraitTag(label){const tag=document.createElement('span');tag.className='duo-tag';tag.textContent=label;return tag;}

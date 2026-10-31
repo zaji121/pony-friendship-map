@@ -1,7 +1,7 @@
 import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';
 const w={},context={window:w};vm.createContext(context);
-for(const file of ['mbti-questions.js','quiz-world.js','characters.js','scoring.js','episode-titles.js','character-evidence.js','narrative-matching.js','quiz-form-48-v1.js','quiz-form-48.js'])vm.runInContext(fs.readFileSync(new URL('../public/'+file,import.meta.url),'utf8'),context);
-const form=w.PONY_QUIZ_48,model=w.PONY_NARRATIVE_MATCH,empty=form.scenes.map(()=>({first:null,second:null}));
+for(const file of ['mbti-questions.js','quiz-world.js','characters.js','scoring.js','episode-titles.js','character-evidence.js','narrative-matching.js','quiz-form-48-v1.js','quiz-form-48-v4.js'])vm.runInContext(fs.readFileSync(new URL('../public/'+file,import.meta.url),'utf8'),context);
+const form=w.PONY_QUIZ_48_V4,model=w.PONY_NARRATIVE_MATCH,empty=form.scenes.map(()=>({first:null,second:null}));
 assert.equal(form.total,48);assert.equal(form.contrasts.length,15);
 const pairs=new Set();
 for(const row of form.contrasts){
@@ -20,7 +20,7 @@ for(const row of form.contrasts){
 }
 // Actual output explanations must quote the displayed action, including an
 // adaptive action. No change in interests is allowed to rewrite axis scores.
-const report=JSON.parse(fs.readFileSync(new URL('../docs/narrative-form-48-audit.json',import.meta.url),'utf8'));
+const report=JSON.parse(fs.readFileSync(new URL('../docs/narrative-form-48-v4-baseline.json',import.meta.url),'utf8'));
 for(const witness of report.witnesses){
  const before=Array.from(form.scoreCore(witness.answers).scores),planned=form.plan(w,before,witness.choices,witness.finalAnswers);
  assert.deepEqual(Array.from(form.scoreCore(witness.answers).scores),before);

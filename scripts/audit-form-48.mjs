@@ -1,6 +1,6 @@
 import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';
 const root=new URL('../',import.meta.url),w={},context={window:w};vm.createContext(context);
-for(const file of ['mbti-questions.js','quiz-world.js','characters.js','scoring.js','episode-titles.js','character-evidence.js','narrative-matching.js','quiz-form-48.js'])vm.runInContext(fs.readFileSync(new URL('public/'+file,root),'utf8'),context);
+for(const file of ['mbti-questions.js','quiz-world.js','characters.js','scoring.js','episode-titles.js','character-evidence.js','narrative-matching.js','personalized-followups.js','quiz-form-48.js'])vm.runInContext(fs.readFileSync(new URL('public/'+file,root),'utf8'),context);
 const form=w.PONY_QUIZ_48,model=w.PONY_NARRATIVE_MATCH,coverage=JSON.parse(fs.readFileSync(new URL('docs/role-reachability.json',root),'utf8'));
 assert.equal(form.questions.length,32);for(const axis of form.axes){const items=form.questions.filter(q=>q[2].axis===axis);assert.equal(items.length,8);assert.equal(items.filter(q=>q[1][0][1]===1).length,4);}
 for(let chapter=0;chapter<4;chapter++)assert.equal(form.questions.filter(q=>q[2].chapter===chapter).length,8);
