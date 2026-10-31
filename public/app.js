@@ -236,9 +236,10 @@
       if(state.finalAnswers[step.slot]?.kind!==planned.kind)clearFinals(step.slot);
       const current=state.finalAnswers[step.slot];
       if(planned.kind==='followup'){
-        stem=planned.question.stem;options=[planned.question.leftText,planned.question.rightText,'两种都可以，暂时选不出','都不太想／暂时说不准'];
-        selected=current?['left','right','both','unknown'].indexOf(current.choice):null;
-        select=oi=>{clearFinals(step.slot);state.finalAnswers[step.slot]={kind:'followup',choice:['left','right','both','unknown'][oi]};};
+        stem=planned.question.stem;options=[planned.question.leftText,planned.question.rightText];
+        selected=current?['left','right'].indexOf(current.choice):null;if(selected<0)selected=null;
+        const choose=choice=>{clearFinals(step.slot);state.finalAnswers[step.slot]={kind:'followup',choice};};
+        select=oi=>choose(['left','right'][oi]);skip=()=>choose('unknown');
       }else{
         const scene=form.scenes[planned.sceneIndex];stem=scene.stem;options=scene.options.map(o=>o.text);selected=current?.first??null;
         select=oi=>{clearFinals(step.slot);state.finalAnswers[step.slot]={kind:'task',first:oi};};skip=()=>select(null);
@@ -258,9 +259,9 @@
       const button=document.createElement('button'); button.type='button'; button.className='answer-option'+(selected===oi?' selected':'');
       const letter=document.createElement('span'); letter.className='answer-letter'; letter.textContent='ABCD'[oi];
       const copy=document.createElement('span'); copy.className='answer-copy'; copy.textContent=option;
-      button.append(letter,copy); button.addEventListener('click',()=>{select(oi);saveDraft();renderQuestion(index);}); $('answer-list').append(button);
+      button.append(letter,copy); button.addEventListener('click',()=>{select(oi);saveDraft();renderQuestion(index);if(!matchMedia('(prefers-reduced-motion: reduce)').matches)$('answer-list').children[oi]?.animate?.([{translate:'0 2px'},{translate:'0 -1px',offset:.65},{translate:'0 0'}],{duration:200,easing:'ease-out'});}); $('answer-list').append(button);
     });
-    let skipButton=$('skip-task');if(!skipButton){skipButton=document.createElement('button');skipButton.id='skip-task';skipButton.type='button';skipButton.className='quiz-skip';skipButton.textContent='这些都不太想／暂时说不准';$('answer-list').after(skipButton);}
+    let skipButton=$('skip-task');if(!skipButton){skipButton=document.createElement('button');skipButton.id='skip-task';skipButton.type='button';skipButton.className='quiz-skip';skipButton.textContent='不太感兴趣，先跳过';$('answer-list').after(skipButton);}
     skipButton.hidden=!skip;skipButton.onclick=()=>{skip?.();saveDraft();renderQuestion(index);};skipButton.classList.toggle('selected',!!skip&&answeredAt(index)&&selected===null);
     $('prev-button').disabled=index===0;
     $('next-button').disabled=!answeredAt(index);
@@ -333,7 +334,7 @@
       host.setAttribute('aria-hidden','true');
       Object.assign(host.style,{position:'fixed',left:'-10000px',top:'0',visibility:'hidden',pointerEvents:'none',contain:'layout style paint'});
       const make=(text,width,style)=>{const n=document.createElement('div');n.textContent=text;Object.assign(n.style,{width:width+'px',margin:'0',padding:'0',border:'0',boxSizing:'content-box',minHeight:'0',height:'auto',whiteSpace:'normal'});for(const k of ['fontFamily','fontSize','fontWeight','fontStyle','lineHeight','letterSpacing','wordBreak','overflowWrap'])n.style[k]=style[k];host.append(n);return n;};
-      const labels=[...form.questions.flatMap(q=>q[1].map(o=>o[0])),...form.scenes.flatMap(s=>s.options.map(o=>o.text)),...form.contrasts.flatMap(c=>[c[5],c[6]]),...Object.values(window.PONY_NARRATIVE_MATCH.followupActions),'两种都可以，暂时选不出','都不太想／暂时说不准'];
+      const labels=[...form.questions.flatMap(q=>q[1].map(o=>o[0])),...form.scenes.flatMap(s=>s.options.map(o=>o.text)),...form.contrasts.flatMap(c=>[c[5],c[6]]),...Object.values(window.PONY_NARRATIVE_MATCH.followupActions)];
       const answers=labels.map(text=>make(text,cw,cs));
       document.body.append(host);
       const textHeight=Math.max(...answers.map(n=>n.getBoundingClientRect().height));

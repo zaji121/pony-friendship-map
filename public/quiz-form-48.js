@@ -136,6 +136,22 @@ revise(12,'庆典结束了，还有一小段时间。你最想先把哪件事做
  ['和搭档把没唱顺的一段再唱一次，换种表达试试','stage','aesthetics'],
  ['和居民核对老照片里的故事，记清哪些做法保留到了今天','heritage','knowledge'],
  ['沿附近一条没走过的小路找一找，把落下的指示牌带回来','exploration','independence']]);
+// Wording-only refresh: keep every option's feature coding and the 32 core
+// items intact. Mischief is an activity preference, never an MBTI axis score.
+const playfulCopy=(i,j,text)=>{scenes[i].options[j].text=text;};
+scenes[0].stem='筹备会结束了，还有半小时。四张准备台都能参加，你先去哪边？';
+playfulCopy(0,3,'和伙伴排个小恶作剧：开场时假装忘词，再一起突然接上');
+playfulCopy(3,2,'约台下的伙伴藏个彩蛋，开场时突然一起举起同款小牌子');
+scenes[5].stem='广场布置好了，还能加一点自己的花样。你最想弄哪一个？';
+playfulCopy(5,0,'做个打开就跳出纸青蛙的小盒子，试试怎样弹得更出其不意');
+playfulCopy(5,2,'给闯关卡加一条假线索，推一遍怎样才能识破这个圈套');
+playfulCopy(8,2,'拉几位伙伴玩假扮游戏，扮成摊主，看看熟人多久能认出来');
+playfulCopy(9,0,'演爱捣乱的反派，设计一段藏宝箱、最后又被识破的戏');
+scenes[10].stem='广场还空着一小块地方，也有材料可用。你想拿它做什么？';
+playfulCopy(10,0,'做个会冒泡变色的小实验，换几种配比，看看效果差在哪');
+playfulCopy(10,3,'提议加一条隐藏支线，说服伙伴一起布置一个猜不到的结局');
+playfulCopy(11,2,'拉上几位来宾排个反转桥段，悄悄准备好，逗主持人一下');
+playfulCopy(14,3,'约伙伴试个新点子，把普通道具改成突然弹开的玩具');
 const contrasts=[
  ['twilight','applejack','knowledge','practical','摊位的小机关又卡住了，你更想先怎么处理？','把图纸和刚才的记录找来，弄清它卡住的原因','拿工具检查松动的地方，先把眼前这一处修好'],
  ['twilight','rainbow-dash','analysis','athletic','挑战路线有一段总不顺，你更想怎样帮忙？','看路线和几次试跑的记录，找出问题出在哪一步','自己跑一遍那一段，边试边调整转弯和发力'],

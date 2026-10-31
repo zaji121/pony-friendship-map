@@ -232,3 +232,8 @@ img{max-width:100%}
 .chapter-welcome .welcome-frame-front{background:transparent;clip-path:inset(calc(100% - 22px) 0 0);box-shadow:none}
 .chapter-welcome .welcome-frame-back{box-shadow:0 8px 18px #66516e18}
 .chapter-opening .trinket{animation:none}
+/* Press feedback moves the painted control, never its layout or dimensions. */
+:is(button:not(:disabled),a.button,.report-nav-link,summary){translate:0 0;transition:translate .2s cubic-bezier(.2,1.5,.4,1),background-color .18s,border-color .18s,box-shadow .18s;touch-action:manipulation}
+#quiz .answer-option{transition:translate .2s cubic-bezier(.2,1.5,.4,1),background-color .18s,border-color .18s,box-shadow .18s}
+:is(button:not(:disabled),a.button,.report-nav-link,summary):active{translate:0 2px;transition-duration:.055s}
+@media(prefers-reduced-motion:reduce){:is(button:not(:disabled),a.button,.report-nav-link,summary),#quiz .answer-option{translate:none!important;transition:none!important}}
