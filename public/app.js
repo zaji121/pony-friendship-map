@@ -160,7 +160,7 @@
       previewRole(PONIES.some(p=>p.slug===slug)&&!(window.INACTIVE_CHARACTERS||[]).includes(slug)?slug:'twilight');
     }catch(error){showView('gate');updateGateError(error.message);const a=document.createElement('a');a.href='admin.html';a.textContent='打开管理员登录';$('gate').append(a);}
   }
-  function scrollImmediately(top){const root=document.documentElement,previous=root.style.scrollBehavior;root.style.scrollBehavior='auto';window.scrollTo(0,top);root.style.scrollBehavior=previous;}
+  function scrollImmediately(top){window.scrollTo({left:0,top,behavior:'instant'});}
   function revealToast(el,duration){
     clearTimeout(toastTimer);
     toastTimer=setTimeout(()=>el.classList.remove('show'),duration);
@@ -294,6 +294,8 @@
     $('chapter-opening-number').textContent=`小马谷庆典 · 第 ${index+1} 幕 / 共 4 幕`;
     $('chapter-opening-title').textContent=chapter.title;
     $('chapter-opening-context').textContent=chapter.context;
+    await $('chapter-host-image').decode().catch(()=>{});
+    if($('quiz').classList.contains('hidden'))return;
     state.openedChapters=(state.openedChapters||[]).concat(index);
     saveDraft();
     const chapterScroll=window.scrollY;chapterOpeningScroll=chapterScroll;

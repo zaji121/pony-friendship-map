@@ -137,8 +137,8 @@ img{max-width:100%}
 
 /* A chapter opening floats above the quiz without changing page geometry. */
 .chapter-opening{border:1px solid #e4d9ee;border-radius:24px;padding:0;width:min(440px,calc(100% - 36px));max-height:calc(100dvh - 48px);color:var(--ink);background:#fffdf9;box-shadow:0 22px 70px #37234333;overflow:auto;overscroll-behavior:contain}
-.chapter-opening::backdrop{background:#30263c66;backdrop-filter:blur(4px)}
-.chapter-opening[open]{animation:chapter-arrive .3s ease-out both}
+.chapter-opening::backdrop{background:#30263c66;backdrop-filter:blur(4px);animation:chapter-reveal .18s ease-out both}
+.chapter-opening[open]{animation:chapter-reveal .18s ease-out both}
 .chapter-opening-card{padding:30px 28px;text-align:center;background:radial-gradient(ellipse at top,#eee7f7,transparent 65%)}
 .chapter-opening-star{display:grid;place-items:center;margin:0 auto 18px;width:52px;height:52px;border-radius:18px;background:#eee6f5;color:#8263a8;font-size:32px}
 .chapter-opening .eyebrow{letter-spacing:.08em;font-size:12px;color:#86719d}
@@ -147,8 +147,8 @@ img{max-width:100%}
 .chapter-opening-hint{font-size:12px;line-height:1.8;color:#898193;margin:20px 0}
 .chapter-opening .button{width:100%;height:48px;font-size:15px}
 .chapter-opening .button:focus-visible{outline:2px solid #a995bf;outline-offset:3px}
-@keyframes chapter-arrive{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-@media(prefers-reduced-motion:reduce){.chapter-opening[open]{animation:none}}
+@keyframes chapter-reveal{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.chapter-opening[open],.chapter-opening::backdrop{animation:none}}
 @media(max-width:380px){.chapter-opening-card{padding:24px 20px}.chapter-opening h2{font-size:22px}}
 /* Center the invitation as one composition, rather than fixing the pony to a viewport percentage. */
 .mail-entry{padding:max(24px,env(safe-area-inset-top,0px)) 24px max(24px,env(safe-area-inset-bottom,0px));align-items:center}
@@ -227,3 +227,8 @@ img{max-width:100%}
 
 .chapter-welcome[data-pony=applejack] .welcome-portrait{inset:0 0 23px;overflow:hidden;z-index:1}
 .chapter-welcome[data-pony=applejack] .welcome-portrait img{width:120px;height:auto;object-fit:fill;left:30px;top:0;bottom:auto;max-height:none}
+/* All four chapter frames share one outline, including the foreground sill. */
+.chapter-welcome .welcome-frame-back,.chapter-welcome .welcome-frame-front{box-sizing:border-box;inset:50px 14px 14px;height:auto;border:7px solid var(--frame);border-radius:20px;transform:none}
+.chapter-welcome .welcome-frame-front{background:transparent;clip-path:inset(calc(100% - 22px) 0 0);box-shadow:none}
+.chapter-welcome .welcome-frame-back{box-shadow:0 8px 18px #66516e18}
+.chapter-opening .trinket{animation:none}
