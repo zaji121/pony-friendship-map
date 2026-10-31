@@ -192,20 +192,31 @@
     el.className='toast stage-toast'+(ready?'':' stage-no-art');
     animateToast(el,3200,revision);
   }
-  async function api(path, body) {
+  async function api(path, body, options={}) {
     const config=window.SITE_CONFIG||{};
     const endpoint=config.apiBase?config.apiBase.replace(/\/$/,'')+path.replace(/^\/api/,''):path;
     const headers={...(body?{'Content-Type':'application/json'}:{}),...(config.supabasePublishableKey?{apikey:config.supabasePublishableKey}:{})};
-    const response=await fetch(endpoint,{method:body?'POST':'GET',headers,body:body?JSON.stringify(body):undefined});
+    const response=await fetch(endpoint,{method:body?'POST':'GET',headers,body:body?JSON.stringify(body):undefined,...options});
     const data=await response.json(); if(!response.ok) throw new Error(data.error||'请求失败'); return data;
   }
   function updateGateError(message='') { $('gate-error').textContent=message; }
+  const quizSessionRequests=new WeakMap();
+  function ensureQuizSession(target=state){
+    if(target.token)return Promise.resolve(target.token);
+    if(quizSessionRequests.has(target))return quizSessionRequests.get(target);
+    const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),15000);
+    const pending=api('/api/start',{}, {signal:controller.signal}).then(data=>{
+      if(!/^[a-f0-9]{48}$/.test(data.token||''))throw new Error('答题连接暂时未建立，答案已保留，请重试。');
+      target.token=data.token;if(state===target)saveDraft();return target.token;
+    }).catch(error=>{if(error.name==='AbortError')throw new Error('网络连接较慢，答案已保留，请稍后重试提交。');throw error;}).finally(()=>{clearTimeout(timer);quizSessionRequests.delete(target);});
+    quizSessionRequests.set(target,pending);return pending;
+  }
   async function startQuiz() {
     $('start-button').disabled=true; updateGateError('');
     try {
       const draft=readDraft();state=draft&&!draft.resultId?draft:freshState();
-      if(!state.token){const data=await api('/api/start',{});state.token=data.token;}
       saveDraft();history.replaceState(null,'',(window.SITE_CONFIG?.basePath||'/')+'?quiz=1');showView('quiz');renderQuestion(Math.min(state.index,47));
+      void ensureQuizSession().catch(()=>{});
     }
     catch(err){updateGateError(err.message);}
     finally{$('start-button').disabled=false;}
@@ -341,7 +352,7 @@
   }
   async function finishQuiz() {
     $('next-button').disabled=true; $('next-button').textContent='正在生成友谊印记…';
-    try { const missing=steps.findIndex((_,i)=>!answeredAt(i));if(missing>=0){renderQuestion(missing);return;}const result=calculateResult();if(!state.token){const started=await api('/api/start',{});state.token=started.token;saveDraft();}const saved=await api('/api/complete',{token:state.token,result}); state.resultId=saved.id; state.result=result; state.shared=false;clearCurrentDraft();history.replaceState(null,'',resultLink(saved.id)); renderResult(result); showView('result'); toast('你的友谊印记正在显现…'); }
+    try { const missing=steps.findIndex((_,i)=>!answeredAt(i));if(missing>=0){renderQuestion(missing);return;}const result=calculateResult();await ensureQuizSession();const saved=await api('/api/complete',{token:state.token,result}); state.resultId=saved.id; state.result=result; state.shared=false;clearCurrentDraft();history.replaceState(null,'',resultLink(saved.id)); renderResult(result); showView('result'); toast('你的友谊印记正在显现…'); }
     catch(err){ $('next-button').disabled=false; toast(err.message,'error'); renderQuestion(questions.length-1); }
   }
   function renderResult(result) {
