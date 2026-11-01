@@ -38,7 +38,7 @@ window.renderResultExperience=(result,main,second)=>{
  dimensions.forEach(([title,key,subject],i)=>{
   const v=scores[i],close=Math.abs(v-.5)<.1,p=preferences[key[v>=.5?0:1]],card=el('article','', 'dimension-card');
   const top=el('div','', 'dimension-card-top');top.append(el('h3',title),el('span',close?'两种方式都常用':p[0]+' · '+key[v>=.5?0:1],'dimension-rank'));card.append(top,el('p',subject,'dimension-subject'));
-  const meter=el('div','','dimension-meter'),fill=el('i','');fill.style.width=(v*100)+'%';meter.append(fill);card.append(meter,el('div',`${key[0]} ${Math.round(v*100)}% · ${key[1]} ${Math.round((1-v)*100)}%`,'dimension-rate'));
+  const meter=el('div','','dimension-meter'),fill=el('i','');fill.style.width=(v*100)+'%';meter.append(fill);card.append(meter,el('div',`${key[0]} ${Math.round(v*100)}% · ${key[1]} ${(100-Math.round(v*100))}%`,'dimension-rate'));
   const blocks=close?[['偏好概述',`本次作答在「${preferences[key[0]][0]}」与「${preferences[key[1]][0]}」之间没有明显偏向。`],['两种方式',preferences[key[0]][1]+' '+preferences[key[1]][1]]]:[['偏好概述',p[1]],['日常表现',p[2]]];
   blocks.forEach(([label,text])=>{const b=el('div','','preference-explanation');b.append(el('strong',label),el('p',text));card.append(b);});host.append(card);
  });

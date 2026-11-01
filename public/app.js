@@ -458,7 +458,7 @@
       document.querySelector('.social-method').textContent='本区使用 E/I 的交流偏好与 T/F 的决策偏好组织讨论建议。两条轴是本网站的展示方式，不是人际环形模型量表或社交能力分数。';
       document.querySelector('.social-axis-y').textContent='情感 F 决策偏好';
       document.querySelector('.social-axis-x').textContent='外向 E 交流偏好';
-      $('social-warmth-score').textContent='F 端作答 '+Math.round((1-scores[2])*100)+'%';
+      $('social-warmth-score').textContent='F 端作答 '+(100-Math.round(scores[2]*100))+'%';
       $('social-agency-score').textContent='E 端作答 '+Math.round(scores[0]*100)+'%';
       $('social-style-kicker').textContent='交流偏好 × 决策偏好 · 情境建议';
       const labels=DIMS.map((d,i)=>Math.abs(scores[i]-.5)<.1?d.key+' 偏好接近':d.key[scores[i]>=.5?0:1]+' 倾向');
@@ -499,7 +499,7 @@
       const entry=ranked.find(x=>x.i===i),rank=rankByIndex[i],card=document.createElement('article');card.className='dimension-card';
       const top=document.createElement('div');top.className='dimension-card-top';const name=document.createElement('h3');name.textContent=d.name;const badge=document.createElement('span');badge.className='dimension-rank';badge.textContent=rank===0?'本次最常用':rank===1?'常用倾向':rank===DIMS.length-1?'较少选择':'也会调用';top.append(name,badge);
       const meter=document.createElement('div');meter.className='dimension-meter';const fill=document.createElement('i');fill.style.width=`${Math.max(4,Math.round(entry.value*100))}%`;meter.append(fill);
-      const value=document.createElement('div');value.className='dimension-rate';value.textContent=DIMS.length===4?`本次作答：${d.key[0]} ${Math.round(entry.value*100)}% / ${d.key[1]} ${Math.round((1-entry.value)*100)}%`:`选择频率 ${Math.round(entry.value*100)}%`;
+      const value=document.createElement('div');value.className='dimension-rate';value.textContent=DIMS.length===4?`本次作答：${d.key[0]} ${Math.round(entry.value*100)}% / ${d.key[1]} ${(100-Math.round(entry.value*100))}%`:`选择频率 ${Math.round(entry.value*100)}%`;
       const strength=document.createElement('p');const pole=DIMS.length===4&&Math.abs(entry.value-.5)>=.1?d.poles?.[entry.value>=.5?0:1]:null;strength.textContent=pole?.[0]||d.strength;const watch=document.createElement('p');watch.className='dimension-watch';watch.textContent=`留意：${pole?.[1]||d.watch}`;
       if(DIMS.length===4){badge.textContent=Math.abs(entry.value-.5)<.1?'两端偏好接近':d.key[entry.value>=.5?0:1]+' 端更常选择';}
       card.append(top,meter,value,strength,watch);return card;
@@ -546,18 +546,18 @@
   }
   function renderRadar(scores,main) {
     if(DIMS.length===4){
-      const ends=[...DIMS.map((d,i)=>({d,i,pole:0,value:Number(scores[i])})),...DIMS.map((d,i)=>({d,i,pole:1,value:1-Number(scores[i])}))];
+      const ends=[...DIMS.map((d,i)=>({d,i,pole:0,value:Number(scores[i]),percent:Math.round(scores[i]*100)})),...DIMS.map((d,i)=>({d,i,pole:1,value:1-Number(scores[i]),percent:100-Math.round(scores[i]*100)}))];
       const cx=360,cy=270,r=170;
       const xy=(level,i)=>{const a=(-90+i*45)*Math.PI/180;return [cx+Math.cos(a)*r*level,cy+Math.sin(a)*r*level];};
       const points=level=>ends.map((_,i)=>xy(level,i).join(',')).join(' ');
       const rings=[.25,.5,.75,1].map(v=>`<polygon points="${points(v)}"/>`).join('');
       const axes=ends.slice(0,4).map((_,i)=>{const a=xy(1,i),b=xy(1,i+4);return `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}"/>`;}).join('');
-      const labels=ends.map((e,i)=>{const [x,y]=xy(1.27,i);const anchor=Math.abs(x-cx)<1?'middle':x>cx?'start':'end';return `<text class="radar-axis-label" x="${x}" y="${y}" text-anchor="${anchor}">${e.d.worldPoles[e.pole]} ${e.d.key[e.pole]}<tspan x="${x}" dy="19">${e.d.name} · ${Math.round(e.value*100)}%</tspan></text>`;}).join('');
+      const labels=ends.map((e,i)=>{const [x,y]=xy(1.27,i);const anchor=Math.abs(x-cx)<1?'middle':x>cx?'start':'end';return `<text class="radar-axis-label" x="${x}" y="${y}" text-anchor="${anchor}">${e.d.worldPoles[e.pole]} ${e.d.key[e.pole]}<tspan x="${x}" dy="19">${e.d.name} · ${e.percent}%</tspan></text>`;}).join('');
       const url=showMarkUrl(main);const avatar=url?`<image href="${url}" x="18" y="14" width="58" height="58"/><text x="47" y="89" text-anchor="middle" class="radar-avatar-name">${main.name}</text>`:'';
       const polygon=ends.map((e,i)=>xy(e.value,i).join(',')).join(' ');
       const dots=ends.map((e,i)=>{const [x,y]=xy(e.value,i);return `<circle cx="${x}" cy="${y}" r="5"/>`;}).join('');
-      $('trait-radar').innerHTML=`<svg viewBox="0 0 720 560" role="img" aria-label="四个连续偏好维度，八个方向。${ends.map(e=>e.d.worldPoles[e.pole]+e.d.key[e.pole]+Math.round(e.value*100)+'%').join('，')}">${avatar}<g class="radar-grid">${rings}${axes}</g><polygon class="radar-area" points="${polygon}"/><g class="radar-dots">${dots}</g>${labels}</svg>`;
-      const legend=$('trait-legend');legend.replaceChildren(...DIMS.map((d,i)=>{const item=document.createElement('div');item.className='trait-legend-item';const title=document.createElement('span');title.textContent=d.name+'（'+d.mbtiName+'）';const value=document.createElement('strong');value.textContent=`${d.worldPoles[0]} ${d.key[0]} ${Math.round(scores[i]*100)}% ↔ ${d.worldPoles[1]} ${d.key[1]} ${Math.round((1-scores[i])*100)}%`;item.append(title,value);return item;}));
+      $('trait-radar').innerHTML=`<svg viewBox="0 0 720 560" role="img" aria-label="四个连续偏好维度，八个方向。${ends.map(e=>e.d.worldPoles[e.pole]+e.d.key[e.pole]+e.percent+'%').join('，')}">${avatar}<g class="radar-grid">${rings}${axes}</g><polygon class="radar-area" points="${polygon}"/><g class="radar-dots">${dots}</g>${labels}</svg>`;
+      const legend=$('trait-legend');legend.replaceChildren(...DIMS.map((d,i)=>{const item=document.createElement('div');item.className='trait-legend-item';const title=document.createElement('span');title.textContent=d.name+'（'+d.mbtiName+'）';const value=document.createElement('strong');value.textContent=`${d.worldPoles[0]} ${d.key[0]} ${Math.round(scores[i]*100)}% ↔ ${d.worldPoles[1]} ${d.key[1]} ${100-Math.round(scores[i]*100)}%`;item.append(title,value);return item;}));
       let note=$('radar-reading-note');if(!note){note=document.createElement('p');note.id='radar-reading-note';note.className='radar-reading-note';legend.after(note);}note.textContent='每条直径是一个连续维度：E↔I、S↔N、T↔F、J↔P。对向两端合计100%；各端按本次作答比例绘制，中心为0%，外圈为100%，两端各50%表示均衡。八个方向不代表八种独立能力。';
       return;
     }
@@ -572,7 +572,7 @@
     const labels=DIMS.map((d,i)=>{const a=(-90+i*360/DIMS.length)*Math.PI/180,x=cx+Math.cos(a)*172,y=cy+Math.sin(a)*172;const anchor=Math.abs(x-cx)<1?'middle':x>cx?'start':'end';const pole=vals[i]>=.5?0:1;return `<text class="radar-axis-label" x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anchor}">${d.name}${modern?' · '+d.key:''}${modern?`<tspan x="${x.toFixed(1)}" dy="19">${Math.abs(vals[i]-.5)<.1?'两端接近':d.worldPoles[pole]+' '+d.key[pole]}</tspan>`:''}</text>`;}).join('');
     const markUrl=showMarkUrl(main);const avatar=markUrl?`<g aria-label="${main.name}的可爱标志"><image href="${markUrl}" x="12" y="8" width="62" height="62" preserveAspectRatio="xMidYMid meet"/><text x="43" y="86" text-anchor="middle" class="radar-avatar-name">${main.name}</text></g>`:`<g aria-label="${main.name}代表图标"><foreignObject x="12" y="8" width="62" height="62"><div xmlns="http://www.w3.org/1999/xhtml">${markSvg(main.mark)}</div></foreignObject></g>`;
     $('trait-radar').innerHTML=`<svg viewBox="0 0 ${DIMS.length===4?640:480} 390" role="img" aria-label="${main.name}的${DIMS.length}维画像：${DIMS.map((d,i)=>d.name+(modern?'，'+d.key[vals[i]>=.5?0:1]+'端，偏好差异'+Math.round(scaled[i]*100)+'%':Math.round(vals[i]*100)+'%')).join('，')}">${avatar}<g class="radar-grid">${rings}${axes}</g><polygon class="radar-area" points="${polygon}"/><g class="radar-dots">${DIMS.map((_,i)=>`<circle cx="${point(scaled[i],i).split(',')[0]}" cy="${point(scaled[i],i).split(',')[1]}" r="6"/>`).join('')}</g><g>${labels}</g></svg>`;
-    const legend=$('trait-legend');legend.replaceChildren(...DIMS.map((d,i)=>{const item=document.createElement('div');item.className='trait-legend-item';const name=document.createElement('span');name.textContent=modern?d.name+'（'+d.mbtiName+'）':d.name;const pct=document.createElement('strong');pct.textContent=modern?`${d.worldPoles[0]} ${d.key[0]} ${Math.round(vals[i]*100)}% / ${d.worldPoles[1]} ${d.key[1]} ${Math.round((1-vals[i])*100)}%`:`${Math.round(vals[i]*100)}%`;item.append(name,pct);return item;}));
+    const legend=$('trait-legend');legend.replaceChildren(...DIMS.map((d,i)=>{const item=document.createElement('div');item.className='trait-legend-item';const name=document.createElement('span');name.textContent=modern?d.name+'（'+d.mbtiName+'）':d.name;const pct=document.createElement('strong');pct.textContent=modern?`${d.worldPoles[0]} ${d.key[0]} ${Math.round(vals[i]*100)}% / ${d.worldPoles[1]} ${d.key[1]} ${(100-Math.round(vals[i]*100))}%`:`${Math.round(vals[i]*100)}%`;item.append(name,pct);return item;}));
     if(modern){$('trait-radar').parentElement.querySelector('.profile-sub').textContent='四个连续维度 · 八个方向 · 对向两端合计100%';let note=$('radar-reading-note');if(!note){note=document.createElement('p');note.id='radar-reading-note';note.className='radar-reading-note';legend.after(note);}note.textContent='中心表示两端均衡，外圈表示本次选择明显偏向标注的一端。图形大小不是能力、友谊水平或人格优劣；下方保留两端完整比例。';}
   }
   function bindTabs() {
@@ -606,9 +606,28 @@
   }
   function loadPonyAsset(p){return new Promise(resolve=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=()=>resolve(null);img.src=window.EXPANDED_ART?.[p.slug]?.file||`/images/ponies/${p.slug}.webp?v=20261011-5`;});}
   function wrapText(ctx,text,x,y,maxWidth,lineHeight,maxLines=99){let line='',lines=0;for(const ch of [...text]){const test=line+ch;if(ctx.measureText(test).width>maxWidth&&line){ctx.fillText(line,x,y);line=ch;y+=lineHeight;lines++;if(lines>=maxLines)return y;}else line=test;}if(line)ctx.fillText(line,x,y);return y+lineHeight;}
+  function drawPosterRadar(c,values,theme){
+    const modern=values.length===4;
+    const ends=modern?[...DIMS.map((d,i)=>({label:d.worldPoles[0]+' '+d.key[0],value:Number(values[i]),percent:Math.round(values[i]*100)})),...DIMS.map((d,i)=>({label:d.worldPoles[1]+' '+d.key[1],value:1-Number(values[i]),percent:100-Math.round(values[i]*100)}))]:DIMS.map((d,i)=>({label:d.name,value:Number(values[i]),percent:Math.round(values[i]*100)}));
+    const cx=540,cy=2480,r=200;
+    const point=(level,i,radius=r)=>{const a=(-90+i*360/ends.length)*Math.PI/180;return [cx+Math.cos(a)*radius*level,cy+Math.sin(a)*radius*level];};
+    const polygon=points=>{c.beginPath();points.forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));c.closePath();};
+    c.save();c.strokeStyle='#d9d2df';c.lineWidth=2;
+    [.25,.5,.75,1].forEach(level=>{polygon(ends.map((_,i)=>point(level,i)));c.stroke();});
+    ends.forEach((_,i)=>{const [x,y]=point(1,i);c.beginPath();c.moveTo(cx,cy);c.lineTo(x,y);c.stroke();});
+    const vertices=ends.map((e,i)=>point(Math.max(0,Math.min(1,e.value/(modern?1:.45))),i));
+    polygon(vertices);c.fillStyle=theme;c.globalAlpha=.14;c.fill();c.globalAlpha=1;c.strokeStyle=theme;c.lineWidth=4;c.stroke();
+    vertices.forEach(([x,y])=>{c.beginPath();c.arc(x,y,6,0,Math.PI*2);c.fillStyle='#fffdf9';c.fill();c.lineWidth=3;c.stroke();});
+    ends.forEach((e,i)=>{const [x,y]=point(1,i,278);c.textAlign=Math.abs(x-cx)<1?'center':x>cx?'left':'right';c.fillStyle='#554e61';c.font='600 25px sans-serif';c.fillText(e.label,x,y-5);c.fillStyle=theme;c.font='700 26px sans-serif';c.fillText(e.percent+'%',x,y+30);});
+    c.textAlign='center';c.fillStyle='#817889';c.font='22px sans-serif';c.fillText(modern?'四个连续偏好维度 · 八个方向':'原六维选择频率',540,2840);
+    DIMS.forEach((dim,i)=>{const col=i%2,row=Math.floor(i/2),x=90+col*465,y=2915+row*100;c.textAlign='left';c.fillStyle='#625a6d';c.font='24px sans-serif';c.fillText(dim.name+(modern?'（'+dim.key[0]+' / '+dim.key[1]+'）':''),x,y);c.fillStyle=theme;c.font='600 26px sans-serif';c.fillText(modern?`${dim.key[0]} ${Math.round(values[i]*100)}% ↔ ${dim.key[1]} ${100-Math.round(values[i]*100)}%`:`${Math.round(values[i]*100)}%`,x,y+40);});
+    c.textAlign='left';c.fillStyle='#817889';c.font='22px sans-serif';
+    if(modern)wrapText(c,'对向两端合计100%；中心为0%，外圈为100%。两端各50%表示均衡，八个方向不代表八种独立能力。',90,3130,900,34,2);
+    c.restore();
+  }
   async function buildPoster() {
     const result=state.result, pony=PONIES[result.primary], side=PONIES[result.secondary];
-    const canvas=document.createElement('canvas');canvas.width=1080;canvas.height=3900;const c=canvas.getContext('2d');
+    const canvas=document.createElement('canvas');canvas.width=1080;canvas.height=4800;const c=canvas.getContext('2d');
     const [theme]=ROLE_COLORS[pony.slug]||ROLE_COLORS.twilight;
     const bg=c.createLinearGradient(0,0,1080,2300);bg.addColorStop(0,'#f4eff8');bg.addColorStop(.55,'#fffaf0');bg.addColorStop(1,'#e9f0eb');c.fillStyle=bg;c.fillRect(0,0,1080,canvas.height);
     c.fillStyle='#d8c9e6';c.beginPath();c.arc(920,100,230,0,Math.PI*2);c.fill();c.globalAlpha=.32;c.fillStyle='#f1d893';c.beginPath();c.arc(120,650,190,0,Math.PI*2);c.fill();c.globalAlpha=1;
@@ -641,12 +660,12 @@
     c.fillStyle='#625d6d';c.font='25px sans-serif';wrapText(c,style.tagline,90,2005,900,40,2);
     c.fillStyle=theme;c.font='700 30px sans-serif';c.fillText(modern?'四维偏好 · '+result.type:'六维友谊画像',90,2090);
     c.fillStyle='#8a8290';c.font='20px sans-serif';c.fillText(modern?'百分比为左侧偏好的加权作答占比 · 非常模':'按本次选择频率呈现 · 不代表能力高低',90,2124);
-    DIMS.forEach((dim,i)=>{const col=i%3,row=Math.floor(i/3),x=90+col*320,y=2170+row*75;c.fillStyle='#625a6d';c.font='22px sans-serif';c.fillText(dim.name,x,y);c.textAlign='right';c.fillStyle=theme;c.fillText(modern?`${dim.key[0]} ${Math.round(values[i]*100)}%`:`${Math.round(values[i]*100)}%`,x+275,y);c.textAlign='left';c.fillStyle='#e7e0e6';c.beginPath();c.roundRect(x,y+12,275,8,4);c.fill();c.fillStyle=theme;c.beginPath();c.roundRect(x,y+12,275*Math.max(0,Math.min(1,values[i]/(modern?1:.45))),8,4);c.fill();});
-    c.fillStyle='#847d8c';c.font='23px sans-serif';c.textAlign='center';c.fillText(pony.share,540,2340);c.fillText('趣味自我探索 · 非标准化心理测验',540,2372);
+    drawPosterRadar(c,values,theme);
+    c.fillStyle='#847d8c';c.font='23px sans-serif';c.textAlign='center';c.fillText(pony.share,540,3240);c.fillText('趣味自我探索 · 非标准化心理测验',540,3272);
     const career=window.PONY_CAREERS.roles[pony.slug];
-    c.textAlign='left';c.fillStyle=theme;c.font='700 36px sans-serif';c.fillText('职业发展 · 小马谷工作手记',90,2450);
-    c.fillStyle='#625d6d';c.font='25px sans-serif';wrapText(c,career.scene,90,2495,900,40,4);
-    let careerY=2680;
+    c.textAlign='left';c.fillStyle=theme;c.font='700 36px sans-serif';c.fillText('职业发展 · 小马谷工作手记',90,3350);
+    c.fillStyle='#625d6d';c.font='25px sans-serif';wrapText(c,career.scene,90,3395,900,40,4);
+    let careerY=3580;
     career.jobs.forEach(id=>{const job=window.PONY_CAREERS.jobs[id];c.fillStyle=theme;c.font='700 29px sans-serif';c.fillText(job.name+' · '+job.code,90,careerY);c.fillStyle='#625d6d';c.font='23px sans-serif';careerY=wrapText(c,'工作内容：'+job.task,90,careerY+42,900,36,2);careerY=wrapText(c,'探索练习：'+job.try,90,careerY+8,900,36,3)+30;});
     c.fillStyle='#8a8290';c.font='21px sans-serif';wrapText(c,'职业名称参考2022版公开目录及2026正式增补。角色联想与练习用于职业探索，不是职业适合度测量。完整依据见结果页。',90,canvas.height-110,900,33,3);
     return new Promise(resolve=>canvas.toBlob(blob=>resolve(blob),'image/png'));
@@ -658,10 +677,10 @@
     const title=document.createElement('h2');title.textContent='保存结果长图';
     const close=document.createElement('button');close.type='button';close.className='icon-button';close.setAttribute('aria-label','关闭图片预览');close.textContent='×';close.onclick=()=>dialog.close();head.append(title,close);
     const note=document.createElement('p');note.className='poster-save-note';note.setAttribute('role','status');
-    note.textContent=matchMedia('(pointer:coarse)').matches?'长图已生成。长按下方图片，选择“保存到相册”，保存后可在相册查看。':'长图已生成。点击“下载图片”，可在浏览器下载记录中查看。';
+    note.textContent=matchMedia('(pointer:coarse)').matches?'点击“下载图片”后，请在浏览器下载记录或手机“文件”中查看，不会自动存入相册。想存到相册，请长按下方图片，选择“保存图片”或“存储到照片”。':'点击“下载图片”后，请在浏览器下载记录或“下载”文件夹中查看。';
     const actions=document.createElement('div');actions.className='poster-save-actions';
     const download=document.createElement('button');download.type='button';download.className='button button-primary';download.textContent='下载图片';
-    download.onclick=()=>{const a=document.createElement('a');a.href=url;a.download=file.name;document.body.append(a);a.click();a.remove();note.textContent='已发起图片下载，请在浏览器下载记录中查看；手机也可长按图片保存到相册。';};actions.append(download);
+    download.onclick=()=>{const a=document.createElement('a');a.href=url;a.download=file.name;document.body.append(a);a.click();a.remove();note.textContent='已发起图片下载，请在浏览器下载记录或“文件”的下载目录中查看，不会自动存入相册。要存到相册，请长按下方图片，选择“保存图片”或“存储到照片”。';};actions.append(download);
     const image=document.createElement('img');image.src=url;image.alt='我的完整测评结果长图，长按可保存';image.draggable=false;
     dialog.append(head,note,actions,image);const oldOverflow=document.body.style.overflow;document.body.append(dialog);document.body.style.overflow='hidden';
     dialog.addEventListener('close',()=>{document.body.style.overflow=oldOverflow;URL.revokeObjectURL(url);dialog.remove();},{once:true});dialog.showModal();
