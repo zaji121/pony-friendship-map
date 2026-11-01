@@ -3,7 +3,9 @@
 (function(w){
 const axes=['EI','SN','TF','JP'],picks={EI:[0,1,3,4,6,7,9,10],SN:[0,1,4,5,6,7,9,10],TF:[0,1,3,4,6,7,10,11],JP:[0,1,3,4,7,8,9,10]};
 const indexes=[];axes.forEach((axis,j)=>picks[axis].forEach(k=>indexes.push(k*4+j)));indexes.sort((a,b)=>a-b);
-const questions=indexes.map(i=>{const q=w.QUIZ_QUESTIONS[i];return [q[0],q[1].map(a=>a.slice()),{...q[2]}];}),version=w.PONY_PERSONALIZED_FOLLOWUPS?(w.PONY_QUIZ_48_V5?'festival-48-single-20261031-v6':'festival-48-single-20261031-v5'):'festival-48-single-20261030-v4';
+const isV7=!!(w.PONY_QUIZ_48_V6&&w.PONY_COPY_V7),copy=isV7?w.PONY_COPY_V7:null,originalBank=w.PONY_PERSONALIZED_FOLLOWUPS;
+const personalizedBank=isV7?{...originalBank,items:originalBank.items.map(q=>({...q,...copy.personal[q.id]})),select(result,answered){const q=originalBank.select(result,answered);return q?{...q,...copy.personal[q.id]}:null;}}:originalBank;
+const questions=indexes.map(i=>{const q=w.QUIZ_QUESTIONS[i];return [q[0],q[1].map(a=>a.slice()),{...q[2]}];}),version=isV7?'festival-48-single-20261101-v7':w.PONY_PERSONALIZED_FOLLOWUPS?(w.PONY_QUIZ_48_V5?'festival-48-single-20261031-v6':'festival-48-single-20261031-v5'):'festival-48-single-20261030-v4';
 const reviseCore=(i,stem,left,right)=>{const q=questions[i];questions[i]=[stem,q[1].map(([,score])=>[score===1?left:right,score]),{...q[2],left,right}];};
 reviseCore(17,'入口重新布置好了，你要给照片配一句说明。下面两句，你更想用哪句？','蓝色彩带挂在两边，门口还多了几幅画。','入口像个小剧场，和今天的故事主题很搭。');
 reviseCore(21,'节目临时取消，大家只能补办一场活动。两种方案都办得成，你更支持哪种？','能多接待一些来宾，把场地和材料充分用起来的方案','人数少一些，但更贴近原来那批来宾期待的方案');
@@ -169,9 +171,16 @@ const contrasts=[
  ['pinkie-pie','rarity','play','aesthetics','准备送出的纪念品还可以改一点，你先改什么？','加一个打开时会出现的小惊喜，让收到的人一起试','按收礼人的样子调整颜色和配饰，把细节搭好'],
  ['fluttershy','rarity','service','aesthetics','伙伴穿上演出服后有些不自在，你更想先做什么？','陪他找个舒服的位置，帮他备好水和要用的东西','请他走几步，改改服装和配饰，让它更合身也更好看']
 ];
+// New editions own their wording; cached and saved editions keep their copy.
+if(isV7){
+ copy.core.forEach((q,i)=>reviseCore(i,...q));
+ copy.scenes.forEach((q,i)=>{scenes[i].stem=q[0];scenes[i].options.forEach((o,j)=>o.text=q[1][j]);});
+ copy.contrasts.forEach((q,i)=>{contrasts[i].splice(4,3,...q);});
+}
+const followupActions=isV7?copy.actions:w.PONY_NARRATIVE_MATCH.followupActions;
 function nextFollowup(result,answered=[]){
  if(result.primary===null||(!result.close&&result.ranked[0].support.sufficient)||answered.length>=4)return null;
- const personalized=w.PONY_PERSONALIZED_FOLLOWUPS?.select(result,answered);if(personalized)return personalized;
+ const personalized=personalizedBank?.select(result,answered);if(personalized)return personalized;
  const [a,b]=result.ranked,used=new Set(answered.flatMap(f=>[f.left,f.right]));
  const row=contrasts.find(c=>((c[0]===a.slug&&c[1]===b.slug)||(c[1]===a.slug&&c[0]===b.slug))&&!used.has(c[2])&&!used.has(c[3]));
  if(row){const forward=row[0]===a.slug;return {left:row[forward?2:3],right:row[forward?3:2],stem:row[4],leftText:row[forward?5:6],rightText:row[forward?6:5],candidateSlugs:[a.slug,b.slug],contrast:'shared-situation'};}
@@ -188,8 +197,8 @@ function nextFollowup(result,answered=[]){
   const leftText='按闯关顺序藏线索，安排几处需要猜一猜的转折',rightText='按小镇旧事串起地点，把居民的故事写进沿途介绍',forward=best.left==='strategy';
   return {left:best.left,right:best.right,stem:'下次庆典想做一条“小镇寻宝路线”，先做一个版本来试。你更想做哪一版？',leftText:forward?leftText:rightText,rightText:forward?rightText:leftText,candidateSlugs:[a.slug,b.slug],contrast:'shared-route-proposal'};
  }
- const actions=w.PONY_NARRATIVE_MATCH.followupActions;
- return {left:best.left,right:best.right,stem:'庆典收尾后，还能选一件事做。两边都有人帮忙，你更想先接哪件？',leftText:actions[best.left],rightText:actions[best.right],candidateSlugs:[a.slug,b.slug],contrast:'nearby-candidate-difference'};
+ const actions=followupActions;
+ return {left:best.left,right:best.right,stem:isV7?'回家前还有十分钟，两处都可以去。你更想做哪件事？':'庆典收尾后，还能选一件事做。两边都有人帮忙，你更想先接哪件？',leftText:actions[best.left],rightText:actions[best.right],candidateSlugs:[a.slug,b.slug],contrast:'nearby-candidate-difference'};
 }
 const mainSix=new Set(['twilight','applejack','rainbow-dash','pinkie-pie','fluttershy','rarity']);
 function scoreCore(answers){
@@ -230,9 +239,9 @@ function rank(env,scores,choices,followups=[],applyPreference=true){
  result.parameters={mbtiWeight:.6,interestWeight:.4,midpointRegularizer:.25,relativeEvidenceScale:2,closeGap:.03,minChapters:2};return applyPreference?preferMainSix(result):result;
 }
 // Explicit product preference at final presentation, not an accuracy claim.
-const mainSixPreference={id:'main-six-near-score-v1',scoreTolerance:.03,mbtiTolerance:.03};
+const mainSixPreference={id:isV7?'main-six-near-score-v2':'main-six-near-score-v1',scoreTolerance:isV7?.04:.03,mbtiTolerance:.03};
 function preferMainSix(result){
- if(version!=='festival-48-single-20261031-v6')return result;
+ if(!isV7&&version!=='festival-48-single-20261031-v6')return result;
  const leader=result.ranked[0],policy={...mainSixPreference,applied:false};result.productPreference=policy;
  if(result.primary===null||!leader?.support.sufficient||mainSix.has(leader.slug))return result;
  const candidate=result.ranked.find(r=>mainSix.has(r.slug)&&r.support.sufficient&&leader.similarity-r.similarity<=mainSixPreference.scoreTolerance+1e-12&&(leader.mbti===null||r.mbti===null||leader.mbti-r.mbti<=mainSixPreference.mbtiTolerance+1e-12));
@@ -262,6 +271,6 @@ function plan(env,scores,fixedChoices,finalAnswers=[]){
  }
  return {result:preferMainSix(result),choices,followups,next:null};
 }
-w.PONY_QUIZ_48={version,questions,scenes,indexes,axes,scoreCore,rank,plan,nextFollowup,contrasts,mainSixPreference:version==='festival-48-single-20261031-v6'?mainSixPreference:null,preferMainSix,personalizedQuestions:w.PONY_PERSONALIZED_FOLLOWUPS?.items||[],total:48,coreCount:32,itemsPerAxis:8,fixedTaskCount:12,finalSlots:4};
+w.PONY_QUIZ_48={version,questions,scenes,indexes,axes,scoreCore,rank,plan,nextFollowup,contrasts,mainSixPreference:isV7||version==='festival-48-single-20261031-v6'?mainSixPreference:null,preferMainSix,personalizedQuestions:personalizedBank?.items||[],followupActions,total:48,coreCount:32,itemsPerAxis:8,fixedTaskCount:12,finalSlots:4};
 })(window);
 
