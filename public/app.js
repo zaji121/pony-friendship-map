@@ -133,6 +133,7 @@
       if(record.view==='quiz'){
         try{sessionStorage.setItem(flowKey,JSON.stringify({...record.draft,savedAt:Date.now()}));}catch{}
         const draft=readDraft();if(!draft)return false;state=draft;
+        if(!state.token){saveDraft();showView('gate');return true;}
         if(record.ui?.chapterOpen)state.openedChapters=(state.openedChapters||[]).filter(c=>c!==steps[Math.min(state.index,47)].chapter);
         history.replaceState(null,'',(window.SITE_CONFIG?.basePath||'/')+'?quiz=1');showView('quiz');renderQuestion(Math.min(state.index,47));void ensureQuizSession().catch(()=>{});
       }else{
@@ -246,11 +247,14 @@
   }
   function updateGateError(message='') { $('gate-error').textContent=message; }
   const quizSessionRequests=new WeakMap();
-  function ensureQuizSession(target=state){
+  function ensureQuizSession(target=state,code=''){
     if(target.token)return Promise.resolve(target.token);
     if(quizSessionRequests.has(target))return quizSessionRequests.get(target);
+    if(!code.trim())return Promise.reject(new Error('请输入测评密码或邀请码后开始。'));
     const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),15000);
-    const pending=api('/api/start',{}, {signal:controller.signal}).then(data=>{
+    target.startId||=Array.from(crypto.getRandomValues(new Uint8Array(24)),b=>b.toString(16).padStart(2,'0')).join('');
+    if(state===target)saveDraft();
+    const pending=api('/api/start',{code:code.trim().toUpperCase(),start_id:target.startId}, {signal:controller.signal}).then(data=>{
       if(!/^[a-f0-9]{48}$/.test(data.token||''))throw new Error('答题连接暂时未建立，答案已保留，请重试。');
       target.token=data.token;if(state===target)saveDraft();return target.token;
     }).catch(error=>{if(error.name==='AbortError')throw new Error('网络连接较慢，答案已保留，请稍后重试提交。');throw error;}).finally(()=>{clearTimeout(timer);quizSessionRequests.delete(target);});
@@ -260,11 +264,17 @@
     $('start-button').disabled=true; updateGateError('');
     try {
       const draft=readDraft();if(draft&&!draft.resultId)state=draft;else{useForm(defaultForm);state=freshState();}
+      if(!state.token){
+        const code=$('access-code').value.trim();
+        if(!code){showView('gate');$('access-code').focus();throw new Error('请输入测评密码或邀请码。');}
+        $('start-button').textContent='正在验证…';
+        await ensureQuizSession(state,code);$('access-code').value='';
+      }
       saveDraft();history.replaceState(null,'',(window.SITE_CONFIG?.basePath||'/')+'?quiz=1');showView('quiz');renderQuestion(Math.min(state.index,47));
       void ensureQuizSession().catch(()=>{});
     }
     catch(err){updateGateError(err.message);}
-    finally{$('start-button').disabled=false;document.documentElement.classList.remove('visit-resuming');}
+    finally{$('start-button').disabled=false;$('start-button').innerHTML=(!state.result&&(state.index>0||state.answers.some(a=>a!==null))?'继续探索':'开始探索')+' <span aria-hidden="true">→</span>';document.documentElement.classList.remove('visit-resuming');}
   }
   function renderQuestion(index) {
     const previousIndex=state.index;state.index=index;if(previousIndex!==index)scrollImmediately(0);
@@ -319,7 +329,7 @@
       editionNote=document.createElement('div');editionNote.id='quiz-edition-note';editionNote.className='quiz-edition-note';
       const text=document.createElement('span');text.textContent='当前继续的是旧版答题进度。';
       const restart=document.createElement('button');restart.type='button';restart.textContent='从新版开始';
-      restart.onclick=()=>{if(!confirm('开始新版测评？当前这轮的旧版答题进度将清除。'))return;clearCurrentDraft();useForm(defaultForm);state=freshState();startQuiz();};
+      restart.onclick=()=>{if(!confirm('开始新版测评？当前这轮的旧版答题进度将清除。'))return;const token=state.token,startId=state.startId;clearCurrentDraft();useForm(defaultForm);state={...freshState(),token,startId};saveDraft();startQuiz();};
       editionNote.append(text,restart);document.querySelector('#quiz .quiz-head').after(editionNote);
     }
     editionNote.hidden=form.version===defaultForm.version;
@@ -704,11 +714,12 @@
     catch(err){$('shared-status-title').textContent='这份结果暂时未能打开';$('shared-status-message').textContent=(err.message||'网络暂时不可用。')+' 请点击下方按钮重新读取，无需重新答题。';$('shared-retry').hidden=false;$('shared-retry').onclick=()=>loadShared(id);}
   }
   $('start-button').addEventListener('click',startQuiz);
+  $('access-code').addEventListener('keydown',event=>{if(event.key==='Enter'&&!$('start-button').disabled){event.preventDefault();startQuiz();}});
   document.querySelector('.brand')?.addEventListener('click',event=>{if(!adminPreview&&(currentView==='quiz'||currentView==='result')){event.preventDefault();persistVisit(true);history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');showView('gate');}});
   $('prev-button').addEventListener('click',()=>{const i=Number($('next-button').dataset.index);if(i>0)renderQuestion(i-1);});
   $('next-button').addEventListener('click',()=>{const i=Number($('next-button').dataset.index);if(i===questions.length-1)finishQuiz();else{renderQuestion(i+1);const completed=i+1;if(completed%5===0&&steps.slice(0,completed).every((_,n)=>answeredAt(n))&&!(state.celebratedStages||[]).includes(completed)){state.celebratedStages=(state.celebratedStages||[]).concat(completed);saveDraft();celebrateStage(completed);}}});
   $('exit-quiz').addEventListener('click',()=>{if(confirm('先离开答题？进度会保留15分钟，回来可以继续。')){saveDraft();history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');showView('gate');}});
-  $('welcome-share').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.origin+(window.SITE_CONFIG?.basePath||'/'));toast('测评邀请链接已复制，朋友打开后即可免费开始。','success');}catch(err){toast('复制失败，请重试。','error');}});
+  $('welcome-share').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.origin+(window.SITE_CONFIG?.basePath||'/'));toast('测评入口已复制，记得把赠送的邀请码一起发给朋友。','success');}catch(err){toast('复制失败，请重试。','error');}});
   $('copy-link').addEventListener('click',copyLink);$('save-image').addEventListener('click',saveImage);
   $('retake').addEventListener('click',()=>{clearCurrentDraft();state=freshState();updateGateError('');history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');showView('gate');});
   const params=new URLSearchParams(location.search),match=location.pathname.match(/\/r\/([A-Za-z0-9_-]+)\/?$/),sharedId=params.get('r')||new URLSearchParams(location.hash.slice(1)).get('result')||match?.[1],recent=visit?.initial;

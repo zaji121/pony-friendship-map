@@ -395,3 +395,9 @@ html{scroll-behavior:smooth}.shell:has(.illustrated-report){width:min(1200px,cal
 
 /* 连续庆典故事：章节说明不占用答题按钮空间 */
 .quiz-chapter{margin:20px 0 18px;padding:14px 18px;border-left:3px solid #a99abd;background:rgba(255,255,255,.55);border-radius:0 14px 14px 0}.quiz-chapter p{margin:0}.quiz-chapter #chapter-title{font-size:15px;font-weight:600;color:#66547e;line-height:1.6}.quiz-chapter #chapter-context{margin-top:6px;font-size:14px;line-height:1.8;color:#746e7f}@media(max-width:600px){.quiz-chapter{margin:16px 0;padding:12px 14px}.quiz-chapter #chapter-title{font-size:14px}.quiz-chapter #chapter-context{font-size:13px;line-height:1.7}}
+/* One entry accepts both purchased passwords and gift invitation codes. */
+.gate-card .access-code-entry{display:grid;gap:10px;width:min(100%,420px);margin:0 auto 18px;text-align:left;font-size:14px;color:#776b85}
+.gate-card #access-code{display:block;box-sizing:border-box;width:100%;min-width:0;min-height:48px;padding:12px 16px;border:1px solid #dcd2e8;border-radius:12px;background:#fffdfb;font:400 16px/1.5 system-ui,-apple-system,"Microsoft YaHei",sans-serif;color:#302b40;letter-spacing:.5px;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.gate-card #access-code:focus{outline:2px solid #b5a1cf;outline-offset:2px}.gate-card #access-code::placeholder{color:#a59aaf;letter-spacing:0}
+@media(max-width:700px){.gate-card .access-code-entry{gap:8px;margin-bottom:16px;font-size:13px}.gate-card #access-code{min-height:48px;padding:11px 13px}}
+.gate-card .access-code-entry[hidden]{display:none!important}

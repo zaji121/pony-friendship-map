@@ -1,25 +1,21 @@
 <!doctype html>
 <html lang="zh-CN">
-<head>
- <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
- <meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">
- <title>测评密码管理 · 小马谷</title><link rel="stylesheet" href="/admin.css?v=20261026-mobile-layout">
-</head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><title>测评发货管理 · 小马谷</title><link rel="stylesheet" href="/admin.css?v=20261101-bundles"></head>
 <body>
- <header><a class="brand" href="./">✦ 小马谷友谊地图</a><span>密码管理</span><button id="logout" class="quiet" hidden>退出登录</button></header>
- <main>
-  <section id="login-panel" class="panel login">
-   <p class="eyebrow">PONYVILLE · ADMIN</p><h1>管理你的测评邀请</h1><p class="muted">登录后，可以随时生成和管理一次性测评密码。</p>
-   <form id="login-form"><label>管理员邮箱<input id="email" type="email" autocomplete="username" required placeholder="你的管理员邮箱"></label><label>登录密码<input id="password" type="password" autocomplete="current-password" required></label><button class="primary" type="submit">登录管理页</button></form>
-  </section>
-  <section id="dashboard" hidden>
-   <div class="intro"><div><p class="eyebrow">YOUR FRIENDSHIP INVITATIONS</p><h1>测评密码</h1><p class="muted">一码一次，生成后立即生效。使用次数每 15 秒自动刷新。</p></div><button id="refresh" class="quiet">刷新列表</button></div>
-   <section class="panel"><h2>角色页面预览</h2><p class="muted">无需使用测评密码，可切换全部角色，检查结果、职业方向与移动端布局。</p><a class="primary" href="./?admin-preview=twilight">进入角色预览模式</a><p><a href="./role-audit.html">查看当前角色覆盖与分布检查</a></p></section><section class="panel"><h2>生成新密码</h2><form id="generate-form" class="generate"><label>生成数量<input id="count" type="number" min="1" max="100" value="1" required></label><label class="wide">备注<input id="label" maxlength="120" placeholder="例如：朋友邀请 · 10 月"></label><label>到期时间（可选）<input id="expires" type="datetime-local"></label><button class="primary" type="submit">生成一次性密码</button></form><p class="hint">每个密码只能开始一次测评。开始后会占用机会，已开始的测评可在 6 小时内完成。</p><div id="generated" hidden><label>本次生成的密码<textarea id="new-codes" readonly rows="4"></textarea></label><button id="copy-new" class="quiet">复制本批密码</button><button id="download-new" class="quiet">下载本批密码</button></div></section>
-   <section class="panel list-panel"><div class="list-heading"><h2>密码列表</h2><span id="updated" class="muted"></span></div><p class="hint">停用后停止新的测评，已开始的测评仍可完成。明文密码仅管理员登录后可查看。</p><div class="table-scroll"><table><thead><tr><th>测评密码 / 备注</th><th>使用情况</th><th>状态</th><th>到期时间</th><th>操作</th></tr></thead><tbody id="codes"></tbody></table></div><div class="pagination"><button id="previous" class="quiet">上一页</button><span id="page-label"></span><button id="next" class="quiet">下一页</button></div></section>
-  </section>
-  <p id="notice" role="status" aria-live="polite"></p>
- </main>
- <dialog id="edit-dialog"><form id="edit-form"><h2>编辑密码</h2><label>备注<input id="edit-label" maxlength="120"></label><label>到期时间（留空则长期有效）<input id="edit-expires" type="datetime-local"></label><div class="dialog-actions"><button id="edit-cancel" type="button" class="quiet">取消</button><button type="submit" class="primary">保存修改</button></div></form></dialog>
- <script src="/config.js"></script><script src="/admin.js"></script>
+<header><a class="brand" href="./">✦ 小马谷友谊地图</a><span>密码与邀请码管理</span><button id="logout" class="quiet" hidden>退出登录</button></header>
+<main>
+ <section id="login-panel" class="panel login"><p class="eyebrow">PONYVILLE · ADMIN</p><h1>管理你的测评邀请</h1><p class="muted">登录后查看密码使用情况、管理买一送一库存和导出客服发货内容。</p><form id="login-form"><label>管理员邮箱<input id="email" type="email" autocomplete="username" required></label><label>登录密码<input id="password" type="password" autocomplete="current-password" required></label><button class="primary" type="submit">登录管理页</button></form></section>
+ <section id="dashboard" hidden>
+  <div class="intro"><div><p class="eyebrow">YOUR FRIENDSHIP INVITATIONS</p><h1>买一送一 · 测评发货</h1><p class="muted">一组包含一个测评密码和一个赠送邀请码，各可使用一次。使用情况每 15 秒刷新。</p></div><button id="refresh" class="quiet">刷新</button></div>
+  <div id="stock-summary" class="stock-summary" aria-live="polite"></div>
+  <section class="panel"><h2>发货导出</h2><p class="muted">每次领取的都是尚未分配的新组，导出后标记为“已领取发货”。这表示已从库存领取，不代表已发给买家。</p><form id="export-form" class="export-form"><label>领取组数<input id="export-count" type="number" min="1" max="100" value="10" required></label><button class="primary" type="submit">领取发货码</button></form><div id="export-result" hidden><p id="export-caption" class="hint"></p><div class="export-actions"><button id="download-csv" class="primary">下载 CSV 表格</button><button id="download-txt" class="quiet">下载一行一组 TXT</button></div><label>首组发货内容预览<textarea id="delivery-preview" rows="6" readonly></textarea></label></div><details class="export-history"><summary>重新下载最近的导出批次</summary><div id="exports"></div></details><p class="hint">CSV 包含密码、赠送邀请码和完整欢迎文案；TXT 一行一组，方便导入卡密工具。目前提供后台导出，尚未连接小红书客服自动发送。</p></section>
+  <section class="panel"><h2>自动补货</h2><form id="stock-form" class="generate"><label class="checkbox-label"><input id="auto-replenish" type="checkbox">启用自动补货</label><label>少于多少组时补货<input id="low-stock" type="number" min="1" max="100" value="20" required></label><label>补充至多少组<input id="target-stock" type="number" min="1" max="100" value="100" required></label><button class="quiet" type="submit">保存设置</button></form><p class="hint">Supabase 每 5 分钟检查一次；打开后台和领取发货码时也会检查。只补充待发货库存，不会重置或重复出售已使用的码。</p></section>
+  <section class="panel"><h2>手动生成新组</h2><form id="generate-form" class="generate"><label>生成组数<input id="count" type="number" min="1" max="100" value="1" required></label><label class="wide">备注<input id="label" maxlength="120" placeholder="例如：小红书首批"></label><label>到期时间（可选）<input id="expires" type="datetime-local"></label><button class="primary" type="submit">生成密码＋邀请码</button></form><p class="hint">生成后立即生效并加入待发货库存。开始测评时占用一次机会；已开始的测评可在 6 小时内完成，当前页面进度保留 15 分钟。</p></section>
+  <section class="panel list-panel"><div class="list-heading"><h2>密码与邀请码</h2><label>显示<select id="filter"><option value="all">全部</option><option value="ready">待发货</option><option value="issued">已领取发货</option><option value="used">已有使用记录</option></select></label><span id="updated" class="muted"></span></div><div class="table-scroll"><table><thead><tr><th>测评密码 / 邀请码</th><th>使用情况</th><th>发货与状态</th><th>到期时间</th><th>操作</th></tr></thead><tbody id="codes"></tbody></table></div><div class="pagination"><button id="previous" class="quiet">上一页</button><span id="page-label"></span><button id="next" class="quiet">下一页</button></div><p class="hint">停用整组会停止新的测评，已开始的测评仍可完成。赠送邀请码不会再生成新的邀请码。</p></section>
+  <section class="panel"><h2>角色页面预览</h2><a class="primary preview-link" href="./?admin-preview=twilight">进入角色预览模式</a><p><a href="./narrative-audit.html">查看角色覆盖与分布检查</a></p></section>
+ </section>
+ <p id="notice" role="status" aria-live="polite"></p>
+</main>
+<dialog id="edit-dialog"><form id="edit-form"><h2>编辑整组</h2><label>备注<input id="edit-label" maxlength="120"></label><label>到期时间（留空则长期有效）<input id="edit-expires" type="datetime-local"></label><div class="dialog-actions"><button id="edit-cancel" type="button" class="quiet">取消</button><button type="submit" class="primary">保存修改</button></div></form></dialog>
+<script src="/config.js"></script><script src="/code-delivery.js?v=20261101-bundles"></script><script src="/admin.js?v=20261101-bundles"></script>
 </body></html>
-

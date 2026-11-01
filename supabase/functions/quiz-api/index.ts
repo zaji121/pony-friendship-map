@@ -1,5 +1,7 @@
 import {scoreAnswers} from './quiz-data.js';
 import {handleAdmin} from './admin.ts';
+import {hashCode} from './codes.ts';
+import {replenishStock,pairLegacyCodes} from './bundles.ts';
 
 const databaseUrl=Deno.env.get('SUPABASE_URL')!;
 const serviceKey=Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
@@ -25,6 +27,11 @@ Deno.serve(async req=>{
  const route=pathname.slice(pathname.indexOf('/quiz-api')+'/quiz-api'.length);
  try{
   if(req.method==='GET'&&route==='/health')return send({ok:true});
+  if(req.method==='POST'&&route==='/internal/replenish'){
+   const secret=Deno.env.get('STOCK_CRON_SECRET')||'',provided=(req.headers.get('authorization')||'').replace(/^Bearer /,'');
+   if(secret.length<32||provided.length>256||await hashCode(provided)!==await hashCode(secret))return send({error:'未授权。'},401);
+   await pairLegacyCodes();return send(await replenishStock());
+  }
   if(route.startsWith('/admin/')){
    let adminBody={};
    if(req.method==='POST'){const text=await req.text();if(text.length>100000)return send({error:'请求过大。'},413);try{adminBody=JSON.parse(text);}catch{return send({error:'请求格式错误。'},400);}}
@@ -39,7 +46,10 @@ Deno.serve(async req=>{
   const text=await req.text();if(text.length>100000)return send({error:'请求过大。'},413);
   let body;try{body=JSON.parse(text);}catch{return send({error:'请求格式错误。'},400);}
   if(route==='/start'){
-   const result=await database('rpc/pony_start_public',{p_token:random()});
+   const code=String(body.code||'').trim().toUpperCase();
+   if(!/^[A-Z0-9-]{8,64}$/.test(code))return send({error:'请输入有效的测评密码或邀请码。'},400);
+   const token=String(body.start_id||'');if(!/^[a-f0-9]{48}$/.test(token))return send({error:'请刷新页面后重新输入测评密码或邀请码。'},400);
+   const result=await database('rpc/pony_start',{p_hash:await hashCode(code),p_token:token});
    return send(result,result.status||200);
   }
   const token=String(body.token||'');if(!/^[a-f0-9]{48}$/.test(token))return send({error:'测评会话已失效，请重新开始。'},401);
