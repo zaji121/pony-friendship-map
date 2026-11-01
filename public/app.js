@@ -662,10 +662,6 @@
     const actions=document.createElement('div');actions.className='poster-save-actions';
     const download=document.createElement('button');download.type='button';download.className='button button-primary';download.textContent='下载图片';
     download.onclick=()=>{const a=document.createElement('a');a.href=url;a.download=file.name;document.body.append(a);a.click();a.remove();note.textContent='已发起图片下载，请在浏览器下载记录中查看；手机也可长按图片保存到相册。';};actions.append(download);
-    if(navigator.canShare?.({files:[file]})){
-      const share=document.createElement('button');share.type='button';share.className='button button-secondary';share.textContent='系统保存 / 分享';
-      share.onclick=async()=>{try{await navigator.share({files:[file],title:'我的小马谷友谊结果'});note.textContent='系统操作已完成。如已选择“存储图像”，请到相册查看。';}catch(e){if(e.name!=='AbortError')note.textContent='系统菜单暂时无法打开，请长按下方图片保存到相册。';}};actions.append(share);
-    }
     const image=document.createElement('img');image.src=url;image.alt='我的完整测评结果长图，长按可保存';image.draggable=false;
     dialog.append(head,note,actions,image);const oldOverflow=document.body.style.overflow;document.body.append(dialog);document.body.style.overflow='hidden';
     dialog.addEventListener('close',()=>{document.body.style.overflow=oldOverflow;URL.revokeObjectURL(url);dialog.remove();},{once:true});dialog.showModal();

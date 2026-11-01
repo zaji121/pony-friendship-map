@@ -258,3 +258,11 @@ Sunset career replacement: https://derpibooru.org/images/1448470 ; artist lifes-
 - Source page: https://www.nicepng.com/ourpic/u2w7u2i1w7i1i1u2_sweetie-drops-bon-bon-my-little-pony/
 - Original PNG: https://www.nicepng.com/png/full/287-2872981_sweetie-drops-bon-bon-my-little-pony.png
 - 1280 × 1455 RGBA PNG; downloaded without redrawing. Used only in the Bon Bon career section. The source page labels the asset for personal use; this project does not claim authorship or ownership.
+
+## 2026-11-01: Scootaloo social image replacement
+
+- Asset: public/images/interactions/crusaders-clean-trio.png
+- Source page: https://www.clipartmax.com/middle/m2i8d3H7i8d3d3Z5_apple-bloom-pony-twilight-sparkle-cutie-mark-crusaders-apple-bloom-sweetie-belle/
+- Download: https://www.clipartmax.com/png/full/145-1455595_apple-bloom-pony-twilight-sparkle-cutie-mark-crusaders-apple-bloom-sweetie-belle.png
+- Existing transparent 2D vector-style image downloaded unchanged; not generated or redrawn and not claimed to be an original animation screencap. Replaces the damaged crusaders-original-cutout.png in Scootaloo social reports.
+
