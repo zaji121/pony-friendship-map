@@ -375,18 +375,16 @@
       const key=[form.version,hw,cw,hs.font,hs.lineHeight,cs.font,cs.lineHeight,bs.paddingTop,bs.paddingBottom].join('|');
       if(key===quizSizeKey)return;
       quizSizeKey=key;
-      // Reserve one shared answer height for the entire bank at this viewport.
-      // Question changes and selected states must not resize the answer boxes.
-      const host=document.createElement('div');
-      host.setAttribute('aria-hidden','true');
-      Object.assign(host.style,{position:'fixed',left:'-10000px',top:'0',visibility:'hidden',pointerEvents:'none',contain:'layout style paint'});
-      const make=(text,width,style)=>{const n=document.createElement('div');n.textContent=text;Object.assign(n.style,{width:width+'px',margin:'0',padding:'0',border:'0',boxSizing:'content-box',minHeight:'0',height:'auto',whiteSpace:'normal'});for(const k of ['fontFamily','fontSize','fontWeight','fontStyle','lineHeight','letterSpacing','wordBreak','overflowWrap'])n.style[k]=style[k];host.append(n);return n;};
+      // Offscreen DOM text can be inflated independently by embedded webviews.
+      // Measure glyph widths using the visible answer's font, not hidden blocks.
+      const measure=document.createElement('canvas').getContext('2d');
+      measure.font=`${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+      const fontSize=parseFloat(cs.fontSize)||15,lineHeight=parseFloat(cs.lineHeight)||fontSize*1.7,spacing=parseFloat(cs.letterSpacing)||0;
+      const usableWidth=Math.max(1,cw-fontSize*.25);
+      const lineCount=text=>{let lines=1,line='',length=0;for(const ch of Array.from(String(text))){if(ch==='\n'){lines++;line='';length=0;continue;}const next=line+ch;if(line&&measure.measureText(next).width+spacing*length>usableWidth){lines++;line=ch;length=1;}else{line=next;length++;}}return lines;};
       const labels=[...form.questions.flatMap(q=>q[1].map(o=>o[0])),...form.scenes.flatMap(s=>s.options.map(o=>o.text)),...form.contrasts.flatMap(c=>[c[5],c[6]]),...(form.personalizedQuestions||[]).flatMap(q=>[q.leftText,q.rightText]),...Object.values(window.PONY_NARRATIVE_MATCH.followupActions)];
-      const answers=labels.map(text=>make(text,cw,cs));
-      document.body.append(host);
-      const textHeight=Math.max(...answers.map(n=>n.getBoundingClientRect().height));
+      const textHeight=Math.max(...labels.map(text=>lineCount(text)*lineHeight));
       const rowHeight=Math.ceil(Math.max(textHeight+parseFloat(cs.paddingTop||0)+parseFloat(cs.paddingBottom||0),28)+parseFloat(bs.paddingTop)+parseFloat(bs.paddingBottom)+parseFloat(bs.borderTopWidth)+parseFloat(bs.borderBottomWidth));
-      host.remove();
       $('quiz').style.setProperty('--quiz-stem-height','0px');
       $('quiz').style.setProperty('--quiz-answer-height',rowHeight+'px');
     });
