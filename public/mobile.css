@@ -2,6 +2,7 @@
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:calc(76px + env(safe-area-inset-top,0px))}
 /* Keep embedded webview text inflation consistent inside the quiz, including buttons. */
 #quiz,#quiz .question-panel,#quiz .question-panel h3,#quiz .answer-option,#quiz .answer-copy,#quiz .answer-letter{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.quiz-edition-note{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;font-size:12px;line-height:1.6;color:#79758a}.quiz-edition-note[hidden]{display:none}.quiz-edition-note button{flex:none;min-height:40px;border:1px solid #dcd2e6;border-radius:10px;padding:8px 12px;background:#fffdf9;color:#665080;font:inherit;cursor:pointer}
 .quiz-skip{display:block;width:100%;min-height:44px;margin:12px 0 0;padding:8px 12px;border:0;border-radius:10px;background:transparent;color:#79758a;font:inherit;font-size:13px;line-height:1.6;text-decoration:underline;cursor:pointer}.quiz-skip[hidden]{display:none}.quiz-skip.selected{color:#665080;background:#f2edf8}.quiz-skip:focus-visible{outline:3px solid #4aa29d;outline-offset:2px}
 body{min-height:100svh}
 button,a,input,summary{-webkit-tap-highlight-color:transparent;touch-action:manipulation}

@@ -4,7 +4,7 @@
 
 The complete original product remains in use: Derpy entrance, four chapter dialogs, 48 questions, adaptive final slots, saved progress, full result reports, character gallery, Gummy, sharing and PNG export. No standalone experimental quiz replaces it.
 
-The new form is `festival-48-single-20261101-v7`. V6 is frozen in `public/quiz-form-48-v6.js`; older forms and in-progress V6 drafts retain their original wording and scoring. V7 wording is concentrated in `public/question-copy-v7.js`, gated by the new HTML dependencies. Cached V6 HTML safely keeps V6 semantics.
+The new form is `festival-48-single-20261101-v7`. V6 is frozen in `public/quiz-form-48-v6.js`; older forms and in-progress V6 drafts retain their original wording and scoring. V7 wording is concentrated in `public/question-copy-v7.js`, gated by the new HTML dependencies. Cached V6 HTML safely keeps V6 semantics. A resumed older quiz shows an optional “从新版开始” control; only accepting its confirmation clears that current draft and starts V7. Canceling keeps the old question and answers.
 
 ## Editorial decisions
 

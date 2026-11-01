@@ -314,6 +314,15 @@
     $('next-button').disabled=!answeredAt(index);
     $('next-button').innerHTML=index===questions.length-1?'查看我的结果 <span>✦</span>':'下一题 <span>→</span>';
     $('next-button').dataset.index=index;
+    let editionNote=$('quiz-edition-note');
+    if(!editionNote){
+      editionNote=document.createElement('div');editionNote.id='quiz-edition-note';editionNote.className='quiz-edition-note';
+      const text=document.createElement('span');text.textContent='当前继续的是旧版答题进度。';
+      const restart=document.createElement('button');restart.type='button';restart.textContent='从新版开始';
+      restart.onclick=()=>{if(!confirm('开始新版测评？当前这轮的旧版答题进度将清除。'))return;clearCurrentDraft();useForm(defaultForm);state=freshState();startQuiz();};
+      editionNote.append(text,restart);document.querySelector('#quiz .quiz-head').after(editionNote);
+    }
+    editionNote.hidden=form.version===defaultForm.version;
     saveDraft();
     queueQuizSizing();
     requestAnimationFrame(()=>showChapterOpening(chapterIndex));
