@@ -180,7 +180,7 @@
   function previewRole(slug){
     const primary=PONIES.findIndex(p=>p.slug===slug);if(primary<0||(window.INACTIVE_CHARACTERS||[]).includes(slug))return;
     const scores=window.PREFERENCE_PROFILES[slug].slice();
-    const secondary=PONIES.map((p,i)=>({i,d:window.PREFERENCE_PROFILES[p.slug].reduce((n,v,j)=>n+(v-scores[j])**2,0)})).filter(x=>x.i!==primary).sort((a,b)=>a.d-b.d)[0].i;
+    const secondary=PONIES.map((p,i)=>({i,d:window.PREFERENCE_PROFILES[p.slug].reduce((n,v,j)=>n+(v-scores[j])**2,0)})).filter(x=>x.i!==primary&&!(window.INACTIVE_CHARACTERS||[]).includes(PONIES[x.i].slug)).sort((a,b)=>a.d-b.d)[0].i;
     const result=window.PONY_SCORE(questions,PONIES.map(p=>p.slug),window.PREFERENCE_PROFILES,questions.map((q,i)=>i%q[1].length));
     Object.assign(result,{primary,secondary,scores,demo:true,type:scores.map((v,i)=>['EI','SN','TF','JP'][i][v>=.5?0:1]).join('')});
     state.result=result;state.shared=true;state.resultId='';renderResult(result);showView('result');
@@ -700,7 +700,7 @@
   }
   async function loadShared(id){
     $('shared-status-title').textContent='正在打开结果';$('shared-status-message').textContent='正在读取这份友谊地图，请稍候…';$('shared-retry').hidden=true;$('shared-retry').textContent='重新读取';showView('shared-status');
-    try{const result=await api('/api/result/'+encodeURIComponent(id));if(!Number.isInteger(result.primary)||!PONIES[result.primary])throw new Error('这份结果的数据不完整。');if([result.primary,result.secondary].some(i=>['dj-pon3','nightmare-moon','daybreaker','mistmane'].includes(PONIES[i]?.slug))){$('shared-status-title').textContent='这份旧结果包含已移除的角色';$('shared-status-message').textContent='这份结果中的角色已退出当前匹配名单。这份历史记录没有被改成其他角色；你可以按当前名单重新测评。';$('shared-retry').hidden=false;$('shared-retry').textContent='开始新的测评';$('shared-retry').onclick=()=>{history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');startQuiz();};return;}state.resultId=id;state.result=result;state.shared=true;renderResult(result);showView('result');history.replaceState(null,'',resultLink(id));}
+    try{const result=await api('/api/result/'+encodeURIComponent(id));if(!Number.isInteger(result.primary)||!PONIES[result.primary])throw new Error('这份结果的数据不完整。');if([result.primary,result.secondary].some(i=>(window.INACTIVE_CHARACTERS||[]).includes(PONIES[i]?.slug))){$('shared-status-title').textContent='这份旧结果包含已移除的角色';$('shared-status-message').textContent='这份结果中的角色已退出当前匹配名单。这份历史记录没有被改成其他角色；你可以按当前名单重新测评。';$('shared-retry').hidden=false;$('shared-retry').textContent='开始新的测评';$('shared-retry').onclick=()=>{history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');startQuiz();};return;}state.resultId=id;state.result=result;state.shared=true;renderResult(result);showView('result');history.replaceState(null,'',resultLink(id));}
     catch(err){$('shared-status-title').textContent='这份结果暂时未能打开';$('shared-status-message').textContent=(err.message||'网络暂时不可用。')+' 请点击下方按钮重新读取，无需重新答题。';$('shared-retry').hidden=false;$('shared-retry').onclick=()=>loadShared(id);}
   }
   $('start-button').addEventListener('click',startQuiz);

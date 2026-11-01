@@ -31,3 +31,19 @@ window.FULLBODY_ART['sunset-shimmer'].career='/images/fullbody-new/sunset-donut.
 window.FULLBODY_ART['sunset-shimmer'].career='/images/fullbody-new/sunset-mirror-magic.webp';
 window.FULLBODY_ART['sunset-shimmer'].careerSource='https://derpibooru.org/images/1448470';
 window.FULLBODY_ART['bon-bon'].career='/images/fullbody-new/bon-bon-career-alternate.png';window.FULLBODY_ART['bon-bon'].careerSource='https://www.nicepng.com/ourpic/u2w7u2i1w7i1i1u2_sweetie-drops-bon-bon-my-little-pony/';
+
+// Keep a separate complete-body illustration for each role's career section.
+Object.entries({
+  'diamond-tiara': {career:'/images/fullbody-new/diamond-tiara-career-distinct.png',careerSource:'https://www.realclipart.com/png/full/87-875369_diamond-tiara-vector-mlp-fim-diamond-tiara.png'},
+  'sugar-belle': {career:'/images/fullbody-new/sugar-belle-career-distinct.png',careerSource:'https://www.realclipart.com/png/full/134-1345917_rainbow-dash-rarity-mrs-my-little-pony-sugar-belle.png'},
+  'king-sombra': {career:'/images/fullbody-new/sombra-career-distinct.png',careerSource:'https://manebooru.art/images/2433307'},
+  chrysalis: {career:'/images/fullbody-new/chrysalis-career-distinct.png',careerSource:'https://manebooru.art/images/4013834'}
+}).forEach(([slug,art])=>Object.assign(window.FULLBODY_ART[slug],art));
+
+window.EXPANDED_ART['big-mac']={...window.EXPANDED_ART['big-mac'],file:'/images/fullbody-new/big-mac-profile-clean.png'};
+Object.assign(window.FULLBODY_ART['big-mac'],{
+  profile:'/images/fullbody-new/big-mac-profile-clean.png',
+  profileSource:'https://www.realclipart.com/middle/m2i8H7A0b1Z5i8b1_big-macintosh-by-redink853-big-mac-my-little-pony/',
+  career:'/images/fullbody-new/big-mac-career-distinct.png',
+  careerSource:'https://www.clipartmax.com/middle/m2H7K9Z5b1K9G6d3_ai-available-artist-big-macintosh-vector/'
+});

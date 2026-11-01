@@ -266,3 +266,22 @@ Sunset career replacement: https://derpibooru.org/images/1448470 ; artist lifes-
 - Download: https://www.clipartmax.com/png/full/145-1455595_apple-bloom-pony-twilight-sparkle-cutie-mark-crusaders-apple-bloom-sweetie-belle.png
 - Existing transparent 2D vector-style image downloaded unchanged; not generated or redrawn and not claimed to be an original animation screencap. Replaces the damaged crusaders-original-cutout.png in Scootaloo social reports.
 
+## 2026-11-01: Transparent report artwork review
+
+The following existing 2D transparent artwork replaces screenshots, background residue, or repeated career poses. These are sourced vector-style illustrations, not AI-generated redraws and not claimed to be untouched official animation screenshots. Downloaded PNG pixels are retained; no new character anatomy or background removal is synthesized.
+
+| Local asset | Source |
+| --- | --- |
+| `public/images/interactions/cadance-twilight-dance-clean.png` | [Cadance and Twilight ladybug dance](https://www.clipartmax.com/middle/m2i8A0N4K9d3A0A0_cadances-and-twilights-ladybug-dance-twilight-sparkle-vector/) — raw PNG `https://www.clipartmax.com/png/full/218-2186544_cadances-and-twilights-ladybug-dance-twilight-sparkle-vector.png` |
+| `public/images/interactions/shining-twilight-pair-clean.png` | [Twilight and her BBBFF, Crazymelomanka](https://www.clipartmax.com/middle/m2i8d3i8Z5b1G6m2_twilight-sparkle-and-her-bbbff-by-crazymelomanka-b-b-b-f-f/) — raw PNG `https://www.clipartmax.com/png/full/144-1441097_twilight-sparkle-and-her-bbbff-by-crazymelomanka-b-b-b-f-f.png` |
+| `public/images/interactions/diamond-silver-transparent.png` | [Diamond Tiara and Silver Spoon](https://www.clipartmax.com/middle/m2i8A0i8d3Z5i8N4_my-little-pony-diamond-tiara-grown-up-mlp-diamond-tiara-and-silver/) — raw PNG `https://www.clipartmax.com/png/full/210-2106800_my-little-pony-diamond-tiara-grown-up-mlp-diamond-tiara-and-silver.png` |
+| `public/images/interactions/discord-fluttershy-transparent.png` | [Discord and Fluttershy, Azul-J](https://www.clipartmax.com/middle/m2i8A0H7m2K9A0K9_azul-j-discord-discoshy-fluttershy-safe-my-little-pony-friendship-is-magic/) — raw PNG `https://www.clipartmax.com/png/full/213-2131821_azul-j-discord-discoshy-fluttershy-safe-my-little-pony-friendship-is-magic.png` |
+| `public/images/fullbody-new/diamond-tiara-career-distinct.png` | `https://www.realclipart.com/png/full/87-875369_diamond-tiara-vector-mlp-fim-diamond-tiara.png` |
+| `public/images/fullbody-new/sugar-belle-career-distinct.png` | `https://www.realclipart.com/png/full/134-1345917_rainbow-dash-rarity-mrs-my-little-pony-sugar-belle.png` |
+| `public/images/fullbody-new/sombra-career-distinct.png` | [Manebooru 2433307](https://manebooru.art/images/2433307), raw `https://static.manebooru.art/img/view/2020/10/12/2433307.png` |
+| `public/images/fullbody-new/chrysalis-career-distinct.png` | [Manebooru 4013834](https://manebooru.art/images/4013834), artist godoffury, raw `https://static.manebooru.art/img/view/2021/8/17/4013834.png` |
+| `public/images/fullbody-new/big-mac-profile-clean.png` | [Big Macintosh, Redink853](https://www.realclipart.com/middle/m2i8H7A0b1Z5i8b1_big-macintosh-by-redink853-big-mac-my-little-pony/), raw `https://www.realclipart.com/png/full/67-674676_big-macintosh-by-redink853-big-mac-my-little-pony.png` |
+| `public/images/fullbody-new/big-mac-career-distinct.png` | [Big Macintosh vector](https://www.clipartmax.com/middle/m2H7K9Z5b1K9G6d3_ai-available-artist-big-macintosh-vector/), raw `https://www.clipartmax.com/png/full/245-2457279_ai-available-artist-big-macintosh-vector.png`. The historical page label “AI available” refers to an Adobe Illustrator source file; the published asset is the downloaded existing 2D PNG. |
+| `public/images/interactions/sunburst-starlight-clean-pair.png` | [Starlight and Sunburst, season 6 vector](https://www.realclipart.com/middle/m2i8Z5N4K9K9d3d3_starlight-glimmer-and-sunburst-mlp-season-6-vector-mlp-starlight-glimmer-and/), raw `https://www.realclipart.com/png/full/106-1067921_starlight-glimmer-and-sunburst-mlp-season-6-vector-mlp-starlight-glimmer-and.png` |
+| `public/images/interactions/bright-pear-clean-pair.png` | [Bright Mac and Pear Butter, Manebooru 1508536](https://manebooru.art/images/1508536), artist cloudyglow, tagged The Perfect Pear, raw `https://static.manebooru.art/img/view/2020/9/27/1508536.png` |
+
