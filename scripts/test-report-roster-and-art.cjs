@@ -3,6 +3,7 @@ const http=require('node:http'),fs=require('node:fs'),path=require('node:path');
 const assert=require('node:assert/strict'),crypto=require('node:crypto');
 
 (async()=>{
+  fs.mkdirSync('tmp',{recursive:true});
   const root=path.resolve('public');let origin;
   const server=http.createServer(async(req,res)=>{
     try{
