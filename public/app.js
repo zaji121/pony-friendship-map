@@ -677,11 +677,11 @@
     const title=document.createElement('h2');title.textContent='保存结果长图';
     const close=document.createElement('button');close.type='button';close.className='icon-button';close.setAttribute('aria-label','关闭图片预览');close.textContent='×';close.onclick=()=>dialog.close();head.append(title,close);
     const note=document.createElement('p');note.className='poster-save-note';note.setAttribute('role','status');
-    note.textContent=matchMedia('(pointer:coarse)').matches?'点击“下载图片”后，请在浏览器下载记录或手机“文件”中查看，不会自动存入相册。想存到相册，请长按下方图片，选择“保存图片”或“存储到照片”。':'点击“下载图片”后，请在浏览器下载记录或“下载”文件夹中查看。';
+    note.textContent=matchMedia('(pointer:coarse)').matches?'点击“下载图片”后，请在浏览器下载记录或手机“文件”中查看，不会自动存入相册。':'点击“下载图片”后，请在浏览器下载记录或“下载”文件夹中查看。';
     const actions=document.createElement('div');actions.className='poster-save-actions';
     const download=document.createElement('button');download.type='button';download.className='button button-primary';download.textContent='下载图片';
-    download.onclick=()=>{const a=document.createElement('a');a.href=url;a.download=file.name;document.body.append(a);a.click();a.remove();note.textContent='已发起图片下载，请在浏览器下载记录或“文件”的下载目录中查看，不会自动存入相册。要存到相册，请长按下方图片，选择“保存图片”或“存储到照片”。';};actions.append(download);
-    const image=document.createElement('img');image.src=url;image.alt='我的完整测评结果长图，长按可保存';image.draggable=false;
+    download.onclick=()=>{const a=document.createElement('a');a.href=url;a.download=file.name;document.body.append(a);a.click();a.remove();note.textContent='已发起图片下载，请在浏览器下载记录或“文件”的下载目录中查看，不会自动存入相册。';};actions.append(download);
+    const image=document.createElement('img');image.src=url;image.alt='我的完整测评结果长图';image.draggable=false;
     dialog.append(head,note,actions,image);const oldOverflow=document.body.style.overflow;document.body.append(dialog);document.body.style.overflow='hidden';
     dialog.addEventListener('close',()=>{document.body.style.overflow=oldOverflow;URL.revokeObjectURL(url);dialog.remove();},{once:true});dialog.showModal();
   }

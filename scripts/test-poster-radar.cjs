@@ -25,7 +25,8 @@ const {pathToFileURL}=require('node:url');
   await page.locator('#save-image').click();await page.locator('.poster-save-dialog[open]').waitFor({timeout:20000});
   assert.equal(await page.locator('.poster-save-actions button').count(),1);
   assert((await page.locator('.poster-save-note').textContent()).includes('不会自动存入相册'));
-  assert((await page.locator('.poster-save-note').textContent()).includes('长按下方图片'));
+  assert(!(await page.locator('.poster-save-dialog').textContent()).includes('长按'));
+  assert(!(await page.locator('.poster-save-dialog>img').getAttribute('alt')).includes('长按'));
   const drawn=await page.evaluate(()=>posterDraw);assert.equal(drawn.dots.length,key==='legacy'?6:8);
   if(key!=='legacy'){
    for(let i=0;i<8;i++){assert(Math.abs((drawn.dots[i].x-540)/200-(source[i].x-360)/170)<.00001);assert(Math.abs((drawn.dots[i].y-2480)/200-(source[i].y-270)/170)<.00001);}
@@ -35,6 +36,7 @@ const {pathToFileURL}=require('node:url');
   }
   const downloaded=page.waitForEvent('download');await page.getByRole('button',{name:'下载图片',exact:true}).click();const file=await downloaded;assert(file.suggestedFilename().endsWith('.png'));
   assert((await page.locator('.poster-save-note').textContent()).includes('不会自动存入相册'));
+  assert(!(await page.locator('.poster-save-note').textContent()).includes('长按'));
   await page.waitForFunction(()=>document.querySelector('.poster-save-dialog>img').naturalHeight===4800);
   if(key==='modern'){
    await fs.promises.mkdir('tmp',{recursive:true});await file.saveAs('tmp/result-poster-with-radar.png');
