@@ -16,6 +16,19 @@ async function database(route:string,body?:unknown){
  if(!response.ok){console.error('Database request failed:',response.status);throw new Error('数据库暂时不可用，请稍后重试。');}
  return await response.json();
 }
+async function countCompleted(primary?:string){
+ const query=new URLSearchParams({select:'id',limit:'1'});
+ if(primary!==undefined)query.set('payload->>primary','eq.'+primary);
+ const response=await fetch(databaseUrl+'/rest/v1/pony_results?'+query,{
+  method:'HEAD',
+  headers:{apikey:serviceKey,Authorization:'Bearer '+serviceKey,Prefer:'count=exact'}
+ });
+ const total=response.headers.get('Content-Range')?.match(/\/(\d+)$/)?.[1];
+ if(!response.ok||total===undefined)throw new Error('Could not count completed assessments.');
+ const count=Number(total);
+ if(!Number.isSafeInteger(count))throw new Error('Invalid assessment count.');
+ return count;
+}
 Deno.serve(async req=>{
  const origin=req.headers.get('origin');
  const cors={'Access-Control-Allow-Origin':origin&&allowedOrigins.includes(origin)?origin:'null','Vary':'Origin','Access-Control-Allow-Headers':'content-type,apikey,authorization','Access-Control-Allow-Methods':'GET,POST,OPTIONS'};
@@ -27,6 +40,11 @@ Deno.serve(async req=>{
  const route=pathname.slice(pathname.indexOf('/quiz-api')+'/quiz-api'.length);
  try{
   if(req.method==='GET'&&route==='/health')return send({ok:true});
+  if(req.method==='GET'&&route==='/participation'){
+   const primary=new URL(req.url).searchParams.get('primary');
+   if(primary!==null&&!/^(0|[1-9]\d{0,2})$/.test(primary))return send({error:'角色编号无效。'},400);
+   return send({count:await countCompleted(primary??undefined)});
+  }
   if(req.method==='POST'&&route==='/internal/replenish'){
    const secret=Deno.env.get('STOCK_CRON_SECRET')||'',provided=(req.headers.get('authorization')||'').replace(/^Bearer /,'');
    if(secret.length<32||provided.length>256||await hashCode(provided)!==await hashCode(secret))return send({error:'未授权。'},401);

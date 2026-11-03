@@ -247,7 +247,7 @@
     clearTimeout(toastTimer);
     toastTimer=setTimeout(()=>el.classList.remove('show'),duration);
   }
-  function showView(which) { currentView=which;++toastRevision;clearTimeout(toastTimer);$('toast').classList.remove('show');views.forEach(v => v.classList.toggle('hidden', v.id !== which));if(which==='gate')$('start-button').innerHTML=(!state.result&&(state.index>0||state.answers.some(a=>a!==null))?'继续探索':'开始探索')+' <span aria-hidden="true">→</span>';scrollImmediately(0);persistVisit(); }
+  function showView(which) { currentView=which;++toastRevision;clearTimeout(toastTimer);$('toast').classList.remove('show');views.forEach(v => v.classList.toggle('hidden', v.id !== which));if(which==='gate')$('start-button').innerHTML=(!state.result&&(state.index>0||state.answers.some(a=>a!==null))?'继续探索':'开始探索')+' <span aria-hidden="true">→</span>';scrollImmediately(0);persistVisit();refreshParticipation(); }
   function animateToast(el,duration,revision){
     clearTimeout(toastTimer);
     el.style.transition='none';
@@ -281,6 +281,40 @@
     const response=await fetch(endpoint,{method:body?'POST':'GET',headers,body:body?JSON.stringify(body):undefined,...options});
     const data=await response.json(); if(!response.ok) throw new Error(data.error||'请求失败'); return data;
   }
+  let participationRequest=null;
+  async function refreshParticipation(){
+    if(document.hidden||adminPreview||adminTest)return;
+    const result=currentView==='result'&&state.resultId?state.result:null;
+    if(currentView!=='gate'&&!result)return;
+    const label=$(result?'participation-role':'participation-total');
+    const role=result?PONIES[result.primary]:null;
+    if(result&&!role)return;
+    const key=result?String(result.primary):'total';
+    if(label.dataset.countKey!==key){
+      label.hidden=true;
+      label.dataset.countKey=key;
+    }
+    if(participationRequest?.key===key)return;
+    const request={key,controller:new AbortController()};
+    participationRequest?.controller.abort();
+    participationRequest=request;
+    const timer=setTimeout(()=>request.controller.abort(),8000);
+    try{
+      const data=await api('/api/participation'+(role?'?primary='+result.primary:''),undefined,{signal:request.controller.signal});
+      if(participationRequest!==request||(role?currentView!=='result'||state.result!==result:currentView!=='gate'))return;
+      if(!Number.isSafeInteger(data.count)||data.count<0)return;
+      const count=data.count.toLocaleString('zh-CN');
+      label.textContent=role?'已有 '+count+' 匹小马测出了「'+role.name+'」':'已有 '+count+' 匹小马完成测评';
+      label.hidden=false;
+    }catch{
+      // A count refresh does not interrupt the assessment.
+    }finally{
+      clearTimeout(timer);
+      if(participationRequest===request)participationRequest=null;
+    }
+  }
+  window.setInterval(refreshParticipation,30000);
+  document.addEventListener('visibilitychange',refreshParticipation);
   function updateGateError(message='') { $('gate-error').textContent=message; }
   const quizSessionRequests=new WeakMap();
   function ensureQuizSession(target=state,code=''){
@@ -769,7 +803,7 @@
   const params=new URLSearchParams(location.search),match=location.pathname.match(/\/r\/([A-Za-z0-9_-]+)\/?$/),sharedId=params.get('r')||new URLSearchParams(location.hash.slice(1)).get('result')||match?.[1],recent=visit?.initial;
   const resumeRecent=()=>restoreVisit(recent).then(ok=>{if(!ok){clearCurrentDraft();location.replace(window.SITE_CONFIG?.basePath||'/');}}).catch(()=>{document.documentElement.classList.remove('visit-resuming');visit?.clear();location.replace(window.SITE_CONFIG?.basePath||'/');});
   if(visit?.expired&&!params.has('admin-test'))clearCurrentDraft();
-  const previewSlug=params.get('admin-preview');if(params.get('admin-test')==='1')openAdminTest();else if(previewSlug)openAdminPreview(previewSlug);else if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId)){if(recent?.view==='result'&&recent.resultId===sharedId)resumeRecent();else loadShared(sharedId);}else if(recent&&!(params.get('quiz')==='1'&&recent.view==='result'))resumeRecent();else if(params.get('quiz')==='1'||params.get('resume')==='1')startQuiz();
+  const previewSlug=params.get('admin-preview');if(params.get('admin-test')==='1')openAdminTest();else if(previewSlug)openAdminPreview(previewSlug);else if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId)){if(recent?.view==='result'&&recent.resultId===sharedId)resumeRecent();else loadShared(sharedId);}else if(recent&&!(params.get('quiz')==='1'&&recent.view==='result'))resumeRecent();else if(params.get('quiz')==='1'||params.get('resume')==='1')startQuiz();else refreshParticipation();
 })();
 
 
