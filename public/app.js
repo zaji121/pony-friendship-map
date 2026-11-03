@@ -108,7 +108,7 @@
   const freshState=()=>({formVersion:form.version,token:'',answers:Array(form.coreCount).fill(null),choices:form.scenes.map(()=>({first:null,second:null})),completedTasks:[],finalAnswers:Array(form.finalSlots).fill(null),openedChapters:[],celebratedStages:[],index:0,resultId:'',result:null,shared:false});
   let state=freshState();
   const visit=window.PONY_VISIT;let currentView='gate',restoringVisit=false,resumeTimer,restoreRevision=0,leftPage=false;
-  const saveDraft=()=>{try{sessionStorage.setItem(flowKey,JSON.stringify({...state,savedAt:Date.now()}));}catch{}persistVisit();};
+  const saveDraft=()=>{if(adminTest)return;try{sessionStorage.setItem(flowKey,JSON.stringify({...state,savedAt:Date.now()}));}catch{}persistVisit();};
   function readDraft(){
     for(const key of [flowKey,'ponyNarrative48-v4'])try{
       const draft=JSON.parse(sessionStorage.getItem(key)||'null');
@@ -121,7 +121,7 @@
   const clearCurrentDraft=()=>{try{sessionStorage.removeItem(flowKey);sessionStorage.removeItem('ponyNarrative48-v4');}catch{}visit?.clear();};
   function captureVisitUI(){return {scrollY:Math.max(0,window.scrollY),hash:/^#report-[a-z-]+$/.test(location.hash)?location.hash:'',tab:document.querySelector('.result-tab.active')?.dataset.tab==='all'?'all':'you',profileOpen:document.querySelector('.cover-profile-toggle')?.getAttribute('aria-expanded')==='true',chapterOpen:!!document.querySelector('.chapter-opening[open]'),openDetails:[...$('result').querySelectorAll('details')].flatMap((d,i)=>d.open?[i]:[]),duoExpanded:document.querySelector('.duo-expand-all')?.getAttribute('aria-expanded')==='true'};}
   function persistVisit(force=false){
-    if(!visit||restoringVisit||adminPreview||state.result?.demo||(!force&&document.hidden))return;
+    if(!visit||restoringVisit||adminPreview||adminTest||state.result?.demo||(!force&&document.hidden))return;
     const ui=captureVisitUI();
     if(currentView==='quiz')visit.write({view:'quiz',draft:{...state,savedAt:Date.now()},ui});
     else if(currentView==='result'&&state.resultId&&state.result)visit.write({view:'result',resultId:state.resultId,result:state.result,shared:state.shared,ui});
@@ -177,7 +177,7 @@
     else if(!stageArtwork.complete)await new Promise((resolve,reject)=>{stageArtwork.onload=resolve;stageArtwork.onerror=reject;});
     return stageArtwork.naturalWidth>0;
   })().catch(()=>false);
-  let adminPreview=false;
+  let adminPreview=false, adminTest=false;
   function previewRole(slug){
     const primary=PONIES.findIndex(p=>p.slug===slug);if(primary<0||(window.INACTIVE_CHARACTERS||[]).includes(slug))return;
     const scores=window.PREFERENCE_PROFILES[slug].slice();
@@ -189,13 +189,49 @@
     const url=new URL(location.href);url.searchParams.set('admin-preview',slug);url.searchParams.delete('r');history.replaceState(null,'',url);
     document.getElementById('admin-role-select').value=slug;
   }
+  async function verifyAdmin(){
+    const session=JSON.parse(sessionStorage.getItem('ponyAdmin')||'null');
+    if(!session?.access_token)throw new Error('请先登录管理员后台。');
+    const response=await fetch(window.SITE_CONFIG.apiBase+'/admin/codes?page=0',{headers:{Authorization:'Bearer '+session.access_token}});
+    if(!response.ok)throw new Error('管理员登录已过期，请返回后台重新登录。');
+    await response.body?.cancel();
+  }
+  function showAdminLogin(error){
+    document.documentElement.classList.remove('visit-resuming','mail-pending');
+    showView('gate');
+    updateGateError(error.message);
+    const link=document.createElement('a');
+    link.href='admin.html';
+    link.textContent='打开管理员登录';
+    $('gate').append(link);
+  }
+  function startAdminTest(){
+    useForm(defaultForm);
+    state=freshState();
+    showView('quiz');
+    renderQuestion(0);
+  }
+  async function openAdminTest(){
+    try{
+      await verifyAdmin();
+      adminTest=true;
+      document.documentElement.classList.remove('visit-resuming','mail-pending');
+      const bar=document.createElement('aside');
+      bar.className='admin-preview-bar';
+      const label=document.createElement('span');
+      label.textContent='管理员试答';
+      const back=document.createElement('a');
+      back.href='admin.html';
+      back.textContent='返回后台';
+      bar.append(label,back);
+      document.body.prepend(bar);
+      startAdminTest();
+    }catch(error){showAdminLogin(error);}
+  }
   async function openAdminPreview(slug){
     if(slug==='mrs-cake')slug='dj-pon3';
     try{
-      const session=JSON.parse(sessionStorage.getItem('ponyAdmin')||'null');
-      if(!session?.access_token)throw new Error('请先登录管理员后台，再打开角色预览。');
-      const response=await fetch(window.SITE_CONFIG.apiBase+'/admin/codes?page=0',{headers:{Authorization:'Bearer '+session.access_token}});
-      if(!response.ok)throw new Error('管理员登录已过期，请返回后台重新登录。');
+      await verifyAdmin();
       adminPreview=true;
       const bar=document.createElement('aside');bar.className='admin-preview-bar';
       const label=document.createElement('label');label.textContent='管理员预览 · 非真实测评 ';
@@ -417,7 +453,15 @@
   }
   async function finishQuiz() {
     $('next-button').disabled=true; $('next-button').textContent='正在生成友谊印记…';
-    try { const missing=steps.findIndex((_,i)=>!answeredAt(i));if(missing>=0){renderQuestion(missing);return;}const result=calculateResult();await ensureQuizSession();const saved=await api('/api/complete',{token:state.token,result}); state.resultId=saved.id; state.result=result; state.shared=false;clearCurrentDraft();history.replaceState(null,'',resultLink(saved.id)); renderResult(result); showView('result'); toast('你的友谊印记正在显现…'); }
+    try { const missing=steps.findIndex((_,i)=>!answeredAt(i));if(missing>=0){renderQuestion(missing);return;}const result=calculateResult();
+      if(adminTest){
+        state.result=result;
+        renderResult(result);
+        $('copy-link').hidden=true;
+        showView('result');
+        return;
+      }
+      await ensureQuizSession();const saved=await api('/api/complete',{token:state.token,result}); state.resultId=saved.id; state.result=result; state.shared=false;clearCurrentDraft();history.replaceState(null,'',resultLink(saved.id)); renderResult(result); showView('result'); toast('你的友谊印记正在显现…'); }
     catch(err){ $('next-button').disabled=false; toast(err.message,'error'); renderQuestion(questions.length-1); }
   }
   function renderResult(result) {
@@ -715,17 +759,17 @@
   }
   $('start-button').addEventListener('click',startQuiz);
   $('access-code').addEventListener('keydown',event=>{if(event.key==='Enter'&&!$('start-button').disabled){event.preventDefault();startQuiz();}});
-  document.querySelector('.brand')?.addEventListener('click',event=>{if(!adminPreview&&(currentView==='quiz'||currentView==='result')){event.preventDefault();persistVisit(true);history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');showView('gate');}});
+  document.querySelector('.brand')?.addEventListener('click',event=>{if(adminTest){event.preventDefault();location.assign('admin.html');return;}if(!adminPreview&&(currentView==='quiz'||currentView==='result')){event.preventDefault();persistVisit(true);history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');showView('gate');}});
   $('prev-button').addEventListener('click',()=>{const i=Number($('next-button').dataset.index);if(i>0)renderQuestion(i-1);});
   $('next-button').addEventListener('click',()=>{const i=Number($('next-button').dataset.index);if(i===questions.length-1)finishQuiz();else{renderQuestion(i+1);const completed=i+1;if(completed%5===0&&steps.slice(0,completed).every((_,n)=>answeredAt(n))&&!(state.celebratedStages||[]).includes(completed)){state.celebratedStages=(state.celebratedStages||[]).concat(completed);saveDraft();celebrateStage(completed);}}});
-  $('exit-quiz').addEventListener('click',()=>{if(confirm('先离开答题？进度会保留15分钟，回来可以继续。')){saveDraft();history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');showView('gate');}});
+  $('exit-quiz').addEventListener('click',()=>{if(adminTest){location.assign('admin.html');return;}if(confirm('先离开答题？进度会保留15分钟，回来可以继续。')){saveDraft();history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');showView('gate');}});
   $('welcome-share').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.origin+(window.SITE_CONFIG?.basePath||'/'));toast('测评入口已复制，记得把赠送的邀请码一起发给朋友。','success');}catch(err){toast('复制失败，请重试。','error');}});
   $('copy-link').addEventListener('click',copyLink);$('save-image').addEventListener('click',saveImage);
-  $('retake').addEventListener('click',()=>{clearCurrentDraft();state=freshState();updateGateError('');history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');showView('gate');});
+  $('retake').addEventListener('click',()=>{if(adminTest){startAdminTest();return;}clearCurrentDraft();state=freshState();updateGateError('');history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');showView('gate');});
   const params=new URLSearchParams(location.search),match=location.pathname.match(/\/r\/([A-Za-z0-9_-]+)\/?$/),sharedId=params.get('r')||new URLSearchParams(location.hash.slice(1)).get('result')||match?.[1],recent=visit?.initial;
   const resumeRecent=()=>restoreVisit(recent).then(ok=>{if(!ok){clearCurrentDraft();location.replace(window.SITE_CONFIG?.basePath||'/');}}).catch(()=>{document.documentElement.classList.remove('visit-resuming');visit?.clear();location.replace(window.SITE_CONFIG?.basePath||'/');});
-  if(visit?.expired)clearCurrentDraft();
-  const previewSlug=params.get('admin-preview');if(previewSlug)openAdminPreview(previewSlug);else if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId)){if(recent?.view==='result'&&recent.resultId===sharedId)resumeRecent();else loadShared(sharedId);}else if(recent&&!(params.get('quiz')==='1'&&recent.view==='result'))resumeRecent();else if(params.get('quiz')==='1'||params.get('resume')==='1')startQuiz();
+  if(visit?.expired&&!params.has('admin-test'))clearCurrentDraft();
+  const previewSlug=params.get('admin-preview');if(params.get('admin-test')==='1')openAdminTest();else if(previewSlug)openAdminPreview(previewSlug);else if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId)){if(recent?.view==='result'&&recent.resultId===sharedId)resumeRecent();else loadShared(sharedId);}else if(recent&&!(params.get('quiz')==='1'&&recent.view==='result'))resumeRecent();else if(params.get('quiz')==='1'||params.get('resume')==='1')startQuiz();
 })();
 
 
