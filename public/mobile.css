@@ -240,3 +240,18 @@ img{max-width:100%}
 #quiz .answer-option{transition:translate .2s cubic-bezier(.2,1.5,.4,1),background-color .18s,border-color .18s,box-shadow .18s}
 :is(button:not(:disabled),a.button,.report-nav-link,summary):active{translate:0 2px;transition-duration:.055s}
 @media(prefers-reduced-motion:reduce){:is(button:not(:disabled),a.button,.report-nav-link,summary),#quiz .answer-option{translate:none!important;transition:none!important}}
+
+/* Only the mobile question view: consistent gutters and less vertical repetition. */
+@media (max-width:650px){
+ #quiz .quiz-head .eyebrow{margin-bottom:5px}
+ #quiz .progress-meta{margin-top:14px;margin-bottom:6px}
+ #quiz .quiz-chapter{margin-top:12px;padding:9px 12px}
+ #quiz #chapter-context{font-size:12px;line-height:1.5;margin-bottom:0}
+ #quiz .question-panel{margin-top:14px;padding:14px}
+ #quiz .question-panel h3{margin:7px 0 12px;font-size:clamp(17px,4.7vw,20px);line-height:1.48}
+ #quiz .answer-list{gap:8px}
+ #quiz .answer-option{padding:10px 12px;min-height:max(48px,var(--quiz-answer-height,64px));line-height:1.55}
+ #quiz .answer-copy{padding-top:0}
+ #quiz .quiz-nav{gap:10px;margin-top:12px}
+ #quiz .quiz-skip{margin-top:8px}
+}
