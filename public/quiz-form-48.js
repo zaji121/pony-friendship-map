@@ -201,11 +201,12 @@ function nextFollowup(result,answered=[]){
  return {left:best.left,right:best.right,stem:isV7?'回家前还有十分钟，两处都可以去。你更想做哪件事？':'庆典收尾后，还能选一件事做。两边都有人帮忙，你更想先接哪件？',leftText:actions[best.left],rightText:actions[best.right],candidateSlugs:[a.slug,b.slug],contrast:'nearby-candidate-difference'};
 }
 const mainSix=new Set(['twilight','applejack','rainbow-dash','pinkie-pie','fluttershy','rarity']);
-function scoreCore(answers){
- if(!Array.isArray(answers)||answers.length!==32||answers.some((v,i)=>!Number.isInteger(v)||v<0||v>=questions[i][1].length))throw Error('请完成本版的32道做事方式题。');
- const totals=axes.map(axis=>questions.reduce((s,q,i)=>s+(q[2].axis===axis?q[1][answers[i]][1]:0),0)),scores=totals.map(v=>(v/8+1)/2);
- const evidence=axes.map((axis,j)=>{const rows=questions.map((q,i)=>({q,i,value:q[1][answers[i]][1]})).filter(x=>x.q[2].axis===axis),positive=rows.filter(x=>x.value>0).length,sign=totals[j]>=0?1:-1,first=rows.find(x=>Math.sign(x.value)===sign),opposite=rows.find(x=>Math.sign(x.value)!==sign);return {axis,positive,negative:8-positive,stem:first.q[0],answer:first.q[1][answers[first.i]][0],counterexample:opposite?{stem:opposite.q[0],answer:opposite.q[1][answers[opposite.i]][0]}:null};});
- return {model:'four-preferences-v2',formVersion:version,questionVersion:version,answers:answers.slice(),questionIndexes:indexes.slice(),scores,totals,itemsPerAxis:8,type:scores.map((v,i)=>Math.abs(v-.5)<.1?'X':axes[i][v>.5?0:1]).join(''),closeAxes:axes.filter((_,i)=>Math.abs(scores[i]-.5)<.1),evidence};
+function scoreCore(answers, items=questions, itemIndexes=indexes, edition=version){
+ const perAxis=items.length/axes.length;
+ if(!Array.isArray(answers)||answers.length!==items.length||answers.some((v,i)=>!Number.isInteger(v)||v<0||v>=items[i][1].length))throw Error('请完成本版的'+items.length+'道做事方式题。');
+ const totals=axes.map(axis=>items.reduce((s,q,i)=>s+(q[2].axis===axis?q[1][answers[i]][1]:0),0)),scores=totals.map(v=>(v/perAxis+1)/2);
+ const evidence=axes.map((axis,j)=>{const rows=items.map((q,i)=>({q,i,value:q[1][answers[i]][1]})).filter(x=>x.q[2].axis===axis),positive=rows.filter(x=>x.value>0).length,sign=totals[j]>=0?1:-1,first=rows.find(x=>Math.sign(x.value)===sign),opposite=rows.find(x=>Math.sign(x.value)!==sign);return {axis,positive,negative:perAxis-positive,stem:first.q[0],answer:first.q[1][answers[first.i]][0],counterexample:opposite?{stem:opposite.q[0],answer:opposite.q[1][answers[opposite.i]][0]}:null};});
+ return {model:'four-preferences-v2',formVersion:edition,questionVersion:edition,answers:answers.slice(),questionIndexes:itemIndexes.slice(),scores,totals,itemsPerAxis:perAxis,type:scores.map((v,i)=>Math.abs(v-.5)<.1?'X':axes[i][v>.5?0:1]).join(''),closeAxes:axes.filter((_,i)=>Math.abs(scores[i]-.5)<.1),evidence};
 }
 function rank(env,scores,choices,followups=[],applyPreference=true){
  const result=env.PONY_NARRATIVE_MATCH.rank(env,scores,choices,followups,{scenes,maxFollowups:4});
@@ -272,5 +273,15 @@ function plan(env,scores,fixedChoices,finalAnswers=[]){
  return {result:preferMainSix(result),choices,followups,next:null};
 }
 w.PONY_QUIZ_48={version,questions,scenes,indexes,axes,scoreCore,rank,plan,nextFollowup,contrasts,mainSixPreference:isV7||version==='festival-48-single-20261031-v6'?mainSixPreference:null,preferMainSix,personalizedQuestions:personalizedBank?.items||[],followupActions,total:48,coreCount:32,itemsPerAxis:8,fixedTaskCount:12,finalSlots:4};
+// Keep six items per axis and all sixteen scenario slots.
+const omittedCore=new Set([2,4,9,12,16,23,25,26]);
+const shortQuestions=questions.filter((_,index)=>!omittedCore.has(index));
+const shortIndexes=indexes.filter((_,index)=>!omittedCore.has(index));
+const shortVersion='festival-40-single-20261103-v1';
+w.PONY_QUIZ_40={
+ ...w.PONY_QUIZ_48,version:shortVersion,questions:shortQuestions,indexes:shortIndexes,
+ scoreCore:answers=>scoreCore(answers,shortQuestions,shortIndexes,shortVersion),
+ total:40,coreCount:shortQuestions.length,itemsPerAxis:6
+};
 })(window);
 
