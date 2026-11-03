@@ -283,5 +283,21 @@ w.PONY_QUIZ_40={
  scoreCore:answers=>scoreCore(answers,shortQuestions,shortIndexes,shortVersion),
  total:40,coreCount:shortQuestions.length,itemsPerAxis:6
 };
+// Keep original scene indexes for adaptive selection and stored evidence.
+const omittedSceneIndexes=Object.freeze([2,6,9,11]);
+const shortestVersion='festival-36-single-20261103-v1';
+w.PONY_QUIZ_36={
+ ...w.PONY_QUIZ_40,
+ version:shortestVersion,
+ omittedSceneIndexes,
+ total:36,
+ scoreCore:answers=>scoreCore(answers,shortQuestions,shortIndexes,shortestVersion),
+ plan(env,scores,choices,finalAnswers){
+  if(Array.isArray(choices)&&omittedSceneIndexes.some(i=>choices[i]?.first!==null)){
+   throw Error('本版删减的庆典情境不能提交答案。');
+  }
+  return plan(env,scores,choices,finalAnswers);
+ }
+};
 })(window);
 

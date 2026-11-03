@@ -98,10 +98,10 @@
   }
   const views = ['gate','quiz','result','shared-status'].map($);
   const questions = window.QUIZ_QUESTIONS;
-  const defaultForm=window.PONY_QUIZ_40,flowKey='ponyFestival48-v4';let form=defaultForm,steps=[];
+  const defaultForm=window.PONY_QUIZ_36,flowKey='ponyFestival48-v4';let form=defaultForm,steps=[];
   function useForm(next){form=next;steps=[];for(let chapter=0;chapter<4;chapter++){
     form.questions.forEach((q,i)=>{if(q[2].chapter===chapter)steps.push({kind:'core',i,chapter});});
-    form.scenes.forEach((scene,i)=>{if(scene.chapter===chapter)steps.push(i<form.fixedTaskCount?{kind:'task',i,chapter}:{kind:'final',slot:i-form.fixedTaskCount,chapter});});
+    form.scenes.forEach((scene,i)=>{if(scene.chapter===chapter&&!form.omittedSceneIndexes?.includes(i))steps.push(i<form.fixedTaskCount?{kind:'task',i,chapter}:{kind:'final',slot:i-form.fixedTaskCount,chapter});});
   }
   if(steps.length!==form.total)throw Error('题目配置不完整');}
   useForm(defaultForm);
@@ -113,7 +113,7 @@
     for(const key of [flowKey,'ponyNarrative48-v4'])try{
       const draft=JSON.parse(sessionStorage.getItem(key)||'null');
       if(draft?.savedAt&&Date.now()-draft.savedAt>=15*60*1000){sessionStorage.removeItem(key);continue;}
-      const edition=[defaultForm,window.PONY_QUIZ_48,window.PONY_QUIZ_48_V4,window.PONY_QUIZ_48_V5,window.PONY_QUIZ_48_V6].find(f=>f&&f.version===(draft?.formVersion||draft?.version));
+      const edition=[defaultForm,window.PONY_QUIZ_40,window.PONY_QUIZ_48,window.PONY_QUIZ_48_V4,window.PONY_QUIZ_48_V5,window.PONY_QUIZ_48_V6].find(f=>f&&f.version===(draft?.formVersion||draft?.version));
       if(edition&&draft.answers?.length===edition.coreCount&&window.PONY_NARRATIVE_MATCH.choicesValid(draft.choices)&&draft.finalAnswers?.length===edition.finalSlots&&Array.isArray(draft.completedTasks)&&Number.isInteger(draft.index)&&draft.index>=0&&draft.index<edition.total){useForm(edition);const restored={...freshState(),...draft,formVersion:form.version};if(key!==flowKey)restored.openedChapters=(Array.isArray(draft.openedChapters)?draft.openedChapters:[]).filter(c=>c!==steps[Math.min(draft.index,steps.length-1)].chapter);return restored;}
     }catch{}
     return null;
@@ -547,10 +547,10 @@
       $('secondary-reading').children[0].querySelector('p').textContent='角色按四维偏好模式和具体任务的内容特征共同排序，任务兴趣不会改变你的四维分数；相似度不是准确率。';
       const method=$('scoring-method')||[...document.querySelectorAll('.career-method')].find(el=>el.querySelector('summary')?.textContent.includes('新测评'));
       if(method){const paragraphs=method.querySelectorAll(':scope > p'),compact=n.formVersion?.startsWith('festival-48-single-');if(compact&&paragraphs[1])paragraphs[1].textContent='本版共48题，全部单选：32道做事方式题（E/I、S/N、T/F、J/P各8题）与16道庆典情境题。四维按实际作答比例绘制；最后两题根据已有选择调整，包含在48题内，不额外加题。';if(paragraphs[2])paragraphs[2].textContent='本次使用庆典任务匹配规则：角色排序采用居中余弦与任务内容相似度，初始权重为四维60%、兴趣40%，尚未经过真实样本校准。'+(compact?'只有匹配分数完全相同时，才优先展示主角团。':'任务采用'+(n.selectionMode==='single'?'单选':'首选、次选')+'，接近时最多追问3次。')+'角色与行为联想为剧情编辑推断，不是已验证的人格分类，也不据反派联想判断用户善恶。';}
-      if(['festival-48-single-20261030-v3','festival-48-single-20261030-v4','festival-48-single-20261031-v5','festival-48-single-20261031-v6','festival-48-single-20261101-v7','festival-40-single-20261103-v1'].includes(n.formVersion)&&method){const p=method.querySelectorAll(':scope > p')[2];if(p)p.textContent='角色联想比较每题所选动作与其他可选动作的相对支持；至少两个不同场景、两类线索的支持才优先进入候选。四维接近中间时减弱方向信号，“都愿意”和“说不准”不增加两侧的区分证据。四维与任务的初始权重仍为60%／40%；内容要求、参数和接近阈值均未经过真人样本校准。只有支持条件和分数均相同时才优先主角团，不设置角色配额。剧情联想不等于人格分类，相似度也不是准确率。';}
+      if(['festival-48-single-20261030-v3','festival-48-single-20261030-v4','festival-48-single-20261031-v5','festival-48-single-20261031-v6','festival-48-single-20261101-v7','festival-40-single-20261103-v1','festival-36-single-20261103-v1'].includes(n.formVersion)&&method){const p=method.querySelectorAll(':scope > p')[2];if(p)p.textContent='角色联想比较每题所选动作与其他可选动作的相对支持；至少两个不同场景、两类线索的支持才优先进入候选。四维接近中间时减弱方向信号，“都愿意”和“说不准”不增加两侧的区分证据。四维与任务的初始权重仍为60%／40%；内容要求、参数和接近阈值均未经过真人样本校准。只有支持条件和分数均相同时才优先主角团，不设置角色配额。剧情联想不等于人格分类，相似度也不是准确率。';}
       if(n.productPreference){document.querySelector('.duo-person.primary .duo-label').textContent=n.productPreference.applied?'主角色 · 主角团优先':'主角色 · 本次匹配';document.querySelector('.duo-person.secondary .duo-label').textContent='副角色 · 相近候选';if(n.productPreference.applied)$('match-reading').textContent='这次的四维偏好：'+result.type+'。两位候选很接近，本次优先展示主角团伙伴'+main.name+'，并保留'+second.name+'作为另一位候选。';}
       if(n.productPreference&&method){const p=method.querySelectorAll(':scope > p')[2];if(p)p.textContent=p.textContent.replace('只有支持条件和分数均相同时才优先主角团，不设置角色配额。','不设置角色配额。')+' 本版采用主角团优先展示规则：双方都有跨场景支持，且综合匹配分数差不超过'+n.productPreference.scoreTolerance+'、四维匹配分数差不超过'+n.productPreference.mbtiTolerance+'时，优先展示主角团；明显更符合的其他角色仍会展示。这是产品排序偏好，不代表准确率提高。';}
-      if(['festival-48-single-20261030-v4','festival-48-single-20261031-v5','festival-48-single-20261031-v6','festival-48-single-20261101-v7','festival-40-single-20261103-v1'].includes(n.formVersion)&&method){const p=method.querySelectorAll(':scope > p')[1];if(p){const coreCount=result.itemsPerAxis*4;p.textContent=`本版共${coreCount+16}题，全部单选：${coreCount}道做事方式题（每维${result.itemsPerAxis}题）与16道庆典情境题。最后四个情境位会根据已有候选选择对比题或普通题，不额外增加题数。四维百分比只按实际作答计算，活动选择不改写四维分数。`;}}
+      if(['festival-48-single-20261030-v4','festival-48-single-20261031-v5','festival-48-single-20261031-v6','festival-48-single-20261101-v7','festival-40-single-20261103-v1','festival-36-single-20261103-v1'].includes(n.formVersion)&&method){const p=method.querySelectorAll(':scope > p')[1];if(p){const coreCount=result.itemsPerAxis*4,sceneCount=n.formVersion===window.PONY_QUIZ_36.version?12:16;p.textContent=`本版共${coreCount+sceneCount}题，全部单选：${coreCount}道做事方式题（每维${result.itemsPerAxis}题）与${sceneCount}道庆典情境题。最后四个情境位会根据已有候选选择对比题或普通题，不额外增加题数。四维百分比只按实际作答计算，活动选择不改写四维分数。`;}}
     }
   }
   function makeTraitTag(label){const tag=document.createElement('span');tag.className='duo-tag';tag.textContent=label;return tag;}
