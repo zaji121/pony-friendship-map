@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <script src="/visit-resume.js?v=20261031-resume15"></script>
-  <script>(()=>{const url=new URL(location.href),q=url.searchParams,h=new URLSearchParams(location.hash.slice(1)),v=window.PONY_VISIT;if(v?.expired&&(q.get('quiz')==='1'||q.get('resume')==='1')){q.delete('quiz');q.delete('resume');history.replaceState(null,'',url);}const shared=q.get('r')||h.get('result');if(!h.has('invite')&&!q.has('admin-test')&&!q.has('admin-preview')&&v?.initial&&(!shared||shared===v.initial.resultId))document.documentElement.classList.add('visit-resuming');else if(!shared&&!q.has('admin-test')&&!q.has('admin-preview')&&q.get('quiz')!=='1'&&q.get('resume')!=='1')document.documentElement.classList.add('mail-pending');})();</script>
+  <script>(()=>{const url=new URL(location.href),q=url.searchParams,h=new URLSearchParams(location.hash.slice(1)),v=window.PONY_VISIT;if(v?.expired&&(q.get('quiz')==='1'||q.get('resume')==='1')){q.delete('quiz');q.delete('resume');history.replaceState(null,'',url);}const shared=q.get('r')||h.get('result');if(!q.has('admin-test')&&!q.has('admin-preview')&&v?.initial&&(!shared||shared===v.initial.resultId))document.documentElement.classList.add('visit-resuming');else if(!shared&&!q.has('admin-test')&&!q.has('admin-preview')&&q.get('quiz')!=='1'&&q.get('resume')!=='1')document.documentElement.classList.add('mail-pending');})();</script>
   <style>html.mail-pending,html.visit-resuming{background:#faf7ef}html.mail-pending body>:not(.mail-entry),html.visit-resuming body>*{visibility:hidden}</style>
   <noscript><style>html.mail-pending body>:not(.mail-entry){visibility:visible}</style></noscript>
   <link rel="preload" as="image" href="/images/derpy-flight-smile.webp?v=closed-smile">
@@ -27,7 +27,6 @@
       <h1>你的友谊魔法，<br><em>会是什么模样？</em></h1>
       <p class="lead">穿过小马谷的日常与冒险，看看你最像哪位伙伴。<br>36 道庆典情境题，遇见专属于你的友谊印记。<br>选择你平时更可能做的事；没有更好的答案。</p>
       <div class="gate-card">
-        <label class="access-code-entry" for="access-code">测评密码或邀请码<input id="access-code" type="text" maxlength="64" placeholder="输入测评密码或邀请码" autocomplete="off" autocapitalize="characters" spellcheck="false" enterkeyhint="go"></label>
         <div class="input-row"><button id="start-button" class="button button-primary">开始探索 <span>→</span></button></div>
         <p id="gate-error" class="form-error" aria-live="polite"></p>
         <div class="gate-meta"><span>共 36 题 · 每个码限开始一次</span></div>
@@ -63,44 +62,11 @@
       <details id="scoring-method" class="career-method"><summary>新测评的理论依据与计分说明</summary><p><a href="/research-notes.html">研究修订与验证计划</a> · <a href="/character-evidence-workbench.html">角色剧情证据</a></p><p>48道自编行为情境题，E/I、S/N、T/F、J/P 每维12题。每题只比较同一偏好的两个端点，两个方向分别记 +1、−1，端点位置交替；每维百分比＝(该维平均分＋1)÷2。百分比是该方向的选择题数÷12，不是能力、置信度或人口常模。40%—60%注明偏好接近；接近区间用 X 保留未分化状态。该范围是展示规则，未经统计校准。</p><p>角色以故事行为建立连续侧写，按四维等权平方距离排序，允许相近角色共享类型。角色映射、文字解释与职业探索联系均为编辑设计，不是已验证算法。要确认效度，还需要独立样本的项目分析、内部一致性、重测稳定性、结构与外部效标研究；尚无这些数据，因此不声称测量效度已获保证。</p><p class="method-references"><a href="https://www.myersbriggs.org/my-mbti-personality-type/the-mbti-preferences/" target="_blank" rel="noopener noreferrer">Myers & Briggs Foundation：四种偏好</a> · <a href="https://www.myersbriggs.org/research-and-library/scientific-quality/" target="_blank" rel="noopener noreferrer">官方量表的研究说明（不等同本题库验证）</a></p></details>
       <section id="all-panel" class="result-panel hidden"><div class="all-intro"><div><span class="card-label">THE FRIENDSHIP CIRCLE</span><h2>36 位伙伴，各有自己的闪光方式</h2></div><p>从熟悉的伙伴开始，看看谁与你的友谊方式相近。</p></div><div id="character-grid" class="character-grid"></div><div id="character-detail" class="character-detail hidden"></div></section>
       <div class="result-actions"><button id="save-image" class="button button-primary">✦ 保存结果长图</button><button id="copy-link" class="button button-secondary">复制我的结果链接</button><button id="retake" class="button button-quiet">再测一次 ↻</button></div>
-      <div class="share-welcome"><span class="share-welcome-spark" aria-hidden="true">✦</span><div><h3>让更多朋友加入小马谷</h3><p>想看看朋友会遇见哪位小马？复制邀请发给朋友。配套邀请码会和测评链接一起复制。</p></div><button id="welcome-share" class="button button-secondary">复制测评邀请链接 ↗</button></div>
+      <div class="share-welcome"><span class="share-welcome-spark" aria-hidden="true">✦</span><div><h3>让更多朋友加入小马谷</h3><p>想看看朋友会遇见哪位小马？把测评链接发给朋友，他们可以直接开始。</p></div><button id="welcome-share" class="button button-secondary">复制测评邀请链接 ↗</button></div>
       <p class="disclaimer">这是一项趣味自我探索体验，不是标准化人格测验或心理诊断。新测评参考 MBTI 四种偏好框架，采用自编题目；不是官方 MBTI 测验，尚未验证信效度。旧结果保留原六维数据。</p>
     </section>
   </main>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="/mbti-questions.js?v=20261030-hair-normal"></script><script src="/quiz-world.js?v=20261030-hair-normal"></script><script src="/characters.js?v=20261030-hair-normal"></script><script src="/scoring.js?v=20261030-hair-normal"></script><script src="/expanded-art.js?v=20261030-hair-normal"></script><script src="/episode-titles.js?v=20261030-hair-normal"></script><script src="/character-evidence.js?v=20261030-hair-normal"></script><script src="/result-readings.js?v=20261030-hair-normal"></script><script src="/config.js"></script><script src="/profile-art.js?v=20261030-hair-normal"></script><script src="/careers.js?v=20261030-hair-normal"></script><script src="/career-expansion.js?v=20261030-hair-normal"></script><script src="/career-catalog160.js?v=20261030-hair-normal"></script><script src="/new-fullbody-art.js?v=20261101-transparent-roster"></script><script src="/card-marks.js?v=20261030-hair-normal"></script><script src="/art-bounds.js?v=20261030-hair-normal"></script><script src="/partner-stories.js?v=20261030-hair-normal"></script><script src="/result-experience.js?v=20261101-poster-radar"></script><script src="/pony-interactions.js?v=20261101-transparent-roster"></script><script src="/result-design.js?v=20261030-hair-normal"></script><script src="/character-hobbies.js?v=20261030-hair-normal"></script><script src="/narrative-matching.js?v=20261030-complete"></script><script src="/quiz-form-48-v4.js?v=20261031-preserved"></script><script src="/personalized-followups.js?v=20261031-adaptive12"></script><script src="/quiz-form-48-v5.js?v=20261031-preserved"></script><script src="/quiz-form-48-v6.js?v=20261101-preserved"></script><script src="/question-copy-v7.js?v=20261103-compact"></script><script src="/quiz-form-48.js?v=20261103-36"></script><script src="/narrative-result.js?v=20261103-36"></script><script src="/app.js?v=20261103-invite-link"></script>
+  <script src="/mbti-questions.js?v=20261030-hair-normal"></script><script src="/quiz-world.js?v=20261030-hair-normal"></script><script src="/characters.js?v=20261030-hair-normal"></script><script src="/scoring.js?v=20261030-hair-normal"></script><script src="/expanded-art.js?v=20261030-hair-normal"></script><script src="/episode-titles.js?v=20261030-hair-normal"></script><script src="/character-evidence.js?v=20261030-hair-normal"></script><script src="/result-readings.js?v=20261030-hair-normal"></script><script src="/config.js"></script><script src="/profile-art.js?v=20261030-hair-normal"></script><script src="/careers.js?v=20261030-hair-normal"></script><script src="/career-expansion.js?v=20261030-hair-normal"></script><script src="/career-catalog160.js?v=20261030-hair-normal"></script><script src="/new-fullbody-art.js?v=20261101-transparent-roster"></script><script src="/card-marks.js?v=20261030-hair-normal"></script><script src="/art-bounds.js?v=20261030-hair-normal"></script><script src="/partner-stories.js?v=20261030-hair-normal"></script><script src="/result-experience.js?v=20261101-poster-radar"></script><script src="/pony-interactions.js?v=20261101-transparent-roster"></script><script src="/result-design.js?v=20261030-hair-normal"></script><script src="/character-hobbies.js?v=20261030-hair-normal"></script><script src="/narrative-matching.js?v=20261030-complete"></script><script src="/quiz-form-48-v4.js?v=20261031-preserved"></script><script src="/personalized-followups.js?v=20261031-adaptive12"></script><script src="/quiz-form-48-v5.js?v=20261031-preserved"></script><script src="/quiz-form-48-v6.js?v=20261101-preserved"></script><script src="/question-copy-v7.js?v=20261103-compact"></script><script src="/quiz-form-48.js?v=20261103-36"></script><script src="/narrative-result.js?v=20261103-36"></script><script src="/app.js?v=20261103-open-access"></script>
 <script src="/mail-entry.js?v=20261103-admin-test"></script><script src="/gummy-visit.js?v=20261029-gummy-alpha"></script><script>try{indexedDB.deleteDatabase('pony-private-diary');}catch{}</script></body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
