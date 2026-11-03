@@ -333,7 +333,7 @@
   async function startQuiz() {
     $('start-button').disabled=true; updateGateError('');
     try {
-      const draft=readDraft();if(draft&&!draft.resultId)state=draft;else{useForm(defaultForm);state=freshState();}
+      const draft=readDraft();if(draft&&!draft.resultId&&!(incomingInvite&&draft.token))state=draft;else{useForm(defaultForm);state=freshState();}
       if(!state.token){
         const code=$('access-code').value.trim();
         if(!code){showView('gate');$('access-code').focus();throw new Error('请输入测评密码或邀请码。');}
@@ -495,7 +495,7 @@
         showView('result');
         return;
       }
-      await ensureQuizSession();const saved=await api('/api/complete',{token:state.token,result}); state.resultId=saved.id; state.result=result; state.shared=false;clearCurrentDraft();history.replaceState(null,'',resultLink(saved.id)); renderResult(result); showView('result'); toast('你的友谊印记正在显现…'); }
+      await ensureQuizSession();const saved=await api('/api/complete',{token:state.token,result}); state.resultId=saved.id; state.result=result; state.shared=false;rememberInviteOwner(saved.id,state.token);clearCurrentDraft();history.replaceState(null,'',resultLink(saved.id)); renderResult(result); showView('result'); toast('你的友谊印记正在显现…'); }
     catch(err){ $('next-button').disabled=false; toast(err.message,'error'); renderQuestion(steps.length-1); }
   }
   function renderResult(result) {
@@ -797,13 +797,50 @@
   $('prev-button').addEventListener('click',()=>{const i=Number($('next-button').dataset.index);if(i>0)renderQuestion(i-1);});
   $('next-button').addEventListener('click',()=>{const i=Number($('next-button').dataset.index);if(i===steps.length-1)finishQuiz();else{renderQuestion(i+1);const completed=i+1;if(completed%5===0&&steps.slice(0,completed).every((_,n)=>answeredAt(n))&&!(state.celebratedStages||[]).includes(completed)){state.celebratedStages=(state.celebratedStages||[]).concat(completed);saveDraft();celebrateStage(completed);}}});
   $('exit-quiz').addEventListener('click',()=>{if(adminTest){location.assign('admin.html');return;}if(confirm('先离开答题？进度会保留15分钟，回来可以继续。')){saveDraft();history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');showView('gate');}});
-  $('welcome-share').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.origin+(window.SITE_CONFIG?.basePath||'/'));toast('测评入口已复制，记得把赠送的邀请码一起发给朋友。','success');}catch(err){toast('复制失败，请重试。','error');}});
+  function rememberInviteOwner(id,token){
+    try{sessionStorage.setItem('ponyInviteOwner:'+id,token);}catch{}
+  }
+  async function inviteMessage(){
+    const url=new URL(window.SITE_CONFIG?.basePath||'/',location.origin);
+    const id=state.resultId;
+    let token=state.token;
+    if(!token&&id){
+      try{token=sessionStorage.getItem('ponyInviteOwner:'+id);}catch{}
+    }
+    if(!id||!token)return {text:url.href,withCode:false};
+    const data=await api('/api/invitation',{token,result_id:id});
+    if(data.code===null)return {text:url.href,withCode:false,notice:data.message};
+    if(!/^INVITE-[A-Z0-9-]{1,57}$/.test(data.code||''))throw new Error('邀请码暂时无法读取，请稍后重试。');
+    url.hash=new URLSearchParams({invite:data.code}).toString();
+    return {text:['来小马谷测测你是哪匹小马！',url.href,'邀请码：'+data.code,'打开链接会自动填入邀请码，点击开始即可。'].join('\n'),withCode:true};
+  }
+  $('welcome-share').addEventListener('click',async()=>{
+    let message;
+    const pending=inviteMessage().then(value=>(message=value));
+    try{
+      if(navigator.clipboard?.write&&window.ClipboardItem){
+        await navigator.clipboard.write([new ClipboardItem({'text/plain':pending.then(value=>new Blob([value.text],{type:'text/plain'}))})]);
+      }else{
+        message=await pending;
+        await navigator.clipboard.writeText(message.text);
+      }
+      toast(message.withCode?'已复制测评链接和配套邀请码。':(message.notice||'已复制测评入口。配套邀请码请查看原发货消息。'),'success');
+    }catch{
+      try{message=await pending;}catch(error){toast(error.message,'error');return;}
+      window.prompt('请复制邀请内容：',message.text);
+    }
+  });
   $('copy-link').addEventListener('click',copyLink);$('save-image').addEventListener('click',saveImage);
   $('retake').addEventListener('click',()=>{if(adminTest){startAdminTest();return;}clearCurrentDraft();state=freshState();updateGateError('');history.replaceState(null,'',window.SITE_CONFIG?.basePath||'/');showView('gate');});
   const params=new URLSearchParams(location.search),match=location.pathname.match(/\/r\/([A-Za-z0-9_-]+)\/?$/),sharedId=params.get('r')||new URLSearchParams(location.hash.slice(1)).get('result')||match?.[1],recent=visit?.initial;
+  const incomingInvite=new URLSearchParams(location.hash.slice(1)).get('invite');
   const resumeRecent=()=>restoreVisit(recent).then(ok=>{if(!ok){clearCurrentDraft();location.replace(window.SITE_CONFIG?.basePath||'/');}}).catch(()=>{document.documentElement.classList.remove('visit-resuming');visit?.clear();location.replace(window.SITE_CONFIG?.basePath||'/');});
   if(visit?.expired&&!params.has('admin-test'))clearCurrentDraft();
-  const previewSlug=params.get('admin-preview');if(params.get('admin-test')==='1')openAdminTest();else if(previewSlug)openAdminPreview(previewSlug);else if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId)){if(recent?.view==='result'&&recent.resultId===sharedId)resumeRecent();else loadShared(sharedId);}else if(recent&&!(params.get('quiz')==='1'&&recent.view==='result'))resumeRecent();else if(params.get('quiz')==='1'||params.get('resume')==='1')startQuiz();else refreshParticipation();
+  const previewSlug=params.get('admin-preview');if(params.get('admin-test')==='1')openAdminTest();else if(previewSlug)openAdminPreview(previewSlug);else if(/^INVITE-[A-Z0-9-]{1,57}$/.test(incomingInvite||'')){
+    $('access-code').value=incomingInvite;
+    document.documentElement.classList.remove('visit-resuming');
+    showView('gate');
+  }else if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId)){if(recent?.view==='result'&&recent.resultId===sharedId)resumeRecent();else loadShared(sharedId);}else if(recent&&!(params.get('quiz')==='1'&&recent.view==='result'))resumeRecent();else if(params.get('quiz')==='1'||params.get('resume')==='1')startQuiz();else refreshParticipation();
 })();
 
 

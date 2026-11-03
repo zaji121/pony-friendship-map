@@ -1,6 +1,6 @@
 import {scoreAnswers} from './quiz-data.js';
 import {handleAdmin} from './admin.ts';
-import {hashCode} from './codes.ts';
+import {decrypt,hashCode} from './codes.ts';
 import {replenishStock,pairLegacyCodes} from './bundles.ts';
 
 const databaseUrl=Deno.env.get('SUPABASE_URL')!;
@@ -60,7 +60,7 @@ Deno.serve(async req=>{
    const rows=await database('pony_results?select=payload&id=eq.'+encodeURIComponent(id)+'&limit=1');
    return rows.length?send(rows[0].payload):send({error:'没有找到这份测评结果。'},404);
   }
-  if(req.method!=='POST'||!['/start','/complete'].includes(route))return send({error:'接口不存在。'},404);
+  if(req.method!=='POST'||!['/start','/complete','/invitation'].includes(route))return send({error:'接口不存在。'},404);
   const text=await req.text();if(text.length>100000)return send({error:'请求过大。'},413);
   let body;try{body=JSON.parse(text);}catch{return send({error:'请求格式错误。'},400);}
   if(route==='/start'){
@@ -71,6 +71,20 @@ Deno.serve(async req=>{
    return send(result,result.status||200);
   }
   const token=String(body.token||'');if(!/^[a-f0-9]{48}$/.test(token))return send({error:'测评会话已失效，请重新开始。'},401);
+  if(route==='/invitation'){
+   const resultId=String(body.result_id||'');
+   if(!/^[A-Za-z0-9_-]{1,100}$/.test(resultId))return send({error:'请先完成测评。'},400);
+   const sessions=await database('pony_sessions?select=code_hash&token=eq.'+token+'&result_id=eq.'+encodeURIComponent(resultId)+'&limit=1');
+   const codeHash=sessions[0]?.code_hash;
+   if(!/^[a-f0-9]{64}$/.test(codeHash||''))return send({error:'无法从当前结果领取邀请码，请查看原发货消息。'},403);
+   const bundles=await database('pony_bundle_inventory?select=invite_cipher,invite_used,enabled,expires_at&purchase_id=eq.'+codeHash+'&limit=1');
+   const bundle=bundles[0];
+   if(!bundle)return send({code:null,message:'已复制测评入口。这次测评没有配套邀请码。'});
+   if(!bundle.enabled||bundle.invite_used>0||(bundle.expires_at&&Date.parse(bundle.expires_at)<=Date.now())){
+    return send({code:null,message:'已复制测评入口。配套邀请码已使用或已失效。'});
+   }
+   return send({code:await decrypt(bundle.invite_cipher)});
+  }
   let result;try{result=scoreAnswers(body.result?.answers,body.result?.narrative);}catch(error){return send({error:(error as Error).message},400);}
   const saved=await database('rpc/pony_complete',{p_token:token,p_id:random(),p_result:result});
   return send(saved,saved.status||200);
