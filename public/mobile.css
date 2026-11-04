@@ -50,11 +50,11 @@ img{max-width:100%}
  .quiz-nav .button{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;min-height:48px;height:auto;padding:12px 10px;font-size:14px;line-height:1.5;white-space:normal}
  .quiz-nav .button span{margin-left:0;flex:none}.quiz-hint{font-size:12px;line-height:1.8;margin:18px 8px}
 
- /* The same measured canvas is used for the cover and the open profile. */
+ /* Let names, controls and artwork take their own space at every text size. */
  .report-cover,.report-cover.profile-open{
-  --mobile-art-size:clamp(210px,58vw,240px);display:block;position:relative;text-align:center;align-content:start;justify-content:normal;
-  height:var(--mobile-cover-height,640px);min-height:var(--mobile-cover-height,640px);max-height:var(--mobile-cover-height,640px);
-  padding:28px 20px 72px!important;border-radius:24px;overflow:hidden;overflow:clip;overflow-anchor:none;box-sizing:border-box;
+  --mobile-art-size:clamp(210px,58vw,240px);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;
+  height:auto;min-height:640px;max-height:none;
+  padding:28px 20px 36px!important;border-radius:24px;overflow:hidden;overflow:clip;overflow-anchor:none;box-sizing:border-box;
  }
  .report-cover>.eyebrow,.report-cover>.result-pretitle,.report-cover>h1,.report-cover>.result-title-en{display:block;position:relative;inset:auto;width:auto;max-width:100%;transform:none;transition:opacity .3s ease}
  .report-cover>.eyebrow{margin:0 0 14px;font-size:10px;line-height:1.5;letter-spacing:.15em}
@@ -62,25 +62,25 @@ img{max-width:100%}
  .report-cover h1{font-size:clamp(32px,10vw,40px)!important;line-height:1.3!important;margin:6px 0!important;letter-spacing:.02em;overflow-wrap:break-word}
  .report-cover .result-title-en{font-size:14px;line-height:1.6;letter-spacing:.035em;margin:7px 0 0;overflow-wrap:break-word}
  .report-cover .result-tagline{font-size:12px;line-height:1.7;max-width:260px;margin:10px auto 0}
- .report-cover>.cover-caption{display:block;position:absolute;top:calc(260px + var(--mobile-art-size) + 20px);left:18px;right:18px;margin:0;width:auto;font-size:14px;line-height:1.8;transform:none;transition:opacity .3s ease}
- .report-cover.profile-open>.eyebrow,.report-cover.profile-open>.result-pretitle,.report-cover.profile-open>h1,.report-cover.profile-open>.result-title-en,.report-cover.profile-open>.cover-caption{display:block;opacity:0;transform:none;pointer-events:none}
- .report-cover .result-character-art,.report-cover.profile-open .result-character-art{position:absolute;left:50%;right:auto;top:260px;width:var(--mobile-art-size);height:var(--mobile-art-size);margin:0;transform:translate3d(-50%,0,0);transition:transform .65s cubic-bezier(.22,.8,.25,1);z-index:2}
- .report-cover.profile-open .result-character-art{transform:translate3d(-50%,-232px,0)}
+ .report-cover>.cover-caption{order:3;display:block;position:relative;inset:auto;margin:20px 0 0;width:auto;font-size:14px;line-height:1.8;transform:none}
+ .report-cover.profile-open>.eyebrow,.report-cover.profile-open>.result-pretitle,.report-cover.profile-open>h1,.report-cover.profile-open>.result-title-en,.report-cover.profile-open>.result-tagline,.report-cover.profile-open>.cover-caption{display:none}
+ .report-cover .result-character-art,.report-cover.profile-open .result-character-art{order:2;position:relative;inset:auto;width:var(--mobile-art-size);max-width:100%;height:var(--mobile-art-size);margin:18px 0 0;transform:none;z-index:2}
+ .report-cover.profile-open .result-character-art{margin-top:0}
  .report-cover #result-portrait,.report-cover.profile-open #result-portrait{width:100%;height:var(--mobile-art-size);min-height:0;max-height:none;display:flex;align-items:center;justify-content:center}
  .report-cover #result-portrait img.pony-photo{display:block;width:100%!important;height:var(--mobile-art-size)!important;max-height:var(--mobile-art-size)!important;max-width:100%!important;object-fit:contain!important;object-position:center}
  .report-cover .result-character-art .result-mark-large{position:absolute;right:0;bottom:4px;width:44px;height:44px;padding:9px;border-radius:50%;overflow:hidden}
- .report-cover .cover-profile,.report-cover.profile-open .cover-profile{display:block;position:absolute;inset:auto;left:18px;right:18px;top:282px;width:auto;max-height:none;overflow:visible;grid-area:auto;margin:0;text-align:left;animation:none}
- .report-cover .cover-profile[hidden]{display:block!important;visibility:hidden}
- .report-cover .cover-profile>.eyebrow{display:block;font-size:10px;line-height:1.5;margin:0;padding-right:120px}
- .report-cover .cover-profile h2{font-size:21px!important;line-height:1.4;margin:5px 0 8px;padding-right:120px}
+ .report-cover .cover-profile,.report-cover.profile-open .cover-profile{order:4;position:relative;inset:auto;width:100%;min-width:0;max-height:none;overflow:visible;margin:8px 0 0;text-align:left;animation:none}
+ .report-cover:not(.profile-open) .cover-profile,.report-cover .cover-profile[hidden]{display:none}
+ .report-cover .cover-profile>.eyebrow{display:block;font-size:10px;line-height:1.5;margin:0}
+ .report-cover .cover-profile h2{font-size:21px!important;line-height:1.4;margin:5px 0 8px}
  .report-cover .cover-profile .profile-sub{display:block;font-size:12px;line-height:1.6;margin:0 0 14px}
  .report-cover .cover-profile .profile-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0}
  .report-cover .cover-profile .profile-fact{min-width:0;min-height:76px;padding:11px 12px;gap:5px;align-items:flex-start;text-align:left}
  .report-cover .cover-profile .profile-fact>span{font-size:13px;line-height:1.45}
  .report-cover .cover-profile .profile-fact strong{font-size:12px;line-height:1.65;overflow-wrap:anywhere;font-weight:500}
  .report-cover .cover-profile .profile-mark-fact{padding-right:42px}.report-cover .cover-profile .profile-original-mark{right:10px;width:24px;height:30px}
- .report-cover .cover-profile-toggle{position:absolute;top:190px;bottom:auto;left:50%;right:auto;transform:translateX(-50%);display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;max-width:calc(100% - 36px);padding:10px 20px;font-size:13px;line-height:1.5;white-space:nowrap;margin:0}
- .report-cover.profile-open .cover-profile-toggle{top:286px;bottom:auto;left:auto;right:18px;transform:none;min-height:36px;max-width:120px;padding:8px 12px;font-size:12px}
+ .report-cover .cover-profile-toggle{order:1;position:relative;inset:auto;transform:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;max-width:100%;padding:10px 20px;font-size:13px;line-height:1.5;margin:16px 0 0}
+ .report-cover.profile-open .cover-profile-toggle{order:3;align-self:flex-end;padding:8px 12px;font-size:12px;margin:8px 0 0}
  body:has(.report-cover.profile-open) .gummy-visit{visibility:hidden;pointer-events:none}
 
  .result-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;gap:6px;padding:6px}

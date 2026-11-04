@@ -65,15 +65,6 @@
   function portraitSource(pony) {
     return window.EXPANDED_ART?.[pony.slug]?.file || `/images/ponies/${pony.slug}.webp?v=20261011-5`;
   }
-  function renderProfileArtwork(pony) {
-    const gallery=document.createElement('div');gallery.className='profile-photo-gallery';
-    const figure=document.createElement('figure'),img=document.createElement('img');
-    img.alt=pony.name+' · 角色形象';img.className='profile-gallery-photo';
-    const alternate=portraitSource(pony);
-    window.setReportArtwork(img,window.FULLBODY_ART?.[pony.slug]?.profile||alternate,{alternate});
-    figure.append(img);gallery.append(figure);
-    $('profile-portrait').replaceChildren(gallery);
-  }
   function markSvg(mark) {
     if(mark==='twilight')return '<img src="/images/show-marks/twilight.svg" alt="紫悦的可爱标志：六角星与五颗小星">';
     if(window.EXPANDED_ART?.[mark]){const source=window.EXPANDED_ART[mark];if(source.originalMark)return '<img src="'+source.originalMark+'" alt="角色标志">';if(source.mark)return '<img src="/images/show-marks/'+mark+'.svg" alt="可爱标志">';if(window.CARD_MARKS?.[mark])return window.CARD_MARKS[mark];return '<span class="species-emblem" title="种族图标，非可爱标志">'+({gilda:'🪶',gallus:'🪶',silverstream:'🪸',yona:'🏔️',ocellus:'🦋',thorax:'🦋',smolder:'🔥',ember:'🔥'}[mark]||({chrysalis:'🦋','king-sombra':'♛','flurry-heart':'❄️'}[mark])||'✦')+'</span>';}
@@ -121,7 +112,7 @@
     for(const key of [flowKey,'ponyNarrative48-v4'])try{
       const draft=JSON.parse(sessionStorage.getItem(key)||'null');
       if(draft?.savedAt&&Date.now()-draft.savedAt>=15*60*1000){sessionStorage.removeItem(key);continue;}
-      const edition=[defaultForm,window.PONY_QUIZ_40,window.PONY_QUIZ_48,window.PONY_QUIZ_48_V4,window.PONY_QUIZ_48_V5,window.PONY_QUIZ_48_V6].find(f=>f&&f.version===(draft?.formVersion||draft?.version));
+      const edition=[defaultForm,window.PONY_QUIZ_40,window.PONY_QUIZ_48].find(f=>f&&f.version===(draft?.formVersion||draft?.version));
       if(edition&&draft.answers?.length===edition.coreCount&&window.PONY_NARRATIVE_MATCH.choicesValid(draft.choices)&&draft.finalAnswers?.length===edition.finalSlots&&Array.isArray(draft.completedTasks)&&Number.isInteger(draft.index)&&draft.index>=0&&draft.index<edition.total){useForm(edition);const restored={...freshState(),...draft,formVersion:form.version};if(key!==flowKey)restored.openedChapters=(Array.isArray(draft.openedChapters)?draft.openedChapters:[]).filter(c=>c!==steps[Math.min(draft.index,steps.length-1)].chapter);return restored;}
     }catch{}
     return null;
@@ -549,7 +540,6 @@
     $('primary-duo-tags').replaceChildren(...primaryMatch.labels.map(label=>makeTraitTag(label)));
     $('secondary-tags').replaceChildren(...secondaryMatch.labels.map(label=>makeTraitTag(label)));
     const meta=PONY_META[main.slug];$('profile-role').textContent=`${meta.virtue} · ${meta.species}`;
-    renderProfileArtwork(main);
     const facts=[['种族',meta.species],['常住地',meta.home],['故乡 / 来处',meta.origin],['兴趣爱好',window.CHARACTER_HOBBIES?.[main.slug]||'剧中未明确展示个人爱好'],['可爱标志',meta.markText],['友谊象征',meta.virtue]];
     $('profile-facts').replaceChildren(...facts.map(([label,value])=>{const row=document.createElement('div');row.className='profile-fact';const k=document.createElement('span');k.textContent=label;const v=document.createElement('strong');v.textContent=value;row.append(k,v);if(label==='可爱标志'){const url=showMarkUrl(main);if(url){const img=document.createElement('img');img.src=url;img.alt=main.name+'的可爱标志（动画版样式）';img.className='profile-original-mark';row.append(img);row.classList.add('profile-mark-fact');}}return row;}));
     const topNames=ranked.slice(0,2).map(x=>x.d.name).join('、'),low=ranked[ranked.length-1].d.name;

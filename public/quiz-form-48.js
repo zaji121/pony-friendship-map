@@ -3,7 +3,7 @@
 (function(w){
 const axes=['EI','SN','TF','JP'],picks={EI:[0,1,3,4,6,7,9,10],SN:[0,1,4,5,6,7,9,10],TF:[0,1,3,4,6,7,10,11],JP:[0,1,3,4,7,8,9,10]};
 const indexes=[];axes.forEach((axis,j)=>picks[axis].forEach(k=>indexes.push(k*4+j)));indexes.sort((a,b)=>a-b);
-const isV7=!!(w.PONY_QUIZ_48_V6&&w.PONY_COPY_V7),copy=isV7?w.PONY_COPY_V7:null,originalBank=w.PONY_PERSONALIZED_FOLLOWUPS;
+const isV7=!!(w.PONY_COPY_V7&&w.PONY_PERSONALIZED_FOLLOWUPS),copy=isV7?w.PONY_COPY_V7:null,originalBank=w.PONY_PERSONALIZED_FOLLOWUPS;
 const personalizedBank=isV7?{...originalBank,items:originalBank.items.map(q=>({...q,...copy.personal[q.id]})),select(result,answered){const q=originalBank.select(result,answered);return q?{...q,...copy.personal[q.id]}:null;}}:originalBank;
 const questions=indexes.map(i=>{const q=w.QUIZ_QUESTIONS[i];return [q[0],q[1].map(a=>a.slice()),{...q[2]}];}),version=isV7?'festival-48-single-20261101-v7':w.PONY_PERSONALIZED_FOLLOWUPS?(w.PONY_QUIZ_48_V5?'festival-48-single-20261031-v6':'festival-48-single-20261031-v5'):'festival-48-single-20261030-v4';
 const reviseCore=(i,stem,left,right)=>{const q=questions[i];questions[i]=[stem,q[1].map(([,score])=>[score===1?left:right,score]),{...q[2],left,right}];};
