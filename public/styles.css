@@ -390,6 +390,8 @@ html{scroll-behavior:smooth}.shell:has(.illustrated-report){width:min(1200px,cal
 
 /* Bound the actual image box, including tall full-body portraits. */
 .report-cover #result-portrait{display:flex;align-items:center;justify-content:center;overflow:visible;padding:0}
+.report-cover .portrait-retry{position:absolute;top:calc(50% - 24px);left:0;right:0;width:max-content;margin:0 auto;z-index:3;white-space:nowrap}
+.report-cover .portrait-retry[hidden]{display:none}
 .report-cover #result-portrait img.pony-photo{display:block;width:100%!important;height:350px!important;max-width:100%!important;max-height:350px!important;object-fit:contain!important;object-position:center;flex:none}
 @media(max-width:650px){.report-cover #result-portrait img.pony-photo{height:220px!important;max-height:220px!important}}
 

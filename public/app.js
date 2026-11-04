@@ -62,9 +62,16 @@
   window.EXTRA_CHARACTERS.forEach(p=>{PONY_META[p.slug]=p.meta;ROLE_COLORS[p.slug]=window.CHARACTER_COLORS[p.slug]||({'bon-bon':['#7d8db7','#f8f0de'],lyra:['#4faaa0','#eaf6ed']}[p.slug]);});
   PONY_META.rarity.origin='小马谷';PONY_META.cadance.origin='曾为飞马，后成为天角兽';
   function showMarkUrl(pony) { if(window.EXPANDED_ART?.[pony.slug]?.originalMark)return window.EXPANDED_ART[pony.slug].originalMark; if(window.EXTRA_CHARACTERS.includes(pony))return window.EXPANDED_ART?.[pony.slug]?.mark?'/images/show-marks/'+pony.slug+'.svg':null;return ['spike','discord'].includes(pony.slug)?null:'/images/show-marks/'+pony.slug+(pony.slug==='luna'?'.png':'.svg'); }
+  function portraitSource(pony) {
+    return window.EXPANDED_ART?.[pony.slug]?.file || `/images/ponies/${pony.slug}.webp?v=20261011-5`;
+  }
   function renderProfileArtwork(pony) {
     const gallery=document.createElement('div');gallery.className='profile-photo-gallery';
-    [1].forEach(n=>{const figure=document.createElement('figure'),img=document.createElement('img');img.src=window.FULLBODY_ART?.[pony.slug]?.profile||window.EXPANDED_ART?.[pony.slug]?.file||'/images/ponies/'+pony.slug+'.webp?v=fullbody-20261012';img.alt=pony.name+' · 角色形象';img.className='profile-gallery-photo';img.loading='lazy';figure.append(img);gallery.append(figure);});
+    const figure=document.createElement('figure'),img=document.createElement('img');
+    img.alt=pony.name+' · 角色形象';img.className='profile-gallery-photo';
+    const alternate=portraitSource(pony);
+    window.setReportArtwork(img,window.FULLBODY_ART?.[pony.slug]?.profile||alternate,{alternate});
+    figure.append(img);gallery.append(figure);
     $('profile-portrait').replaceChildren(gallery);
   }
   function markSvg(mark) {
@@ -90,10 +97,11 @@
     };
     return `<svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">${shapes[mark]||shapes.twilight}</svg>`;
   }
-  function ponyImage(p, className, eager=false) {
+  function ponyImage(p, className, options={}) {
     const img=document.createElement('img');
-    img.className=className; img.src=window.EXPANDED_ART?.[p.slug]?.file||`/images/ponies/${p.slug}.webp?v=20261011-5`;
-    img.alt=`${p.name}（${p.en}）`; img.decoding='async'; img.loading=eager?'eager':'lazy';
+    img.className=className;
+    img.alt=`${p.name}（${p.en}）`;
+    window.setReportArtwork(img,portraitSource(p),{alternate:window.FULLBODY_ART?.[p.slug]?.profile,...options});
     return img;
   }
   const views = ['gate','quiz','result','shared-status'].map($);
@@ -503,7 +511,13 @@
     const resultView=$('result');resultView.style.setProperty('--role-accent',accent);resultView.style.setProperty('--role-soft',soft);
     $('result-title').textContent=main.name; $('result-title-en').textContent=main.en; $('result-tagline').textContent=result.demo?'示例结果 · 使用演示作答生成，并非你的个人结果':main.tagline;
     $('result-mark').innerHTML=markSvg(main.mark);
-    const portrait=$('result-portrait'); portrait.replaceChildren(ponyImage(main,'pony-photo',true));
+    const portrait=$('result-portrait');
+    const retryPortrait=document.createElement('button');
+    retryPortrait.type='button';retryPortrait.className='button button-secondary portrait-retry';retryPortrait.hidden=true;
+    retryPortrait.textContent='重试加载角色图片';
+    portrait.parentElement.querySelector('.portrait-retry')?.remove();
+    portrait.after(retryPortrait);
+    portrait.replaceChildren(ponyImage(main,'pony-photo',{eager:true,retryButton:retryPortrait}));
     portrait.setAttribute('aria-label',`${main.name} ${main.en} 角色形象`);
     $('result-heading').textContent=main.archetype; $('result-description').textContent=main.description;
     $('result-strength').textContent=main.strength; $('result-edge').textContent=main.edge; $('result-tip').textContent=main.tip;

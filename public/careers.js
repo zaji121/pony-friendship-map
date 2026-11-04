@@ -69,7 +69,9 @@
     host.replaceChildren();
     const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text)n.textContent=text;return n;};
     const link=(text,url)=>{const a=el('a','career-source-link',text);a.href=url;a.target='_blank';a.rel='noopener noreferrer';return a;};
-    const hero=el('div','career-hero'),img=el('img','career-portrait');img.src=window.FULLBODY_ART?.[main.slug]?.career||window.EXPANDED_ART?.[main.slug]?.file||`/images/ponies/${main.slug}.webp?v=fullbody-20261012`;img.alt=main.name;
+    const hero=el('div','career-hero'),img=el('img','career-portrait');img.alt=main.name;
+    const alternate=window.EXPANDED_ART?.[main.slug]?.file||`/images/ponies/${main.slug}.webp?v=fullbody-20261012`;
+    window.setReportArtwork(img,window.FULLBODY_ART?.[main.slug]?.career||alternate,{alternate});
     const copy=el('div','career-hero-copy');copy.append(el('span','career-kicker','小马谷工作手记 · '+role.place),el('h3','',main.name+'式的职业探索'),el('p','',role.scene),link('角色故事资料','https://mlp.fandom.com/wiki/'+role.wiki));hero.append(img,copy);host.append(hero);
     const evidence=el('div','career-evidence');evidence.append(el('p','','职业名称与工作内容参考《中华人民共和国职业分类大典（2022年版）》。'));host.append(evidence);
     const ways=el('div','career-work-grid');(modern?[]:ranked.slice(0,2)).forEach(({i,value})=>{const card=el('article','career-work-card');card.append(el('span','career-kicker',`本次选择频率 ${Math.round(value*100)}%`),el('h4','',workWays[i][0]),el('p','',workWays[i][1]));ways.append(card);});host.append(ways);

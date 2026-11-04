@@ -1,6 +1,11 @@
 (()=>{
 const node=(tag,cls,text)=>{const n=document.createElement(tag);n.className=cls||'';if(text)n.textContent=text;return n;};
-const photo=(p,kind='profile')=>{const image=node('img','chapter-pony');image.src=window.FULLBODY_ART?.[p.slug]?.[kind]||window.EXPANDED_ART?.[p.slug]?.file||document.querySelector('#result-portrait img')?.src;image.alt=p.name;image.loading='lazy';return image;};
+const photo=p=>{
+ const image=node('img','chapter-pony');image.alt=p.name;
+ const alternate=document.querySelector('#result-portrait img')?.dataset.artSource;
+ window.setReportArtwork(image,window.FULLBODY_ART?.[p.slug]?.profile||alternate,{alternate});
+ return image;
+};
 window.designFriendshipReport=(result,main,second)=>{
  const panel=document.getElementById('you-panel');if(!panel)return;
  document.querySelector('.result').classList.add('illustrated-report');
@@ -55,7 +60,7 @@ window.designFriendshipReport=(result,main,second)=>{
  social.querySelector('.chapter-art-banner')?.remove();
  social.querySelector('.social-interaction')?.remove();
  const interaction=window.PONY_INTERACTIONS?.[main.slug];
- if(interaction){const figure=node('figure','social-interaction');const img=node('img');img.src=interaction.file;img.alt=interaction.caption;img.loading='lazy';figure.append(img,node('figcaption','',interaction.caption));social.querySelector('.profile-title').after(figure);}
+ if(interaction){const figure=node('figure','social-interaction');const img=node('img');img.alt=interaction.caption;window.setReportArtwork(img,interaction.file);figure.append(img,node('figcaption','',interaction.caption));social.querySelector('.profile-title').after(figure);}
  const careerHero=career.querySelector('.career-hero');if(careerHero)careerHero.classList.add('illustrated-career');
  story.querySelector('.story-illustration')?.remove();
  document.querySelectorAll('.dimension-card').forEach((card,i)=>{card.style.setProperty('--chapter-color',['#7e71aa','#c5a454','#70a798','#b884a4'][i]);card.classList.add('colored-preference');});
