@@ -198,7 +198,8 @@ function nextFollowup(result,answered=[]){
   return {left:best.left,right:best.right,stem:'下次庆典想做一条“小镇寻宝路线”，先做一个版本来试。你更想做哪一版？',leftText:forward?leftText:rightText,rightText:forward?rightText:leftText,candidateSlugs:[a.slug,b.slug],contrast:'shared-route-proposal'};
  }
  const actions=followupActions;
- return {left:best.left,right:best.right,stem:isV7?'回家前还有十分钟，两处都可以去。你更想做哪件事？':'庆典收尾后，还能选一件事做。两边都有人帮忙，你更想先接哪件？',leftText:actions[best.left],rightText:actions[best.right],candidateSlugs:[a.slug,b.slug],contrast:'nearby-candidate-difference'};
+ const stem=isV7?(copy.genericStems?.[answered.length]||'回家前还有十分钟，两处都可以去。你更想做哪件事？'):'庆典收尾后，还能选一件事做。两边都有人帮忙，你更想先接哪件？';
+ return {left:best.left,right:best.right,stem,leftText:actions[best.left],rightText:actions[best.right],candidateSlugs:[a.slug,b.slug],contrast:'nearby-candidate-difference'};
 }
 const mainSix=new Set(['twilight','applejack','rainbow-dash','pinkie-pie','fluttershy','rarity']);
 function scoreCore(answers, items=questions, itemIndexes=indexes, edition=version){
