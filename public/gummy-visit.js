@@ -22,17 +22,24 @@
   let pauseCount=0,pauseTime=0,midpointVisited=false,midpointTime=0,midpointLicked=false;
   function setPhase(value){phase=value;pet.dataset.phase=value;}
   let anchorEdge='top',surface='card',walkStartX=0;
+  const phone=matchMedia('(max-width:700px)');
+  const floor=()=>Math.min(innerHeight,(window.visualViewport?.offsetTop||0)+(window.visualViewport?.height||innerHeight))-3;
   const surfaceRect=()=>surface==='viewport'?{left:0,width:innerWidth}:anchor.getBoundingClientRect();
-  const rim=()=>{if(surface==='viewport')return innerHeight-3;const r=anchor.getBoundingClientRect();return anchorEdge==='bottom'?r.bottom:r.top;};
+  const rim=()=>{
+   if(surface==='viewport')return floor();
+   const r=anchor.getBoundingClientRect(),edge=anchorEdge==='bottom'?r.bottom:r.top;
+   // The phone profile can grow while Gummy is on the cover rim.
+   return phone.matches&&anchor.classList.contains('report-cover')?Math.min(edge,floor()):edge;
+  };
   function chooseSurface(){
    const foot=y+77;
    // Compare downward travel to visible card rims and the viewport floor.
-   const edges=[{surface:'viewport',at:innerHeight-3}];
+   const screenFloor=floor(),edges=[{surface:'viewport',at:screenFloor}];
    result.querySelectorAll('.report-chapter,.result-hero,.type-reading,.dimension-card').forEach(el=>{
     const r=el.getBoundingClientRect();if(r.width<180||r.height<80)return;
     for(const edge of ['top','bottom']){
      const at=edge==='top'?r.top:r.bottom;
-     if(at>=Math.max(90,foot-3)&&at<innerHeight-3)edges.push({surface:'card',el,edge,at});
+     if(at>=Math.max(90,foot-3)&&at<screenFloor)edges.push({surface:'card',el,edge,at});
     }
    });
    const chosen=edges.sort((a,b)=>Math.max(0,a.at-foot)-Math.max(0,b.at-foot))[0];
