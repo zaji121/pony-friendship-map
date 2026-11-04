@@ -1,9 +1,9 @@
 (() => {
-  window.setReportArtwork = (img, source, {alternate, eager = false, retryButton} = {}) => {
+  window.setReportArtwork = (img, source, {alternate, eager = false, retryButton, priority} = {}) => {
     const candidates = [...new Set([source, alternate].filter(Boolean))];
     img.loading = eager ? 'eager' : 'lazy';
     img.decoding = 'async';
-    if (retryButton) img.setAttribute('fetchpriority', 'high');
+    if (retryButton || priority) img.setAttribute('fetchpriority', priority || 'high');
 
     let index = 0;
     let retried = false;

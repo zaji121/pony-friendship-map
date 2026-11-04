@@ -22,13 +22,35 @@ window.designFriendshipReport=(result,main,second)=>{
   hero.append(coverProfile);oldProfile.hidden=true;oldProfile.classList.add('hidden');
   const toggle=node('button','cover-profile-toggle','✧ 查看档案');toggle.type='button';toggle.setAttribute('aria-controls','cover-profile');toggle.setAttribute('aria-expanded','false');hero.append(toggle);
   const portrait=document.getElementById('result-portrait');portrait.setAttribute('role','button');portrait.tabIndex=0;portrait.setAttribute('aria-controls','cover-profile');
-  let profileHideTimer;
+  const artwork=portrait.parentElement;
+  const coverCopy=hero.querySelectorAll(':scope > .eyebrow, :scope > .result-pretitle, :scope > h1, :scope > .result-title-en, :scope > .cover-caption');
+  let profileHideTimer,motion=[];
   const switchProfile=()=>{
-   const open=!hero.classList.contains('profile-open');clearTimeout(profileHideTimer);
-   if(open){coverProfile.hidden=false;void coverProfile.offsetWidth;}
+   const open=!hero.classList.contains('profile-open'),mobile=matchMedia('(max-width:700px)').matches;
+   const animate=mobile&&hero.animate&&!matchMedia('(prefers-reduced-motion:reduce)').matches;
+   const moving=[artwork,toggle],before=animate?moving.map(el=>el.getBoundingClientRect()):[];
+   const oldHeight=animate?hero.getBoundingClientRect().height:0;
+   motion.forEach(animation=>animation.cancel());motion=[];
+   clearTimeout(profileHideTimer);
+   if(open){coverProfile.hidden=false;if(!mobile)void coverProfile.offsetWidth;}
    hero.classList.toggle('profile-open',open);
-   if(!open)profileHideTimer=setTimeout(()=>{if(!hero.classList.contains('profile-open'))coverProfile.hidden=true;},300);
+   if(!open){
+    if(mobile)coverProfile.hidden=true;
+    else profileHideTimer=setTimeout(()=>{if(!hero.classList.contains('profile-open'))coverProfile.hidden=true;},300);
+   }
    toggle.textContent=open?'← 返回封面':'✧ 查看档案';toggle.setAttribute('aria-expanded',String(open));portrait.setAttribute('aria-expanded',String(open));portrait.setAttribute('aria-label',open?'返回角色封面':'查看'+main.name+'的角色档案');
+   if(!animate)return;
+   const timing={duration:360,easing:'cubic-bezier(.22,.75,.25,1)'};
+   const height=hero.getBoundingClientRect().height;
+   const after=moving.map(el=>el.getBoundingClientRect());
+   if(Math.abs(height-oldHeight)>1)motion.push(hero.animate([{height:oldHeight+'px'},{height:height+'px'}],timing));
+   moving.forEach((el,i)=>{
+    const dx=before[i].left-after[i].left,dy=before[i].top-after[i].top;
+    motion.push(el.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:'translate(0,0)'}],timing));
+   });
+   for(const el of open?[coverProfile]:coverCopy){
+    motion.push(el.animate([{opacity:0,translate:open?'24px 0':'-24px 0'},{opacity:1,translate:'0 0'}],timing));
+   }
   };
   toggle.onclick=switchProfile;portrait.onclick=switchProfile;portrait.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();switchProfile();}};
  }

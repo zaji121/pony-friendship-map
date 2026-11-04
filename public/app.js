@@ -95,6 +95,15 @@
     window.setReportArtwork(img,portraitSource(p),{alternate:window.FULLBODY_ART?.[p.slug]?.profile,...options});
     return img;
   }
+  function rosterImage(pony) {
+    const img=document.createElement('img');
+    img.className='pony-photo-mini';img.alt=`${pony.name}（${pony.en}）`;
+    window.setReportArtwork(img,`/images/roster-thumbs/${pony.slug}.webp?v=20261104`,{alternate:portraitSource(pony),priority:'low'});
+    return img;
+  }
+  function warmRosterImages() {
+    document.querySelectorAll('#character-grid .pony-photo-mini').forEach(img=>{img.loading='eager';});
+  }
   const views = ['gate','quiz','result','shared-status'].map($);
   const questions = window.QUIZ_QUESTIONS;
   const defaultForm=window.PONY_QUIZ_36,flowKey='ponyFestival48-v4';let form=defaultForm,steps=[];
@@ -508,7 +517,11 @@
     retryPortrait.textContent='重试加载角色图片';
     portrait.parentElement.querySelector('.portrait-retry')?.remove();
     portrait.after(retryPortrait);
-    portrait.replaceChildren(ponyImage(main,'pony-photo',{eager:true,retryButton:retryPortrait}));
+    const coverImage=ponyImage(main,'pony-photo',{eager:true,retryButton:retryPortrait});
+    coverImage.addEventListener('load',()=>{
+      if(coverImage.isConnected)warmRosterImages();
+    },{once:true});
+    portrait.replaceChildren(coverImage);
     portrait.setAttribute('aria-label',`${main.name} ${main.en} 角色形象`);
     $('result-heading').textContent=main.archetype; $('result-description').textContent=main.description;
     $('result-strength').textContent=main.strength; $('result-edge').textContent=main.edge; $('result-tip').textContent=main.tip;
@@ -632,7 +645,7 @@
     const order=["twilight","applejack","rainbow-dash","pinkie-pie","fluttershy","rarity","spike","starlight","sunset-shimmer","apple-bloom","sweetie-belle","scootaloo","diamond-tiara","cozy-glow","luna","celestia","discord","cadance","trixie","big-mac","shining-armor","zecora","granny-smith","sunburst","maud","pear-butter","bright-mac","bon-bon","lyra","dj-pon3","sugar-belle","daring-do","cheese-sandwich","filthy-rich","gilda","chrysalis","king-sombra","nightmare-moon","daybreaker","mistmane"];
     order.map(slug=>({p:PONIES.find(p=>p.slug===slug),i:PONIES.findIndex(p=>p.slug===slug)})).filter(x=>x.p&&!(window.INACTIVE_CHARACTERS||[]).includes(x.p.slug)).forEach(({p,i})=>{const card=document.createElement('button');card.type='button';card.className='character-card'+(i===result.primary?' is-primary':i===result.secondary?' is-secondary':'');const colors=ROLE_COLORS[p.slug]||ROLE_COLORS.twilight;card.style.setProperty('--pony-accent',colors[0]);card.style.setProperty('--pony-soft',colors[1]);
       if(p.slug==='flurry-heart'){const note=document.createElement('span');note.className='character-en';note.textContent='成熟形象 · 同人演绎｜仅供角色展示';card.append(note);}
-      const art=document.createElement('span');art.className='character-art-mini';art.append(ponyImage(p,'pony-photo-mini'));const icon=document.createElement('span');icon.className='character-mark';icon.innerHTML=markSvg(p.mark);const name=document.createElement('span');name.className='character-name';name.textContent=p.name;const en=document.createElement('span');en.className='character-en';en.textContent=p.en;const desc=document.createElement('span');desc.className='character-archetype';desc.textContent=p.archetype;card.append(art,icon,name,en,desc);
+      const art=document.createElement('span');art.className='character-art-mini';art.append(rosterImage(p));const icon=document.createElement('span');icon.className='character-mark';icon.innerHTML=markSvg(p.mark);const name=document.createElement('span');name.className='character-name';name.textContent=p.name;const en=document.createElement('span');en.className='character-en';en.textContent=p.en;const desc=document.createElement('span');desc.className='character-archetype';desc.textContent=p.archetype;card.append(art,icon,name,en,desc);
       if(i===result.primary||i===result.secondary){const badge=document.createElement('span');badge.className='character-badge';badge.textContent=i===result.primary?'你的主角色':'你的副角色';card.append(badge);}
       card.addEventListener('click',()=>{if(adminPreview){previewRole(p.slug);return;}detail.classList.remove('hidden');const [accent,soft]=ROLE_COLORS[p.slug]||ROLE_COLORS.twilight;detail.style.setProperty('--pony-accent',accent);detail.style.setProperty('--pony-soft',soft);detail.replaceChildren();const artPane=document.createElement('span');artPane.className='character-detail-art';artPane.append(ponyImage(p,'pony-photo-detail'));const copy=document.createElement('span');copy.className='character-detail-copy';const strong=document.createElement('strong');strong.textContent=`${p.name} · ${p.en}｜${p.archetype}`;const text=document.createElement('span');text.textContent=p.description;const meta=PONY_META[p.slug];const facts=document.createElement('span');facts.className='detail-facts';facts.textContent=`${meta.species}｜友谊象征：${meta.virtue}｜可爱标志：${meta.markText}｜常住地：${meta.home}`;const traits=document.createElement('span');traits.className='detail-traits';traits.textContent=`画像关键词：${p.profile.map((value,index)=>({value,index})).sort((a,b)=>b.value-a.value).slice(0,3).map(item=>DIMS[item.index].name).join('、')}`;const strength=document.createElement('span');strength.className='detail-insight';strength.textContent=`闪光点：${p.strength}`;const edge=document.createElement('span');edge.className='detail-insight';edge.textContent=`压力提醒：${p.edge}`;const save=document.createElement('span');save.className='detail-insight';save.textContent=`成长小练习：${p.tip}`;copy.append(strong,text,facts,traits,strength,edge,save);detail.append(artPane,copy);dialog.setAttribute('aria-label',p.name+'的角色介绍');if(!dialog.open){dialog.dataset.previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';dialog.showModal();}});grid.append(card);
     });
@@ -669,7 +682,7 @@
     if(modern){$('trait-radar').parentElement.querySelector('.profile-sub').textContent='四个连续维度 · 八个方向 · 对向两端合计100%';let note=$('radar-reading-note');if(!note){note=document.createElement('p');note.id='radar-reading-note';note.className='radar-reading-note';legend.after(note);}note.textContent='中心表示两端均衡，外圈表示本次选择明显偏向标注的一端。图形大小不是能力、友谊水平或人格优劣；下方保留两端完整比例。';}
   }
   function bindTabs() {
-    document.querySelectorAll('.result-tab').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.result-tab').forEach(b=>b.classList.toggle('active',b===btn));$('you-panel').classList.toggle('hidden',btn.dataset.tab!=='you');$('all-panel').classList.toggle('hidden',btn.dataset.tab!=='all');});
+    document.querySelectorAll('.result-tab').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.result-tab').forEach(b=>b.classList.toggle('active',b===btn));$('you-panel').classList.toggle('hidden',btn.dataset.tab!=='you');$('all-panel').classList.toggle('hidden',btn.dataset.tab!=='all');if(btn.dataset.tab==='all')warmRosterImages();});
   }
   function resultLink(id){
     const url=new URL(window.SITE_CONFIG?.basePath||'/',location.origin);
@@ -804,5 +817,5 @@
   const params=new URLSearchParams(location.search),match=location.pathname.match(/\/r\/([A-Za-z0-9_-]+)\/?$/),sharedId=params.get('r')||new URLSearchParams(location.hash.slice(1)).get('result')||match?.[1],recent=visit?.initial;
   const resumeRecent=()=>restoreVisit(recent).then(ok=>{if(!ok){clearCurrentDraft();location.replace(window.SITE_CONFIG?.basePath||'/');}}).catch(()=>{document.documentElement.classList.remove('visit-resuming');visit?.clear();location.replace(window.SITE_CONFIG?.basePath||'/');});
   if(visit?.expired&&!params.has('admin-test'))clearCurrentDraft();
-  const previewSlug=params.get('admin-preview');if(params.get('admin-test')==='1')openAdminTest();else if(previewSlug)openAdminPreview(previewSlug);else if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId)){if(recent?.view==='result'&&recent.resultId===sharedId)resumeRecent();else loadShared(sharedId);}else if(recent&&!(params.get('quiz')==='1'&&recent.view==='result'))resumeRecent();else if(params.get('quiz')==='1'||params.get('resume')==='1')startQuiz();else refreshParticipation();
+  const previewSlug=params.get('admin-preview'),directQuiz=params.get('quiz')==='1'||params.get('resume')==='1';if(params.get('admin-test')==='1')openAdminTest();else if(previewSlug)openAdminPreview(previewSlug);else if(sharedId&&/^[A-Za-z0-9_-]+$/.test(sharedId)){if(recent?.view==='result'&&recent.resultId===sharedId)resumeRecent();else loadShared(sharedId);}else if(recent&&(directQuiz||params.get('welcome')!=='1')&&!(params.get('quiz')==='1'&&recent.view==='result'))resumeRecent();else if(directQuiz)startQuiz();else refreshParticipation();
 })();
